@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Plantas vs Zumbis</title>
+    <link rel="stylesheet" type="text/css" href="./assets/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/padrao.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/padrao.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/menuInicial/botao-jogar.css" />
+
+    <link rel="stylesheet" type="text/css" href="./assets/css/div-teste.css" />
+  </head>
+  <body>
+    <main id="main">
+
+    <button class="botao-jogar" data-jogar>Jogar</button>
+    
+    <div class="testeSessions" data-EscolherJogador>
+
+      <p> Conectados </p>
+
+      <ol class="lista-conectados">
+        
+      </ol>
+     
+    </div>
+    
+  </main>
+ 
+  <script src="./app/testeSessions.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+<script type="text/javascript">
+      var socket = io('http://localhost:3000');
+
+     function renderMessage(message){
+      let clienteLista = document.createElement("li");
+      clienteLista.textContent = message
+      $(".lista-conectados").append(clienteLista);
+
+     }
+
+     socket.on('receiveMessage', function(message){
+          renderMessage(message);
+     });
+
+     socket.on('previousMessages', function(listaUsuariosConectados){
+            for(message of listaUsuariosConectados){
+              renderMessage(message);
+            }
+        });
+
+
+      $('[data-jogar]').on("click", (event)=>{
+
+        let usuarioAnonimo = "Guest0"+socket.id;
+
+        renderMessage(usuarioAnonimo);
+
+        socket.emit('userConnected', usuarioAnonimo);
+      });
+
+</script>
+
+  
+  <!-- codigo referencia 1 -->
+
+  <!-- <script >
+    const socket = io();
+
+    socket.on('connect', function(){
+      let clienteLista = document.createElement("li");
+      clienteLista.textContent = "connected with id: " + socket.id ;
+      $(".lista-conectados").append(clienteLista);
+
+      socket.emit('msg', 'i am conenected' + socket.id);
+
+    });
+
+    socket.on('msg', function(msg){
+      $(".lista-conectados").append(msg);
+    })
+
+  </script> -->
+
+  </body>
+</html>

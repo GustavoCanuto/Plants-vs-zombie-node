@@ -1,0 +1,11 @@
+
+
+.botao-jogar {
+    position: relative;
+    top: 65%; /* Ajuste conforme necessário para posicionar verticalmente */
+    left: 40%; 
+    width: 20%;
+    height: 14%;
+    font-size: 2.8vw;
+    
+}
