@@ -2,12 +2,26 @@ let jogar = document.querySelector("[data-jogar]");
 
 jogar.addEventListener("click", ()=>{
 
+    let divEscolherJogador = document.querySelector("[data-EscolherJogador]");
+ 
+    jogar.style.display ="none";
+    sair.style.display ="block";
+    divEscolherJogador.style.display = "flex";
+}
+
+);
+
+let sair = document.querySelector("[data-sair]");
+
+sair.addEventListener("click", ()=>{
+
     let main = document.querySelector("main");
     let divEscolherJogador = document.querySelector("[data-EscolherJogador]");
-    main.style.backgroundImage = "none";
-    main.style.backgroundColor = "#FFFFFF";
-    jogar.style.display ="none";
-    divEscolherJogador.style.display = "flex";
+   
+    jogar.style.display ="block";
+    sair.style.display ="none";
+
+    divEscolherJogador.style.display = "none";
 }
 
 );
