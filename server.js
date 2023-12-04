@@ -57,13 +57,14 @@ io.on('connection', socket =>{
 
     socket.emit('previousMessages', listaUsuariosConectados);
 
-    //recebe a mensagem que o client clicou em jogar e pegar o id que o client mandou, atualizar
+    //recebe a mensagem que o client clicou em ENTRAR e pegar o id que o client mandou, atualizar
     //todos o clients com a nova informação mandando o receiveMessage
-    socket.on('userConnected', data =>{
+    socket.on('userConnected', (data) =>{
 
-        let nomeUsuario = {nome: data}
-        listaUsuariosConectados.push(nomeUsuario);
+      
+        listaUsuariosConectados.push(data);
         socket.broadcast.emit('receiveMessage', data)
+        console.log(data);
 
     })
 
@@ -74,7 +75,7 @@ io.on('connection', socket =>{
 
         console.log(data+ " : desconectado");
 
-        let index = listaUsuariosConectados.findIndex(user => user.nome == data);
+        let index = listaUsuariosConectados.findIndex(user => user.socketID == data);
 
         socket.broadcast.emit('receiveMessageDisconnect', data)
 
@@ -89,11 +90,11 @@ io.on('connection', socket =>{
     //ao client se desconectar
     socket.on('disconnect', () =>
     {
-        console.log("Guest0"+socket.id.substr(0,5) +" : desconectado");
+       
 
-        let index = listaUsuariosConectados.findIndex(user => user.nome == "Guest0"+socket.id.substr(0,5));
+        let index = listaUsuariosConectados.findIndex(user => user.socketID == socket.id);
         
-        socket.broadcast.emit('receiveMessageDisconnect', "Guest0"+socket.id.substr(0,5))
+        socket.broadcast.emit('receiveMessageDisconnect', socket.id)
 
         if (index !== -1) {
             listaUsuariosConectados.splice(index, 1);
