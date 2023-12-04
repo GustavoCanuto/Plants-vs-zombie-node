@@ -7,6 +7,7 @@
   <link rel="stylesheet" type="text/css" href="./assets/css/padrao.css" />
   <link rel="stylesheet" type="text/css" href="./assets/css/padrao.css" />
   <link rel="stylesheet" type="text/css" href="./assets/css/menuInicial/botao-jogar.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/css/dialog/dialogUsuario.css" />
 
   <link rel="stylesheet" type="text/css" href="./assets/css/div-teste.css" />
 </head>
@@ -14,8 +15,34 @@
 <body>
   <main id="main">
 
-    <button class="botao-jogar" data-jogar>Jogar</button>
+    <!-- Botao inicial Jogar -->
+    <button class="botao-jogar" data-jogar>JOGAR</button>
 
+    <!--  -->
+    <div class="dialog-usuario" data-nomeUsuario>
+
+      
+
+      <div class="nome-usuario">
+        <button data-retornarInicio  class="retornar-usuario" > X </button>
+
+        <label for="nomeUsuario" class="label-usuario">Digite seu Nome:</label>
+        <br>
+        <input type="text"
+        id="nomeUsuario"
+        name="nomeUsuario"
+        placeholder="Digite seu nome"
+        class="input-usuario" /> 
+
+        <input type="submit" value="Entrar"  class="entrar-usuario"  data-entrar/>
+
+      </div>
+      
+
+    </div>
+
+
+    <!-- Div Usuario Conectados -->
     <div class="testeSessions" data-EscolherJogador>
 
       <p> Conectados </p>
@@ -66,7 +93,7 @@
     //ao entrar na pagina carregar lista de usuarios
     socket.on('previousMessages', function (listaUsuariosConectados) {
       for (message of listaUsuariosConectados) {
-        renderMessage(message);
+        renderMessage(message.nome);
       }
     });
 
