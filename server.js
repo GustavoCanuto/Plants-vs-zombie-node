@@ -1,5 +1,7 @@
-const express = require('express');
-const path = require('path');
+const express = require('express'); //servidor
+const path = require('path'); // setar diretorio das view
+
+
 
 const { Socket } = require('socket.io');
 
@@ -8,6 +10,31 @@ const server = require('http').createServer(app);
 
 const io = require('socket.io')(server);
 
+//sessao
+const session = require("express-session"); //sessao
+
+//const bodyParser = require('body-parser'); - não vou usar por agora
+//app.use(bodyParser.urlencoded({extended: true}))
+
+//configurar sessao
+    //sessao
+     app.use(
+        session(
+             {
+                 secret: "keyboard",
+                 resave: false,
+                 saveUninitialized: true,
+              
+            }
+         )
+    
+     );
+
+
+
+
+
+//renderizando view
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'public'));
 app.engine('html', require('ejs').renderFile);
@@ -15,9 +42,12 @@ app.set('view engine', 'html');
 
 app.use('/', (req, res) =>
 {
+    
     res.render('index.html');
+    
 }
 );
+
 
 let listaUsuariosConectados = [];
 
@@ -30,8 +60,11 @@ io.on('connection', socket =>{
     //recebe a mensagem que o client clicou em jogar e pegar o id que o client mandou, atualizar
     //todos o clients com a nova informação mandando o receiveMessage
     socket.on('userConnected', data =>{
-        listaUsuariosConectados.push(data);
+
+        let nomeUsuario = {nome: data}
+        listaUsuariosConectados.push(nomeUsuario);
         socket.broadcast.emit('receiveMessage', data)
+
     })
 
 
@@ -41,7 +74,7 @@ io.on('connection', socket =>{
 
         console.log(data+ " : desconectado");
 
-        let index = listaUsuariosConectados.indexOf(data);
+        let index = listaUsuariosConectados.findIndex(user => user.nome == data);
 
         socket.broadcast.emit('receiveMessageDisconnect', data)
 
@@ -58,9 +91,9 @@ io.on('connection', socket =>{
     {
         console.log("Guest0"+socket.id.substr(0,5) +" : desconectado");
 
-        let index = listaUsuariosConectados.indexOf("Guest0"+socket.id.substr(0,5));
+        let index = listaUsuariosConectados.findIndex(user => user.nome == "Guest0"+socket.id.substr(0,5));
         
-        socket.broadcast.emit('receiveMessageDisconnect', listaUsuariosConectados[index])
+        socket.broadcast.emit('receiveMessageDisconnect', "Guest0"+socket.id.substr(0,5))
 
         if (index !== -1) {
             listaUsuariosConectados.splice(index, 1);
