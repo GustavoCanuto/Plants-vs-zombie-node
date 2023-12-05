@@ -42,10 +42,13 @@
     <div class="testeSessions" data-EscolherJogador>
 
       <p> Conectados </p>
+      <p id="oi"> mensagem </p>
 
       <ol class="lista-conectados">
 
       </ol>
+
+      <button class="sair" style="width: 30%;"  data-messagem>mensagem para o ultimo usuario</button>
 
       <button class="sair" data-sair>sair</button>
 
@@ -53,19 +56,18 @@
 
   </main>
 
-
+  <script src="./app/testeSessions.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
 
-
   <script type="text/javascript">
-    var socket = io('http://localhost:3000');
+    var socket = io('http://192.168.208.102:3000');
 
     //cria iten na lista
     function renderMessage(message) {
       let clienteLista = document.createElement("li");
-      clienteLista.textContent = message.nome;
+      clienteLista.textContent = message.nome + " | IP máquina: " + (message.ipMaquina).substring(7);
       clienteLista.id = message.socketID;
       $(".lista-conectados").append(clienteLista);
 
@@ -79,6 +81,13 @@
 
       liParaRemover.remove();
     }
+
+     //pega nome client que clicou no botao jogar e atualizar li para todos clients 
+     socket.on('oi',  () => {
+      let message= $("#oi");
+      message.text("alguem clicou no botao de mensagem no momento que vc era o ultimo usuario conectado");
+      
+    });
 
     //pega nome client que clicou no botao jogar e atualizar li para todos clients 
     socket.on('receiveMessage', function (message) {
@@ -98,14 +107,6 @@
     });
 
 
-    //verificar sessao
-    $('[data-jogar]').on("click", (event) => {
-
-      socket.emit('play');
-     
-
-    });
-
     //ao clicar no botao sair pegar o id e renderiza na lista e manda para o server disconnect
     $('[data-sair]').on("click", (event) => {
 
@@ -115,21 +116,12 @@
 
       socket.emit('userDisconnect', socketIdUsuario);
 
-      localStorage.removeItem('sessao');
-   
-      verificarSession();
-
     });
-
-
 
 
 
     //ao clicar no botao ENTRAR pegar o nomeUsuario e renderiza na lista e manda para o server jogar na array
     $('[data-entrar]').on("click", (event) => {
-
-
-
 
       let inputNomeUsuario = document.querySelector(".input-usuario").value;
 
@@ -152,20 +144,34 @@
         socketID: socketIdUsuario
       };
 
-      renderMessage(usuario);
+      // renderMessage(usuario);
 
       socket.emit('userConnected', usuario);
-
-      localStorage.setItem('sessao', usuario.sessao);
-
-      verificarSession();
-
     });
 
 
   </script>
-  <script src="./app/testeSessions.js"></script>
 
+
+  <!-- codigo referencia 1 -->
+
+  <!-- <script >
+    const socket = io();
+
+    socket.on('connect', function(){
+      let clienteLista = document.createElement("li");
+      clienteLista.textContent = "connected with id: " + socket.id ;
+      $(".lista-conectados").append(clienteLista);
+
+      socket.emit('msg', 'i am conenected' + socket.id);
+
+    });
+
+    socket.on('msg', function(msg){
+      $(".lista-conectados").append(msg);
+    })
+
+  </script> -->
 
 </body>
 

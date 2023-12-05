@@ -3,7 +3,7 @@ let jogar = document.querySelector("[data-jogar]");
 let sair = document.querySelector("[data-sair]");
 let entrar = document.querySelector("[data-entrar]");
 let retornarInicio = document.querySelector("[data-retornarInicio]");
-
+let usuario1 =  document.querySelector("[data-messagem]"); 
 
 
 let divEscolherJogador = document.querySelector("[data-EscolherJogador]");
@@ -11,31 +11,37 @@ let divNomeUsuario = document.querySelector("[data-nomeUsuario]")
 
 let main = document.querySelector("main");
 
+usuario1.addEventListener("click", () => {
+
+    socket.emit('messagemUsuario1');
+   
+});
+
 
 
 //desconectar
 sair.addEventListener("click", () => {
-
-    divEscolherJogador.classList.remove("aparecerTela");
-    main.style.opacity = "0.8"
-    jogar.style.opacity = "0"
+ 
+divEscolherJogador.classList.remove("aparecerTela");
+main.style.opacity = "0.8"
+jogar.style.opacity = "0"
+ 
+setTimeout(() => {
+    
+    jogar.style.display = "block";
+    divEscolherJogador.style.display = "none"; 
+    sair.style.display = "none";
+    jogar.style.opacity = "0.3"
 
     setTimeout(() => {
+    
+ 
+    jogar.style.opacity = "1"
+     main.style.opacity = "1"
 
-        jogar.style.display = "block";
-        divEscolherJogador.style.display = "none";
-        sair.style.display = "none";
-        jogar.style.opacity = "0.3"
+    }, 20);
 
-        setTimeout(() => {
-
-
-            jogar.style.opacity = "1"
-            main.style.opacity = "1"
-
-        }, 20);
-
-    }, 200);
+}, 200);
 
 
 });
@@ -43,32 +49,46 @@ sair.addEventListener("click", () => {
 //voltar Inicio tela nome de usuario
 
 retornarInicio.addEventListener("click", () => {
-
-    divNomeUsuario.classList.remove("aparecerTela");
-    main.style.opacity = "0.8"
-    jogar.style.opacity = "0"
+ 
+divNomeUsuario.classList.remove("aparecerTela");
+main.style.opacity = "0.8"
+jogar.style.opacity = "0"
+ 
+setTimeout(() => {
+    
+    jogar.style.display = "block";
+    divNomeUsuario.style.display = "none"; 
+    jogar.style.opacity = "0.3"
 
     setTimeout(() => {
+    
+ 
+    jogar.style.opacity = "1"
+     main.style.opacity = "1"
 
-        jogar.style.display = "block";
-        divNomeUsuario.style.display = "none";
-        jogar.style.opacity = "0.3"
+    }, 20);
 
-        setTimeout(() => {
-
-
-            jogar.style.opacity = "1"
-            main.style.opacity = "1"
-
-        }, 20);
-
-    }, 200);
+}, 200);
 
 
 });
 
 
+//novo usuario 
 
+jogar.addEventListener("click", () => {
+
+jogar.style.display = "none";
+
+divNomeUsuario.style.display = "flex";
+
+setTimeout(() => {
+    
+    divNomeUsuario.classList.add("aparecerTela");
+
+}, 10);
+
+});
 
 
 //entrar na sala 
@@ -77,19 +97,19 @@ const originalBackground = main.style.backgroundImage;
 entrar.addEventListener("click", () => {
 
 
-    divNomeUsuario.classList.remove("aparecerTela");
-    divNomeUsuario.style.display = "none";
-    divEscolherJogador.style.display = "flex";
-    main.style.backgroundImage = "none";
+divNomeUsuario.classList.remove("aparecerTela");
+divNomeUsuario.style.display = "none";
+divEscolherJogador.style.display = "flex";
+main.style.backgroundImage = "none";
+setTimeout(() => {
+    divEscolherJogador.classList.add("aparecerTela");
+    sair.style.display = "block";
+    
     setTimeout(() => {
-        divEscolherJogador.classList.add("aparecerTela");
-        sair.style.display = "block";
+    main.style.backgroundImage = originalBackground;
+    }, 500);
 
-        setTimeout(() => {
-            main.style.backgroundImage = originalBackground;
-        }, 500);
-
-    }, 10);
+}, 10);
 
 
 
@@ -98,54 +118,18 @@ entrar.addEventListener("click", () => {
 
 
 
-function verificarSession() {
+//quando usuario já conectado entrar direto na sala
 
-//verifica se há sessao 
-alert(localStorage.getItem('sessao'));
+// jogar.addEventListener("click", () => {
 
-if(localStorage.getItem('sessao')){
+//     jogar.style.display = "none";
+//     sair.style.display = "block";
+//     divEscolherJogador.style.display = "flex";
 
-   
-        //quando usuario já conectado entrar direto na sala
+//     setTimeout(() => {
+    
+//         divEscolherJogador.classList.add("aparecerTela");
 
-            jogar.addEventListener("click", () => {
+//     }, 10);
 
-                divNomeUsuario.style.display = "none";
-
-             jogar.style.display = "none";
-             sair.style.display = "block";
-            divEscolherJogador.style.display = "flex";
-
-            setTimeout(() => {
-
-                divEscolherJogador.classList.add("aparecerTela");
-
-            }, 10);
-
-         });
-
-   } else {
-
-        //novo usuario 
-        jogar.addEventListener("click", () => {
-
-            divEscolherJogador.style.display = "none";
-
-            jogar.style.display = "none";
-
-            divNomeUsuario.style.display = "flex";
-
-            setTimeout(() => {
-
-                divNomeUsuario.classList.add("aparecerTela");
-
-            }, 10);
-
-        });
-
-
-   }
-
-}
-
-verificarSession();
+//     });
