@@ -21,23 +21,19 @@
     <!--  -->
     <div class="dialog-usuario" data-nomeUsuario>
 
-      
+
 
       <div class="nome-usuario">
-        <button data-retornarInicio  class="retornar-usuario" > X </button>
+        <button data-retornarInicio class="retornar-usuario"> X </button>
 
         <label for="nomeUsuario" class="label-usuario">Digite seu Nome:</label>
         <br>
-        <input type="text"
-        id="nomeUsuario"
-        name="nomeUsuario"
-        placeholder="Digite seu nome"
-        class="input-usuario" /> 
+        <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Digite seu nome" class="input-usuario" />
 
-        <input type="submit" value="Entrar"  class="entrar-usuario"  data-entrar/>
+        <input type="submit" value="Entrar" class="entrar-usuario" data-entrar />
 
       </div>
-      
+
 
     </div>
 
@@ -63,12 +59,12 @@
 
 
   <script type="text/javascript">
-    var socket = io('http://localhost:3000');
+    var socket = io('http://192.168.208.102:3000');
 
     //cria iten na lista
     function renderMessage(message) {
       let clienteLista = document.createElement("li");
-      clienteLista.textContent = message.nome;
+      clienteLista.textContent = message.nome + " | IP máquina: " + (message.ipMaquina).substring(7);
       clienteLista.id = message.socketID;
       $(".lista-conectados").append(clienteLista);
 
@@ -114,32 +110,34 @@
 
 
 
-      //ao clicar no botao ENTRAR pegar o nomeUsuario e renderiza na lista e manda para o server jogar na array
-      $('[data-entrar]').on("click", (event) => {
+    //ao clicar no botao ENTRAR pegar o nomeUsuario e renderiza na lista e manda para o server jogar na array
+    $('[data-entrar]').on("click", (event) => {
 
-        let inputNomeUsuario = document.querySelector(".input-usuario").value;
+      let inputNomeUsuario = document.querySelector(".input-usuario").value;
 
-        let nomeUsuario;
-       
+      let nomeUsuario;
 
-        if (inputNomeUsuario.trim() == ""){
-           nomeUsuario = "Guest0" + Math.floor(1000000 + Math.random() * 9000000);
-           
-        }else{
-          nomeUsuario = inputNomeUsuario;
-        }
 
-        let sessaoUsuario = "sessao" + socket.id.substr(0, 5);
-        let socketIdUsuario = socket.id;
+      if (inputNomeUsuario.trim() == "") {
+        nomeUsuario = "Guest0" + Math.floor(1000000 + Math.random() * 9000000);
 
-        let usuario = { nome: nomeUsuario,
+      } else {
+        nomeUsuario = inputNomeUsuario;
+      }
+
+      let sessaoUsuario = "sessao" + socket.id.substr(0, 5);
+      let socketIdUsuario = socket.id;
+
+      let usuario = {
+        nome: nomeUsuario,
         sessao: sessaoUsuario,
-        socketID: socketIdUsuario};
+        socketID: socketIdUsuario
+      };
 
-        renderMessage(usuario);
+      // renderMessage(usuario);
 
-        socket.emit('userConnected', usuario);
-      });
+      socket.emit('userConnected', usuario);
+    });
 
 
   </script>

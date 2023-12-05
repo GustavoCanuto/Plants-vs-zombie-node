@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const { Socket } = require('socket.io');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -33,11 +32,10 @@ app.set('views', path.join(__dirname, 'public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-app.use('/', (req, res) =>
-{
-    
+app.use('/', (req, res) => {
+
     res.render('index.html');
-    
+
 }
 );
 
@@ -45,17 +43,21 @@ app.use('/', (req, res) =>
 let listaUsuariosConectados = [];
 
 // ao client se conectar
-io.on('connection', socket =>{
+io.on('connection', socket => {
     console.log(`socket conectado ${socket.id}`);
 
     socket.emit('previousMessages', listaUsuariosConectados);
 
     //recebe a mensagem que o client clicou em ENTRAR e pegar o id que o client mandou, atualizar
     //todos o clients com a nova informação mandando o receiveMessage
-    socket.on('userConnected', (data) =>{
+    socket.on('userConnected', (data) => {
 
-      
+        let ipMaquina = socket.handshake.address;
+        data.ipMaquina = ipMaquina;
+        console.log(data.ipMaquina)
+
         listaUsuariosConectados.push(data);
+        socket.emit('receiveMessage', data)
         socket.broadcast.emit('receiveMessage', data)
         console.log(data);
 
@@ -64,9 +66,9 @@ io.on('connection', socket =>{
 
     //recebe a mensagem que o client clicou em sair e pegar o id que o client mandou, atualizar
     //todos o clients com a nova informação mandando o receiveMessage
-    socket.on('userDisconnect', data =>{
+    socket.on('userDisconnect', data => {
 
-        console.log(data+ " : desconectado");
+        console.log(data + " : desconectado");
 
         let index = listaUsuariosConectados.findIndex(user => user.socketID == data);
 
@@ -76,17 +78,16 @@ io.on('connection', socket =>{
             listaUsuariosConectados.splice(index, 1);
         }
 
-        
+
     })
 
 
     //ao client se desconectar
-    socket.on('disconnect', () =>
-    {
-       
+    socket.on('disconnect', () => {
+
 
         let index = listaUsuariosConectados.findIndex(user => user.socketID == socket.id);
-        
+
         socket.broadcast.emit('receiveMessageDisconnect', socket.id)
 
         if (index !== -1) {
@@ -102,7 +103,7 @@ io.on('connection', socket =>{
 
 
 
-server.listen(3000, ()=> console.log("Servidor rodando na porta 3000"));
+server.listen(3000, () => console.log("Servidor rodando na porta 3000"));
 
 
 
@@ -126,7 +127,7 @@ server.listen(3000, ()=> console.log("Servidor rodando na porta 3000"));
 // //     console.log('new connection', socket.id);
 // //     socket.on('msg', (msg)=>{
 // //         console.log(msg);
-// //         socket.broadcast.emit('msg', socket.id + 'connected') 
+// //         socket.broadcast.emit('msg', socket.id + 'connected')
 // //     })
 // // })
 
@@ -136,7 +137,7 @@ server.listen(3000, ()=> console.log("Servidor rodando na porta 3000"));
 
 
 
-//ref dois (victor) 
+//ref dois (victor)
 
 // const express = require('express'); // framework web que usei para criar o servidor
 // const session = require('express-session'); // middleware para gerenciar sessões
@@ -147,7 +148,7 @@ server.listen(3000, ()=> console.log("Servidor rodando na porta 3000"));
 
 // // configurando sessao
 
-// app.use(session({ 
+// app.use(session({
 //   secret: 'chave-da-sessao', // string secreta que é usada para assinar o cookie de sessão
 //   resave: false, //  Esta opção força a sessão a ser salva de volta na sessão
 //   saveUninitialized: true // Esta opção força uma nova sessão que não foi inicializada
@@ -155,7 +156,7 @@ server.listen(3000, ()=> console.log("Servidor rodando na porta 3000"));
 
 // // configurando o middleware body-parser para analisar o corpo das solicitações HTTP que estão codificadas em urlencoded
 
-// app.use(bodyParser.urlencoded({ extended: true })); 
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.get('/', (req, res) => {
 //   if(req.session.user) {
@@ -168,7 +169,7 @@ server.listen(3000, ()=> console.log("Servidor rodando na porta 3000"));
 //       </html>
 //     `);
 //   } else { // caso seja o primeiro acesso a pessoa sera encaminhada a tela de login
-//     res.send(` 
+//     res.send(`
 //       <html>
 //         <body>
 //           <form method="post" action="/login">
@@ -179,9 +180,9 @@ server.listen(3000, ()=> console.log("Servidor rodando na porta 3000"));
 //       </html>
 //     `);
 //   }
-// }); 
+// });
 
-// // pagina de login 
+// // pagina de login
 
 // app.post('/login', (req, res) => {
 //   req.session.user = req.body.user; // armazena o nome do usuário enviado no formulário
@@ -199,5 +200,5 @@ server.listen(3000, ()=> console.log("Servidor rodando na porta 3000"));
 // // definindo a porta padrao como 3000
 
 // app.listen(3000, () => {
-//   console.log('Aplicação rodando na porta 3000'); 
+//   console.log('Aplicação rodando na porta 3000');
 // });
