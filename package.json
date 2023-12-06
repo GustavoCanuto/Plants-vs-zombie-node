@@ -2,7 +2,7 @@
   "name": "plants-vs-zombies",
   "version": "1.0.0",
   "description": "Poc de criação do Jogo plantas vs zumbis",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
