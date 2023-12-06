@@ -3,29 +3,6 @@ const path = require('path');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const session = require("express-session");
-const { Console } = require('console');
-
-// Configurar sessão
-const sessionMiddleware = session({
-    secret: "keyboard",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60000 }  // O cookie expira após 1 minuto
-
-});
-
-app.use(sessionMiddleware);
-
-// Usar o middleware de sessão com o Socket.IO
-io.use((socket, next) => {
-    sessionMiddleware(socket.request, socket.request.res || {}, next);
-});
-
-io.on('connection', (socket) => {
-    console.log('teste');
-    console.log(socket.request.session);
-});
 
 //renderizando view
 app.use(express.static(path.join(__dirname, 'public')))
@@ -44,13 +21,15 @@ app.use('/', (req, res) => {
 let listaUsuariosConectados = [];
 
 let ultimoUsuario = [];
+
 // ao client se conectar
 io.on('connection', socket => {
 
     console.log(`socket conectado ${socket.id}`);
 
+    //mandar mensagem ultimo usuario conectado
     socket.on("messagemUsuario1", () => {
-        // send a private message to the socket with the given id
+
         console.log(ultimoUsuario[ultimoUsuario.length - 1]);
         
         if (ultimoUsuario[ultimoUsuario.length - 1] == socket.id) {
@@ -61,14 +40,7 @@ io.on('connection', socket => {
 
     });
 
-
-
-
     socket.emit('previousMessages', listaUsuariosConectados);
-
-
-
-
 
     //recebe a mensagem que o client clicou em ENTRAR e pegar o id que o client mandou, atualizar
     //todos o clients com a nova informação mandando o receiveMessage

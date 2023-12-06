@@ -1,22 +1,24 @@
 .testeSessions {
     display: none;
     flex-direction: column;
-    align-items: center;
     gap: 3rem;
     height: 100%;
     background-color: aliceblue;
     opacity: 0; 
     transition: opacity 0.6s ease; /* Adiciona transição para a propriedade opacity */
+  
     
 }
 
-  
+.testeSessions> *{
+    font-size: 1.2vw;
+}
 
 .sair{
-    width: 12%;
-    height: 10%;
+    width: 50%;
+    height: 90%;
     font-size: 2vw;
-    margin-top: auto;
+    
 
 }
 
@@ -29,6 +31,48 @@
     opacity: 1; 
  }
 
+ .messagemTeste{
+    
+    height: 90%;
+    font-size: 1.5vw;
+ 
+    
+ }
 
+ .menssagens{
+   
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+ }
+
+ 
   
-  
+ .botoes{
+    display: flex;
+    gap: 0.5rem;
+ }
+
+ .informacaoParaUsuario{
+    display: flex; flex-direction: column; width: 100%; justify-content: center; 
+ }
+
+ .informacaoParaUsuario-infoUser{
+    margin-right: auto; border: 1px solid rgb(94, 91, 91); border-radius:  15%; font-size: 1.5vw;
+ }
+
+ .informacaoParaUsuario-info{
+    align-self: center;
+    
+ }
+
+ .listaUsuariosConectado{
+    display: flex; justify-content: space-around; width:100%; ;
+
+
+ }
+
+ .finalPagina{
+    display: flex; flex-direction: column; align-items: center;  width: 100%;  margin-top: auto; gap: 0.5rem
+ }
