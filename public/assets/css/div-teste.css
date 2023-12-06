@@ -76,3 +76,25 @@
  .finalPagina{
     display: flex; flex-direction: column; align-items: center;  width: 100%;  margin-top: auto; gap: 0.5rem
  }
+
+ .clicavel>li:hover{
+
+   background-color: rgb(92, 89, 89);
+
+ }
+
+ .escolha-personagem{
+   display: none;
+   height: 100%;
+   background-color: black;
+   justify-content: space-around;
+   align-items: center;
+   gap: 3rem;
+
+ }
+
+ .escolha-personagem> button{
+         height: 60%;
+         width: 25%;
+
+ }

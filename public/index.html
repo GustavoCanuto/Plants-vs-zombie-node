@@ -36,7 +36,12 @@
     </div>
 
     <!-- Div escolha personagem -->
-
+    <div class="escolha-personagem">
+      
+      <button data-buttonPlanta> Planta </button>
+      <button data-buttonZombie> Zombies </button>
+   
+    </div>
 
     <!-- Div Usuario Conectados -->
     <div class="testeSessions" data-EscolherJogador>
@@ -53,7 +58,7 @@
 
         <ol class="lista-conectados plants" >
           <p> Plants</p><br>
-        
+    
         </ol>
 
         <ol class="lista-conectados zombies" >
@@ -104,27 +109,10 @@
 
 
   <script type="text/javascript" src="./app/socketClient/mainSocket.js">  </script>
+  <script type="text/javascript" src="./app/socketClient/renderSocket.js">  </script>
+  <script type="text/javascript" src="./app/socketClient/clickSocket.js">  </script>
 
 
-  <!-- codigo referencia 1 -->
-
-  <!-- <script >
-    const socket = io();
-
-    socket.on('connect', function(){
-      let clienteLista = document.createElement("li");
-      clienteLista.textContent = "connected with id: " + socket.id ;
-      $(".lista-conectados").append(clienteLista);
-
-      socket.emit('msg', 'i am conenected' + socket.id);
-
-    });
-
-    socket.on('msg', function(msg){
-      $(".lista-conectados").append(msg);
-    })
-
-  </script> -->
 
 </body>
 
