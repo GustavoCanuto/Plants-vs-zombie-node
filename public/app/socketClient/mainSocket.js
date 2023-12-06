@@ -25,10 +25,7 @@ socket.on('receiveZombie', function (message) {
  
 });
 
-
-
-
-//pega nome client que clicou desconectou e atualizar li para todos clients 
+//pega nome client que clicou desconectou e atualizar li para todos  clients 
 socket.on('receiveMessageDisconnect', function (message) {
   renderMessageDisconnect(message);
 
@@ -48,4 +45,10 @@ socket.on('previousZombie', function (listaUsuariosZombies) {
     renderZombie(message);
   }
 });
+
+//receber convite
+socket.on('receiveConvite', function (usuario) {
+  renderConvite(usuario);
+});
+
 

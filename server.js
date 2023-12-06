@@ -14,29 +14,28 @@ app.use('/', (req, res) => {
 
     res.render('index.html');
 
-}
-);
+});
 
+const { excluirUsuarioPlants, conectarUsuarioPlant } = require('./serverFunctionsPlants');
+const { excluirUsuarioZombie, conectarUsuarioZombie } = require('./serverFunctionsZombies');
 
-let listaUsuariosConectados = [];
-
-let listaUsuariosPlants = [];
-let listaUsuariosZombies = [];
-
+var listaTodosUsuario = [];
+var listaUsuariosPlants = [];
+var listaUsuariosZombies = [];
 let ultimoUsuario = [];
 
 // ao client se conectar
 io.on('connection', socket => {
 
-  
-    
-    console.log(`socket conectado ${socket.id}`);
+    //mandar historico
+    socket.emit('previousPlants', listaUsuariosPlants);
+    socket.emit('previousZombie', listaUsuariosZombies);
 
-    //mandar mensagem ultimo usuario conectado
+    //mandar mensagem ultimo usuario conectado (provisorio)
     socket.on("messagemUsuario1", () => {
 
         console.log(ultimoUsuario[ultimoUsuario.length - 1]);
-        
+
         if (ultimoUsuario[ultimoUsuario.length - 1] == socket.id) {
             socket.emit("oi");
         } else {
@@ -45,67 +44,36 @@ io.on('connection', socket => {
 
     });
 
-    socket.emit('previousPlants', listaUsuariosPlants);
-    socket.emit('previousZombie', listaUsuariosZombies);
+
 
     //açao para quando planta se conectar
     socket.on('plantConnected', (data) => {
 
         ultimoUsuario.push(socket.id);
+        conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario);
 
-        let ipMaquina = socket.handshake.address;
-        data.ipMaquina = ipMaquina;
-
-        listaUsuariosPlants.push(data);
-       
-        socket.broadcast.emit('receivePlant', data)
-
-     //   socket.emit('atualizarClicavel');
-        socket.broadcast.emit('atualizarClicavel');
-        
     })
 
-     //açao para quando zombie se conectar
+    //açao para quando zombie se conectar
     socket.on('zombieConnected', (data) => {
 
         ultimoUsuario.push(socket.id);
-
-        let ipMaquina = socket.handshake.address;
-        data.ipMaquina = ipMaquina;
-
-        listaUsuariosZombies.push(data);
-       
-        socket.broadcast.emit('receiveZombie', data)
-
-      //  socket.emit('atualizarClicavel');
-        socket.broadcast.emit('atualizarClicavel');
-       
+        conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario);
 
     })
 
-
-    //recebe a mensagem que o client clicou em sair e pegar o id que o client mandou, atualizar
-    //todos o clients com a nova informação mandando o receiveMessage
-    socket.on('userDisconnect', data => {
+    //recebe a mensagem que o client clicou em sair e pegar o id 
+    socket.on('userDisconnect', () => {
 
         ultimoUsuario.pop();
 
         socket.broadcast.emit('receiveMessageDisconnect', socket.id)
- 
-        let indexPlant = listaUsuariosPlants.findIndex(user => user.socketID == socket.id);
 
-        
-        let indexZombie = listaUsuariosZombies.findIndex(user => user.socketID == socket.id);
-        
+        excluirUsuarioPlants(socket, listaUsuariosPlants);
+        excluirUsuarioZombie(socket, listaUsuariosZombies);
+        excluirUsuarioListaTodosUsuarios(socket);
 
-        if (indexPlant !== -1) {
-            listaUsuariosPlants.splice(indexPlant, 1);
-        }
-
-        if (indexZombie !== -1) {
-            listaUsuariosZombies.splice(indexZombie, 1);
-        }
-
+   
     })
 
 
@@ -115,29 +83,48 @@ io.on('connection', socket => {
         ultimoUsuario.pop();
 
         socket.broadcast.emit('receiveMessageDisconnect', socket.id)
- 
-        let indexPlant = listaUsuariosPlants.findIndex(user => user.socketID == socket.id);
 
+        excluirUsuarioPlants(socket, listaUsuariosPlants);
+        excluirUsuarioZombie(socket, listaUsuariosZombies);
+        excluirUsuarioListaTodosUsuarios(socket);
         
-        let indexZombie = listaUsuariosZombies.findIndex(user => user.socketID == socket.id);
-        
+    })
 
-        if (indexPlant !== -1) {
-            listaUsuariosPlants.splice(indexPlant, 1);
-        }
+    //convidar usuario para jogar
+    socket.on('convidarParaJogar', (usuarioConvidado) => {
 
-        if (indexZombie !== -1) {
-            listaUsuariosZombies.splice(indexZombie, 1);
-        }
+        let quemConvidou = listaTodosUsuario.find(user => user.socketID == socket.id);
 
+        //console.log("quem convidou: " + quemConvidou.nome + " para " + usuarioConvidado);
+
+        let infoConvite = {nome: quemConvidou.nome, id: quemConvidou.socketID, posicao: usuarioConvidado.posicao}
+
+       console.log(infoConvite.posicao)
+
+       socket.to(usuarioConvidado.id).emit("receiveConvite", infoConvite);
+
+    });
+
+
+
+});
+
+function excluirUsuarioListaTodosUsuarios(socket){
+
+    let index = listaTodosUsuario.findIndex(user => user.socketID == socket.id);
+
+    if (index !== -1) {
+        listaTodosUsuario.splice(index, 1);
     }
-    )
 
 }
 
-);
 
-
+function testeConsole(){
+    console.log("todos usuarios: " + listaTodosUsuario) 
+    console.log("plantas usuarios: " + listaUsuariosPlants) 
+    console.log("zombies usuarios: " + listaUsuariosZombies) 
+}
 
 server.listen(3000, () => console.log("Servidor rodando na porta 3000"));
 

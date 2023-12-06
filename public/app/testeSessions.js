@@ -171,8 +171,25 @@ function atualizarClicavel() {
             // Adicione aqui o código que você deseja executar quando o elemento for clicado
             elemento.clicavelHandler = function () {
 
+                
+                let listaOrdenada = Array.from(elemento.parentNode.children).filter(e => e.tagName === "LI");
+                // Obtenha o índice do elemento clicado
+                let indice = listaOrdenada.indexOf(elemento);
+                var numero = indice + 1;
+    
 
-                alert('Elemento clicado: ' + elemento.id);
+                alert('Convite Enviado! Aguarde o retorno da solicitação ');
+
+                $('#mandadoSolitacao').text(" solicitação enviada ! arguade o retorno")
+                $("#cancelarConvite").css("display", "block");
+             //   let convite = {quemConvidou: socket.id, convidado: elemento.id}
+
+        
+
+               let convite = {id: elemento.id, posicao: numero}
+
+                socket.emit('convidarParaJogar', convite);
+
          //       elemento.clicado = true; // Marca o elemento como clicado
 
 
