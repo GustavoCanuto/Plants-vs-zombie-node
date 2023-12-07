@@ -196,9 +196,9 @@ function atualizarClicavel() {
 
          //       elemento.clicado = true; // Marca o elemento como clicado
 
-           //  $(`#${elemento.id}`).closest('ol').removeClass("clicavel");
+             $(`#${elemento.id}`).closest('ol').removeClass("clicavel");
 
-           //  atualizarClicavel();
+            atualizarClicavel();
 
                 }
 
@@ -232,6 +232,8 @@ function cancelarPendente(esse){
 
    $(`.${idDoElementoPai}xy`).remove();
   
+   $(`#${idPai}`).closest('ol').addClass("clicavel");
+   atualizarClicavel();
 
 }
 

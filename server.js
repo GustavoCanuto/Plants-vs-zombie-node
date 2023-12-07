@@ -113,6 +113,9 @@ io.on('connection', socket => {
         socket.broadcast.emit("cancelaPendente", usuarios);
         socket.emit("cancelaPendente", usuarios);
 
+        //cancelar pendente convite
+        socket.to(usuarios.id1).emit("cancelaPendenteConvite", usuarios.id2);
+
 
 
     });

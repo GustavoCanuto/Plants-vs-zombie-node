@@ -75,6 +75,7 @@ socket.on('convitePendente', function (usuarios) {
   $(`#${usuarios.usuarioConvidado}`).append(" | [convite pendente]");
 
 
+
 });
 
 
@@ -94,7 +95,16 @@ socket.on('cancelaPendente', function (usuarios) {
   $(`.${usuarios.id1}xy`).remove();
   $(`.${usuarios.id2}xy`).remove();
 
- //$(`#${usuarios.id2}`).closest('ol').addClass("clicavel");
- //atualizarClicavel();
+
+
+});
+
+//cancela pendente convite
+socket.on('cancelaPendenteConvite', function (usuario) {
+  //alert(usuarios.id1+"----"+usuarios.id2);
+
+
+  $(`#${usuario}`).closest('ol').addClass("clicavel");
+  atualizarClicavel();
 
 });

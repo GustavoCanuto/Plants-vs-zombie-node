@@ -66,8 +66,8 @@ function renderZombie(message) {
 
    //retirar click 
   // Remover classe "clicavel" do elemento pai pelo ID
- // $(`#${usuario.id}`).closest('ol').removeClass("clicavel");
- // atualizarClicavel();
+ $(`#${usuario.id}`).closest('ol').removeClass("clicavel");
+  atualizarClicavel();
 
 
   }
