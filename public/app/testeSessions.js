@@ -241,7 +241,7 @@ function cancelarPendente(esse){
 
 function aceitarSolicitacao(esse){
 
-    alert("clicou em aceitar");
+    //alert("clicou em aceitar");
 
     let elementoPai = $(esse).closest('p');
     
