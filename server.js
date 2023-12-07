@@ -75,7 +75,7 @@ io.on('connection', socket => {
         excluirUsuarioZombie(socket, listaUsuariosZombies);
         excluirUsuarioListaTodosUsuarios(socket);
 
-   
+
     })
 
 
@@ -89,12 +89,12 @@ io.on('connection', socket => {
         excluirUsuarioPlants(socket, listaUsuariosPlants);
         excluirUsuarioZombie(socket, listaUsuariosZombies);
         excluirUsuarioListaTodosUsuarios(socket);
-        
+
     })
 
     //cancelar pendente   
     socket.on('cancelarPendente', (usuarios) => {
-    
+
         //apaga da lista
         let index = listaUsuariosConvitesPendentes.findIndex(user => user == usuarios.id1);
 
@@ -120,6 +120,27 @@ io.on('connection', socket => {
 
     });
 
+
+    //aceitar convite 
+    socket.on('aceitarConvite', (usuarios) => {
+
+        console.log("aceitou")
+
+        excluirUsuarioZombieProvisorio(usuarios.id1)
+        excluirUsuarioPlantsProvisorio(usuarios.id1)
+
+        excluirUsuarioZombieProvisorio(usuarios.id2)
+        excluirUsuarioPlantsProvisorio(usuarios.id2)
+
+        console.log("entrando em jogo")
+
+        socket.to(usuarios.id1).emit('telaJogo');
+        socket.emit('telaJogo');
+
+        socket.broadcast.emit('receiveMessageDisconnect', usuarios.id1)
+        socket.broadcast.emit('receiveMessageDisconnect', usuarios.id2)
+    });
+
     //convidar usuario para jogar
     socket.on('convidarParaJogar', (usuarioConvidado) => {
 
@@ -127,12 +148,12 @@ io.on('connection', socket => {
 
         console.log("quem convidou: " + quemConvidou.nome + " para " + usuarioConvidado);
 
-        let infoConvite = {nome: quemConvidou.nome, id: quemConvidou.socketID, posicao: quemConvidou.posicao, usuarioConvidado: usuarioConvidado}
+        let infoConvite = { nome: quemConvidou.nome, id: quemConvidou.socketID, posicao: quemConvidou.posicao, usuarioConvidado: usuarioConvidado }
 
-       console.log(infoConvite.posicao)
+        console.log(infoConvite.posicao)
 
-       socket.to(usuarioConvidado).emit("receiveConvite", infoConvite);
-       socket.broadcast.emit('convitePendente', infoConvite)
+        socket.to(usuarioConvidado).emit("receiveConvite", infoConvite);
+        socket.broadcast.emit('convitePendente', infoConvite)
         socket.emit('convitePendente', infoConvite);
 
         listaUsuariosConvitesPendentes.push(socket.id);
@@ -143,7 +164,7 @@ io.on('connection', socket => {
 
 });
 
-function excluirUsuarioListaTodosUsuarios(socket){
+function excluirUsuarioListaTodosUsuarios(socket) {
 
     let index = listaTodosUsuario.findIndex(user => user.socketID == socket.id);
 
@@ -153,11 +174,26 @@ function excluirUsuarioListaTodosUsuarios(socket){
 
 }
 
+function excluirUsuarioPlantsProvisorio(id) {
+    let indexPlant = listaUsuariosPlants.findIndex(user => user.socketID == id);
 
-function testeConsole(){
-    console.log("todos usuarios: " + listaTodosUsuario) 
-    console.log("plantas usuarios: " + listaUsuariosPlants) 
-    console.log("zombies usuarios: " + listaUsuariosZombies) 
+    if (indexPlant !== -1) {
+        listaUsuariosPlants.splice(indexPlant, 1);
+    }
+}
+
+function excluirUsuarioZombieProvisorio(id) {
+    let indexZombie = listaUsuariosZombies.findIndex(user => user.socketID == id);
+
+    if (indexZombie !== -1) {
+        listaUsuariosZombies.splice(indexZombie, 1);
+    }
+}
+
+function testeConsole() {
+    console.log("todos usuarios: " + listaTodosUsuario)
+    console.log("plantas usuarios: " + listaUsuariosPlants)
+    console.log("zombies usuarios: " + listaUsuariosZombies)
 }
 
 server.listen(3000, () => console.log("Servidor rodando na porta 3000"));
