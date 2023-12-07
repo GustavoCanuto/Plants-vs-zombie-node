@@ -237,4 +237,25 @@ function cancelarPendente(esse){
 
 }
 
-//atualizar <p> pegar id e colocar o onclick
+//aceitar solicitacao 
+
+function aceitarSolicitacao(esse){
+
+    alert("clicou em aceitar");
+
+    let elementoPai = $(esse).closest('p');
+    
+    // Obtenha o id do elemento pai
+    let idDoElementoPai = elementoPai.attr('class');
+
+    let partes = idDoElementoPai.split(' ');
+    let idPai  = partes[1].trim();
+
+    let idSocket = socket.id;
+
+    let elementosIraoJogar = {id1:idPai ,id2:idSocket}
+    //alert(idPai +" "+idSocket);
+    socket.emit('aceitarConvite', elementosIraoJogar);
+
+   //retirar da lista
+}

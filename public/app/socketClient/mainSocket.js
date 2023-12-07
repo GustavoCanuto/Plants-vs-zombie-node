@@ -51,8 +51,13 @@ socket.on('previousZombie', function (listaUsuariosZombies) {
 //ao entrar atualizar usuarios pendentes
 socket.on('previousPendentes', function (listaUsuariosConvitesPendentes) {
   for (usuario of listaUsuariosConvitesPendentes) {
+
+    if($(`#${usuario}`)){
+
     $(`#${usuario}`).addClass("block");
     $(`#${usuario}`).append(" | [convite pendente]");
+    
+    }
   }
 
 });
@@ -108,3 +113,16 @@ socket.on('cancelaPendenteConvite', function (usuario) {
   atualizarClicavel();
 
 });
+
+socket.on('telaJogo', ()=>{
+
+  alert("jogando em dupla")
+  let divAtual = document.querySelector("[data-EscolherJogador]");
+  let divJogando = document.querySelector(".jogando");
+
+  divAtual.style.display = "none"
+  divJogando.style.display = "flex"
+
+}
+
+)

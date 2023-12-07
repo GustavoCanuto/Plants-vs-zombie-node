@@ -55,7 +55,7 @@ function renderZombie(message) {
 
    let convite = `
     <p class="${usuario.id}xy ${usuario.id}">Solicitação de <strong>${usuario.nome}  </strong> (posição ${usuario.posicao}) para jogar
-        <button style="color: green; font-size: 1vw;" onclick="aceitarSolicitacao()">Aceitar</button>
+        <button style="color: green; font-size: 1vw;" onclick="aceitarSolicitacao(this)">Aceitar</button>
         <button style="color: red; font-size: 1vw;" onclick="cancelarPendente(this)">Recusar</button>
     </p>
   
