@@ -92,6 +92,31 @@ io.on('connection', socket => {
         
     })
 
+    //cancelar pendente   
+    socket.on('cancelarPendente', (usuarios) => {
+    
+        //apaga da lista
+        let index = listaUsuariosConvitesPendentes.findIndex(user => user == usuarios.id1);
+
+        if (index !== -1) {
+            listaUsuariosConvitesPendentes.splice(index, 1);
+        }
+
+        index = listaUsuariosConvitesPendentes.findIndex(user => user == usuarios.id2);
+
+        if (index !== -1) {
+            listaUsuariosConvitesPendentes.splice(index, 1);
+        }
+
+        //cancela para todos conectados o pendente
+
+        socket.broadcast.emit("cancelaPendente", usuarios);
+        socket.emit("cancelaPendente", usuarios);
+
+
+
+    });
+
     //convidar usuario para jogar
     socket.on('convidarParaJogar', (usuarioConvidado) => {
 
