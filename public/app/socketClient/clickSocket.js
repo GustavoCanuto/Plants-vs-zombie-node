@@ -28,9 +28,15 @@ $('[data-buttonPlanta]').on("click", (event) => {
 
   renderPlant(usuario);
 
+  let numero = posicaoLista(usuario);
+
+ 
+
   $(".informacaoParaUsuario-infoUser").text("Olá, " + usuario.nome);
 
   $(".zombies").addClass("clicavel");
+
+  usuario.posicao = numero;
 
   socket.emit('plantConnected', usuario);
 
@@ -46,9 +52,15 @@ $('[data-buttonZombie]').on("click", (event) => {
 
   renderZombie(usuario);
 
+  let numero = posicaoLista(usuario);
+
+ 
+
   $(".informacaoParaUsuario-infoUser").text("Olá, " + usuario.nome);
 
   $(".plants").addClass("clicavel");
+ 
+  usuario.posicao = numero;
 
   socket.emit('zombieConnected', usuario);
 
@@ -58,25 +70,37 @@ $('[data-buttonZombie]').on("click", (event) => {
 
 function gerarUsuario() {
 
-      let nomeUsuario;
+  let nomeUsuario;
 
-        if (inputNomeUsuario.trim() == "") {
-         nomeUsuario = "Guest0" + Math.floor(1000000 + Math.random() * 9000000);
+  if (inputNomeUsuario.trim() == "") {
+    nomeUsuario = "Guest0" + Math.floor(1000000 + Math.random() * 9000000);
 
-         } else {
-         nomeUsuario = inputNomeUsuario;
-        }
+  } else {
+    nomeUsuario = inputNomeUsuario;
+  }
 
-        let sessaoUsuario = "sessao" + socket.id.substr(0, 5);
-        let socketIdUsuario = socket.id;
 
-        let usuario = {
-        nome: nomeUsuario,
-        sessao: sessaoUsuario,
-        socketID: socketIdUsuario
-       };
+  let sessaoUsuario = "sessao" + socket.id.substr(0, 5);
+  let socketIdUsuario = socket.id;
 
-     usuario.ipMaquina = "x";
+  let usuario = {
+    nome: nomeUsuario,
+    sessao: sessaoUsuario,
+    socketID: socketIdUsuario
+  };
 
-     return usuario;
+  usuario.ipMaquina = "x";
+
+  return usuario;
+}
+
+function posicaoLista(elemento) {
+
+  var li = document.getElementById(elemento.socketID);
+  let listaOrdenada = Array.from(li.parentNode.children).filter(e => e.tagName === "LI");
+
+  let indice = listaOrdenada.indexOf(li);
+  var numero = indice + 1;
+
+  return numero;
 }

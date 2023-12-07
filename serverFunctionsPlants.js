@@ -10,7 +10,7 @@ function excluirUsuarioPlants(socket, listaUsuariosPlants) {
 function conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario) {
     let ipMaquina = socket.handshake.address;
     data.ipMaquina = ipMaquina;
-
+    
     listaUsuariosPlants.push(data);
     listaTodosUsuario.push(data);
    
