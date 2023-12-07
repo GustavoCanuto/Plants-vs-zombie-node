@@ -22,6 +22,7 @@ const { excluirUsuarioZombie, conectarUsuarioZombie } = require('./serverFunctio
 var listaTodosUsuario = [];
 var listaUsuariosPlants = [];
 var listaUsuariosZombies = [];
+var listaUsuariosConvitesPendentes = [];
 let ultimoUsuario = [];
 
 // ao client se conectar
@@ -30,6 +31,7 @@ io.on('connection', socket => {
     //mandar historico
     socket.emit('previousPlants', listaUsuariosPlants);
     socket.emit('previousZombie', listaUsuariosZombies);
+    socket.emit('previousPendentes', listaUsuariosConvitesPendentes);
 
     //mandar mensagem ultimo usuario conectado (provisorio)
     socket.on("messagemUsuario1", () => {
@@ -95,14 +97,18 @@ io.on('connection', socket => {
 
         let quemConvidou = listaTodosUsuario.find(user => user.socketID == socket.id);
 
-        //console.log("quem convidou: " + quemConvidou.nome + " para " + usuarioConvidado);
+        console.log("quem convidou: " + quemConvidou.nome + " para " + usuarioConvidado);
 
-        let infoConvite = {nome: quemConvidou.nome, id: quemConvidou.socketID, posicao: usuarioConvidado.posicao}
+        let infoConvite = {nome: quemConvidou.nome, id: quemConvidou.socketID, posicao: quemConvidou.posicao, usuarioConvidado: usuarioConvidado}
 
        console.log(infoConvite.posicao)
 
-       socket.to(usuarioConvidado.id).emit("receiveConvite", infoConvite);
+       socket.to(usuarioConvidado).emit("receiveConvite", infoConvite);
+       socket.broadcast.emit('convitePendente', infoConvite)
+        socket.emit('convitePendente', infoConvite);
 
+        listaUsuariosConvitesPendentes.push(socket.id);
+        listaUsuariosConvitesPendentes.push(usuarioConvidado);
     });
 
 

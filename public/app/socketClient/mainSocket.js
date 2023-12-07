@@ -44,11 +44,33 @@ socket.on('previousZombie', function (listaUsuariosZombies) {
   for (message of listaUsuariosZombies) {
     renderZombie(message);
   }
+
+});
+
+
+//ao entrar atualizar usuarios pendentes
+socket.on('previousPendentes', function (listaUsuariosConvitesPendentes) {
+  for (usuario of listaUsuariosConvitesPendentes) {
+    $(`#${usuario}`).addClass("block");
+    $(`#${usuario}`).append(" | [convite pendente]");
+  }
+
 });
 
 //receber convite
 socket.on('receiveConvite', function (usuario) {
+ 
   renderConvite(usuario);
+});
+
+socket.on('convitePendente', function (usuarios) {
+ 
+  $(`#${usuarios.id}`).addClass("block");
+  $(`#${usuarios.usuarioConvidado}`).addClass("block");
+
+  $(`#${usuarios.id}`).append(" | [convite pendente]");
+  $(`#${usuarios.usuarioConvidado}`).append(" | [convite pendente]");
+
 });
 
 

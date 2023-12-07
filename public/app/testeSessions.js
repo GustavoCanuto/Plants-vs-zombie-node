@@ -171,27 +171,31 @@ function atualizarClicavel() {
             // Adicione aqui o código que você deseja executar quando o elemento for clicado
             elemento.clicavelHandler = function () {
 
-                
+                 if(elemento.classList.contains('block')){
+                     alert("usuario com convite pendente! não é possivel enviar solicitação")
+                 }
+                else{
+
+                //alert('Convite Enviado! Aguarde o retorno da solicitação ');
+               
                 let listaOrdenada = Array.from(elemento.parentNode.children).filter(e => e.tagName === "LI");
-                // Obtenha o índice do elemento clicado
+              
                 let indice = listaOrdenada.indexOf(elemento);
                 var numero = indice + 1;
-    
 
-                alert('Convite Enviado! Aguarde o retorno da solicitação ');
+               let partes = elemento.textContent.split('|');
+               let nome = partes[0].trim();
 
-                $('#mandadoSolitacao').text(" solicitação enviada ! arguade o retorno")
-                $("#cancelarConvite").css("display", "block");
+                let conviteEnviado = `<p id="enviado" "> Convite Enviado para <strong>${nome} </strong> (posição ${numero}) ! Aguarde o retorno <button class="cancelarConvite" style="color: red; font-size: 1vw; " onclick="cancelarSolicitacao()">Cancelar</button> </p>`;
+
+               $(`#mandadoSolitacao`).append(conviteEnviado);
+
              //   let convite = {quemConvidou: socket.id, convidado: elemento.id}
 
-        
-
-               let convite = {id: elemento.id, posicao: numero}
-
-                socket.emit('convidarParaJogar', convite);
+                socket.emit('convidarParaJogar', elemento.id);
 
          //       elemento.clicado = true; // Marca o elemento como clicado
-
+                }
 
            };
 
