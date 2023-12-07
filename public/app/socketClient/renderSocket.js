@@ -54,15 +54,20 @@ function renderZombie(message) {
   function renderConvite(usuario){
 
    let convite = `
-    <p id="${usuario.id}">Solicitação de <strong>${usuario.nome}  </strong> (posição ${usuario.posicao}) para jogar
+    <p class="${usuario.id}xy ${usuario.id}">Solicitação de <strong>${usuario.nome}  </strong> (posição ${usuario.posicao}) para jogar
         <button style="color: green; font-size: 1vw;" onclick="aceitarSolicitacao()">Aceitar</button>
-        <button style="color: red; font-size: 1vw;" onclick="recusarSolicitacao()">Recusar</button>
+        <button style="color: red; font-size: 1vw;" onclick="cancelarPendente(this)">Recusar</button>
     </p>
   
 
 `;
 
   document.getElementById("convite").innerHTML += convite;
+
+   //retirar click 
+  // Remover classe "clicavel" do elemento pai pelo ID
+ // $(`#${usuario.id}`).closest('ol').removeClass("clicavel");
+ // atualizarClicavel();
 
 
   }

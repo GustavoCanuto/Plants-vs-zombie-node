@@ -186,7 +186,7 @@ function atualizarClicavel() {
                let partes = elemento.textContent.split('|');
                let nome = partes[0].trim();
 
-                let conviteEnviado = `<p id="enviado" "> Convite Enviado para <strong>${nome} </strong> (posição ${numero}) ! Aguarde o retorno <button class="cancelarConvite" style="color: red; font-size: 1vw; " onclick="cancelarSolicitacao()">Cancelar</button> </p>`;
+                let conviteEnviado = `<p class="${elemento.id}xy ${elemento.id}" > Convite Enviado para <strong>${nome} </strong> (posição ${numero}) ! Aguarde o retorno <button class="cancelarConvite" style="color: red; font-size: 1vw; " onclick="cancelarPendente(this)">Cancelar</button> </p>`;
 
                $(`#mandadoSolitacao`).append(conviteEnviado);
 
@@ -195,6 +195,11 @@ function atualizarClicavel() {
                 socket.emit('convidarParaJogar', elemento.id);
 
          //       elemento.clicado = true; // Marca o elemento como clicado
+
+           //  $(`#${elemento.id}`).closest('ol').removeClass("clicavel");
+
+           //  atualizarClicavel();
+
                 }
 
            };
@@ -207,3 +212,27 @@ function atualizarClicavel() {
 
    
 
+//cancelar pendente 
+
+function cancelarPendente(esse){
+
+    let elementoPai = $(esse).closest('p');
+    
+    // Obtenha o id do elemento pai
+    let idDoElementoPai = elementoPai.attr('class');
+
+    let partes = idDoElementoPai.split(' ');
+    let idPai  = partes[1].trim();
+
+    let idSocket = socket.id;
+
+    let elementosSeraoCancelado = {id1:idPai ,id2:idSocket}
+    //alert(idPai +" "+idSocket);
+   socket.emit('cancelarPendente', elementosSeraoCancelado);
+
+   $(`.${idDoElementoPai}xy`).remove();
+  
+
+}
+
+//atualizar <p> pegar id e colocar o onclick
