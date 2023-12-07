@@ -1,4 +1,4 @@
-var socket = io('127.0.0.1:3000');
+var socket = io('192.168.208.102:3000');
 
 //pega nome client que clicou no botao jogar e atualizar li para todos clients 
 socket.on('oi', () => {
@@ -116,7 +116,7 @@ socket.on('cancelaPendenteConvite', function (usuario) {
 
 socket.on('telaJogo', ()=>{
 
-  alert("jogando em dupla")
+ // alert("jogando em dupla")
   let divAtual = document.querySelector("[data-EscolherJogador]");
   let divJogando = document.querySelector(".jogando");
 
