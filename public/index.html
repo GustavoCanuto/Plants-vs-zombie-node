@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
+  
 <head>
-  <title>Plantas vs Zumbis</title>
-  <link rel="stylesheet" type="text/css" href="./assets/css/reset.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/padrao.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/padrao.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/menuInicial/botao-jogar.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/dialog/dialogUsuario.css" />
 
-  <link rel="stylesheet" type="text/css" href="./assets/css/div-teste.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plantas vs Zumbis</title>
+  <link rel="stylesheet" type="text/css" href="./assets/reset.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/padrao.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/lobby/css/style.css" />
+
 </head>
 
 <body>
@@ -22,6 +22,7 @@
     <div class="dialog-usuario" data-nomeUsuario>
 
       <div class="nome-usuario">
+
         <button data-retornarInicio class="retornar-usuario"> X </button>
 
         <label for="nomeUsuario" class="label-usuario">Digite seu Nome:</label>
@@ -37,75 +38,68 @@
 
     <!-- Div escolha personagem -->
     <div class="escolha-personagem">
-      
+
       <button data-buttonPlanta> Planta </button>
       <button data-buttonZombie> Zombies </button>
-   
+
     </div>
 
     <!-- Div Usuario Conectados -->
-    <div class="testeSessions" data-EscolherJogador>
+    <div class="game-lobby" data-gameLobby>
 
-      <div class="informacaoParaUsuario" >
+      <div class="informacaoParaUsuario">
 
-        <p  class ="informacaoParaUsuario-infoUser"> Voce é: </p>
-
-        <p class ="informacaoParaUsuario-info" >Usuarios Conectados - Selecione um para jogar contra </p>
+        <p class="informacaoParaUsuario-infoUser"> Voce é: </p>
+        <p class="informacaoParaUsuario-info">Usuarios Conectados - Selecione um para jogar contra </p>
 
       </div>
 
-      <div class="listaUsuariosConectado" >
+      <div class="listaUsuariosConectado">
 
-        <ol class="lista-conectados plants" >
+        <ol class="lista-conectados plants">
           <p> Plants</p><br>
-    
         </ol>
 
-        <ol class="lista-conectados zombies" >
+        <ol class="lista-conectados zombies">
           <p> Zombies</p><br>
-        
         </ol>
 
       </div>
 
 
-      <div class="finalPagina" >
+    <div class="menu-botton">
 
-        <div class="menssagens">
+      <div class="menssagens">
 
-      <p id="oi">  </p>
-
-      <div id="mandadoSolitacao" ></div>
-   
-
-      <div id="convite" style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <div id="mandadoSolitacao"></div>
+          <div id="convite" style="display: flex; flex-direction: column; gap: 0.8rem;"></div>
 
       </div>
 
-        </div>
+      <div class="botoes">
 
-        <div class="botoes">
           <button class="sair" data-sair>sair</button>
-          <button class="messagemTeste" data-messagem>mensagem para o ultimo usuario</button>
+          <button class="jogar-local" data-JogarLocal>Jogar Local</button>
 
+       </div>
 
-        </div>
-
-      </div>
+    </div>
 
 
     </div>
 
     <!-- Div Usuarios jogando -->
 
-<div class ="jogando">
-  <p>Jogando</p>
-</div>
+    <div class="jogando">
+      <p>Jogando</p>
+    </div>
 
 
   </main>
 
-  <script src="./app/testeSessions.js"></script>
+  <script src="./app/lobby/trocarTela.js"></script>
+  <script src="./app/lobby/listaClicavel.js"></script>
+  <script src="./app/lobby/convite.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -113,8 +107,6 @@
   <script type="text/javascript" src="./app/socketClient/mainSocket.js">  </script>
   <script type="text/javascript" src="./app/socketClient/renderSocket.js">  </script>
   <script type="text/javascript" src="./app/socketClient/clickSocket.js">  </script>
-
-
 
 </body>
 

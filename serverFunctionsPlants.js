@@ -1,6 +1,7 @@
 // serverFunctionsPlants.js
-function excluirUsuarioPlants(socket, listaUsuariosPlants) {
-    let indexPlant = listaUsuariosPlants.findIndex(user => user.socketID == socket.id);
+function excluirUsuarioPlants(socketID, listaUsuariosPlants) {
+
+    let indexPlant = listaUsuariosPlants.findIndex(user => user.socketID == socketID);
 
     if (indexPlant !== -1) {
         listaUsuariosPlants.splice(indexPlant, 1);
@@ -8,8 +9,8 @@ function excluirUsuarioPlants(socket, listaUsuariosPlants) {
 }
 
 function conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario) {
-    let ipMaquina = socket.handshake.address;
-    data.ipMaquina = ipMaquina;
+    
+    data.ipMaquina = " 0 pontos ";
     
     listaUsuariosPlants.push(data);
     listaTodosUsuario.push(data);

@@ -18,12 +18,12 @@ app.use('/', (req, res) => {
 
 const { excluirUsuarioPlants, conectarUsuarioPlant } = require('./serverFunctionsPlants');
 const { excluirUsuarioZombie, conectarUsuarioZombie } = require('./serverFunctionsZombies');
+const { excluirUsuarioListaTodosUsuarios, excluirConvitePendente } = require('./serverFunctionsGeral');
 
 var listaTodosUsuario = [];
 var listaUsuariosPlants = [];
 var listaUsuariosZombies = [];
 var listaUsuariosConvitesPendentes = [];
-let ultimoUsuario = [];
 
 // ao client se conectar
 io.on('connection', socket => {
@@ -33,112 +33,43 @@ io.on('connection', socket => {
     socket.emit('previousZombie', listaUsuariosZombies);
     socket.emit('previousPendentes', listaUsuariosConvitesPendentes);
 
-    //mandar mensagem ultimo usuario conectado (provisorio)
-    socket.on("messagemUsuario1", () => {
-
-        console.log(ultimoUsuario[ultimoUsuario.length - 1]);
-
-        if (ultimoUsuario[ultimoUsuario.length - 1] == socket.id) {
-            socket.emit("oi");
-        } else {
-            socket.to(ultimoUsuario[ultimoUsuario.length - 1]).emit("oi");
-        }
-
-    });
-
-
-
     //açao para quando planta se conectar
     socket.on('plantConnected', (data) => {
-
-        ultimoUsuario.push(socket.id);
         conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario);
-
     })
 
     //açao para quando zombie se conectar
     socket.on('zombieConnected', (data) => {
-
-        ultimoUsuario.push(socket.id);
         conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario);
-
-    })
-
-    //recebe a mensagem que o client clicou em sair e pegar o id 
-    socket.on('userDisconnect', () => {
-
-        ultimoUsuario.pop();
-
-        socket.broadcast.emit('receiveMessageDisconnect', socket.id)
-
-        excluirUsuarioPlants(socket, listaUsuariosPlants);
-        excluirUsuarioZombie(socket, listaUsuariosZombies);
-        excluirUsuarioListaTodosUsuarios(socket);
-
-
-    })
-
-
-    //ao client se desconectar
-    socket.on('disconnect', () => {
-
-        ultimoUsuario.pop();
-
-        socket.broadcast.emit('receiveMessageDisconnect', socket.id)
-
-        excluirUsuarioPlants(socket, listaUsuariosPlants);
-        excluirUsuarioZombie(socket, listaUsuariosZombies);
-        excluirUsuarioListaTodosUsuarios(socket);
-
     })
 
     //cancelar pendente   
     socket.on('cancelarPendente', (usuarios) => {
 
-        //apaga da lista
-        let index = listaUsuariosConvitesPendentes.findIndex(user => user == usuarios.id1);
-
-        if (index !== -1) {
-            listaUsuariosConvitesPendentes.splice(index, 1);
-        }
-
-        index = listaUsuariosConvitesPendentes.findIndex(user => user == usuarios.id2);
-
-        if (index !== -1) {
-            listaUsuariosConvitesPendentes.splice(index, 1);
-        }
+        excluirConvitePendente(usuarios.id1, listaUsuariosConvitesPendentes);
+        excluirConvitePendente(usuarios.id2, listaUsuariosConvitesPendentes);
 
         //cancela para todos conectados o pendente
-
         socket.broadcast.emit("cancelaPendente", usuarios);
         socket.emit("cancelaPendente", usuarios);
 
-        //cancelar pendente convite
+        //manda para o usuario resposta 
         socket.to(usuarios.id1).emit("cancelaPendenteConvite", usuarios.id2);
 
-
-
     });
-
 
     //aceitar convite 
     socket.on('aceitarConvite', (usuarios) => {
 
-        console.log("aceitou")
+        desconectarUsuario(usuarios.id1);
+        desconectarUsuario(usuarios.id2);
 
-        excluirUsuarioZombieProvisorio(usuarios.id1)
-        excluirUsuarioPlantsProvisorio(usuarios.id1)
-
-        excluirUsuarioZombieProvisorio(usuarios.id2)
-        excluirUsuarioPlantsProvisorio(usuarios.id2)
-
-        console.log("entrando em jogo")
+        socket.broadcast.emit('receiveusuarioDisconnect', usuarios.id1)
+        socket.broadcast.emit('receiveusuarioDisconnect', usuarios.id2)
 
         socket.to(usuarios.id1).emit('telaJogo');
         socket.emit('telaJogo');
 
-        socket.broadcast.emit('receiveMessageDisconnect', usuarios.id1)
-        socket.broadcast.emit('receiveMessageDisconnect', usuarios.id2)
     });
 
     //convidar usuario para jogar
@@ -146,11 +77,7 @@ io.on('connection', socket => {
 
         let quemConvidou = listaTodosUsuario.find(user => user.socketID == socket.id);
 
-        console.log("quem convidou: " + quemConvidou.nome + " para " + usuarioConvidado);
-
         let infoConvite = { nome: quemConvidou.nome, id: quemConvidou.socketID, posicao: quemConvidou.posicao, usuarioConvidado: usuarioConvidado }
-
-        console.log(infoConvite.posicao)
 
         socket.to(usuarioConvidado).emit("receiveConvite", infoConvite);
         socket.broadcast.emit('convitePendente', infoConvite)
@@ -160,36 +87,29 @@ io.on('connection', socket => {
         listaUsuariosConvitesPendentes.push(usuarioConvidado);
     });
 
+    //ao clicar em sair
+    socket.on('userDisconnect', () => {
+        socket.broadcast.emit('receiveusuarioDisconnect', socket.id)
+        desconectarUsuario(socket.id);
+    });
 
+    //ao client se desconectar
+    socket.on('disconnect', () => {
+        socket.broadcast.emit('receiveusuarioDisconnect', socket.id)
+        desconectarUsuario(socket.id);
+    });
 
 });
 
-function excluirUsuarioListaTodosUsuarios(socket) {
+function desconectarUsuario(socketID) {
 
-    let index = listaTodosUsuario.findIndex(user => user.socketID == socket.id);
-
-    if (index !== -1) {
-        listaTodosUsuario.splice(index, 1);
-    }
+    excluirUsuarioPlants(socketID, listaUsuariosPlants);
+    excluirUsuarioZombie(socketID, listaUsuariosZombies);
+    excluirUsuarioListaTodosUsuarios(socketID, listaTodosUsuario);
 
 }
 
-function excluirUsuarioPlantsProvisorio(id) {
-    let indexPlant = listaUsuariosPlants.findIndex(user => user.socketID == id);
-
-    if (indexPlant !== -1) {
-        listaUsuariosPlants.splice(indexPlant, 1);
-    }
-}
-
-function excluirUsuarioZombieProvisorio(id) {
-    let indexZombie = listaUsuariosZombies.findIndex(user => user.socketID == id);
-
-    if (indexZombie !== -1) {
-        listaUsuariosZombies.splice(indexZombie, 1);
-    }
-}
-
+//verficar lista atualizada de usuarios
 function testeConsole() {
     console.log("todos usuarios: " + listaTodosUsuario)
     console.log("plantas usuarios: " + listaUsuariosPlants)
