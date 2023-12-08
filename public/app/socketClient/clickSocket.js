@@ -1,11 +1,11 @@
 let inputNomeUsuario;
 
-//ao clicar no botao sair pegar o id e renderiza na lista e manda para o server disconnect
+//ao clicar no botao sair 
 $('[data-sair]').on("click", (event) => {
 
   let socketIdUsuario = socket.id;
 
-  renderMessageDisconnect(socketIdUsuario);
+  renderusuarioDisconnect(socketIdUsuario);
 
   socket.emit('userDisconnect');
 
@@ -14,14 +14,14 @@ $('[data-sair]').on("click", (event) => {
 
 });
 
-//ao clicar no botao planta pegar o nomeUsuario e renderiza na lista e manda para o server jogar na array
+//ao clicar no entrar
 $('[data-entrar]').on("click", (event) => {
 
   inputNomeUsuario = document.querySelector(".input-usuario").value;
 
 });
 
-//ao clicar no botao planta pegar o nomeUsuario e renderiza na lista e manda para o server jogar na array
+//ao clicar no botao planta 
 $('[data-buttonPlanta]').on("click", (event) => {
 
   let usuario = gerarUsuario();
@@ -30,10 +30,7 @@ $('[data-buttonPlanta]').on("click", (event) => {
 
   let numero = posicaoLista(usuario);
 
- 
-
   $(".informacaoParaUsuario-infoUser").text("Olá, " + usuario.nome);
-
   $(".zombies").addClass("clicavel");
 
   usuario.posicao = numero;
@@ -45,7 +42,7 @@ $('[data-buttonPlanta]').on("click", (event) => {
 });
 
 
-//ao clicar no botao zombie pegar o nomeUsuario e renderiza na lista e manda para o server jogar na array
+//ao clicar no botao zombie
 $('[data-buttonZombie]').on("click", (event) => {
 
   let usuario = gerarUsuario();
@@ -54,12 +51,9 @@ $('[data-buttonZombie]').on("click", (event) => {
 
   let numero = posicaoLista(usuario);
 
- 
-
   $(".informacaoParaUsuario-infoUser").text("Olá, " + usuario.nome);
-
   $(".plants").addClass("clicavel");
- 
+
   usuario.posicao = numero;
 
   socket.emit('zombieConnected', usuario);
@@ -68,6 +62,7 @@ $('[data-buttonZombie]').on("click", (event) => {
 
 });
 
+//criar um usuario
 function gerarUsuario() {
 
   let nomeUsuario;
@@ -94,6 +89,7 @@ function gerarUsuario() {
   return usuario;
 }
 
+//pega posicao na lista
 function posicaoLista(elemento) {
 
   var li = document.getElementById(elemento.socketID);

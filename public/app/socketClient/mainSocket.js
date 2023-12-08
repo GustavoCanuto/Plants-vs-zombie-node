@@ -1,54 +1,33 @@
-var socket = io('192.168.208.102:3000');
-
-//pega nome client que clicou no botao jogar e atualizar li para todos clients 
-socket.on('oi', () => {
-  let message = $("#oi");
-  message.text("alguem clicou no botao de mensagem no momento que vc era o ultimo usuario conectado");
-
-});
-
+var socket = io('127.0.0.1:3000');
 
 socket.on('atualizarClicavel', () => {
   atualizarClicavel();
 });
 
-//pega nome client que clicou no botao jogar e atualizar li para todos clients 
-socket.on('receivePlant', function (message) {
-  renderPlant(message);
-
+socket.on('receivePlant', function (usuario) {
+  renderPlant(usuario);
 });
 
-
-//pega nome client que clicou no botao jogar e atualizar li para todos clients 
-socket.on('receiveZombie', function (message) {
-  renderZombie(message);
-
+socket.on('receiveZombie', function (usuario) {
+  renderZombie(usuario);
 });
 
-//pega nome client que clicou desconectou e atualizar li para todos  clients 
-socket.on('receiveMessageDisconnect', function (message) {
-  renderMessageDisconnect(message);
-
+socket.on('receiveusuarioDisconnect', function (usuario) {
+  renderusuarioDisconnect(usuario);
 });
 
-//ao entrar na pagina carregar lista de usuarios
 socket.on('previousPlants', function (listaUsuariosPlants) {
-  for (message of listaUsuariosPlants) {
-    renderPlant(message);
+  for (usuario of listaUsuariosPlants) {
+    renderPlant(usuario);
   }
-
 });
 
-//ao entrar na pagina carregar lista de usuarios
 socket.on('previousZombie', function (listaUsuariosZombies) {
-  for (message of listaUsuariosZombies) {
-    renderZombie(message);
+  for (usuario of listaUsuariosZombies) {
+    renderZombie(usuario);
   }
-
 });
 
-
-//ao entrar atualizar usuarios pendentes
 socket.on('previousPendentes', function (listaUsuariosConvitesPendentes) {
   for (usuario of listaUsuariosConvitesPendentes) {
 
@@ -62,13 +41,8 @@ socket.on('previousPendentes', function (listaUsuariosConvitesPendentes) {
 
 });
 
-//receber convite
 socket.on('receiveConvite', function (usuario) {
-
   renderConvite(usuario);
-
- 
-
 });
 
 socket.on('convitePendente', function (usuarios) {
@@ -79,15 +53,11 @@ socket.on('convitePendente', function (usuarios) {
   $(`#${usuarios.id}`).append(" | [convite pendente]");
   $(`#${usuarios.usuarioConvidado}`).append(" | [convite pendente]");
 
-
-
 });
-
 
 //cancela pendente
 socket.on('cancelaPendente', function (usuarios) {
-   //alert(usuarios.id1+"----"+usuarios.id2);
-
+  
   $(`#${usuarios.id1}`).removeClass("block");
   $(`#${usuarios.id2}`).removeClass("block");
 
@@ -100,29 +70,23 @@ socket.on('cancelaPendente', function (usuarios) {
   $(`.${usuarios.id1}xy`).remove();
   $(`.${usuarios.id2}xy`).remove();
 
-
-
 });
 
 //cancela pendente convite
 socket.on('cancelaPendenteConvite', function (usuario) {
-  //alert(usuarios.id1+"----"+usuarios.id2);
-
 
   $(`#${usuario}`).closest('ol').addClass("clicavel");
   atualizarClicavel();
 
 });
 
+//gera tela de jogo (provisorio)
 socket.on('telaJogo', ()=>{
 
- // alert("jogando em dupla")
-  let divAtual = document.querySelector("[data-EscolherJogador]");
+  let divAtual = document.querySelector("[data-gameLobby]");
   let divJogando = document.querySelector(".jogando");
 
   divAtual.style.display = "none"
   divJogando.style.display = "flex"
 
-}
-
-)
+});

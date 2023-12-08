@@ -14,13 +14,13 @@
     border: none;
     height: 65%;
     width: 40%;
-    background-image: url(../../img/dialog/usuarioDialog.png);
+    background-image: url(../../../img/dialog/usuarioDialog.png);
     background-size: cover;
     background-position: center;
     font-family: 'fontZombie', sans-serif;
     font-size: 1.5vw;
-    color:#b8b8b8;
-    text-shadow: -2px -2px 0 black, 1px -1px 0 black, -2px 2px 0 black, 1px 1px 0 black;
+    color:var(--texto-branco);
+    text-shadow:  var(--texto-contorno);
 
 }
 
@@ -35,8 +35,8 @@
     width: 2%;
     font-family: 'fontZombie', sans-serif;
     font-size: 1.5vw;
-    color:#b8b8b8;
-    text-shadow: -2px -2px 0 black, 1px -1px 0 black, -2px 2px 0 black, 1px 1px 0 black;
+    color:var(--texto-branco);
+    text-shadow: var(--texto-branco);;
     left: 85%;
     top: 24% ;
 }
@@ -47,9 +47,6 @@
     left: 30%;
     top: 36% ;
    
-    
-  
-
 }
 
 .input-usuario{
@@ -58,9 +55,6 @@
     left: 16%;
     top: 40% ;
     font-size: 1.5vw;
-   
-   
-
 }
 
 .entrar-usuario{
@@ -68,5 +62,4 @@
     width: 80%;
     left: 8%;
     top: 58% ;
-
 }

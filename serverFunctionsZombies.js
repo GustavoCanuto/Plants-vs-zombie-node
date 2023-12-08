@@ -1,6 +1,6 @@
 // serverFunctionsZombies.js
-function excluirUsuarioZombie(socket, listaUsuariosZombies) {
-    let indexZombie = listaUsuariosZombies.findIndex(user => user.socketID == socket.id);
+function excluirUsuarioZombie(socketID, listaUsuariosZombies) {
+    let indexZombie = listaUsuariosZombies.findIndex(user => user.socketID == socketID);
 
     if (indexZombie !== -1) {
         listaUsuariosZombies.splice(indexZombie, 1);
@@ -8,8 +8,8 @@ function excluirUsuarioZombie(socket, listaUsuariosZombies) {
 }
 
 function conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario) {
-    let ipMaquina = socket.handshake.address;
-    data.ipMaquina = ipMaquina;
+ 
+    data.ipMaquina = " 0 pontos ";
 
     listaUsuariosZombies.push(data);
     listaTodosUsuario.push(data);

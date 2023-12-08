@@ -1,3 +1,10 @@
+:root {
+    --texto-branco:#b8b8b8;
+    --texto-verde:var(--texto-verde);
+    --texto-contorno: -2px -2px 0 black, 1px -1px 0 black, -2px 2px 0 black, 1px 1px 0 black;
+
+}
+
 body {
     background-color: black;
     height: 100vh;
@@ -14,7 +21,7 @@ main {
     /* width: 1275px;
     height: 590px; */
     position: fixed;
-    background-image: url(../img/brackground/menu-principal2.png);
+    background-image: url(./img/brackground/menu-principal2.png);
     background-size: cover;
     transition: opacity 0.8s ease;
 

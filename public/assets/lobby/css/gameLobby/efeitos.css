@@ -1,0 +1,22 @@
+.clicavel>li:hover{
+    background-color: rgb(92, 89, 89);
+  }
+
+  .block{
+    color:orange !important;
+  }
+
+ .aparecerTela{
+    opacity: 1; 
+ }
+
+  .jogando{
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    background-color: black;
+    color: white;
+ }
