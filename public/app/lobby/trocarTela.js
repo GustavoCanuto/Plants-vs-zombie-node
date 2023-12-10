@@ -1,11 +1,11 @@
 let jogar = document.querySelector("[data-jogar]");
 let sair = document.querySelector("[data-sair]");
 let entrar = document.querySelector("[data-entrar]");
-let retornarInicio = document.querySelector("[data-retornarInicio]");
+let retornarInicio = document.querySelectorAll("[data-retornarInicio]");
 let buttonPlanta = document.querySelector("[data-buttonPlanta]");
 let buttonZombie = document.querySelector("[data-buttonZombie]");
 
-let divEscolherPersonagem = document.querySelector(".escolha-personagem");
+let divEscolherPersonagem = document.querySelector(".escolha");
 let divGameLobby = document.querySelector("[data-gameLobby]");
 let divNomeUsuario = document.querySelector("[data-nomeUsuario]")
 
@@ -34,23 +34,27 @@ sair.addEventListener("click", () => {
 });
 
 //voltar Inicio tela jogar
-retornarInicio.addEventListener("click", () => {
+retornarInicio.forEach(elemento => {
+    elemento.addEventListener("click", () => {
 
-    divNomeUsuario.classList.remove("aparecerTela");
-    main.style.opacity = "0.8"
-    jogar.style.opacity = "0"
+        divNomeUsuario.classList.remove("aparecerTela");
+        divEscolherPersonagem.classList.remove("aparecerTela");
 
-    setTimeout(() => {
-
-        jogar.style.display = "block";
-        divNomeUsuario.style.display = "none";
-        jogar.style.opacity = "0.3"
+        main.style.opacity = "0.8";
+        jogar.style.opacity = "0";
 
         setTimeout(() => {
-            jogar.style.opacity = "1"
-            main.style.opacity = "1"
-        }, 20);
-    }, 200);
+            jogar.style.display = "block";
+            divNomeUsuario.style.display = "none";
+            divEscolherPersonagem.style.display = "none";
+            jogar.style.opacity = "0.3";
+
+            setTimeout(() => {
+                jogar.style.opacity = "1";
+                main.style.opacity = "1";
+            }, 20);
+        }, 200);
+    });
 });
 
 //manda para tela escolher nome usuario
@@ -69,6 +73,15 @@ jogar.addEventListener("click", () => {
 entrar.addEventListener("click", () => {
     divNomeUsuario.style.display = "none";
     divEscolherPersonagem.style.display = "flex";
+    main.style.backgroundImage = "none";
+    setTimeout(() => {
+        divEscolherPersonagem.classList.add("aparecerTela");
+    }, 10);
+   
+    setTimeout(() => {
+        main.style.backgroundImage = originalBackground;
+    }, 500);
+
 });
 
 

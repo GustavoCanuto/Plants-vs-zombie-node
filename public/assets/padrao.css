@@ -1,9 +1,12 @@
+
 :root {
     --texto-branco:#b8b8b8;
-    --texto-verde:var(--texto-verde);
+    --texto-verde: #03c203;
     --texto-contorno: -2px -2px 0 black, 1px -1px 0 black, -2px 2px 0 black, 1px 1px 0 black;
 
 }
+
+
 
 body {
     background-color: black;
