@@ -1,0 +1,13 @@
+.plantSide{
+    background-color: transparent;
+    border: 0px;
+    background-image: url(../../../img/chooseSide/plantSide.png);
+    background-size: cover;
+}
+
+.zombieSide{
+    background-color: transparent;
+    border: 0px;
+    background-image: url(../../../img/chooseSide/zombieSide.png);
+    background-size: cover;
+}

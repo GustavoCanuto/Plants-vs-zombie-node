@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  
+
 <head>
 
   <meta charset="UTF-8">
@@ -23,13 +23,15 @@
 
       <div class="nome-usuario">
 
-        <button data-retornarInicio class="retornar-usuario"> X </button>
+        <button data-retornarInicio class="retornar-usuario posicaoX-dialog"> X </button>
 
         <label for="nomeUsuario" class="label-usuario">Digite seu Nome:</label>
         <br>
         <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Digite seu nome" class="input-usuario" />
 
-        <input type="submit" value="Entrar" class="entrar-usuario" data-entrar />
+        <input type="submit" value='ENTRAR' class="entrar-usuario" data-entrar />
+
+         <!-- <p class="entrar-texto">ENTRAR</p>  -->
 
       </div>
 
@@ -37,10 +39,24 @@
     </div>
 
     <!-- Div escolha personagem -->
-    <div class="escolha-personagem">
+    <div class="escolha">
 
-      <button data-buttonPlanta> Planta </button>
-      <button data-buttonZombie> Zombies </button>
+      <div class="escolha__topMenu">
+
+        <button data-retornarNomeJogador class="retornar-usuario posicaoRetornar-escolherPersonagem"> &#65513; </button>
+
+
+        <button data-retornarInicio class="retornar-usuario posicaoX-escolherPersonagem"> X </button>
+
+      </div>
+        
+        <p class="escolha__texto"> Escolha um Lado </p>
+      <div class="escolha__personagens">
+
+        <button class="plantSide" data-buttonPlanta> </button>
+        <button class="zombieSide" data-buttonZombie> </button>
+
+      </div>
 
     </div>
 
@@ -67,23 +83,23 @@
       </div>
 
 
-    <div class="menu-botton">
+      <div class="menu-botton">
 
-      <div class="menssagens">
+        <div class="menssagens">
 
           <div id="mandadoSolitacao"></div>
           <div id="convite" style="display: flex; flex-direction: column; gap: 0.8rem;"></div>
 
-      </div>
+        </div>
 
-      <div class="botoes">
+        <div class="botoes">
 
           <button class="sair" data-sair>sair</button>
           <button class="jogar-local" data-JogarLocal>Jogar Local</button>
 
-       </div>
+        </div>
 
-    </div>
+      </div>
 
 
     </div>

@@ -6,6 +6,7 @@
 
 /* Conteúdo de escolhaPersonagem.css */
 @import "./escolhaPersonagem/escolhaPersonagem.css";
+@import "./escolhaPersonagem/buttonsEscolherPersonagens.css";
 
 /* Conteúdo de gameLobby.css */
 @import "./gameLobby/gameLobby.css";

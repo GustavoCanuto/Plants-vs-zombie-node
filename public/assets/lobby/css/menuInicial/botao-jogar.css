@@ -1,9 +1,8 @@
 
 @font-face {
-    font-family: 'fontZombie'; /* Escolha um nome para a sua fonte */
-    src: url('../../../font/zombies.TTF') format('truetype'); /* Substitua pelo caminho real da sua fonte */
-  }
-
+    font-family: 'lobbyFont'; /* Escolha um nome para a sua fonte */
+    src: url('../../../font/lobbyFont.TTF') format('truetype'); /* Substitua pelo caminho real da sua fonte */
+}
 
 .botao-jogar {
     position: relative;
@@ -16,7 +15,7 @@
     border: 0px;
     background-image: url(../../../img/buttons/playButton.png);
     background-size: cover;
-    font-family: 'fontZombie', sans-serif;
+    font-family: 'lobbyFont';
     color:var(--texto-branco);
     text-shadow: var(--texto-contorno);
     transition: opacity 0.8s ease;
