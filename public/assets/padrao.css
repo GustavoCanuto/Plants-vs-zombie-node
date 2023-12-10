@@ -1,8 +1,8 @@
 
 :root {
     --texto-branco:#b8b8b8;
-    --texto-verde: #03c203;
-    --texto-contorno: -2px -2px 0 black, 1px -1px 0 black, -2px 2px 0 black, 1px 1px 0 black;
+    --texto-verde: #05aa05;
+    --texto-contorno: -0.1vw -0.1vw 0 black, 0.1vw -0.1vw 0 black, -0.2vw 0.2vw 0 black, 0.1vw 0.1vw 0 black;
 
 }
 
