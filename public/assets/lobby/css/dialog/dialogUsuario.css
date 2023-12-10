@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'gameButtonFont'; /* Escolha um nome para a sua fonte */
-    src: url('../../../font/DWARVESC.TTF') format('truetype'); /* Substitua pelo caminho real da sua fonte */
+    src: url('../../../font/GamefontRegular.ttf') format('truetype'); /* Substitua pelo caminho real da sua fonte */
 }
 
 @font-face {
@@ -62,7 +62,7 @@
     height: 10%;
     width: 60%;
     left: 30%;
-    top: 36%;
+    top: 34%;
 }
 
 .input-usuario {
@@ -71,6 +71,8 @@
     left: 16%;
     top: 40%;
     font-size: 1.5vw;
+    font-family: 'gameTextoFont';
+    background-color: #d3d5e7;
 }
 
 .entrar-usuario {
@@ -78,23 +80,24 @@
     width: 80%;
     left: 8%;
     top: 54%;
-    /* font-family: 'gameButtonFont'; */
     font-family:'gameButtonFont';
-    font-size: 3vw;
-    color: var(--texto-verde); /* Tornando o texto transparente para exibir apenas a borda */
-    /* -webkit-text-stroke: 0.05vw var(--texto-verde); */
+    font-size: 3.3vw;
+    color: var(--texto-verde); /* Tornando o texto transparente */
+    -webkit-text-stroke: 0.09vw black; 
     background-color: transparent;
-    border: 1px solid red;
+    border: 0;
     background-image: url(../../../img/buttons/enterButton.png);
     background-size: cover;
     padding-bottom: 2.5%;
 }
 
-.entrar-texto{
-    font-family:'gameButtonFont';
-    font-size: 3vw;
-    color: var(--texto-verde); /* Tornando o texto transparente */
-    left: 34%;
-    top: 38%;
+.entrar-usuario:hover{
+    filter: brightness(1.2);
+}
 
+.entrar-usuario:active {
+    transform: scaleY(0.97);
+    transform-origin: center bottom; /* Define o ponto de transformação no centro superior */
+    filter: brightness(1);
+    transition: transform 0.1s, filter 0.2s;
 }
