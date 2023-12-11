@@ -24,7 +24,7 @@
 .nome-usuario {
     background-color: transparent;
     border: none;
-    height: 65%;
+    height: 63%;
     width: 40%;
     background-image: url(../../../img/dialog/usuarioDialog.png);
     background-size: cover;
@@ -33,6 +33,8 @@
     font-size: 1.5vw;
     color: var(--texto-branco);
     text-shadow: var(--texto-contorno);
+ 
+   
 
 }
 
@@ -54,8 +56,8 @@
 
 .posicaoX-dialog {
     font-size: 1.7vw;
-    left: 85.5%;
-    top: 25.2%;
+    left: 88%;
+    top: 26.2%;
 }
 
 .label-usuario {
@@ -76,10 +78,10 @@
 }
 
 .entrar-usuario {
-    height: 20%;
-    width: 80%;
-    left: 8%;
-    top: 54%;
+    height: 5.6vw;
+    width: 31vw;
+    left: 10%;
+    top: 58%;
     font-family:'gameButtonFont';
     font-size: 3.3vw;
     color: var(--texto-verde); /* Tornando o texto transparente */
@@ -89,6 +91,7 @@
     background-image: url(../../../img/buttons/enterButton.png);
     background-size: cover;
     padding-bottom: 2.5%;
+     
 }
 
 .entrar-usuario:hover{

@@ -68,7 +68,7 @@ function gerarUsuario() {
   let nomeUsuario;
 
   if (inputNomeUsuario.trim() == "") {
-    nomeUsuario = "Guest0" + Math.floor(1000000 + Math.random() * 9000000);
+    nomeUsuario = "Guest0" + Math.floor(100 + Math.random() * 900);
 
   } else {
     nomeUsuario = inputNomeUsuario;

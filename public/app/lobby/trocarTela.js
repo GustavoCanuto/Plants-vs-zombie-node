@@ -99,7 +99,7 @@ function entrarGameLobby(){
 
     divEscolherPersonagem.classList.remove("aparecerTela");
     divEscolherPersonagem.style.display = "none";
-    divGameLobby.style.display = "flex";
+    divGameLobby.style.display = "block";
     main.style.backgroundImage = "none";
     
     setTimeout(() => {

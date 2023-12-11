@@ -1,4 +1,50 @@
+
+
 .listaUsuariosConectado{
-    display: flex; justify-content: space-around; width:100%; ;
+    display: flex; 
+    justify-content: space-around; 
+    width:100%; ;
+    /* border: 1px solid #19c536; */
+    height: 80%;
+ }
+
+
+
+ .lista{
+    border: 1px solid #292323;
+    padding-left: 2%;
+    display: flex;
+    width: 24%;
+   
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    color: white;
+   
+ }
+ .lista-conectados{
+ 
+   /* border: 1px solid red; */
+   padding-top: 18%;
+   padding-right: 1%;
+   width: 90%;
+   height: 81%;
+
+ }
+ .plantasConectadas{
+    background-image: url(../../../img/conectados/plantasConectadas.png);
+    background-size: cover;
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+    background-position: left;
+    margin-left: 5%;
+
+ }
+
+ .zombiesConectadas{
+    background-image: url(../../../img/conectados/zombiesConectados.png);
+    background-size: cover;
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+    background-position: left;
+    margin-right: 5%;
 
  }
