@@ -8,7 +8,7 @@ function renderPlant(usuario) {
     clienteLista.style.color = "red";
 
   } else {
-    pontuacaoUsuario = " 0 pontos (Você) "
+    pontuacaoUsuario = " 0 pontos "
   }
 
   clienteLista.textContent = usuario.nome + " | " + pontuacaoUsuario;
@@ -29,7 +29,7 @@ function renderZombie(usuario) {
     clienteLista.style.color = "blue";
 
   } else {
-    pontuacaoUsuario = " 0 pontos (Você) "
+    pontuacaoUsuario = " 0 pontos "
   }
 
   clienteLista.textContent = usuario.nome + " | " + pontuacaoUsuario;
@@ -50,10 +50,12 @@ function renderusuarioDisconnect(usuario) {
 //renderizar convite
 function renderConvite(usuario) {
 
+  $(".mensagens").css("display", "block");
+  
   let convite = `
-    <p class="${usuario.id}xy ${usuario.id}">Solicitação de <strong>${usuario.nome}  </strong> (posição ${usuario.posicao}) para jogar
-        <button style="color: green; font-size: 1vw;" onclick="aceitarSolicitacao(this)">Aceitar</button>
-        <button style="color: red; font-size: 1vw;" onclick="cancelarPendente(this)">Recusar</button>
+    <p class="${usuario.id}xy ${usuario.id}"><strong>${usuario.nome} #${usuario.posicao}</strong>  convidou para jogar
+        <button style="color: green; font-size: 1vw;" onclick="aceitarSolicitacao(this)">&#10003;</button>
+        <button style="color: red; font-size: 1vw;" onclick="cancelarPendente(this)">&#10007;</button>
     </p> `;
 
   document.getElementById("convite").innerHTML += convite;

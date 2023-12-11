@@ -34,7 +34,7 @@ socket.on('previousPendentes', function (listaUsuariosConvitesPendentes) {
     if($(`#${usuario}`)){
 
     $(`#${usuario}`).addClass("block");
-    $(`#${usuario}`).append(" | [convite pendente]");
+    $(`#${usuario}`).append(" | [pendente]");
     
     }
   }
@@ -50,8 +50,8 @@ socket.on('convitePendente', function (usuarios) {
   $(`#${usuarios.id}`).addClass("block");
   $(`#${usuarios.usuarioConvidado}`).addClass("block");
 
-  $(`#${usuarios.id}`).append(" | [convite pendente]");
-  $(`#${usuarios.usuarioConvidado}`).append(" | [convite pendente]");
+  $(`#${usuarios.id}`).append(" | [pendente]");
+  $(`#${usuarios.usuarioConvidado}`).append(" | [pendente]");
 
 });
 
@@ -62,19 +62,21 @@ socket.on('cancelaPendente', function (usuarios) {
   $(`#${usuarios.id2}`).removeClass("block");
 
   // Remover o texto " | [convite pendente]" do elemento com o ID 'usuarios.id'
-  $(`#${usuarios.id1}`).text($(`#${usuarios.id1}`).text().replace(" | [convite pendente]", ""));
+  $(`#${usuarios.id1}`).text($(`#${usuarios.id1}`).text().replace(" | [pendente]", ""));
 
   // Remover o texto " | [convite pendente]" do elemento com o ID 'usuarios.usuarioConvidado'
-  $(`#${usuarios.id2}`).text($(`#${usuarios.id2}`).text().replace(" | [convite pendente]", ""));
+  $(`#${usuarios.id2}`).text($(`#${usuarios.id2}`).text().replace(" | [pendente]", ""));
 
   $(`.${usuarios.id1}xy`).remove();
   $(`.${usuarios.id2}xy`).remove();
+
 
 });
 
 //cancela pendente convite
 socket.on('cancelaPendenteConvite', function (usuario) {
 
+ 
   $(`#${usuario}`).closest('ol').addClass("clicavel");
   atualizarClicavel();
 

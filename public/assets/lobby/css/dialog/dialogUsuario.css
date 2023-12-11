@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'gameButtonFont'; /* Escolha um nome para a sua fonte */
-    src: url('../../../font/GamefontRegular.ttf') format('truetype'); /* Substitua pelo caminho real da sua fonte */
+    src: url('../../../font/Gamefonty-Regular.ttf') format('truetype'); /* Substitua pelo caminho real da sua fonte */
 }
 
 @font-face {
@@ -90,7 +90,7 @@
     border: 0;
     background-image: url(../../../img/buttons/enterButton.png);
     background-size: cover;
-    padding-bottom: 2.5%;
+    padding-bottom: 1.2%;
      
 }
 
