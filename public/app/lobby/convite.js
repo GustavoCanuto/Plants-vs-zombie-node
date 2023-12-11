@@ -20,6 +20,7 @@ function cancelarPendente(esse) {
     $(`#${idPai}`).closest('ol').addClass("clicavel");
     atualizarClicavel();
 
+  
 }
 
 //aceitar solicitacao 

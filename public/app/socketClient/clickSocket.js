@@ -30,7 +30,7 @@ $('[data-buttonPlanta]').on("click", (event) => {
 
   let numero = posicaoLista(usuario);
 
-  $(".informacaoParaUsuario-infoUser").text("Olá, " + usuario.nome);
+  $(".informacaoParaUsuario-infoUser").text(usuario.nome);
   $(".zombies").addClass("clicavel");
 
   usuario.posicao = numero;
@@ -51,7 +51,7 @@ $('[data-buttonZombie]').on("click", (event) => {
 
   let numero = posicaoLista(usuario);
 
-  $(".informacaoParaUsuario-infoUser").text("Olá, " + usuario.nome);
+  $(".informacaoParaUsuario-infoUser").text(usuario.nome);
   $(".plants").addClass("clicavel");
 
   usuario.posicao = numero;
