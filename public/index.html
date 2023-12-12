@@ -1,168 +1,17 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
-  <title>Plantas vs Zumbis</title>
-  <link rel="stylesheet" type="text/css" href="./assets/css/reset.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/padrao.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/padrao.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/menuInicial/botao-jogar.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/dialog/dialogUsuario.css" />
-
-  <link rel="stylesheet" type="text/css" href="./assets/css/div-teste.css" />
+    <meta charset="UTF-8">
+    <title>Plantas vs. Zumbis</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <main id="main">
-
-    <!-- Botao inicial Jogar -->
-    <button class="botao-jogar" data-jogar>JOGAR</button>
-
-    <!--  -->
-    <div class="dialog-usuario" data-nomeUsuario>
-
-
-
-      <div class="nome-usuario">
-        <button data-retornarInicio class="retornar-usuario"> X </button>
-
-        <label for="nomeUsuario" class="label-usuario">Digite seu Nome:</label>
-        <br>
-        <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Digite seu nome" class="input-usuario" />
-
-        <input type="submit" value="Entrar" class="entrar-usuario" data-entrar />
-
-      </div>
-
-
+    <div class="game-container">
+        <div id="board"></div>
     </div>
 
-
-    <!-- Div Usuario Conectados -->
-    <div class="testeSessions" data-EscolherJogador>
-
-      <p> Conectados </p>
-
-      <ol class="lista-conectados">
-
-      </ol>
-
-      <button class="sair" data-sair>sair</button>
-
-    </div>
-
-  </main>
-
-  <script src="./app/testeSessions.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-
-
-  <script type="text/javascript">
-    var socket = io('http://192.168.208.102:3000');
-
-    //cria iten na lista
-    function renderMessage(message) {
-      let clienteLista = document.createElement("li");
-      clienteLista.textContent = message.nome + " | IP máquina: " + (message.ipMaquina).substring(7);
-      clienteLista.id = message.socketID;
-      $(".lista-conectados").append(clienteLista);
-
-    }
-
-    //retirar usuario desconectado da Lista 
-    function renderMessageDisconnect(message) {
-
-      let liParaRemover = $("#" + message);
-      // let liParaRemover = $(".lista-conectados li:contains('" + message + "')");
-
-      liParaRemover.remove();
-    }
-
-    //pega nome client que clicou no botao jogar e atualizar li para todos clients 
-    socket.on('receiveMessage', function (message) {
-      renderMessage(message);
-    });
-
-    //pega nome client que clicou desconectou e atualizar li para todos clients 
-    socket.on('receiveMessageDisconnect', function (message) {
-      renderMessageDisconnect(message);
-    });
-
-    //ao entrar na pagina carregar lista de usuarios
-    socket.on('previousMessages', function (listaUsuariosConectados) {
-      for (message of listaUsuariosConectados) {
-        renderMessage(message);
-      }
-    });
-
-
-    //ao clicar no botao sair pegar o id e renderiza na lista e manda para o server disconnect
-    $('[data-sair]').on("click", (event) => {
-
-      let socketIdUsuario = socket.id;
-
-      renderMessageDisconnect(socketIdUsuario);
-
-      socket.emit('userDisconnect', socketIdUsuario);
-
-    });
-
-
-
-    //ao clicar no botao ENTRAR pegar o nomeUsuario e renderiza na lista e manda para o server jogar na array
-    $('[data-entrar]').on("click", (event) => {
-
-      let inputNomeUsuario = document.querySelector(".input-usuario").value;
-
-      let nomeUsuario;
-
-
-      if (inputNomeUsuario.trim() == "") {
-        nomeUsuario = "Guest0" + Math.floor(1000000 + Math.random() * 9000000);
-
-      } else {
-        nomeUsuario = inputNomeUsuario;
-      }
-
-      let sessaoUsuario = "sessao" + socket.id.substr(0, 5);
-      let socketIdUsuario = socket.id;
-
-      let usuario = {
-        nome: nomeUsuario,
-        sessao: sessaoUsuario,
-        socketID: socketIdUsuario
-      };
-
-      // renderMessage(usuario);
-
-      socket.emit('userConnected', usuario);
-    });
-
-
-  </script>
-
-
-  <!-- codigo referencia 1 -->
-
-  <!-- <script >
-    const socket = io();
-
-    socket.on('connect', function(){
-      let clienteLista = document.createElement("li");
-      clienteLista.textContent = "connected with id: " + socket.id ;
-      $(".lista-conectados").append(clienteLista);
-
-      socket.emit('msg', 'i am conenected' + socket.id);
-
-    });
-
-    socket.on('msg', function(msg){
-      $(".lista-conectados").append(msg);
-    })
-
-  </script> -->
-
+    <script src="index.js"></script>
+    <script src="game/model/Plantas.js"></script>
+    <script src="game/tabuleiro/clicks.js"></script>
 </body>
-
 </html>
