@@ -1,6 +1,6 @@
 const linhas = 5;
-const colunas = 9;
-const colunasPorLinha = 9;
+const colunas = 10;
+const colunasPorLinha = 10;
 
 let tabuleiro = new Array(linhas);
 
