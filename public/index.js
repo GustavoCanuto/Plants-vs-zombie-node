@@ -74,3 +74,47 @@ mostrarTabuleiro();
 
 //     mostrarTabuleiro(); // Atualizar o tabuleiro após o movimento
 // }
+
+
+
+
+const dragItems = document.querySelectorAll(".card");
+const dropBoxes = document.querySelectorAll(".cell");
+
+//Drag eventos
+dragItems.forEach(item => {
+    item.addEventListener('dragstart', dragStart);
+});
+
+//Drop eventos
+dropBoxes.forEach(box => {
+    box.addEventListener('dragover', dragOver);
+    box.addEventListener('drop', dropEvent);
+    box.addEventListener('dragleave', dragLeave);
+});
+
+
+function dragStart(){
+    
+}
+
+function dragOver(ev){
+    ev.preventDefault();
+    this.className += " enter";
+    console.log("Dragging")
+}
+
+function dropEvent(ev){
+    ev.preventDefault();
+    console.log("Dropping");
+
+    const elemento = document.createElement("div");
+    elemento.className = "card sunflower";
+
+    this.appendChild(elemento);
+}
+
+function dragLeave(ev){
+    ev.preventDefault();
+    this.className = 'cell';
+}
