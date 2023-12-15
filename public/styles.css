@@ -59,4 +59,12 @@
     background-position: center center;
   }
 
-  
+.card{
+    transition: .35s;
+    cursor: pointer;
+}
+
+.style-resize:hover > :not(:hover){
+    opacity: .4;
+    transform: scale(0.9);
+}
