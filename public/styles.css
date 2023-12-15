@@ -23,7 +23,7 @@
 
 /* Estilos para as células do tabuleiro */
 .cell {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     width: 8.8%;
     height: 98%;
      display: inline-flex;
@@ -54,7 +54,6 @@
     width: 14%;
     height: 100%;
     background-size: contain;
-    background-image: url('./img/card-planta.png');
     background-repeat: no-repeat;
     background-position: center center;
   }
@@ -67,4 +66,68 @@
 .style-resize:hover > :not(:hover){
     opacity: .4;
     transform: scale(0.9);
+}
+
+.sunflower{
+    background-image: url('./img/cards/plants/sunFlower-transformed.svg');
+}
+
+.peashooter{
+    background-image: url('./img/cards/plants/peashooter-transformed.svg');
+}
+
+.showpea{
+    background-image: url('./img/cards/plants/showPea-transformed.svg');
+}
+
+.repeater{
+    background-image: url('./img/cards/plants/repeater-transformed.svg');
+}
+
+.wallnut{
+    background-image: url('./img/cards/plants/wallNut-transformed.svg');
+}
+
+.cherrybomb{
+    background-image: url('./img/cards/plants/cherryBomb-transformed.svg');
+}
+
+.potatomine{
+    background-image: url('./img/cards/plants/potatomine-transformed.svg');
+}
+
+
+
+.cardtombstone{
+    background-image: url('./img/cards/zombies/coneheadZombie-transformed.svg');
+}
+
+.zombies{
+    background-image: url('./img/cards/zombies/regularZombie-transformed.svg');
+}
+
+.conehead{
+    background-image: url('./img/cards/zombies/coneheadZombie-transformed.svg');;
+}
+
+.buckethead{
+    background-image: url('./img/cards/zombies/bucketheadZombie-transformed.svg');
+}
+
+.flagzombie{
+    background-image: url('./img/cards/zombies/flagZombie-transformed.svg');
+}
+
+.football{
+    background-image: url('./img/cards/zombies/footballZombie-transformed.svg');
+}
+
+.screendoor{
+    background-image: url('./img/cards/zombies/screenDoorZombie-transformed.svg');
+}
+
+
+
+.enter{
+    border: dashed 2px #bbb;
 }
