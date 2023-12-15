@@ -1,0 +1,85 @@
+.card{
+    transition: .35s;
+    cursor: pointer;
+}
+
+.style-resize:hover > :not(:hover){
+    opacity: .4;
+    transform: scale(0.9);
+}
+
+.sunflower{
+    background-image: url('../img/cards/plants/sunFlower-transformed.svg');
+}
+
+.peashooter{
+    background-image: url('../img/cards/plants/peashooter-transformed.svg');
+}
+
+.showpea{
+    background-image: url('../img/cards/plants/showPea-transformed.svg');
+}
+
+.repeater{
+    background-image: url('../img/cards/plants/repeater-transformed.svg');
+}
+
+.wallnut{
+    background-image: url('../img/cards/plants/wallNut-transformed.svg');
+}
+
+.cherrybomb{
+    background-image: url('../img/cards/plants/cherryBomb-transformed.svg');
+}
+
+.potatomine{
+    background-image: url('../img/cards/plants/potatomine-transformed.svg');
+}
+
+
+
+.cardtombstone{
+    background-image: url('../img/cards/zombies/tombstone-transformed.svg');
+}
+
+.zombies{
+    background-image: url('../img/cards/zombies/regularZombie-transformed.svg');
+}
+
+.conehead{
+    background-image: url('../img/cards/zombies/coneheadZombie-transformed.svg');;
+}
+
+.buckethead{
+    background-image: url('../img/cards/zombies/bucketheadZombie-transformed.svg');
+}
+
+.flagzombie{
+    background-image: url('../img/cards/zombies/flagZombie-transformed.svg');
+}
+
+.football{
+    background-image: url('../img/cards/zombies/footballZombie-transformed.svg');
+}
+
+.screendoor{
+    background-image: url('../img/cards/zombies/screenDoorZombie-transformed.svg');
+}
+
+
+
+.enter{
+    border: dashed 2px #bbb;
+}
+
+
+.card {
+    max-width: 100%; /* Defina o tamanho máximo */
+    max-height: 100%; /* Defina o tamanho máximo */
+  }
+  
+
+.cell img {
+    width: 100%;
+    height: 90%;
+}
