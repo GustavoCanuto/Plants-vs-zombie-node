@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #follow-image {
+            position: absolute;
+            z-index: -1;
+            width: 5%;
+            height: 5%;
+            transition: left 0.05s, top 0.05s;
+            /* Adiciona transição para suavizar o movimento */
+        }
+
+        .normal {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgb(29, 28, 28);
+            position: relative;
+            z-index: 10;
+        }
+
+        .conteudo {
+            cursor: none;
+        }
+
+        .superior-esrquedo,
+        .superior-direito,
+        .inferior-esrquedo,
+        .inferior-direito {
+            background-image: url(./seletorAzul.png);
+            background-repeat: no-repeat;
+            background-size: 75%;
+            width: 50%;
+            height: 50%;
+            position: absolute;
+        }
+
+        #conteudo1 {
+            z-index: 5;
+            transition: left 2s, top 2s;
+        }
+
+        .superior-direito {
+            background-position: left top;
+            transform: scaleX(-1);
+            right: 0;
+        }
+
+        .inferior-esrquedo {
+            transform: scaleY(-1);
+            bottom: 0;
+        }
+
+        .inferior-direito {
+            background-position: left top;
+            transform: scale(-1);
+            right: 0;
+            bottom: 0;
+        }
+
+        .tabuleiro {
+            box-sizing: border-box;
+            width: 50%;
+            height: 50%;
+            border: 1px solid black;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .cell {
+            box-sizing: border-box;
+            width: 50%;
+            height: 50%;
+            border: 1px solid black;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="follow-image" src="seletorTrianguloAzul.png" alt="Imagem a seguir o mouse">
+
+    <div class="tabuleiro normal conteudo" id="conteudo2">
+        <div class="cell" id="cell1">
+            <div id="conteudo1">
+                <div class="superior-esrquedo"></div>
+                <div class="superior-direito"></div>
+                <div class="inferior-esrquedo"></div>
+                <div class="inferior-direito"></div>
+            </div>
+        </div>
+        <div class="cell" id="cell2"></div>
+        <div class="cell" id="cell3"></div>
+        <div class="cell" id="cell4"></div>
+    </div>
+
+    <script>
+        var imagem = document.getElementById('follow-image');
+        var conteudo1 = document.getElementById('conteudo1');
+        var cells = document.querySelectorAll('.cell');
+        var celulaAtual = document.getElementById('cell1');
+        var timeoutId;
+        var contador = 0;
+        var keyPressCount = 0;
+
+        var centerImage = function (container) {
+            var rect = container.getBoundingClientRect();
+            var xPercentage = ((rect.left + rect.width / 2 - imagem.width / 2) / window.innerWidth) * 100;
+            var yPercentage = (rect.top / window.innerHeight) * 100;
+
+            imagem.style.left = xPercentage + '%';
+            imagem.style.top = yPercentage + '%';
+        };
+
+        centerImage(celulaAtual);
+
+        var moveImageToNextCell = function (direction) {
+            var nextCellId;
+
+            switch (direction) {
+                case 'ArrowUp':
+                    clearTimeout(timeoutId);
+                    contadorCima = 0;
+                    nextCellId = parseInt(celulaAtual.id.slice(-1)) - 2;
+                    break;
+                case 'ArrowDown':
+                    clearTimeout(timeoutId);
+                    contadorBaixo = 0;
+                    nextCellId = parseInt(celulaAtual.id.slice(-1)) + 2;
+                    break;
+                case 'ArrowLeft':
+                    clearTimeout(timeoutId);
+                    contadorEsquerda = 0;
+                    nextCellId = parseInt(celulaAtual.id.slice(-1)) - 1;
+                    break;
+                case 'ArrowRight':
+                    clearTimeout(timeoutId);
+                    contadorDireita = 0;
+                    nextCellId = parseInt(celulaAtual.id.slice(-1)) + 1;
+                    break;
+            }
+
+            var nextCell = document.getElementById('cell' + nextCellId);
+
+            if (nextCell) {
+                celulaAtual = nextCell;
+                centerImage(celulaAtual);
+            } else {
+                centerImage(celulaAtual);
+                contadorCima = 0;
+                contadorBaixo = 0;
+                contadorEsquerda = 0;
+                contadorDireita = 0;
+            }
+        };
+
+        var contadorCima = 0;
+        var contadorBaixo = 0;
+        var contadorEsquerda = 0;
+        var contadorDireita = 0;
+
+        document.addEventListener('keydown', function (e) {
+            imagem.style.transition = 'left 0.5s, top 0.5s';
+            contador++;
+            var x = parseInt(imagem.style.left, 10);
+            var y = parseInt(imagem.style.top, 10);
+            var step = 8;
+
+
+            switch (e.key) {
+
+                case 'ArrowUp':
+
+                    teclaLevantada('ArrowUp');
+
+                    if (teclaPressionada) {
+                        teclaPressionadaFuction('ArrowDown');
+                    } else {
+
+                        y -= step;
+                        contadorCima++;
+                        if (contadorBaixo != 0) {
+                            contadorBaixo--;
+                        }
+                        if (contadorCima < 2) {
+                            moverSeta();
+
+                        } else {
+                            moveImageToNextCell('ArrowUp');
+                        }
+                    }
+                    break;
+                case 'ArrowDown':
+
+
+                    teclaLevantada('ArrowDown');
+
+                    if (teclaPressionada) {
+                        teclaPressionadaFuction('ArrowDown');
+                    } else {
+
+                        y += step;
+                        if (contadorCima != 0) {
+                            contadorCima--;
+                        }
+                        contadorBaixo++;
+                        if (contadorBaixo < 2) {
+                            moverSeta();
+                        } else {
+                            moveImageToNextCell('ArrowDown');
+                        }
+                    }
+                    break;
+                case 'ArrowLeft':
+
+
+                    teclaLevantada('ArrowLeft');
+
+                    if (teclaPressionada) {
+                        teclaPressionadaFuction('ArrowLeft');
+                    } else {
+
+                        x -= step;
+                        contadorEsquerda++;
+                        if (contadorDireita != 0) {
+                            contadorDireita--;
+                        }
+                        if (contadorEsquerda < 2) {
+                            moverSeta();
+                        } else {
+                            moveImageToNextCell('ArrowLeft');
+                        }
+
+                    }
+                    break;
+                case 'ArrowRight':
+
+                    teclaPressionadaFuction('ArrowRight');
+                    teclaLevantada('ArrowRight');
+
+                    if (teclaPressionada) {
+                        moveImageToNextCell('ArrowRight')
+                    } else {
+
+                        x += step;
+                        if (contadorEsquerda != 0) {
+                            contadorEsquerda--;
+                        }
+                        contadorDireita++;
+                        if (contadorDireita < 2) {
+                            moverSeta();
+                        } else {
+                            moveImageToNextCell('ArrowRight');
+                        }
+                    }
+
+                    break;
+            }
+
+            function moverSeta() {
+                imagem.style.left = x + '%';
+                imagem.style.top = y + '%';
+
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function () {
+
+                    centerImage(celulaAtual);
+                    contadorCima = 0;
+                    contadorBaixo = 0;
+                    contadorEsquerda = 0;
+                    contadorDireita = 0;
+
+                }, 500);
+            }
+
+            console.log(contadorCima);
+            console.log(contadorBaixo);
+            console.log(contadorEsquerda);
+            console.log(contadorDireita);
+
+        });
+
+        var teclaPressionada = false;
+        var verificarTeclaInterval;
+
+        function teclaPressionadaFuction(tecla) {
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === tecla) {
+                    teclaPressionada = true;
+                    // Inicia um intervalo para verificar continuamente a tecla
+                    verificarTeclaInterval = setInterval(moveImageToNextCell(tecla), 10); // 100 milissegundos (ajuste conforme necessário)
+                }
+            });
+        }
+
+        function teclaLevantada(tecla) {
+            document.addEventListener('keyup', function (event) {
+                if (event.key === tecla) {
+                    teclaPressionada = false;
+                    // Para o intervalo quando a tecla é liberada
+                    clearInterval(verificarTeclaInterval);
+                }
+            });
+        }
+
+    </script>
+</body>
+
+</html>

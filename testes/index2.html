@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #follow-image {
+            position: absolute;
+            z-index: -1;
+            width: 5%;
+            height: 5%;
+            transition: left 0.5s, top 0.5s;
+            /* Adiciona transição para suavizar o movimento */
+        }
+
+        .normal {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgb(29, 28, 28);
+            position: relative;
+            z-index: 10;
+        }
+
+        .conteudo {
+            cursor: none;
+        }
+
+        .superior-esrquedo,
+        .superior-direito,
+        .inferior-esrquedo,
+        .inferior-direito {
+            background-image: url(./seletorAzul.png);
+            background-repeat: no-repeat;
+            background-size: 75%;
+            width: 50%;
+            height: 50%;
+            position: absolute;
+        }
+
+        #conteudo1 {
+            z-index: 5;
+            transition: left 2s, top 2s;
+        }
+
+        .superior-direito {
+            background-position: left top;
+            transform: scaleX(-1);
+            right: 0;
+        }
+
+        .inferior-esrquedo {
+            transform: scaleY(-1);
+            bottom: 0;
+        }
+
+        .inferior-direito {
+            background-position: left top;
+            transform: scale(-1);
+            right: 0;
+            bottom: 0;
+        }
+
+        .tabuleiro {
+            box-sizing: border-box;
+            width: 50%;
+            height: 50%;
+            border: 1px solid black;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .cell {
+            box-sizing: border-box;
+            width: 50%;
+            height: 50%;
+            border: 1px solid black;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="follow-image" src="seletorTrianguloAzul.png" alt="Imagem a seguir o mouse">
+
+    <div class="tabuleiro normal conteudo" id="conteudo2">
+        <div class="cell" id="cell1">
+            <div id="conteudo1">
+                <div class="superior-esrquedo"></div>
+                <div class="superior-direito"></div>
+                <div class="inferior-esrquedo"></div>
+                <div class="inferior-direito"></div>
+            </div>
+        </div>
+        <div class="cell" id="cell2"></div>
+        <div class="cell" id="cell3"></div>
+        <div class="cell" id="cell4"></div>
+    </div>
+
+    <script>
+        var imagem = document.getElementById('follow-image');
+        var conteudo1 = document.getElementById('conteudo1');
+        var cells = document.querySelectorAll('.cell');
+        var celulaAtual = document.getElementById('cell1');
+        var timeoutId;
+
+        var centerImage = function (container) {
+       
+            var rect = container.getBoundingClientRect();
+            var x = rect.left + (rect.width - imagem.width) / 2;
+            var y = rect.top;
+
+            imagem.style.left = x + 'px';
+            imagem.style.top = y + 'px';
+        };
+
+        cells.forEach(function (cell) {
+            cell.addEventListener('mouseenter', function () {
+                // Mova a div conteudo1 para a célula atual
+                celulaAtual = cell;
+                cell.appendChild(conteudo1);
+                centerImage(celulaAtual);
+            });
+        });
+
+        centerImage(celulaAtual);
+
+       
+    </script>
+</body>
+
+</html>
