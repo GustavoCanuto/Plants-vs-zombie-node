@@ -101,7 +101,7 @@
         #conteudo1 {
 
             z-index: 5;
-            transition: left 2s, top 2s;
+
             /* Remova a propriedade position: relative; */
             position: absolute;
             /* Adicione position: absolute; */
@@ -147,6 +147,7 @@
 
 
         <div class="tabuleiro normal conteudo board" id="conteudo2">
+
 
 
             <div class="row linha1">
@@ -233,9 +234,28 @@
 
     <script>
         let analogThreshold = 0.3; // Limiar para considerar movimento do analógico
-        let analogMoveSpeed = 0.2; // Velocidade de movimento do analógico
-        let analogMoveX = 0;
-        let analogMoveY = 0;
+        let analogMoveSpeed = 0.3; // Velocidade de movimento do analógico
+
+        var teste = true;
+
+        const rect = celulaAtual.getBoundingClientRect();
+        const mainRect = main.getBoundingClientRect();
+        const centerXPercentage =
+            ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
+                mainRect.width) *
+            100;
+        const centerYPercentage =
+            ((rect.top - mainRect.top) / mainRect.height) * 100;
+
+
+
+        let analogMoveX = centerXPercentage;
+        let analogMoveY = centerYPercentage;
+
+        var moveTimeout2;
+
+
+
 
 
 
@@ -245,153 +265,205 @@
                 Math.abs(gamepad.axes[0]) > analogThreshold ||
                 Math.abs(gamepad.axes[1]) > analogThreshold
             ) {
-                // Ajuste dos valores do analógico para a movimentação da imagem
                 analogMoveX += gamepad.axes[0] * analogMoveSpeed;
                 analogMoveY += gamepad.axes[1] * analogMoveSpeed;
 
-                // Calculate the center of the current cell in percentages
-                const rect = celulaAtual.getBoundingClientRect();
-                const mainRect = main.getBoundingClientRect();
-                const centerXPercentage =
-                    ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
-                        mainRect.width) *
-                    100;
-                const centerYPercentage =
-                    ((rect.top - mainRect.top) / mainRect.height) * 100;
 
-                // Adjust the starting position of the image based on the center of the current cell
-
-                // Verifica se a imagem está dentro dos limites da div celulaatual
-                // analogMoveX = Math.min(Math.max(x, 0), tamanhoCelulaAtual);
-                // analogMoveY = Math.min(Math.max(y, 0), tamanhoCelulaAtual);
-
-                analogMoveX = Math.min(Math.max(analogMoveX, -3.1), 3.1);
-                analogMoveY = Math.min(Math.max(analogMoveY, -1.1), 8.1);
-
-
-                imagem.style.left = `${centerXPercentage + analogMoveX}%`;
-                imagem.style.top = `${centerYPercentage + analogMoveY}%`;
-
+                // Converte as porcentagens para pixels
                 var rect3 = conteudo2.getBoundingClientRect();
+
                 var rectImage = imagem.getBoundingClientRect();
 
+                // Convertendo a porcentagem para pixels
+                var marginPercentLeft = (rect3.width * 10) / 100;
+                var marginPercentBottom = (rect3.height * 8) / 100;
+
                 var isInsideContent2 = (
-                    rectImage.left >= rect3.left &&
+                    rectImage.left >= rect3.left + marginPercentLeft &&
                     rectImage.right <= rect3.right &&
                     rectImage.top >= rect3.top &&
-                    rectImage.bottom <= rect3.bottom
+                    rectImage.bottom <= rect3.bottom - marginPercentBottom
                 );
 
 
 
-                // Verifique se a movimentação do analógico passou de certo número
+
+                // Limita o movimento dentro de conteudo2
+                analogMoveX = Math.min(Math.max(analogMoveX, 17.5), 75.5);
+                analogMoveY = Math.min(Math.max(analogMoveY, 11.5), 85);
 
 
+
+
+                imagem.style.left = `${analogMoveX}%`;
+                imagem.style.top = `${analogMoveY}%`;
+
+
+
+                var rect4 = celulaAtual.getBoundingClientRect();
+
+
+                // Convertendo a porcentagem para pixels
+                var marginPercentBottom5 = (rect4.height * 30) / 100;
+
+                var isInsideContent3 = (
+                    rectImage.left >= rect4.left &&
+                    rectImage.right <= rect4.right &&
+                    rectImage.top >= rect4.top &&
+                    rectImage.bottom <= rect4.bottom - marginPercentBottom5
+                );
+
+                if (!isInsideContent3) {
+
+                    console.log("esquedar celula Atual: " + rect4.left)
+                    console.log("esquedar tabuleiro: " + rect3.left)
+                    console.log(rectImage.left)
+                    console.log("direta celula Atual: " + rect4.right)
+                    console.log("direita tabuleiro: " + rect3.right)
+                    console.log(rectImage.right)
+                    console.log("top celula Atual: " + rect4.top)
+                    console.log("top tabuleiro: " + rect3.top)
+                    console.log(rectImage.top)
+                    console.log("botom celula Atual: " + (rect4.bottom - marginPercentBottom5))
+                    console.log(rectImage.bottom)
+                }
                 // Envie para a próxima célula (chame a função moveContent com a direção desejada)
-                if (analogMoveX > 3) {
+
+
+                if (!isInsideContent3) {
+
+                    console.log(teste)
+
+                    if (teste) {
+
+                        if (rectImage.top < (rect4.top - (rect4.height * 10) / 100) && rectImage.top > rect3.top) {
+
+
+                            if (rectImage.right > rect4.right - (rect4.width * 20) / 100 && rectImage.right < rect3.right) {
+                                moveContent('arrowupright');
+                            }
+                            else if (rectImage.left < rect4.left + (rect4.width * 20) / 100 && rectImage.left > rect3.left + marginPercentLeft) {
+                                moveContent('arrowupleft');
 
 
 
-                    if (analogMoveY > 5) {
+                            }
+                            else {
+                                moveContent('arrowup');
+                            }
 
-                        if (cellIndex != 9 || rowIndex != 5) {
 
-                            moveContent('arrowdownright');
+
+
+                            const rect = celulaAtual.getBoundingClientRect();
+                            const mainRect = main.getBoundingClientRect();
+                            const centerYPercentage =
+                                ((rect.top - mainRect.top + rect.height / 2 - imagem.height / 2) /
+                                    mainRect.height) *
+                                100;
+
+
+
+                            const centerXPercentage =
+                                ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
+                                    mainRect.width) *
+                                100;
+
+
+
+
+
+                            analogMoveY = centerYPercentage;
+
+
+
+
+
 
                         }
 
 
-                    } else if (analogMoveY < -0.4) {
+                        else if (rectImage.bottom > rect4.bottom - marginPercentBottom5) {
 
-                        if (cellIndex != 9 || rowIndex != 1) {
+                            // Adjust the starting position of the image based on the center of the current cell
 
-                            moveContent('arrowupright');
+                            // Verifica se a imagem está dentro dos limites da div celulaatual
+                            // analogMoveX = Math.min(Math.max(x, 0), tamanhoCelulaAtual);
+                            // analogMoveY = Math.min(Math.max(y, 0), tamanhoCelulaAtual);
+
+                            if (rectImage.right > rect4.right && rectImage.right < rect3.right) {
+                                moveContent('arrowdownright');
+                            }
+                            else if (rectImage.left < rect4.left && rectImage.left > rect3.left + marginPercentLeft) {
+                                moveContent('arrowdownleft');
+
+
+
+                            }
+                            else {
+                                moveContent('arrowdown');
+                            }
+
+
+
+
+
+
+
+
+                            const rect = celulaAtual.getBoundingClientRect();
+                            const mainRect = main.getBoundingClientRect();
+
+                            const centerYPercentage =
+                                ((rect.top - mainRect.top) / mainRect.height) * 100;
+
+
+
+
+                            const centerXPercentage =
+                                ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
+                                    mainRect.width) *
+                                100;
+
+
+                            analogMoveY = centerYPercentage;
+
+
+
+
+
+
+
 
                         }
+                        else if (rectImage.right > rect4.right && rectImage.right < rect3.right) {
 
-                    } else {
 
-
-                        if (cellIndex != 9) {
 
                             moveContent('arrowright');
 
-                        }
-
-                    }
 
 
 
-                } else if (analogMoveX < -3) {
+                        } else if (rectImage.left < rect4.left && rectImage.left > rect3.left + marginPercentLeft) {
 
-
-
-                    if (analogMoveY > 5) {
-
-
-                        if (cellIndex != 1 || rowIndex != 5) {
-
-                            moveContent('arrowdownleft');
-
-                        }
-
-
-                    } else if (analogMoveY < -0.4) {
-
-                        if (cellIndex != 1 || rowIndex != 1) {
-
-                            moveContent('arrowupleft');
-
-                        }
-
-
-                    } else {
-
-                        if (cellIndex != 1) {
-
-                            
                             moveContent('arrowleft');
 
                         }
 
-                    }
 
 
 
 
-                } else if (analogMoveY > 8) {
 
-                    if (rowIndex != 5) {
-
-                        moveContent('arrowdown');
 
                     }
-
-
-                } else if (analogMoveY < -1) {
-
-                    if (rowIndex != 1) {
-
-                        moveContent('arrowup');
-
-                    }
-
 
                 }
-
-
-
-
             }
-
-
-
 
             else {
 
-                // Ajuste dos valores do analógico para a movimentação da imagem
-                analogMoveX += gamepad.axes[0] * analogMoveSpeed;
-                analogMoveY += gamepad.axes[1] * analogMoveSpeed;
 
                 // Calculate the center of the current cell in percentages
                 const rect = celulaAtual.getBoundingClientRect();
@@ -408,13 +480,10 @@
                 // Verifica se a imagem está dentro dos limites da div celulaatual
                 // analogMoveX = Math.min(Math.max(x, 0), tamanhoCelulaAtual);
                 // analogMoveY = Math.min(Math.max(y, 0), tamanhoCelulaAtual);
+                centerImage(celulaAtual);
 
-
-                imagem.style.left = `${centerXPercentage + analogMoveX}%`;
-                imagem.style.top = `${centerYPercentage + analogMoveY}%`;
-
-                analogMoveX = 0;
-                analogMoveY = 0;
+                analogMoveX = centerXPercentage;
+                analogMoveY = centerYPercentage;
             }
         }
 
@@ -440,6 +509,9 @@
 
 
         handleGamepad();
+
+
+
     </script>
 </body>
 
