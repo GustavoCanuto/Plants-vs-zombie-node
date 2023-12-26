@@ -44,14 +44,20 @@
 
                     verificador = 1;
                     const prevConteudo1 = conteudo1.cloneNode(true);
+
+                    setTimeout(function () {
                     cell.appendChild(prevConteudo1);
+
+                  
                     prevConteudo1.style.opacity = '0.3';
+                }, 130);
+
                     setTimeout(function () {
                         cell.appendChild(conteudo1);
                         verificador = 2;
                         conteudo1.style.opacity = '1';
                         cell.removeChild(prevConteudo1);
-                    }, 63);
+                    }, 150);
 
                     celulaAnterior = celulaAtual;
 
