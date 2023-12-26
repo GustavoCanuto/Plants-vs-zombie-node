@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        body {
+
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+        }
+
+        main {
+            border: 1px solid rgb(95, 95, 95);
+            width: 100%;
+            aspect-ratio: 1275/590;
+            /* width: 1275px;
+             height: 590px; */
+            position: fixed;
+            background-color: white;
+
+        }
+
+
+        .board {
+            box-sizing: border-box;
+            position: absolute;
+            left: 13%;
+            top: 14%;
+            width: 62%;
+            height: 80%;
+
+            border: 1px solid red;
+
+        }
+
+        /* Estilos para as células do tabuleiro */
+        .cell {
+            box-sizing: border-box;
+            border: 1px solid rgb(0, 68, 255);
+            width: 10%;
+            height: 100%;
+            position: relative;
+
+        }
+
+        .row {
+            box-sizing: border-box;
+            width: 100%;
+            height: 20%;
+            display: flex;
+
+        }
+
+
+
+        /* Controle mouse  */
+
+
+        #follow-image {
+            position: absolute;
+            z-index: -1;
+            width: 2.1%;
+            height: 2.1%;
+            transition: left 0.05s, top 0.05s;
+            /* Adiciona transição para suavizar o movimento */
+        }
+
+
+
+
+        .superior-esrquedo,
+        .superior-direito,
+        .inferior-esrquedo,
+        .inferior-direito {
+            background-image: url(../seletorAzul.png);
+            background-repeat: no-repeat;
+            background-size: 65%;
+            width: 50%;
+            height: 50%;
+            position: absolute;
+        }
+
+        #conteudo1 {
+
+            z-index: 5;
+            transition: left 2s, top 2s;
+            /* Remova a propriedade position: relative; */
+            position: absolute;
+            /* Adicione position: absolute; */
+            left: 0;
+            /* Adicione left: 0; */
+            top: 0;
+            /* Adicione top: 0; */
+            width: 100%;
+            /* Adicione width: 100%; */
+            height: 100%;
+            /* Adicione height: 100%; */
+            border: 1px solid green;
+        }
+
+        .superior-direito {
+            background-position: left top;
+            transform: scaleX(-1);
+            right: 0;
+        }
+
+        .inferior-esrquedo {
+            transform: scaleY(-1);
+            bottom: 0;
+        }
+
+        .inferior-direito {
+            background-position: left top;
+            transform: scale(-1);
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <main>
+
+        <img id="follow-image" src="../seletorTrianguloAzul.png" alt="Imagem a seguir o mouse">
+
+
+
+        <div class="tabuleiro normal conteudo board" id="conteudo2">
+
+
+            <div class="row linha1">
+                <div class="cell grass-cutter">C</div>
+
+                <div class="cell plant" id="cell1">
+
+
+                    <div id="conteudo1">
+                        <div class="superior-esrquedo"></div>
+                        <div class="superior-direito"></div>
+                        <div class="inferior-esrquedo"></div>
+                        <div class="inferior-direito"></div>
+                    </div>
+
+                </div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell zombie">Z</div>
+                <div class="cell">-</div>
+            </div>
+            <div class="row linha2">
+                <div class="cell grass-cutter">C</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+            </div>
+            <div class="row linha3">
+                <div class="cell grass-cutter">C</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+            </div>
+            <div class="row linha4">
+                <div class="cell grass-cutter">C</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+            </div>
+            <div class="row linha5">
+                <div class="cell grass-cutter">C</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+                <div class="cell">-</div>
+            </div>
+        </div>
+
+    </main>
+
+
+    <script src="mouse.js"></script>
+    <script src="teclado.js"></script>
+
+
+
+
+    <script>
+        let analogThreshold = 0.3; // Limiar para considerar movimento do analógico
+        let analogMoveSpeed = 0.2; // Velocidade de movimento do analógico
+        let analogMoveX = 0;
+        let analogMoveY = 0;
+
+
+
+
+        function updateImagePosition(gamepad) {
+            if (
+                Math.abs(gamepad.axes[0]) > analogThreshold ||
+                Math.abs(gamepad.axes[1]) > analogThreshold
+            ) {
+                // Ajuste dos valores do analógico para a movimentação da imagem
+                analogMoveX += gamepad.axes[0] * analogMoveSpeed;
+                analogMoveY += gamepad.axes[1] * analogMoveSpeed;
+
+                // Calculate the center of the current cell in percentages
+                const rect = celulaAtual.getBoundingClientRect();
+                const mainRect = main.getBoundingClientRect();
+                const centerXPercentage =
+                    ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
+                        mainRect.width) *
+                    100;
+                const centerYPercentage =
+                    ((rect.top - mainRect.top) / mainRect.height) * 100;
+
+                // Adjust the starting position of the image based on the center of the current cell
+
+                // Verifica se a imagem está dentro dos limites da div celulaatual
+                // analogMoveX = Math.min(Math.max(x, 0), tamanhoCelulaAtual);
+                // analogMoveY = Math.min(Math.max(y, 0), tamanhoCelulaAtual);
+
+                analogMoveX = Math.min(Math.max(analogMoveX, -3.1), 3.1);
+                analogMoveY = Math.min(Math.max(analogMoveY, -1.1), 8.1);
+
+
+                imagem.style.left = `${centerXPercentage + analogMoveX}%`;
+                imagem.style.top = `${centerYPercentage + analogMoveY}%`;
+
+                var rect3 = conteudo2.getBoundingClientRect();
+                var rectImage = imagem.getBoundingClientRect();
+
+                var isInsideContent2 = (
+                    rectImage.left >= rect3.left &&
+                    rectImage.right <= rect3.right &&
+                    rectImage.top >= rect3.top &&
+                    rectImage.bottom <= rect3.bottom
+                );
+
+
+
+                // Verifique se a movimentação do analógico passou de certo número
+
+
+                // Envie para a próxima célula (chame a função moveContent com a direção desejada)
+                if (analogMoveX > 3) {
+
+
+
+                    if (analogMoveY > 5) {
+
+                        if (cellIndex != 9 || rowIndex != 5) {
+
+                            moveContent('arrowdownright');
+
+                        }
+
+
+                    } else if (analogMoveY < -0.4) {
+
+                        if (cellIndex != 9 || rowIndex != 1) {
+
+                            moveContent('arrowupright');
+
+                        }
+
+                    } else {
+
+
+                        if (cellIndex != 9) {
+
+                            moveContent('arrowright');
+
+                        }
+
+                    }
+
+
+
+                } else if (analogMoveX < -3) {
+
+
+
+                    if (analogMoveY > 5) {
+
+
+                        if (cellIndex != 1 || rowIndex != 5) {
+
+                            moveContent('arrowdownleft');
+
+                        }
+
+
+                    } else if (analogMoveY < -0.4) {
+
+                        if (cellIndex != 1 || rowIndex != 1) {
+
+                            moveContent('arrowupleft');
+
+                        }
+
+
+                    } else {
+
+                        if (cellIndex != 1) {
+
+                            
+                            moveContent('arrowleft');
+
+                        }
+
+                    }
+
+
+
+
+                } else if (analogMoveY > 8) {
+
+                    if (rowIndex != 5) {
+
+                        moveContent('arrowdown');
+
+                    }
+
+
+                } else if (analogMoveY < -1) {
+
+                    if (rowIndex != 1) {
+
+                        moveContent('arrowup');
+
+                    }
+
+
+                }
+
+
+
+
+            }
+
+
+
+
+            else {
+
+                // Ajuste dos valores do analógico para a movimentação da imagem
+                analogMoveX += gamepad.axes[0] * analogMoveSpeed;
+                analogMoveY += gamepad.axes[1] * analogMoveSpeed;
+
+                // Calculate the center of the current cell in percentages
+                const rect = celulaAtual.getBoundingClientRect();
+                const mainRect = main.getBoundingClientRect();
+                const centerXPercentage =
+                    ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
+                        mainRect.width) *
+                    100;
+                const centerYPercentage =
+                    ((rect.top - mainRect.top) / mainRect.height) * 100;
+
+                // Adjust the starting position of the image based on the center of the current cell
+
+                // Verifica se a imagem está dentro dos limites da div celulaatual
+                // analogMoveX = Math.min(Math.max(x, 0), tamanhoCelulaAtual);
+                // analogMoveY = Math.min(Math.max(y, 0), tamanhoCelulaAtual);
+
+
+                imagem.style.left = `${centerXPercentage + analogMoveX}%`;
+                imagem.style.top = `${centerYPercentage + analogMoveY}%`;
+
+                analogMoveX = 0;
+                analogMoveY = 0;
+            }
+        }
+
+        function handleGamepad() {
+            const gamepads = navigator.getGamepads();
+            const gamepad = gamepads[0];
+
+            if (gamepad) {
+                updateImagePosition(gamepad);
+            }
+
+            requestAnimationFrame(handleGamepad);
+        }
+
+        window.addEventListener('gamepadconnected', (event) => {
+            console.log(`Gamepad connected at index ${event.gamepad.index}`);
+            handleGamepad();
+        });
+
+        window.addEventListener('gamepaddisconnected', (event) => {
+            console.log(`Gamepad disconnected from index ${event.gamepad.index}`);
+        });
+
+
+        handleGamepad();
+    </script>
+</body>
+
+</html>

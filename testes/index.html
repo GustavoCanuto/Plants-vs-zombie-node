@@ -111,9 +111,9 @@
             </div>
         </div>
 
-        <div class="cell" id="cell2"></div>
-        <div class="cell" id="cell3"></div>
-        <div class="cell" id="cell4"></div>
+        <div class="cell" id="cell2">x</div>
+        <div class="cell" id="cell3">-</div>
+        <div class="cell" id="cell4">d</div>
     </div>
 
     <script>
@@ -195,37 +195,6 @@
         });
 
 
-        //usando teclado 
-
-        document.addEventListener('keydown', function (e) {
-
-            imagem.style.transition = 'left 0.5s, top 0.5s';
-
-            var x = parseInt(imagem.style.left, 10);
-            var y = parseInt(imagem.style.top, 10);
-            var step = 100; // Ajuste conforme necessário
-
-            switch (e.key) {
-                case 'ArrowUp':
-                    y -= step;
-                    break;
-                case 'ArrowDown':
-                    y += step;
-                    break;
-                case 'ArrowLeft':
-                    x -= step;
-                    break;
-                case 'ArrowRight':
-                    x += step;
-                    break;
-            }
-
-            imagem.style.left = x + 'px';
-            imagem.style.top = y + 'px';
-
-            // Certifique-se de centralizar a imagem na célula atual se estiver dentro do tabuleiro
-
-        });
 
     </script>
 
