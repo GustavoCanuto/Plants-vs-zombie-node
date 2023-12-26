@@ -6,8 +6,9 @@ document.addEventListener('keydown', function (e) {
 var rowIndex = 1;
 var cellIndex = 1;
 
+var moveTimeout; 
 function moveContent(direction) {
-  
+
     rowIndex = celulaAtual.parentElement.classList[1].replace('linha', '');
     cellIndex = Array.from(celulaAtual.parentElement.children).indexOf(celulaAtual);
 
@@ -21,11 +22,11 @@ function moveContent(direction) {
             break;
         case 'arrowleft':
             cellIndex = Math.max(1, cellIndex - 1);
-         
+
             break;
         case 'arrowright':
             cellIndex = Math.min(9, cellIndex + 1);
-          
+
             break;
         case 'arrowupleft':
             rowIndex = Math.max(1, parseInt(rowIndex) - 1);
@@ -49,26 +50,30 @@ function moveContent(direction) {
     var targetCell = targetRow.children[cellIndex];
 
 
-
     if (!targetCell.classList.contains('grass-cutter')) {
 
-
-        setTimeout(function () {
+        clearTimeout(moveTimeout);
+     
+       moveTimeout =  setTimeout(function () {
+        
             targetCell.appendChild(conteudo1);
             conteudo1.style.opacity = '1';
-            centerImage(celulaAtual);
-            console.log("Oi")
-        }, 80);
+
+
+        }, 30);
 
         celulaAnterior = celulaAtual;
         celulaAtual = targetCell;
 
-     
+
+
+
 
     }
 
-    analogMoveX = 0;
-    analogMoveY = 0;
 
-    
+
+
+
+
 }
