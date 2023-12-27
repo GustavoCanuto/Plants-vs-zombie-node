@@ -6,6 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        @keyframes bounceAnimation {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15%);
+            }
+        }
+
+        @keyframes seletorAnimation {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-1%);
+            }
+        }
+
+
+
+
+        #conteudo1 {
+            animation: seletorAnimation 1.5s infinite;
+            /* Adicione qualquer outra propriedade que desejar */
+
+
+        }
+
+
+        #follow-image {
+            animation: bounceAnimation 0.8s infinite;
+        }
+
+
+
         * {
             margin: 0px;
             padding: 0px;
@@ -77,8 +118,9 @@
         #follow-image {
             position: absolute;
             z-index: -1;
-            width: 2.1%;
-            height: 2.1%;
+            width: 2.4%;
+            height: 2.5%;
+
             transition: left 0.05s, top 0.05s;
             /* Adiciona transição para suavizar o movimento */
         }
@@ -93,8 +135,8 @@
             background-image: url(../seletorAzul.png);
             background-repeat: no-repeat;
             background-size: 65%;
-            width: 50%;
-            height: 50%;
+            width: 60%;
+            height: 80%;
             position: absolute;
         }
 
@@ -109,11 +151,12 @@
             /* Adicione left: 0; */
             top: 0;
             /* Adicione top: 0; */
-            width: 100%;
+            width: 98%;
             /* Adicione width: 100%; */
-            height: 100%;
+            height: 96%;
             /* Adicione height: 100%; */
-            border: 1px solid green;
+            margin-top: 3%;
+
         }
 
         .superior-direito {
@@ -225,292 +268,11 @@
 
     </main>
 
-
     <script src="mouse.js"></script>
     <script src="teclado.js"></script>
-
-
-
+    <script src="controle.js"></script>
 
     <script>
-        let analogThreshold = 0.3; // Limiar para considerar movimento do analógico
-        let analogMoveSpeed = 0.3; // Velocidade de movimento do analógico
-
-        var teste = true;
-
-        const rect = celulaAtual.getBoundingClientRect();
-        const mainRect = main.getBoundingClientRect();
-        const centerXPercentage =
-            ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
-                mainRect.width) *
-            100;
-        const centerYPercentage =
-            ((rect.top - mainRect.top) / mainRect.height) * 100;
-
-
-
-        let analogMoveX = centerXPercentage;
-        let analogMoveY = centerYPercentage;
-
-        var moveTimeout2;
-
-
-
-
-
-
-
-        function updateImagePosition(gamepad) {
-            if (
-                Math.abs(gamepad.axes[0]) > analogThreshold ||
-                Math.abs(gamepad.axes[1]) > analogThreshold
-            ) {
-                analogMoveX += gamepad.axes[0] * analogMoveSpeed;
-                analogMoveY += gamepad.axes[1] * analogMoveSpeed;
-
-
-                // Converte as porcentagens para pixels
-                var rect3 = conteudo2.getBoundingClientRect();
-
-                var rectImage = imagem.getBoundingClientRect();
-
-                // Convertendo a porcentagem para pixels
-                var marginPercentLeft = (rect3.width * 10) / 100;
-                var marginPercentBottom = (rect3.height * 8) / 100;
-
-                var isInsideContent2 = (
-                    rectImage.left >= rect3.left + marginPercentLeft &&
-                    rectImage.right <= rect3.right &&
-                    rectImage.top >= rect3.top &&
-                    rectImage.bottom <= rect3.bottom - marginPercentBottom
-                );
-
-
-
-
-                // Limita o movimento dentro de conteudo2
-                analogMoveX = Math.min(Math.max(analogMoveX, 17.5), 75.5);
-                analogMoveY = Math.min(Math.max(analogMoveY, 11.5), 85);
-
-
-
-
-                imagem.style.left = `${analogMoveX}%`;
-                imagem.style.top = `${analogMoveY}%`;
-
-
-
-                var rect4 = celulaAtual.getBoundingClientRect();
-
-
-                // Convertendo a porcentagem para pixels
-                var marginPercentBottom5 = (rect4.height * 30) / 100;
-
-                var isInsideContent3 = (
-                    rectImage.left >= rect4.left &&
-                    rectImage.right <= rect4.right &&
-                    rectImage.top >= rect4.top &&
-                    rectImage.bottom <= rect4.bottom - marginPercentBottom5
-                );
-
-                if (!isInsideContent3) {
-
-                    console.log("esquedar celula Atual: " + rect4.left)
-                    console.log("esquedar tabuleiro: " + rect3.left)
-                    console.log(rectImage.left)
-                    console.log("direta celula Atual: " + rect4.right)
-                    console.log("direita tabuleiro: " + rect3.right)
-                    console.log(rectImage.right)
-                    console.log("top celula Atual: " + rect4.top)
-                    console.log("top tabuleiro: " + rect3.top)
-                    console.log(rectImage.top)
-                    console.log("botom celula Atual: " + (rect4.bottom - marginPercentBottom5))
-                    console.log(rectImage.bottom)
-                }
-                // Envie para a próxima célula (chame a função moveContent com a direção desejada)
-
-
-                if (!isInsideContent3) {
-
-                    console.log(teste)
-
-                    if (teste) {
-
-                        if (rectImage.top < (rect4.top - (rect4.height * 10) / 100) && rectImage.top > rect3.top) {
-
-
-                            if (rectImage.right > rect4.right - (rect4.width * 20) / 100 && rectImage.right < rect3.right) {
-                                moveContent('arrowupright');
-                            }
-                            else if (rectImage.left < rect4.left + (rect4.width * 20) / 100 && rectImage.left > rect3.left + marginPercentLeft) {
-                                moveContent('arrowupleft');
-
-
-
-                            }
-                            else {
-                                moveContent('arrowup');
-                            }
-
-
-
-
-                            const rect = celulaAtual.getBoundingClientRect();
-                            const mainRect = main.getBoundingClientRect();
-                            const centerYPercentage =
-                                ((rect.top - mainRect.top + rect.height / 2 - imagem.height / 2) /
-                                    mainRect.height) *
-                                100;
-
-
-
-                            const centerXPercentage =
-                                ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
-                                    mainRect.width) *
-                                100;
-
-
-
-
-
-                            analogMoveY = centerYPercentage;
-
-
-
-
-
-
-                        }
-
-
-                        else if (rectImage.bottom > rect4.bottom - marginPercentBottom5) {
-
-                            // Adjust the starting position of the image based on the center of the current cell
-
-                            // Verifica se a imagem está dentro dos limites da div celulaatual
-                            // analogMoveX = Math.min(Math.max(x, 0), tamanhoCelulaAtual);
-                            // analogMoveY = Math.min(Math.max(y, 0), tamanhoCelulaAtual);
-
-                            if (rectImage.right > rect4.right && rectImage.right < rect3.right) {
-                                moveContent('arrowdownright');
-                            }
-                            else if (rectImage.left < rect4.left && rectImage.left > rect3.left + marginPercentLeft) {
-                                moveContent('arrowdownleft');
-
-
-
-                            }
-                            else {
-                                moveContent('arrowdown');
-                            }
-
-
-
-
-
-
-
-
-                            const rect = celulaAtual.getBoundingClientRect();
-                            const mainRect = main.getBoundingClientRect();
-
-                            const centerYPercentage =
-                                ((rect.top - mainRect.top) / mainRect.height) * 100;
-
-
-
-
-                            const centerXPercentage =
-                                ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
-                                    mainRect.width) *
-                                100;
-
-
-                            analogMoveY = centerYPercentage;
-
-
-
-
-
-
-
-
-                        }
-                        else if (rectImage.right > rect4.right && rectImage.right < rect3.right) {
-
-
-
-                            moveContent('arrowright');
-
-
-
-
-                        } else if (rectImage.left < rect4.left && rectImage.left > rect3.left + marginPercentLeft) {
-
-                            moveContent('arrowleft');
-
-                        }
-
-
-
-
-
-
-
-                    }
-
-                }
-            }
-
-            else {
-
-
-                // Calculate the center of the current cell in percentages
-                const rect = celulaAtual.getBoundingClientRect();
-                const mainRect = main.getBoundingClientRect();
-                const centerXPercentage =
-                    ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) /
-                        mainRect.width) *
-                    100;
-                const centerYPercentage =
-                    ((rect.top - mainRect.top) / mainRect.height) * 100;
-
-                // Adjust the starting position of the image based on the center of the current cell
-
-                // Verifica se a imagem está dentro dos limites da div celulaatual
-                // analogMoveX = Math.min(Math.max(x, 0), tamanhoCelulaAtual);
-                // analogMoveY = Math.min(Math.max(y, 0), tamanhoCelulaAtual);
-                centerImage(celulaAtual);
-
-                analogMoveX = centerXPercentage;
-                analogMoveY = centerYPercentage;
-            }
-        }
-
-        function handleGamepad() {
-            const gamepads = navigator.getGamepads();
-            const gamepad = gamepads[0];
-
-            if (gamepad) {
-                updateImagePosition(gamepad);
-            }
-
-            requestAnimationFrame(handleGamepad);
-        }
-
-        window.addEventListener('gamepadconnected', (event) => {
-            console.log(`Gamepad connected at index ${event.gamepad.index}`);
-            handleGamepad();
-        });
-
-        window.addEventListener('gamepaddisconnected', (event) => {
-            console.log(`Gamepad disconnected from index ${event.gamepad.index}`);
-        });
-
-
-        handleGamepad();
-
-
 
     </script>
 </body>
