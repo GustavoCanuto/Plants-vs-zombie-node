@@ -1,3 +1,5 @@
+const socket = io();
+
 const dragItems = document.querySelectorAll(".card");
 const dropBoxes = document.querySelectorAll(".cell");
 
@@ -63,22 +65,61 @@ function dragOver(ev){
     console.log("Dragging")
 }
 
-function dropEvent(ev){
+function dropEvent(ev) {
     ev.preventDefault();
-    this.classList.remove("enter");
+    this.classList.remove('enter');
 
     const imgSrc = ev.dataTransfer.getData('text/plain');
     const img = new Image();
     img.src = imgSrc;
 
-    console.log("Dropping");
-    const elemento = document.createElement("div");
-    elemento.className = "card";
-    elemento.appendChild(img);
-    this.appendChild(elemento);
+    const rowElement = ev.target.closest('.row');
+    const cellElement = ev.target.closest('.cell');
+
+    if (rowElement && cellElement) {
+        const rowIndex = Array.from(rowElement.parentNode.children).indexOf(rowElement);
+        const cellIndex = Array.from(rowElement.children).indexOf(cellElement);
+
+        const elemento = document.createElement('div');
+        elemento.className = 'card';
+        elemento.appendChild(img);
+        cellElement.appendChild(elemento);
+
+        socket.emit('draggedItem', { position: [rowIndex, cellIndex], imageSrc: imgSrc });
+    } else {
+        console.error('Não foi possível obter os índices do tabuleiro.');
+    }
 }
 
 function dragLeave(ev){
     ev.preventDefault();
     this.className = 'cell';
+}
+
+socket.on('itemPlaced', (data) => {
+    const [i, j] = data.position;
+    const cell = document.querySelector(`.linha${i + 1} .cell:nth-child(${j + 1})`);
+
+    if (data.imageSrc && data.imageSrc.includes('personagens/plants')) {
+        tabuleiro[i][j] = 'P';
+        const img = renderizarImagem('P');
+        cell.innerHTML = '';
+        cell.appendChild(img);
+    } else if (data.imageSrc && data.imageSrc.includes('personagens/zombies')) {
+        tabuleiro[i][j] = 'Z';
+        const img = renderizarImagem('Z');
+        cell.innerHTML = '';
+        cell.appendChild(img)
+    } else {
+    }
+});
+
+function renderizarImagem(type) {
+    const img = new Image();
+    if (type === 'P') {
+        img.src = '../../assets/img/personagens/plants/sunflower.png';
+    } else if (type === 'Z') {
+        img.src = '../../assets/img/personagens/zombies/zombie.png';
+    }
+    return img;
 }
