@@ -3,34 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Plantas vs. Zumbis</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="padrao.css">
-    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/css/padrao.css">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/cards.css">
 </head>
 <body>
 <main id="main">
+
+    <img id="follow-image" src="./seletorTrianguloAzul.png" alt="Imagem a seguir o mouse">
+    
     <div class="navbar">
-        <div class="style-resize" style="list-style-type: none">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div class="style-resize">
+            <div class="card sunflower" draggable="true"></div>
+            <div class="card peashooter" draggable="true"></div>
+            <div class="card showpea" draggable="true"></div>
+            <div class="card repeater" draggable="true"></div>
+            <div class="card wallnut" draggable="true"></div>
+            <div class="card cherrybomb" draggable="true"></div>
+            <div class="card potatomine" draggable="true"></div>
         </div>
-        <div class="style-resize" style="list-style-type: none">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div class="style-resize">
+            <div class="card cardtombstone" draggable="true"></div>
+            <div class="card zombies" draggable="true"></div>
+            <div class="card conehead" draggable="true"></div>
+            <div class="card buckethead" draggable="true"></div>
+            <div class="card flagzombie" draggable="true"></div>
+            <div class="card football" draggable="true"></div>
+            <div class="card screendoor" draggable="true"></div>
         </div>
     </div>
-    <div id="board"></div>
-    <script src="index.js"></script>
+    <div class="tabuleiro normal conteudo board" id="conteudo2"></div>
+    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/card.js"></script>   
+    <script src="./assets/js/mouse.js"></script>
+    <script src="./assets/js/teclado.js"></script>
+    <script src="./assets/js/controle.js"></script>
+
 </main>
 </body>
 </html>

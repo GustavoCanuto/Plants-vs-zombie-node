@@ -10,11 +10,6 @@ var moveTimeout;
 var moveTimeout2;
 var moveTimeout3;
 var apagado = true;
-var aux1;
-var aux2;
-var primeiraVez = true;
-
-var verificadorPrev = true;
 
 function moveContent(direction) {
 
@@ -62,53 +57,21 @@ function moveContent(direction) {
 
     if (!targetCell.classList.contains('grass-cutter')) {
 
-        
-
         celulaAnterior = celulaAtual;
         celulaAtual = targetCell;
-
-        const prevConteudo2 = conteudo1.cloneNode(true);
-        prevConteudo2.style.opacity = '0.11';
-
-        if (aux1 && aux2 && !(aux1.contains(aux2))) {
-            // alert("fui rapido")
-           
-            targetCell.appendChild(prevConteudo2);
-
-        }
-
-        aux1 = targetCell;
-        aux2 = prevConteudo2;
-
-        primeiraVez = false;
-
-        clearTimeout(moveTimeout);
   
+        clearTimeout(moveTimeout);
+
         moveTimeout = setTimeout(function () {
 
-            
 
             centerImage(celulaAtual);
 
             targetCell.appendChild(conteudo1);
 
-      
-
-           
-           
 
         }, 30);
 
-
-          setTimeout(function () {
-
-            if(targetCell.contains(prevConteudo2)){
-
-            targetCell.removeChild(prevConteudo2);
-
-            }
-
-         }, 3);
 
 
     }
