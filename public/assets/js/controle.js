@@ -80,7 +80,7 @@ function updateImagePosition(gamepad) {
 
         if (!isInsideContent3) {
 
-          
+       
 
             if (rectImage.top < (rect4.top - (rect4.height * 10) / 100) && rectImage.top > rect3.top) {
 
