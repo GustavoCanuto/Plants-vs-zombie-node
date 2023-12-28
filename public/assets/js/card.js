@@ -58,6 +58,7 @@ function dragOver(ev){
     }
 }
 
+
 function dropEvent(ev) {
     if(!this.classList.contains('ocupado')){
         ev.preventDefault();
