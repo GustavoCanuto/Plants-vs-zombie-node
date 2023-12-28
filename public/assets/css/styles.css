@@ -29,9 +29,7 @@
     animation: seletorAnimation 1.5s infinite;
     /* Adicione qualquer outra propriedade que desejar */
 
-
 }
-
 
 #follow-image {
     animation: bounceAnimation 0.8s infinite;
@@ -41,10 +39,10 @@
 .board {
     box-sizing: border-box;
     position: absolute;
-    left: 13%;
-    top: 14%;
-    width: 62%;
-    height: 80%;
+    left: 12%;
+    top: 16.8%;
+    width: 59%;
+    height: 77.4%;
 
     border: 1px solid red;
 
@@ -139,14 +137,47 @@
 
 /* cards para selecionar */
 
+.navbar-zombie{
+    gap: 1%;
+
+    background-image: url(../img/navBar/navBarZombie.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+
+.navbar-zombie > :first-child{
+margin-left: 3%;
+} 
+
+.navbar-planta{
+    gap: 1%; 
+
+    background-image: url(../img/navBar/navBarPlanta.png);
+    background-size: 100% 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+.navbar-planta > :first-child{
+    margin-left: 6.5%;
+}
+
+.navbar-planta >  div{
+    margin-top: 0.3%;
+   
+}
+
+
 .navbar {
     display: flex;
-    gap: 5%;
+    gap: 0.5%;
     position: absolute;
-    top: 3%;
-    left: 17%;
-    width: 60%;
-    height: 10%;
+    top: 2%;
+    left: 15%;
+    width: 61%;
+    height: 13%;
+    
 }
 
 .navbar .style-resize {
@@ -156,7 +187,7 @@
 }
 
 .style-resize > div {
-    width: 14%;
+    width: 10.3%;
     height: 100%;
     background-size: contain;
     background-repeat: no-repeat;
