@@ -17,8 +17,10 @@ function cancelarPendente(esse) {
 
     $(`.${idDoElementoPai}xy`).remove();
 
-    $(`#${idPai}`).closest('ol').addClass("clicavel");
+    $(`#${idPai}`).closest('ol').addClass("clicavel"); 
     atualizarClicavel();
+
+    $('.menssagens').css('display','none');
 
   
 }
