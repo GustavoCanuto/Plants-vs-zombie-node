@@ -43,8 +43,8 @@ function updateImagePosition(gamepad) {
 
 
         // Limita o movimento dentro de conteudo2
-        analogMoveX = Math.min(Math.max(analogMoveX, 17.5), 75.5);
-        analogMoveY = Math.min(Math.max(analogMoveY, 11.5), 85);
+        analogMoveX = Math.min(Math.max(analogMoveX, 15.5), 71.5);
+        analogMoveY = Math.min(Math.max(analogMoveY, 14.5), 85.5);
 
         imagem.style.left = `${analogMoveX}%`;
         imagem.style.top = `${analogMoveY}%`;

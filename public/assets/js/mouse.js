@@ -17,9 +17,6 @@ var isMouseActive = false;
 
 var centerImage = function (container) {
 
- 
-   
-
     if (!container.classList.contains('grass-cutter')) {
 
         var rect = container.getBoundingClientRect();
