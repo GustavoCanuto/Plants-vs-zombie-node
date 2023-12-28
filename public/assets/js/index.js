@@ -51,7 +51,7 @@ function mostrarTabuleiro() {
                 if (tabuleiro[i][j] === 'P') {
                     cell.classList.add('plant');
                 } else if (tabuleiro[i][j] === 'Z') {
-                    cell.classList.add('zombie');
+                    cell.classList.add('zombies');
                 } else if (tabuleiro[i][j] === 'C') {
                     cell.classList.add('grass-cutter');
                 }
