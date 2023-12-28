@@ -50,8 +50,9 @@ function renderusuarioDisconnect(usuario) {
 //renderizar convite
 function renderConvite(usuario) {
 
-  $(".mensagens").css("display", "block");
-  
+  $('.menssagens').css('display','block');
+ // alert("teste")
+
   let convite = `
     <p class="${usuario.id}xy ${usuario.id}"><strong>${usuario.nome} #${usuario.posicao}</strong>  convidou para jogar
         <button style="color: green; font-size: 1vw;" onclick="aceitarSolicitacao(this)">&#10003;</button>
