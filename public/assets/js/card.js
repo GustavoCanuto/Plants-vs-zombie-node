@@ -47,13 +47,21 @@ function dragStart(ev){
 }
 
 function dragOver(ev){
+    if (!this.classList.contains('grass-cutter')) {
     ev.preventDefault();
-    this.className += " enter";
-    console.log("Dragging")
+    const conteudo1 = document.getElementById('conteudo1');
+
+        if (conteudo1) {
+            this.appendChild(conteudo1);
+            centerImage(this);
+        }
+    }
 }
 
 function dropEvent(ev) {
-    ev.preventDefault();
+    if(!this.classList.contains('ocupado')){
+        ev.preventDefault();
+
     this.classList.remove('enter');
 
     const imgSrc = ev.dataTransfer.getData('text/plain');
@@ -68,19 +76,21 @@ function dropEvent(ev) {
         const cellIndex = Array.from(rowElement.children).indexOf(cellElement);
 
         const elemento = document.createElement('div');
-        elemento.className = 'card';
+        elemento.classList.add("personagem");
         elemento.appendChild(img);
-        cellElement.appendChild(elemento);
+
+        this.classList.add("ocupado");
+        this.appendChild(elemento);
 
         socket.emit('draggedItem', { position: [rowIndex, cellIndex], imageSrc: imgSrc });
     } else {
         console.error('Não foi possível obter os índices do tabuleiro.');
     }
 }
+}
 
 function dragLeave(ev){
     ev.preventDefault();
-    this.className = 'cell';
 }
 
 socket.on('itemPlaced', (data) => {
@@ -94,11 +104,18 @@ socket.on('itemPlaced', (data) => {
         const img = new Image();
         img.src = imgSrc;
 
-        tabuleiro[i][j] = dragClass.includes('plants') ? 'P' : 'Z';
+        const elemento = document.createElement('div');
+        elemento.classList.add("personagem");
+        const imgElement = document.createElement('img');
+        imgElement.src = imgSrc;
+        elemento.appendChild(imgElement);
 
-        cell.innerHTML = '';
-        cell.appendChild(img);
+        tabuleiro[i][j] = dragClass.includes('plants') ? 'P' : 'Z';
+        cell.appendChild(elemento);
+
+        cell.classList.add('ocupado');
     } else {
         console.error('Tipo de card não reconhecido:', dragClass);
     }
 });
+
