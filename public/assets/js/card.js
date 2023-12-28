@@ -73,7 +73,10 @@ function dragOver(ev){
 }
 
 function dropEvent(ev){
-    ev.preventDefault();
+    
+
+    if(!this.classList.contains('ocupado')){
+        ev.preventDefault();
     this.classList.remove("enter");
 
     const imgSrc = ev.dataTransfer.getData('text/plain');
@@ -82,12 +85,26 @@ function dropEvent(ev){
 
     console.log("Dropping");
     const elemento = document.createElement("div");
-    elemento.className = "card";
+    elemento.classList.add("personagem");
     elemento.appendChild(img);
-    this.appendChild(elemento);
+
+    this.classList.add("ocupado");
+    //this.parentNode.appendChild(elemento)
+
+   this.appendChild(elemento);
+  
+  
+
+
+   }
+    else{
+        alert("ocupado")
+    }
 }
 
 function dragLeave(ev){
     ev.preventDefault();
-    this.className = 'cell';
+    //this.className = 'cell';
+   
 }
+
