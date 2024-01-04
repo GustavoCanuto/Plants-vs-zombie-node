@@ -25,13 +25,13 @@
 
 
 
-#conteudo1 {
+#seletorTabuleiro {
     animation: seletorAnimation 1.5s infinite;
     /* Adicione qualquer outra propriedade que desejar */
 
 }
 
-#follow-image {
+#cursor-tabuleiro {
     animation: bounceAnimation 0.8s infinite;
 }
 
@@ -71,7 +71,7 @@
 /* Controle mouse  */
 
 
-#follow-image {
+#cursor-tabuleiro {
     position: absolute;
     z-index: -1;
     width: 2.4%;
@@ -96,7 +96,7 @@
     position: absolute;
 }
 
-#conteudo1 {
+#seletorTabuleiro {
 
     z-index: 5;
 

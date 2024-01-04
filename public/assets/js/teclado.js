@@ -3,6 +3,8 @@ document.addEventListener('keydown', function (e) {
     moveContent(key);
 });
 
+var liberado = true;
+
 var rowIndex = 1;
 var cellIndex = 1;
 
@@ -60,19 +62,18 @@ function moveContent(direction) {
         celulaAnterior = celulaAtual;
         celulaAtual = targetCell;
   
+
         clearTimeout(moveTimeout);
 
         moveTimeout = setTimeout(function () {
 
-
             centerImage(celulaAtual);
 
-            targetCell.appendChild(conteudo1);
+            targetCell.appendChild(seletorTabuleiro);
 
+            
 
         }, 30);
-
-
 
     }
 

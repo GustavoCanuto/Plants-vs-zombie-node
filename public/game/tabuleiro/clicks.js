@@ -15,7 +15,7 @@ casas.forEach(function (casa) {
     casa.addEventListener("click", function (event) {
         const minhaPlanta = new Planta('pea', './game/img/Peashooter.gif');
         const imgElement = document.createElement('img');
-        imgElement.src = minhaPlanta.imagem;
+        imgElement.src = minhaPlanta.cursorTabuleiro;
         casa.appendChild(imgElement);
 
         minhaPlanta.iniciar(imgElement); 
