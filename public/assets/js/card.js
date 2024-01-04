@@ -53,8 +53,8 @@ function dragOver(ev){
     ev.preventDefault();
    
 
-        if (conteudo1) {
-            this.appendChild(conteudo1);
+        if (seletorTabuleiro) {
+            this.appendChild(seletorTabuleiro);
             centerImage(this);
         }
     }

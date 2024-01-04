@@ -16,7 +16,7 @@ tabuleiro[3][0] = 'C';
 tabuleiro[4][0] = 'C';
 
 function mostrarTabuleiro() {
-    const boardElement = document.getElementById('conteudo2');
+    const boardElement = document.getElementById('tabuleiroID');
     boardElement.innerHTML = ''; // Limpar o conteúdo do tabuleiro antes de atualizar
 
     for (let i = 0; i < linhas; i++) {
@@ -65,15 +65,15 @@ function mostrarTabuleiro() {
 }
 
 // Crie um elemento HTML para a célula desejada
-const conteudo1x = document.createElement('div');
-conteudo1x.id = 'conteudo1';
-conteudo1x.innerHTML = '<div class="superior-esquerdo"></div>' +
+const divSeletor = document.createElement('div');
+divSeletor.id = 'seletorTabuleiro';
+divSeletor.innerHTML = '<div class="superior-esquerdo"></div>' +
                       '<div class="superior-direito"></div>' +
                       '<div class="inferior-esquerdo"></div>' +
                       '<div class="inferior-direito"></div>';
 
 // Atribua o conteúdo criado à célula do tabuleiro
-tabuleiro[0][1] = conteudo1x;
+tabuleiro[0][1] = divSeletor;
 tabuleiro[0][8] = 'Z';
 
 mostrarTabuleiro();

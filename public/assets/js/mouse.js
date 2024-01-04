@@ -1,32 +1,33 @@
 
 // controle pelo mouse
 var main = document.querySelector('main');
-
-var imagem = document.getElementById('follow-image');
-var conteudo1 = document.getElementById('conteudo1');
-var conteudo2 = document.getElementById('conteudo2');
+var cursorTabuleiro = document.getElementById('cursor-tabuleiro');
+var seletorTabuleiro = document.getElementById('seletorTabuleiro');
+var tabuleiroID = document.getElementById('tabuleiroID');
 var cells = document.querySelectorAll('.cell');
-var timeoutId;
 var celulaAtual = document.getElementById('cell1');
 var celulaAnterior = document.getElementById('cell1');
+var isMouseActive = false;
+var carrinho = false;
+
+var timeoutId;
 let verificador;
 let verificador2 = 0;
 var contador = 0;
-var carrinho = false;
-var isMouseActive = false;
+
 
 var centerImage = function (container) {
 
     if (!container.classList.contains('grass-cutter')) {
 
-        var rect = container.getBoundingClientRect();
+        var rectContainer = container.getBoundingClientRect();
         var mainRect = main.getBoundingClientRect(); // Adicione isso para obter as coordenadas do main
 
-        var xPercentage = ((rect.left - mainRect.left + rect.width / 2 - imagem.width / 2) / mainRect.width) * 100;
-        var yPercentage = ((rect.top - mainRect.top) / mainRect.height) * 100;
+        var xPercentage = ((rectContainer.left - mainRect.left + rectContainer.width / 2 - cursorTabuleiro.width / 2) / mainRect.width) * 100;
+        var yPercentage = ((rectContainer.top - mainRect.top) / mainRect.height) * 100;
 
-        imagem.style.left = xPercentage + '%';
-        imagem.style.top = yPercentage + '%';
+        cursorTabuleiro.style.left = xPercentage + '%';
+        cursorTabuleiro.style.top = yPercentage + '%';
 
         carrinho = false;
 
@@ -37,27 +38,27 @@ centerImage(celulaAtual);
 
 cells.forEach(function (cell) {
     cell.addEventListener('mouseenter', function () {
-        // Mova a div conteudo1 para a célula atual
+        // Mova a div seletorTabuleiro para a célula atual
 
         celulaAtual = cell;
 
         if (!celulaAtual.classList.contains('grass-cutter')) {
 
             verificador = 1;
-            const prevConteudo1 = conteudo1.cloneNode(true);
+            const prevseletorTabuleiro = seletorTabuleiro.cloneNode(true);
 
             setTimeout(function () {
-                cell.appendChild(prevConteudo1);
+                cell.appendChild(prevseletorTabuleiro);
 
 
-                prevConteudo1.style.opacity = '0.3';
+                prevseletorTabuleiro.style.opacity = '0.3';
             }, 130);
 
             setTimeout(function () {
-                cell.appendChild(conteudo1);
+                cell.appendChild(seletorTabuleiro);
                 verificador = 2;
-                conteudo1.style.opacity = '1';
-                cell.removeChild(prevConteudo1);
+                seletorTabuleiro.style.opacity = '1';
+                cell.removeChild(prevseletorTabuleiro);
             }, 150);
 
             celulaAnterior = celulaAtual;
@@ -71,26 +72,26 @@ document.body.addEventListener('mousemove', function (e) {
     isMouseActive = true;
 
 
-    imagem.style.transition = 'left 0.05s, top 0.05s';
+    cursorTabuleiro.style.transition = 'left 0.05s, top 0.05s';
 
     var xPercentage = (e.clientX / window.innerWidth) * 100;
     var yPercentage = (e.clientY / window.innerHeight) * 100;
 
    
 
-    var rect1 = conteudo2.getBoundingClientRect();
+    var rectTabuleiro = tabuleiroID.getBoundingClientRect();
 
     var isInsideContent1 = (
-        e.clientX >= rect1.left &&
-        e.clientX <= rect1.right &&
-        e.clientY >= rect1.top &&
-        e.clientY <= rect1.bottom
+        e.clientX >= rectTabuleiro.left &&
+        e.clientX <= rectTabuleiro.right &&
+        e.clientY >= rectTabuleiro.top &&
+        e.clientY <= rectTabuleiro.bottom
     );
 
     if (isInsideContent1) {
         document.body.style.cursor = 'none';
-        imagem.style.left = xPercentage + '%';
-        imagem.style.top = yPercentage + '%';
+        cursorTabuleiro.style.left = xPercentage + '%';
+        cursorTabuleiro.style.top = yPercentage + '%';
 
         //alert("oi")
         clearTimeout(timeoutId);
@@ -106,7 +107,7 @@ document.body.addEventListener('mousemove', function (e) {
         centerImage(celulaAtual);
 
 
-        // Se o mouse parar por 500 milissegundos, centralize conteudo1
+        // Se o mouse parar por 500 milissegundos, centralize seletorTabuleiro
 
     }
 
