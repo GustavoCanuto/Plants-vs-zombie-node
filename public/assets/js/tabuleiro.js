@@ -21,14 +21,15 @@ class Tabuleiro {
         
        const divSeletor = document.createElement('div');
        divSeletor.id = 'seletorTabuleiro';
-       divSeletor.innerHTML = '<div class="superior-esquerdo"></div>' +
-           '<div class="superior-direito"></div>' +
-           '<div class="inferior-esquerdo"></div>' +
-           '<div class="inferior-direito"></div>';
+       divSeletor.innerHTML = 
+       '<div class="superior-esquerdo"></div>' +
+        '<div class="superior-direito"></div>' +
+        '<div class="inferior-esquerdo"></div>' +
+        '<div class="inferior-direito"></div>';
 
-       // Atribua o conteúdo criado à célula do tabuleiro
+    
 
-       tabuleiro[0][1] = divSeletor;
+       tabuleiro[0][9] =  divSeletor;
        tabuleiro[0][8] = 'Z';
 
         return tabuleiro;
@@ -55,8 +56,8 @@ class Tabuleiro {
                 const cell = document.createElement('div');
                 cell.classList.add('cell');
 
-                if (i == 0 && j == 1) {
-                    cell.id = 'cell1';
+                if (i == 0 && j == 9) {
+                    cell.id = 'cell1Zombie';
 
                 }
 

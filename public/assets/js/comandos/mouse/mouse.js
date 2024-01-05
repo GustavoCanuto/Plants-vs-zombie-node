@@ -4,12 +4,21 @@ var cursorTabuleiro = document.getElementById('cursor-tabuleiro');
 var seletorTabuleiro = document.getElementById('seletorTabuleiro');
 var tabuleiroID = document.getElementById('tabuleiroID');
 var cells = document.querySelectorAll('.cell');
-var celulaAtual = document.getElementById('cell1');
-var celulaAnterior = document.getElementById('cell1');
+var celulaAtual = document.getElementById('cell1Zombie');
+var celulaAnterior = document.getElementById('cell1Zombie');
+var divPreviaPersonagem = document.createElement('div');
+divPreviaPersonagem.classList = 'previa-personagem';
+var imgPreviaPersonagem = document.createElement('img');
+imgPreviaPersonagem.src = '../../assets/img/personagens/zombies/cardtombstone.png';
+imgPreviaPersonagem.id = "prevPersonagem";
 var isMouseActive = false;
 
 var timeoutId;
 let verificador;
+
+divPreviaPersonagem.appendChild(imgPreviaPersonagem);
+celulaAtual.appendChild(divPreviaPersonagem);
+   // Atribua o conteúdo criado à célula do tabuleiro
 
 var centerImage = function (container) {
 
@@ -46,6 +55,8 @@ cells.forEach(function (cell) {
 
             setTimeout(function () {
                 cell.appendChild(seletorTabuleiro);
+              cell.appendChild(divPreviaPersonagem);
+                
                 verificador = 2;
                 seletorTabuleiro.style.opacity = '1';
                 cell.removeChild(prevSeletorTabuleiro);
