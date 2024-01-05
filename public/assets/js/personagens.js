@@ -10,7 +10,9 @@ export class Personagens {
         imgElement.style.backgroundRepeat = 'no-repeat'
         return imgElement;
     }
+
 }
+
 
 const sunflower = new Personagens('../../assets/img/personagens/plants/sunflower.png');
 const peashooter = new Personagens('../../assets/img/personagens/plants/peashooter.png');

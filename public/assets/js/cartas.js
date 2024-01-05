@@ -51,6 +51,7 @@ class ArrastarCards {
 
             if (seletorTabuleiro) {
                 ev.target.closest('.cell').appendChild(seletorTabuleiro);
+                ev.target.closest('.cell').appendChild(divPreviaPersonagem);
                 centerImage( ev.target.closest('.cell'));
             }
         }
