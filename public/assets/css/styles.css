@@ -119,13 +119,13 @@
     background-position: left top;
     transform: scaleX(-1);
     right: 0;
-    
+
 }
 
 .inferior-esquerdo {
     transform: scaleY(-1);
     bottom: 0;
-  
+
 }
 
 .inferior-direito {
@@ -137,35 +137,43 @@
 
 /* cards para selecionar */
 
-.navbar-zombie{
-    gap: 1%;
-
+.navbar-zombie {
+    gap: 0.35%;
+  
     background-image: url(../img/navBar/navBarZombie.png);
     background-size: contain;
     background-repeat: no-repeat;
 
 }
 
-.navbar-zombie > :first-child{
-margin-left: 3%;
-} 
+.navbar-zombie> :first-child {
+    margin-left: 2.6%;
+}
 
-.navbar-planta{
-    gap: 1%; 
-
+.navbar-planta {
+    gap: 0.5%;
+  
     background-image: url(../img/navBar/navBarPlanta.png);
     background-size: 100% 100%;
     background-size: contain;
     background-repeat: no-repeat;
 
 }
-.navbar-planta > :first-child{
-    margin-left: 6.5%;
+
+.navbar-planta> :first-child {
+    margin-left: 6%;
 }
 
-.navbar-planta >  div{
-    margin-top: 0.3%;
+.navbar-planta>div {
+    margin-top: 2.3%;
+
+}
+
+
+.navbar-zombie>div {
+    margin-top: 2.5%;
    
+
 }
 
 
@@ -177,7 +185,7 @@ margin-left: 3%;
     left: 15%;
     width: 61%;
     height: 13%;
-    
+
 }
 
 .navbar .style-resize {
@@ -186,10 +194,18 @@ margin-left: 3%;
     height: 100%;
 }
 
-.style-resize > div {
-    width: 10.3%;
+.style-resize>div {
+    width: 10.8%;
     height: 100%;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-  }
+}
+
+.seletorNavBar {
+    transform: scale(1.18);
+    border: 0.3vh solid  #74d4ed;
+    border-radius: 0.5vh;
+    /* Ajuste o valor conforme necessário */
+    outline: 0.35vh solid black;
+}

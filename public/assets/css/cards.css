@@ -1,95 +1,109 @@
-.card{
+.card {
     transition: .35s;
     cursor: pointer;
 }
 
-.style-resize:hover > :not(:hover){
+.style-resize:hover> :not(:hover) {
     opacity: .4;
-    transform: scale(0.9);
+    transform: scale(0.95);
+    border: 0;
+
 }
 
-.sunflower{
+.style-resize:hover> :hover {
+    transform: scale(1.18);
+    border: 0.3vh solid  #74d4ed;
+    border-radius: 0.8vh;
+    /* Ajuste o valor conforme necessário */
+    outline: 0.35vh solid black;
+}
+
+.sunflower {
     background-image: url('../img/cards/plants/sunFlower-transformed.svg');
+
 }
 
-.peashooter{
+.peashooter {
     background-image: url('../img/cards/plants/peashooter-transformed.svg');
 }
 
-.showpea{
+.showpea {
     background-image: url('../img/cards/plants/showPea-transformed.svg');
 }
 
-.repeater{
+.repeater {
     background-image: url('../img/cards/plants/repeater-transformed.svg');
 }
 
-.wallnut{
+.wallnut {
     background-image: url('../img/cards/plants/wallNut-transformed.svg');
 }
 
-.cherrybomb{
+.cherrybomb {
     background-image: url('../img/cards/plants/cherryBomb-transformed.svg');
 }
 
-.potatomine{
+.potatomine {
     background-image: url('../img/cards/plants/potatomine-transformed.svg');
 }
 
 
 
-.cardtombstone{
+.cardtombstone {
     background-image: url('../img/cards/zombies/tombstone-transformed.svg');
+    background-size: cover;
 }
 
-.zombie{
+.zombie {
     background-image: url('../img/cards/zombies/regularZombie-transformed.svg');
 }
 
-.conehead{
-    background-image: url('../img/cards/zombies/coneheadZombie-transformed.svg');;
+.conehead {
+    background-image: url('../img/cards/zombies/coneheadZombie-transformed.svg');
+    ;
 }
 
-.buckethead{
+.buckethead {
     background-image: url('../img/cards/zombies/bucketheadZombie-transformed.svg');
 }
 
-.flagzombie{
+.flagzombie {
     background-image: url('../img/cards/zombies/flagZombie-transformed.svg');
 }
 
-.football{
+.football {
     background-image: url('../img/cards/zombies/footballZombie-transformed.svg');
 }
 
-.screendoor{
+.screendoor {
     background-image: url('../img/cards/zombies/screenDoorZombie-transformed.svg');
 }
 
 
 
-.enter{
+.enter {
     border: dashed 2px #bbb;
 }
 
 
 .card {
-    max-width: 100%; /* Defina o tamanho máximo */
-    max-height: 100%; /* Defina o tamanho máximo */
-  }
-  
+    max-width: 100%;
+    /* Defina o tamanho máximo */
+    max-height: 75%;
+    /* Defina o tamanho máximo */
+
+}
+
 
 .cell img {
     width: 100%;
-    height: 90%;
+    height: 100%;
 }
 
-.personagem{
+.personagem {
     position: absolute;
-    border: 1px solid ; 
-    bottom:0;
+    border: 1px solid;
+    bottom: 0;
     left: 0;
-   
+
 }
-
-

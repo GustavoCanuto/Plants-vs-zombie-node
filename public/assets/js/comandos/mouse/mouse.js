@@ -1,4 +1,3 @@
-
 // controle pelo mouse
 var main = document.querySelector('main');
 var cursorTabuleiro = document.getElementById('cursor-tabuleiro');
@@ -8,13 +7,9 @@ var cells = document.querySelectorAll('.cell');
 var celulaAtual = document.getElementById('cell1');
 var celulaAnterior = document.getElementById('cell1');
 var isMouseActive = false;
-var carrinho = false;
 
 var timeoutId;
 let verificador;
-let verificador2 = 0;
-var contador = 0;
-
 
 var centerImage = function (container) {
 
@@ -28,72 +23,63 @@ var centerImage = function (container) {
 
         cursorTabuleiro.style.left = xPercentage + '%';
         cursorTabuleiro.style.top = yPercentage + '%';
-
-        carrinho = false;
-
     }
 };
 
 centerImage(celulaAtual);
 
 cells.forEach(function (cell) {
+
     cell.addEventListener('mouseenter', function () {
         // Mova a div seletorTabuleiro para a célula atual
-
         celulaAtual = cell;
 
         if (!celulaAtual.classList.contains('grass-cutter')) {
 
             verificador = 1;
-            const prevseletorTabuleiro = seletorTabuleiro.cloneNode(true);
+            const prevSeletorTabuleiro = seletorTabuleiro.cloneNode(true);
 
             setTimeout(function () {
-                cell.appendChild(prevseletorTabuleiro);
-
-
-                prevseletorTabuleiro.style.opacity = '0.3';
+                cell.appendChild(prevSeletorTabuleiro);
+                prevSeletorTabuleiro.style.opacity = '0.3';
             }, 130);
 
             setTimeout(function () {
                 cell.appendChild(seletorTabuleiro);
                 verificador = 2;
                 seletorTabuleiro.style.opacity = '1';
-                cell.removeChild(prevseletorTabuleiro);
+                cell.removeChild(prevSeletorTabuleiro);
             }, 150);
 
             celulaAnterior = celulaAtual;
-
         }
 
     });
 });
 
 document.body.addEventListener('mousemove', function (e) {
-    isMouseActive = true;
 
+    isMouseActive = true;
 
     cursorTabuleiro.style.transition = 'left 0.05s, top 0.05s';
 
     var xPercentage = (e.clientX / window.innerWidth) * 100;
     var yPercentage = (e.clientY / window.innerHeight) * 100;
 
-   
-
     var rectTabuleiro = tabuleiroID.getBoundingClientRect();
 
-    var isInsideContent1 = (
+    var isInsideTabuleiro = (
         e.clientX >= rectTabuleiro.left &&
         e.clientX <= rectTabuleiro.right &&
         e.clientY >= rectTabuleiro.top &&
         e.clientY <= rectTabuleiro.bottom
     );
 
-    if (isInsideContent1) {
+    if (isInsideTabuleiro) {
         document.body.style.cursor = 'none';
         cursorTabuleiro.style.left = xPercentage + '%';
         cursorTabuleiro.style.top = yPercentage + '%';
 
-        //alert("oi")
         clearTimeout(timeoutId);
         timeoutId = setTimeout(function () {
 
@@ -103,19 +89,11 @@ document.body.addEventListener('mousemove', function (e) {
 
     } else {
         document.body.style.cursor = 'pointer';
-
         centerImage(celulaAtual);
-
-
-        // Se o mouse parar por 500 milissegundos, centralize seletorTabuleiro
-
     }
 
     if (celulaAtual.classList.contains('grass-cutter')) {
         centerImage(celulaAnterior);
         document.body.style.cursor = 'pointer';
     }
-
-
-
 });
