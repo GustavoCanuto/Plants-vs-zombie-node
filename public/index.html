@@ -25,13 +25,13 @@
             <div class="card potatomine" draggable="true"></div>
         </div>
         <div class="style-resize navbar-zombie">
-            <div class="card cardtombstone seletorNavBar" draggable="true"> <img id="cursor-navBar-zombie" src="./seletorTrianguloAzul.png" alt="Imagem a seguir o mouse no navbar zombie"></div>
-            <div class="card zombie" draggable="true"></div>
-            <div class="card conehead" draggable="true"></div>
-            <div class="card buckethead" draggable="true"></div>
-            <div class="card flagzombie" draggable="true"></div>
-            <div class="card football" draggable="true"></div>
-            <div class="card screendoor" draggable="true"></div>
+            <div class="card cardtombstone seletorNavBar" data-personagem="cardtombstone" draggable="true"> <img id="cursor-navBar-zombie" src="./seletorTrianguloAzul.png" alt="Imagem a seguir o mouse no navbar zombie"></div>
+            <div class="card zombie" data-personagem="zombie" draggable="true"></div>
+            <div class="card conehead" data-personagem="conehead" draggable="true"></div>
+            <div class="card buckethead" data-personagem="buckethead" draggable="true"></div>
+            <div class="card flagzombie" data-personagem="flagzombie" draggable="true"></div>
+            <div class="card football" data-personagem="football" draggable="true"></div>
+            <div class="card screendoor" data-personagem="screendoor" draggable="true"></div>
             <div class="pontuacao-zombie" ></div>
         </div>
     </div>
@@ -42,7 +42,7 @@
     <script src="./assets/js/comandos/teclado/teclado.js"></script>
     <script src="./assets/js/comandos/gamepad/controle.js"></script>
 
-    <script src="./assets/js/comandos/mouse/mouseNavBar.js"></script>
+    <script  type="module" src="./assets/js/comandos/mouse/mouseNavBar.js"></script>
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script> 
 
