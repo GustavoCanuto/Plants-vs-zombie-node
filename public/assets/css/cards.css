@@ -10,13 +10,7 @@
 
 }
 
-.style-resize:hover> :hover {
-    transform: scale(1.18);
-    border: 0.3vh solid  #74d4ed;
-    border-radius: 0.8vh;
-    /* Ajuste o valor conforme necessário */
-    outline: 0.35vh solid black;
-}
+
 
 .sunflower {
     background-image: url('../img/cards/plants/sunFlower-transformed.svg');
@@ -51,7 +45,7 @@
 
 .cardtombstone {
     background-image: url('../img/cards/zombies/tombstone-transformed.svg');
-    background-size: cover;
+ 
 }
 
 .zombie {
@@ -87,10 +81,11 @@
 
 
 .card {
-    max-width: 100%;
+    max-width: 11%;
     /* Defina o tamanho máximo */
-    max-height: 75%;
-    /* Defina o tamanho máximo */
+    max-height: 77%;
+ 
+   
 
 }
 

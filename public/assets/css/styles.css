@@ -22,8 +22,26 @@
     }
 }
 
+@keyframes bounceAnimationNavBar {
 
+    0%,
+    100% {
+        transform: translateY(0);
+    }
 
+    50% {
+        transform: translateY(-10%);
+    }
+}
+
+#cursor-navBar-zombie {
+    position: relative;
+    width: 40%;
+    height: 15%;
+    left: 30%;
+    top: -9%;
+    animation: bounceAnimationNavBar 1.5s infinite;
+}
 
 #seletorTabuleiro {
     animation: seletorAnimation 1.5s infinite;
@@ -139,7 +157,7 @@
 
 .navbar-zombie {
     gap: 0.35%;
-  
+
     background-image: url(../img/navBar/navBarZombie.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -152,7 +170,7 @@
 
 .navbar-planta {
     gap: 0.5%;
-  
+
     background-image: url(../img/navBar/navBarPlanta.png);
     background-size: 100% 100%;
     background-size: contain;
@@ -165,14 +183,13 @@
 }
 
 .navbar-planta>div {
-    margin-top: 2.3%;
+    margin-top: 2.2%;
 
 }
 
 
 .navbar-zombie>div {
-    margin-top: 2.5%;
-   
+    margin-top: 2.1%;
 
 }
 
@@ -204,8 +221,8 @@
 
 .seletorNavBar {
     transform: scale(1.18);
-    border: 0.3vh solid  #74d4ed;
+    border: 0.3vh solid #74d4ed;
     border-radius: 0.5vh;
-    /* Ajuste o valor conforme necessário */
     outline: 0.35vh solid black;
+
 }
