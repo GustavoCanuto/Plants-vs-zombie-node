@@ -3,15 +3,9 @@ document.addEventListener('keydown', function (e) {
     moveContent(key);
 });
 
-var liberado = true;
-
 var rowIndex = 1;
 var cellIndex = 1;
-
 var moveTimeout;
-var moveTimeout2;
-var moveTimeout3;
-var apagado = true;
 
 function moveContent(direction) {
 
@@ -56,22 +50,17 @@ function moveContent(direction) {
     var targetRow = document.querySelector('.linha' + rowIndex);
     var targetCell = targetRow.children[cellIndex];
 
-
     if (!targetCell.classList.contains('grass-cutter')) {
 
         celulaAnterior = celulaAtual;
         celulaAtual = targetCell;
   
-
         clearTimeout(moveTimeout);
 
         moveTimeout = setTimeout(function () {
 
             centerImage(celulaAtual);
-
             targetCell.appendChild(seletorTabuleiro);
-
-            
 
         }, 30);
 
