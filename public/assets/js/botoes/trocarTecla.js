@@ -1,32 +1,66 @@
-function trocarTecla(id) {
-    const mensagem = `Pressione a tecla para configurar ${id}`;
-    document.getElementById(id).value = '';
+var listaTeclas = {
+    arrowUpPlanta: "arrowup",
+    arrowDownPlanta: "arrowdown",
+    arrowLeftPlanta: "arrowleft",
+    arrowRightPlanta: "arrowright",
+    cardEsquerdaPlanta: "1",
+    cardDireitaPlanta: "2",
+    colcoarPersonagemPlanta: "space"
+};
 
+function trocarTecla(id) {
+
+    let botoesTrocar = document.querySelectorAll('.button-trocar');
+
+    for (let i = 0; i < botoesTrocar.length; i++) {
+        botoesTrocar[i].disabled = true;
+    }
+
+    const mensagem = `Pressione a tecla para configurar ${id}`;
     const divMensagemTecla = document.getElementById('mensagemTecla');
     divMensagemTecla.innerHTML = mensagem;
 
-    document.addEventListener('keydown', function(event) {
-        document.getElementById(id).value = event.key;
+    document.addEventListener('keydown', function (event) {
+        let teclaPresionada = event.key;
         divMensagemTecla.innerHTML = " ";
+
+        for (let i = 0; i < botoesTrocar.length; i++) {
+            botoesTrocar[i].disabled = false;
+        }
+
+        var tecla = document.getElementById(id).value;
+
+        if (teclaPresionada == " ") {
+            teclaPresionada = "space"
+        }
+
+        if (tecla != teclaPresionada) {
+
+            if (Object.values(listaTeclas).includes(teclaPresionada)) {
+                alert("Essa tecla já está sendo utilizada");
+            } else {
+                document.getElementById(id).value = teclaPresionada.toLowerCase();;
+            }
+        }
+
+        atualizarTeclas();
     }, { once: true });
 }
 
-var arrowUp;
-var arrowDown;
-var arrowLeft;
-var arrowRight;
 var teclaPersonalizada = false;
 
-function gravarTecla(){
+function gravarTecla() {
+    atualizarTeclas();
+    teclaPersonalizada = true;
+    alert("gravado com sucesso");
+}
 
-     arrowUp = document.getElementById('moveUp').value;
-     arrowDown = document.getElementById('moveDown').value;
-     arrowLeft = document.getElementById('moveLeft').value;
-     arrowRight = document.getElementById('moveRight').value;
-
-     teclaPersonalizada = true;
-
-     alert("gravado com suscesso")
-    
-
+function atualizarTeclas() {
+    listaTeclas.arrowUpPlanta = document.getElementById('moveUp').value;
+    listaTeclas.arrowDownPlanta = document.getElementById('moveDown').value;
+    listaTeclas.arrowLeftPlanta = document.getElementById('moveLeft').value;
+    listaTeclas.arrowRightPlanta = document.getElementById('moveRight').value;
+    listaTeclas.cardEsquerdaPlanta = document.getElementById('moveCardLeft').value;
+    listaTeclas.cardDireitaPlanta = document.getElementById('moveCardRight').value;
+    listaTeclas.colcoarPersonagemPlanta = document.getElementById('colocarPersonagem').value;
 }
