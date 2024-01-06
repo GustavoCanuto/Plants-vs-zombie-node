@@ -1,3 +1,6 @@
+import {moveContent} from '../teclado/teclado.js';
+import {botoesGamepad} from './comandosControle.js';
+
 let analogThreshold = 0.3; // Limiar para considerar movimento do analógico
 let analogMoveSpeed = 0.45; // Velocidade de movimento do analógico
 
@@ -26,13 +29,6 @@ function updateImagePosition(gamepad) {
         // Convertendo a porcentagem para pixels
         var limiteTabuleiroLeft = (rectTabuleiroID.width * 10) / 100;
        
-       // var limiteTabuleiroBottom = (rectTabuleiroID.height * 8) / 100;
-        // var isInsideTabuleiro = (
-        //     rectCursorTabuleiro.left >= rectTabuleiroID.left + limiteTabuleiroLeft &&
-        //     rectCursorTabuleiro.right <= rectTabuleiroID.right &&
-        //     rectCursorTabuleiro.top >= rectTabuleiroID.top &&
-        //     rectCursorTabuleiro.bottom <= rectTabuleiroID.bottom - limiteTabuleiroBottom
-        // );
 
         // Limita o movimento dentro de tabuleiroID
         analogMoveX = Math.min(Math.max(analogMoveX, 15.5), 71.5);
@@ -54,8 +50,12 @@ function updateImagePosition(gamepad) {
         );
 
         if (!isInsideCelulaAtual) {
-            calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabuleiroID, limiteTabuleiroLeft, limiteBottomCelula);
+
+            calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabuleiroID, 
+                limiteTabuleiroLeft, limiteBottomCelula, mainRect);
+
         }
+
         isMouseActive = false;
     }
     else {
@@ -84,10 +84,15 @@ window.addEventListener('gamepaddisconnected', (event) => {
 
 function handleGamepad() {
     const gamepads = navigator.getGamepads();
+  
     const gamepad = gamepads[0];
 
     if (gamepad) {
         updateImagePosition(gamepad);
+
+        const buttons = gamepad.buttons;
+        
+        botoesGamepad(buttons);
     }
 
     requestAnimationFrame(handleGamepad);
@@ -95,9 +100,21 @@ function handleGamepad() {
 
 handleGamepad();
 
+       // var limiteTabuleiroBottom = (rectTabuleiroID.height * 8) / 100;
+        // var isInsideTabuleiro = (
+        //     rectCursorTabuleiro.left >= rectTabuleiroID.left + limiteTabuleiroLeft &&
+        //     rectCursorTabuleiro.right <= rectTabuleiroID.right &&
+        //     rectCursorTabuleiro.top >= rectTabuleiroID.top &&
+        //     rectCursorTabuleiro.bottom <= rectTabuleiroID.bottom - limiteTabuleiroBottom
+        // );
+
+
+// calculo proxima celula
+
 var liberadoBaixo = true, liberadoCima = true, liberadoEsquerda = true, liberadoDrieta = true;
 
-function calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabuleiroID, limiteTabuleiroLeft, limiteBottomCelula) {
+function calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabuleiroID, 
+    limiteTabuleiroLeft, limiteBottomCelula) {
 
     //movendo para cima
     if (rectCursorTabuleiro.top < (rectCelulaAtual.top - (rectCelulaAtual.height * 10) / 100)
