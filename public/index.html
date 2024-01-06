@@ -7,44 +7,24 @@
     <link rel="stylesheet" href="./assets/css/padrao.css">
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/cards.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   
 </head>
 <body>
 <main id="main">
 
-    <button class="menu-button">menu</button>
+<button class="menu-button" onclick="toggleConfig()">menu</button>
 
 <div class="config">
 
-    <div class="config__tecla">
-        <label for="moveUp">Move Up: </label>
-        <input type="text" id="moveUp" class="config-input" readonly/>
-        <button onclick="trocarTecla('moveUp')">trocar</button>
-    </div>
+<button id="btnControlePlantas">Controle Plantas</button> <br><br>
+<button>Controle Zombies</button>
 
-    <div class="config__tecla">
-        <label for="moveDown">Move Down: </label>
-        <input type="text" id="moveDown" class="config-input" readonly/>
-        <button onclick="trocarTecla('moveDown')">trocar</button>
-    </div>
+<div class="telaAjax"></div>
 
-    <div class="config__tecla">
-        <label for="moveLeft">Move Left: </label>
-        <input type="text" id="moveLeft" class="config-input" readonly/>
-        <button onclick="trocarTecla('moveLeft')">trocar</button>
-    </div>
-
-    <div class="config__tecla">
-        <label for="moveRight">Move Right: </label>
-        <input type="text" id="moveRight" class="config-input" readonly/>
-        <button onclick="trocarTecla('moveRight')">trocar</button>
-    </div>
-
-    <button onclick="gravarTecla()" >Gravar</button>
-    
-    <div id="mensagemTecla"></div>
+<div id="mensagemTecla"></div>
 
 </div>
-    <script src="./assets/js/botoes/trocarTecla.js"></script>
 
     <img id="cursor-tabuleiro" src="./seletorTrianguloAzul.png" alt="Imagem a seguir o mouse no tabuleiro">
 
@@ -83,8 +63,9 @@
     <script type="module" src="./assets/js/cartas.js"></script>
     
 
-   
-    
+    <script src="./assets/js/botoes/menu.js"></script>
+    <script src="./assets/js/botoes/trocarTecla.js"></script>
+    <script src="./assets/js/ajax.js"></script>
  
 </main>
 </body>
