@@ -1,9 +1,17 @@
 import * as comandosNavBar from '../comandosNavBar.js';
+import {comandoPersonalizado} from './tecladoPersonalizado.js';
 
 document.addEventListener('keydown', function (e) {
+
     var key = e.key.toLowerCase();
+
+    if (!teclaPersonalizada){
     moveContent(key);
     moveCards(key);
+    }else{
+        comandoPersonalizado(key);
+    }
+
 });
 
 var rowIndex = 1;
