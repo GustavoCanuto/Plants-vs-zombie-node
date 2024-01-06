@@ -277,6 +277,7 @@
 }
 
 .config{
+    display: none;
     position: absolute;
     border: 1px solid black;
     height: 74%;
@@ -288,5 +289,12 @@
 }
 
 .config__tecla{
-    margin-bottom: 10px;
+    margin-bottom: 4%;
+    border: 1px solid black;
+    
+   
+}
+
+.config-input{
+    width: 30%;
 }
