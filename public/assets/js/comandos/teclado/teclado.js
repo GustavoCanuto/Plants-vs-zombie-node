@@ -1,13 +1,34 @@
+import * as comandosNavBar from '../comandosNavBar.js';
+
 document.addEventListener('keydown', function (e) {
     var key = e.key.toLowerCase();
     moveContent(key);
+    moveCards(key);
 });
 
 var rowIndex = 1;
 var cellIndex = 1;
 var moveTimeout;
 
-function moveContent(direction) {
+
+export function moveCards(key){
+
+    switch (key) {
+        case '2':
+            comandosNavBar.moveNavBar(1);
+            break;
+        case '1':
+            comandosNavBar.moveNavBar(-1);
+            break;
+        case ' ':
+            const celulaAtual = document.getElementById('seletorTabuleiro');
+            comandosNavBar.dropPersonagem(celulaAtual.closest('.cell'),imgPreviaPersonagem);
+            break;
+    }
+
+}
+
+export function moveContent(direction) {
 
     rowIndex = celulaAtual.parentElement.classList[1].replace('linha', '');
     cellIndex = Array.from(celulaAtual.parentElement.children).indexOf(celulaAtual);
@@ -61,6 +82,7 @@ function moveContent(direction) {
 
             centerImage(celulaAtual);
             targetCell.appendChild(seletorTabuleiro);
+            targetCell.appendChild(divPreviaPersonagem);
 
         }, 30);
 

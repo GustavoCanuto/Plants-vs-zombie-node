@@ -14,7 +14,7 @@ imgPreviaPersonagem.id = "prevPersonagem";
 var isMouseActive = false;
 
 var timeoutId;
-let verificador;
+
 
 divPreviaPersonagem.appendChild(imgPreviaPersonagem);
 celulaAtual.appendChild(divPreviaPersonagem);
@@ -42,25 +42,23 @@ cells.forEach(function (cell) {
     cell.addEventListener('mouseenter', function () {
         // Mova a div seletorTabuleiro para a célula atual
         celulaAtual = cell;
-
+       
         if (!celulaAtual.classList.contains('grass-cutter')) {
 
-            verificador = 1;
             const prevSeletorTabuleiro = seletorTabuleiro.cloneNode(true);
 
             setTimeout(function () {
                 cell.appendChild(prevSeletorTabuleiro);
                 prevSeletorTabuleiro.style.opacity = '0.3';
-            }, 130);
+           }, 100);
 
-            setTimeout(function () {
-                cell.appendChild(seletorTabuleiro);
-              cell.appendChild(divPreviaPersonagem);
-                
-                verificador = 2;
-                seletorTabuleiro.style.opacity = '1';
+             setTimeout(function () {
+                 cell.appendChild(seletorTabuleiro);
+                 cell.appendChild(divPreviaPersonagem);
+        
+                 seletorTabuleiro.style.opacity = '1';
                 cell.removeChild(prevSeletorTabuleiro);
-            }, 150);
+             }, 150);
 
             celulaAnterior = celulaAtual;
         }
@@ -72,7 +70,7 @@ document.body.addEventListener('mousemove', function (e) {
 
     isMouseActive = true;
 
-    cursorTabuleiro.style.transition = 'left 0.05s, top 0.05s';
+    //cursorTabuleiro.style.transition = 'left 0.05s, top 0.05s';
 
     var xPercentage = (e.clientX / window.innerWidth) * 100;
     var yPercentage = (e.clientY / window.innerHeight) * 100;
@@ -91,7 +89,7 @@ document.body.addEventListener('mousemove', function (e) {
         cursorTabuleiro.style.left = xPercentage + '%';
         cursorTabuleiro.style.top = yPercentage + '%';
 
-        clearTimeout(timeoutId);
+       clearTimeout(timeoutId);
         timeoutId = setTimeout(function () {
 
             centerImage(celulaAtual);
