@@ -12,25 +12,32 @@ class Tabuleiro {
         for (let i = 0; i < this.linhas; i++) {
             tabuleiro[i] = new Array(this.colunas).fill('');
         }
-
-        tabuleiro[0][0] = 'C';
+        
+       tabuleiro[0][0] = 'C';
        tabuleiro[1][0] = 'C';
        tabuleiro[2][0] = 'C';
        tabuleiro[3][0] = 'C';
        tabuleiro[4][0] = 'C';
         
-       const divSeletor = document.createElement('div');
-       divSeletor.id = 'seletorTabuleiro';
-       divSeletor.innerHTML = 
-       '<div class="superior-esquerdo"></div>' +
-        '<div class="superior-direito"></div>' +
-        '<div class="inferior-esquerdo"></div>' +
-        '<div class="inferior-direito"></div>';
+       const divSeletorAzul = document.createElement('div');
+       divSeletorAzul.id = 'seletorTabuleiroAzul';
+       divSeletorAzul.innerHTML = 
+       '<div class="superior-esquerdo-seletor-azul"></div>' +
+        '<div class="superior-direito-seletor-azul"></div>' +
+        '<div class="inferior-esquerdo-seletor-azul"></div>' +
+        '<div class="inferior-direito-seletor-azul"></div>';
 
+        const divSeletorAmarelo = document.createElement('div');
+        divSeletorAmarelo.id = 'seletorTabuleiroAmarelo';
+        divSeletorAmarelo.innerHTML = 
+        '<div class="superior-esquerdo-seletor-Amarelo"></div>' +
+         '<div class="superior-direito-seletor-Amarelo"></div>' +
+         '<div class="inferior-esquerdo-seletor-Amarelo"></div>' +
+         '<div class="inferior-direito-seletor-Amarelo"></div>';
     
 
-       tabuleiro[0][9] =  divSeletor;
-       tabuleiro[0][8] = 'Z';
+       tabuleiro[0][9] =  divSeletorAzul;
+       tabuleiro[0][1] =  divSeletorAmarelo;
 
         return tabuleiro;
     }

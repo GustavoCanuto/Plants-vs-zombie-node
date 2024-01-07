@@ -1,0 +1,166 @@
+@keyframes bounceAnimation {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15%);
+    }
+}
+
+@keyframes seletorAnimation {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-1%);
+    }
+}
+
+@keyframes bounceAnimationNavBar {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10%);
+    }
+}
+
+
+
+/* Cursor Azul */
+#cursorTabuleiroAzul {
+    animation: bounceAnimation 0.8s infinite;
+}
+
+#cursorTabuleiroAzul {
+    position: absolute;
+    z-index: -1;
+    width: 2.8%;
+    height: 3%;
+     margin-left: 0.1%; 
+    /* transition: left 0.05s, top 0.05s; */
+    /* Adiciona transição para suavizar o movimento */
+}
+
+/* Seletor Azul*/
+#seletorTabuleiroAzul {
+    animation: seletorAnimation 1.5s infinite;
+}
+
+.superior-esquerdo-seletor-azul,
+.superior-direito-seletor-azul,
+.inferior-esquerdo-seletor-azul,
+.inferior-direito-seletor-azul {
+    background-image: url(../img/controle/seletorAzul.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 45%;
+    height: 100%;
+    position: absolute;
+}
+
+#seletorTabuleiroAzul {
+    z-index: 5;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 98%;
+    height: 96%;
+    margin-top: 3%;
+
+}
+
+.superior-direito-seletor-azul {
+    background-position: left top;
+    transform: scaleX(-1);
+    right: 0;
+}
+
+.inferior-esquerdo-seletor-azul {
+    transform: scaleY(-1);
+    bottom: 0;
+}
+
+.inferior-direito-seletor-azul {
+    background-position: left top;
+    transform: scale(-1);
+    right: 0;
+    bottom: 0;
+}
+
+
+/* Seletor Amarelo */
+#seletorTabuleiroAmarelo {
+    animation: seletorAnimation 1.5s infinite;
+}
+
+.superior-esquerdo-seletor-Amarelo,
+.superior-direito-seletor-Amarelo,
+.inferior-esquerdo-seletor-Amarelo,
+.inferior-direito-seletor-Amarelo {
+    background-image: url(../img/controle/seletorAmarelo.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 45%;
+    height: 100%;
+    position: absolute;
+}
+
+#seletorTabuleiroAmarelo {
+    z-index: 5;
+    /* Remova a propriedade position: relative; */
+    position: absolute;
+    /* Adicione position: absolute; */
+    left: 0;
+    /* Adicione left: 0; */
+    top: 0;
+    /* Adicione top: 0; */
+    width: 98%;
+    /* Adicione width: 100%; */
+    height: 96%;
+    /* Adicione height: 100%; */
+    margin-top: 3%;
+
+}
+
+.superior-direito-seletor-Amarelo {
+    background-position: left top;
+    transform: scaleX(-1);
+    right: 0;
+}
+
+.inferior-esquerdo-seletor-Amarelo {
+    transform: scaleY(-1);
+    bottom: 0;
+}
+
+.inferior-direito-seletor-Amarelo {
+    background-position: left top;
+    transform: scale(-1);
+    right: 0;
+    bottom: 0;
+}
+
+/* Cursor Amarelo */
+#cursorTabuleiroAmarelo {
+    animation: bounceAnimation 0.8s infinite;
+}
+
+#cursorTabuleiroAmarelo{
+    position: absolute;
+    z-index: -1;
+    width: 2.8%;
+    height: 3%;
+    margin-left: 0.1%; 
+    /* transition: left 0.05s, top 0.05s; */
+    /* Adiciona transição para suavizar o movimento */
+}
