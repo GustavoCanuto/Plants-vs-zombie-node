@@ -31,3 +31,8 @@
     display: flex;
 
 }
+
+.telaAjax{
+    position: absolute;
+    top: 0;
+}
