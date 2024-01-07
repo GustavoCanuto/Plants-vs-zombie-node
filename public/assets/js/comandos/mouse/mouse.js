@@ -1,11 +1,11 @@
 // controle pelo mouse
 var main = document.querySelector('main');
-var cursorTabuleiro = document.getElementById('cursor-tabuleiro');
-var seletorTabuleiro = document.getElementById('seletorTabuleiro');
+var cursorTabuleiroAzul = document.getElementById('cursorTabuleiroAzul');
+var seletorTabuleiroAzul = document.getElementById('seletorTabuleiroAzul');
 var tabuleiroID = document.getElementById('tabuleiroID');
 var cells = document.querySelectorAll('.cell');
-var celulaAtual = document.getElementById('cell1Zombie');
-var celulaAnterior = document.getElementById('cell1Zombie');
+var celulaAtualZombie = document.getElementById('cell1Zombie');
+var celulaAnteriorZombie = document.getElementById('cell1Zombie');
 var divPreviaPersonagem = document.createElement('div');
 divPreviaPersonagem.classList = 'previa-personagem';
 var imgPreviaPersonagem = document.createElement('img');
@@ -17,7 +17,7 @@ var timeoutId;
 
 
 divPreviaPersonagem.appendChild(imgPreviaPersonagem);
-celulaAtual.appendChild(divPreviaPersonagem);
+celulaAtualZombie.appendChild(divPreviaPersonagem);
    // Atribua o conteúdo criado à célula do tabuleiro
 
 var centerImage = function (container) {
@@ -27,40 +27,40 @@ var centerImage = function (container) {
         var rectContainer = container.getBoundingClientRect();
         var mainRect = main.getBoundingClientRect(); // Adicione isso para obter as coordenadas do main
 
-        var xPercentage = ((rectContainer.left - mainRect.left + rectContainer.width / 2 - cursorTabuleiro.width / 2) / mainRect.width) * 100;
+        var xPercentage = ((rectContainer.left - mainRect.left + rectContainer.width / 2 - cursorTabuleiroAzul.width / 2) / mainRect.width) * 100;
         var yPercentage = ((rectContainer.top - mainRect.top) / mainRect.height) * 100;
 
-        cursorTabuleiro.style.left = xPercentage + '%';
-        cursorTabuleiro.style.top = yPercentage + '%';
+        cursorTabuleiroAzul.style.left = xPercentage + '%';
+        cursorTabuleiroAzul.style.top = yPercentage + '%';
     }
 };
 
-centerImage(celulaAtual);
+centerImage(celulaAtualZombie);
 
 cells.forEach(function (cell) {
 
     cell.addEventListener('mouseenter', function () {
-        // Mova a div seletorTabuleiro para a célula atual
-        celulaAtual = cell;
+        // Mova a div seletorTabuleiroAzul para a célula atual
+        celulaAtualZombie = cell;
        
-        if (!celulaAtual.classList.contains('grass-cutter')) {
+        if (!celulaAtualZombie.classList.contains('grass-cutter')) {
 
-            const prevSeletorTabuleiro = seletorTabuleiro.cloneNode(true);
+            const prevseletorTabuleiroAzul = seletorTabuleiroAzul.cloneNode(true);
 
             setTimeout(function () {
-                cell.appendChild(prevSeletorTabuleiro);
-                prevSeletorTabuleiro.style.opacity = '0.3';
+                cell.appendChild(prevseletorTabuleiroAzul);
+                prevseletorTabuleiroAzul.style.opacity = '0.3';
            }, 100);
 
              setTimeout(function () {
-                 cell.appendChild(seletorTabuleiro);
+                 cell.appendChild(seletorTabuleiroAzul);
                  cell.appendChild(divPreviaPersonagem);
         
-                 seletorTabuleiro.style.opacity = '1';
-                cell.removeChild(prevSeletorTabuleiro);
+                 seletorTabuleiroAzul.style.opacity = '1';
+                cell.removeChild(prevseletorTabuleiroAzul);
              }, 150);
 
-            celulaAnterior = celulaAtual;
+            celulaAnteriorZombie = celulaAtualZombie;
         }
 
     });
@@ -70,7 +70,7 @@ document.body.addEventListener('mousemove', function (e) {
 
     isMouseActive = true;
 
-    //cursorTabuleiro.style.transition = 'left 0.05s, top 0.05s';
+    //cursorTabuleiroAzul.style.transition = 'left 0.05s, top 0.05s';
 
     var xPercentage = (e.clientX / window.innerWidth) * 100;
     var yPercentage = (e.clientY / window.innerHeight) * 100;
@@ -86,23 +86,23 @@ document.body.addEventListener('mousemove', function (e) {
 
     if (isInsideTabuleiro) {
         document.body.style.cursor = 'none';
-        cursorTabuleiro.style.left = xPercentage + '%';
-        cursorTabuleiro.style.top = yPercentage + '%';
+        cursorTabuleiroAzul.style.left = xPercentage + '%';
+        cursorTabuleiroAzul.style.top = yPercentage + '%';
 
        clearTimeout(timeoutId);
         timeoutId = setTimeout(function () {
 
-            centerImage(celulaAtual);
+            centerImage(celulaAtualZombie);
 
         }, 400);
 
     } else {
         document.body.style.cursor = 'pointer';
-        centerImage(celulaAtual);
+        centerImage(celulaAtualZombie);
     }
 
-    if (celulaAtual.classList.contains('grass-cutter')) {
-        centerImage(celulaAnterior);
+    if (celulaAtualZombie.classList.contains('grass-cutter')) {
+        centerImage(celulaAnteriorZombie);
         document.body.style.cursor = 'pointer';
     }
 });
