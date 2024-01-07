@@ -31,7 +31,7 @@
     <label>
         <input type="radio" name="opcaoMouse" value="nenhum"> Nenhum
     </label>
-    <button type="button" onclick="gravarOpcaoMouse()">Gravar</button>
+    <button type="button" id="gravarOpcaoMouse">Gravar</button>
 </div>
 
 <div class="telaAjax"></div>
@@ -46,7 +46,7 @@
     <div class="navbar">
         <div class="style-resize navbar-planta">
             <div class="pontuacao-planta" ></div>
-            <div class="card sunflower" draggable="true"></div>
+            <div class="card sunflower seletorNavBarAmarelo"  draggable="true"><img id="cursor-navBar-planta" src="./seletorTrianguloAmarelo.png" alt="Imagem a seguir o mouse no navbar planta"></div>
             <div class="card peashooter" draggable="true"></div>
             <div class="card showpea" draggable="true"></div>
             <div class="card repeater" draggable="true"></div>
@@ -80,6 +80,7 @@
 
     <script src="./assets/js/botoes/menu.js"></script>
     <script src="./assets/js/botoes/trocarTecla.js"></script>
+    <script type="module" src="./assets/js/botoes/trocaMouseLado.js"></script>
     <script src="./assets/js/ajax.js"></script>
  
 </main>
