@@ -1,7 +1,7 @@
 function carregarControlePlantas() {
     // Esconder os botões
-    $(".config button").hide();
-
+    $(".config button").css("display", "none");
+    $(".mouseJogador").css("display", "none");
     
 
     // Carregar o conteúdo do controlePlanta.html na div telaAjax
@@ -17,7 +17,8 @@ function carregarControlePlantas() {
     $(".telaAjax").html("");
 
     // Mostrar os botões novamente
-    $(".config button").show();
+    $(".config button").css("display", "block");
+    $(".mouseJogador").css("display", "block");
   }
 
   // Atribuir a função carregarControlePlantas ao clique do botão "Controle Plantas"
