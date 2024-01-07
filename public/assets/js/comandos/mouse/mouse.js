@@ -22,14 +22,23 @@ var seletorTabuleiro =  [{planta:seletorTabuleiroAmarelo},{zombie:seletorTabulei
 var celulaAtual      =  [{planta:celulaAtualPlanta}, {zombie:celulaAtualZombie}]
 var celulaAnterior   =  [{planta:celulaAnteriorPlanta}, {zombie:celulaAnteriorZombie}]
 
-// previa Imagem
-var divPreviaPersonagem = document.createElement('div');
-divPreviaPersonagem.classList = 'previa-personagem';
-var imgPreviaPersonagem = document.createElement('img');
-imgPreviaPersonagem.src = '../../assets/img/personagens/zombies/cardtombstone.png';
-imgPreviaPersonagem.id = "prevPersonagem";
-divPreviaPersonagem.appendChild(imgPreviaPersonagem);
-celulaAtualZombie.appendChild(divPreviaPersonagem);
+// previa Imagem Inicial Zombie
+var divPreviaPersonagemZombie = document.createElement('div');
+divPreviaPersonagemZombie.classList = 'previa-personagem';
+var imgPreviaPersonagemZombie = document.createElement('img');
+imgPreviaPersonagemZombie.src = '../../assets/img/personagens/zombies/cardtombstone.png';
+imgPreviaPersonagemZombie.id = "prevPersonagem";
+divPreviaPersonagemZombie.appendChild(imgPreviaPersonagemZombie);
+celulaAtualZombie.appendChild(divPreviaPersonagemZombie);
+
+// previa Imagem Inicial Planta
+var divPreviaPersonagemPlanta = document.createElement('div');
+divPreviaPersonagemPlanta.classList = 'previa-personagem';
+var imgPreviaPersonagemPlanta = document.createElement('img');
+imgPreviaPersonagemPlanta.src = '../../assets/img/personagens/plants/sunflower.png';
+imgPreviaPersonagemPlanta.id = "prevPersonagem";
+divPreviaPersonagemPlanta.appendChild(imgPreviaPersonagemPlanta);
+celulaAtualPlanta.appendChild(divPreviaPersonagemPlanta);
 
 //controle
 var isMouseActive = false;
@@ -84,7 +93,7 @@ cells.forEach(function (cell) {
 
             setTimeout(function () {
                  cell.appendChild(seletorTabuleiro[LadoQueUsaMouse][chaveMouse]);
-                 cell.appendChild(divPreviaPersonagem);
+                 cell.appendChild(divPreviaPersonagemZombie);
                  seletorTabuleiro[LadoQueUsaMouse][chaveMouse].style.opacity = '1';
                  cell.removeChild(prevSeletorTabuleiro);
              }, 150);
