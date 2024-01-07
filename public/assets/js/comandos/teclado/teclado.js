@@ -29,8 +29,8 @@ export function moveCards(key){
             comandosNavBar.moveNavBar(-1);
             break;
         case ' ':
-            const celulaAtual = document.getElementById('seletorTabuleiro');
-            comandosNavBar.dropPersonagem(celulaAtual.closest('.cell'),imgPreviaPersonagem);
+            const celulaAtualZombie = document.getElementById('seletorTabuleiroAzul');
+            comandosNavBar.dropPersonagem(celulaAtualZombie.closest('.cell'),imgPreviaPersonagem);
             break;
     }
 
@@ -38,8 +38,8 @@ export function moveCards(key){
 
 export function moveContent(direction) {
 
-    rowIndex = celulaAtual.parentElement.classList[1].replace('linha', '');
-    cellIndex = Array.from(celulaAtual.parentElement.children).indexOf(celulaAtual);
+    rowIndex = celulaAtualZombie.parentElement.classList[1].replace('linha', '');
+    cellIndex = Array.from(celulaAtualZombie.parentElement.children).indexOf(celulaAtualZombie);
 
     switch (direction) {
         case 'arrowup':
@@ -81,15 +81,15 @@ export function moveContent(direction) {
 
     if (!targetCell.classList.contains('grass-cutter')) {
 
-        celulaAnterior = celulaAtual;
-        celulaAtual = targetCell;
+        celulaAnteriorZombie = celulaAtualZombie;
+        celulaAtualZombie = targetCell;
   
         clearTimeout(moveTimeout);
 
         moveTimeout = setTimeout(function () {
 
-            centerImage(celulaAtual);
-            targetCell.appendChild(seletorTabuleiro);
+            centerImage(celulaAtualZombie);
+            targetCell.appendChild(seletorTabuleiroAzul);
             targetCell.appendChild(divPreviaPersonagem);
 
         }, 30);

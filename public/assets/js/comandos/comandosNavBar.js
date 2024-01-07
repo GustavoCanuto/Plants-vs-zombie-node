@@ -15,8 +15,8 @@ export function moveNavBar(direction){
     // Garanta que o próximo índice está dentro dos limites
     nextIndex = Math.max(0, Math.min(cellNavBarZombie.length - 1, nextIndex));
 
-    // Mova a div seletorTabuleiro para a nova célula
-    cellNavBarZombieAtual.classList.remove('seletorNavBar');
+    // Mova a div seletorTabuleiroAzul para a nova célula
+    cellNavBarZombieAtual.classList.remove('seletorNavBarAzul');
     cellNavBarZombieAtual = cellNavBarZombie[nextIndex];
 
     const personagemNome = cellNavBarZombieAtual.getAttribute('data-personagem');
@@ -26,7 +26,7 @@ export function moveNavBar(direction){
         prevPersonagemImg.src = personagens[personagemNome].imagePath;
     }
 
-    cellNavBarZombieAtual.classList.add('seletorNavBar');
+    cellNavBarZombieAtual.classList.add('seletorNavBarAzul');
     cellNavBarZombieAtual.appendChild(cursorNavBarZombie);
 
 }
@@ -47,8 +47,8 @@ export function dropPersonagem(cell, imgPreviaPersonagem){
 
 export function criarPreviaPersonagem(cell){
 
-    // Mova a div seletorTabuleiro para a célula atual
-    cellNavBarZombieAtual.classList.remove('seletorNavBar');
+    // Mova a div seletorTabuleiroAzul para a célula atual
+    cellNavBarZombieAtual.classList.remove('seletorNavBarAzul');
     cellNavBarZombieAtual = cell;
 
     if (!cellNavBarZombieAtual.classList.contains('pontuacao-zombie')) {
@@ -60,7 +60,7 @@ export function criarPreviaPersonagem(cell){
             prevPersonagemImg.src = personagens[personagemNome].imagePath;
         }
         
-        cell.classList.add('seletorNavBar'); 
+        cell.classList.add('seletorNavBarAzul'); 
         cell.appendChild(cursorNavBarZombie);
 
     }

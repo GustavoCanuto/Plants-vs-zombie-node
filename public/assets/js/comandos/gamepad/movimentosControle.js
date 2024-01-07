@@ -4,10 +4,10 @@ import {botoesGamepad} from './comandosControle.js';
 let analogThreshold = 0.3; // Limiar para considerar movimento do analógico
 let analogMoveSpeed = 0.45; // Velocidade de movimento do analógico
 
-const rectCelula = celulaAtual.getBoundingClientRect();
+const rectCelula = celulaAtualZombie.getBoundingClientRect();
 var mainRect = main.getBoundingClientRect();
 
-var centerXPercentage = ((rectCelula.left - mainRect.left + rectCelula.width / 2 - cursorTabuleiro.width / 2) / mainRect.width) * 100;
+var centerXPercentage = ((rectCelula.left - mainRect.left + rectCelula.width / 2 - cursorTabuleiroAzul.width / 2) / mainRect.width) * 100;
 var centerYPercentage = ((rectCelula.top - mainRect.top) / mainRect.height) * 100;
 
 let analogMoveX = centerXPercentage;
@@ -24,7 +24,7 @@ function updateImagePosition(gamepad) {
 
         // Converte as porcentagens para pixels
         var rectTabuleiroID = tabuleiroID.getBoundingClientRect();
-        var rectCursorTabuleiro = cursorTabuleiro.getBoundingClientRect();
+        var rectcursorTabuleiroAzul = cursorTabuleiroAzul.getBoundingClientRect();
 
         // Convertendo a porcentagem para pixels
         var limiteTabuleiroLeft = (rectTabuleiroID.width * 10) / 100;
@@ -34,24 +34,24 @@ function updateImagePosition(gamepad) {
         analogMoveX = Math.min(Math.max(analogMoveX, 15.5), 71.5);
         analogMoveY = Math.min(Math.max(analogMoveY, 14.5), 85.5);
 
-        cursorTabuleiro.style.left = `${analogMoveX}%`;
-        cursorTabuleiro.style.top = `${analogMoveY}%`;
+        cursorTabuleiroAzul.style.left = `${analogMoveX}%`;
+        cursorTabuleiroAzul.style.top = `${analogMoveY}%`;
 
-        var rectCelulaAtual = celulaAtual.getBoundingClientRect();
+        var rectcelulaAtualZombie = celulaAtualZombie.getBoundingClientRect();
 
         // Convertendo a porcentagem para pixels
-        var limiteBottomCelula = (rectCelulaAtual.height * 30) / 100;
+        var limiteBottomCelula = (rectcelulaAtualZombie.height * 30) / 100;
 
-        var isInsideCelulaAtual = (
-            rectCursorTabuleiro.left >= rectCelulaAtual.left &&
-            rectCursorTabuleiro.right <= rectCelulaAtual.right &&
-            rectCursorTabuleiro.top >= rectCelulaAtual.top &&
-            rectCursorTabuleiro.bottom <= rectCelulaAtual.bottom - limiteBottomCelula
+        var isInsidecelulaAtualZombie = (
+            rectcursorTabuleiroAzul.left >= rectcelulaAtualZombie.left &&
+            rectcursorTabuleiroAzul.right <= rectcelulaAtualZombie.right &&
+            rectcursorTabuleiroAzul.top >= rectcelulaAtualZombie.top &&
+            rectcursorTabuleiroAzul.bottom <= rectcelulaAtualZombie.bottom - limiteBottomCelula
         );
 
-        if (!isInsideCelulaAtual) {
+        if (!isInsidecelulaAtualZombie) {
 
-            calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabuleiroID, 
+            calcularProximaCelula(rectcursorTabuleiroAzul, rectcelulaAtualZombie, rectTabuleiroID, 
                 limiteTabuleiroLeft, limiteBottomCelula, mainRect);
 
         }
@@ -60,12 +60,12 @@ function updateImagePosition(gamepad) {
     }
     else {
 
-        const rect = celulaAtual.getBoundingClientRect();
-        centerXPercentage = ((rect.left - mainRect.left + rect.width / 2 - cursorTabuleiro.width / 2) / mainRect.width) * 100;
+        const rect = celulaAtualZombie.getBoundingClientRect();
+        centerXPercentage = ((rect.left - mainRect.left + rect.width / 2 - cursorTabuleiroAzul.width / 2) / mainRect.width) * 100;
         centerYPercentage = ((rect.top - mainRect.top) / mainRect.height) * 100;
 
         if (!isMouseActive) {
-            centerImage(celulaAtual);
+            centerImage(celulaAtualZombie);
             analogMoveX = centerXPercentage;
             analogMoveY = centerYPercentage;
         }
@@ -102,10 +102,10 @@ handleGamepad();
 
        // var limiteTabuleiroBottom = (rectTabuleiroID.height * 8) / 100;
         // var isInsideTabuleiro = (
-        //     rectCursorTabuleiro.left >= rectTabuleiroID.left + limiteTabuleiroLeft &&
-        //     rectCursorTabuleiro.right <= rectTabuleiroID.right &&
-        //     rectCursorTabuleiro.top >= rectTabuleiroID.top &&
-        //     rectCursorTabuleiro.bottom <= rectTabuleiroID.bottom - limiteTabuleiroBottom
+        //     rectcursorTabuleiroAzul.left >= rectTabuleiroID.left + limiteTabuleiroLeft &&
+        //     rectcursorTabuleiroAzul.right <= rectTabuleiroID.right &&
+        //     rectcursorTabuleiroAzul.top >= rectTabuleiroID.top &&
+        //     rectcursorTabuleiroAzul.bottom <= rectTabuleiroID.bottom - limiteTabuleiroBottom
         // );
 
 
@@ -113,28 +113,28 @@ handleGamepad();
 
 var liberadoBaixo = true, liberadoCima = true, liberadoEsquerda = true, liberadoDrieta = true;
 
-function calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabuleiroID, 
+function calcularProximaCelula(rectcursorTabuleiroAzul, rectcelulaAtualZombie, rectTabuleiroID, 
     limiteTabuleiroLeft, limiteBottomCelula) {
 
     //movendo para cima
-    if (rectCursorTabuleiro.top < (rectCelulaAtual.top - (rectCelulaAtual.height * 10) / 100)
-        && rectCursorTabuleiro.top > rectTabuleiroID.top && liberadoBaixo) {
+    if (rectcursorTabuleiroAzul.top < (rectcelulaAtualZombie.top - (rectcelulaAtualZombie.height * 10) / 100)
+        && rectcursorTabuleiroAzul.top > rectTabuleiroID.top && liberadoBaixo) {
 
         // console.log("cima")
-        if (rectCursorTabuleiro.right > rectCelulaAtual.right - (rectCelulaAtual.width * 20) / 100
-            && rectCursorTabuleiro.right < rectTabuleiroID.right) {
+        if (rectcursorTabuleiroAzul.right > rectcelulaAtualZombie.right - (rectcelulaAtualZombie.width * 20) / 100
+            && rectcursorTabuleiroAzul.right < rectTabuleiroID.right) {
             moveContent('arrowupright');
         }
-        else if (rectCursorTabuleiro.left < rectCelulaAtual.left + (rectCelulaAtual.width * 20) / 100
-            && rectCursorTabuleiro.left > rectTabuleiroID.left + limiteTabuleiroLeft) {
+        else if (rectcursorTabuleiroAzul.left < rectcelulaAtualZombie.left + (rectcelulaAtualZombie.width * 20) / 100
+            && rectcursorTabuleiroAzul.left > rectTabuleiroID.left + limiteTabuleiroLeft) {
             moveContent('arrowupleft');
         }
         else {
             moveContent('arrowup');
         }
 
-        const rect = celulaAtual.getBoundingClientRect();
-        centerYPercentage = ((rect.top - mainRect.top + rect.height / 2 - cursorTabuleiro.height / 2) / mainRect.height) * 100;
+        const rect = celulaAtualZombie.getBoundingClientRect();
+        centerYPercentage = ((rect.top - mainRect.top + rect.height / 2 - cursorTabuleiroAzul.height / 2) / mainRect.height) * 100;
 
         analogMoveY = centerYPercentage;
         liberadoCima = false;
@@ -145,15 +145,15 @@ function calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabulei
     }
 
     //movendo para baixo
-    else if (rectCursorTabuleiro.bottom > rectCelulaAtual.bottom - limiteBottomCelula && liberadoCima) {
+    else if (rectcursorTabuleiroAzul.bottom > rectcelulaAtualZombie.bottom - limiteBottomCelula && liberadoCima) {
 
         //  console.log("baixo")
-        if (rectCursorTabuleiro.right > rectCelulaAtual.right && rectCursorTabuleiro.right < rectTabuleiroID.right) {
+        if (rectcursorTabuleiroAzul.right > rectcelulaAtualZombie.right && rectcursorTabuleiroAzul.right < rectTabuleiroID.right) {
             moveContent('arrowdownright');
             console.log("para baixo direita")
         }
-        else if (rectCursorTabuleiro.left < rectCelulaAtual.left
-            && rectCursorTabuleiro.left > rectTabuleiroID.left + limiteTabuleiroLeft) {
+        else if (rectcursorTabuleiroAzul.left < rectcelulaAtualZombie.left
+            && rectcursorTabuleiroAzul.left > rectTabuleiroID.left + limiteTabuleiroLeft) {
             moveContent('arrowdownleft');
             console.log("para baixo esquerda")
         }
@@ -162,7 +162,7 @@ function calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabulei
             console.log("baixo")
         }
 
-        const rect = celulaAtual.getBoundingClientRect();
+        const rect = celulaAtualZombie.getBoundingClientRect();
         centerYPercentage = ((rect.top - mainRect.top) / mainRect.height) * 100;
 
         analogMoveY = centerYPercentage;
@@ -174,8 +174,8 @@ function calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabulei
     }
 
     //movendo para direita
-    else if (rectCursorTabuleiro.right > rectCelulaAtual.right
-        && rectCursorTabuleiro.right < rectTabuleiroID.right && liberadoDrieta) {
+    else if (rectcursorTabuleiroAzul.right > rectcelulaAtualZombie.right
+        && rectcursorTabuleiroAzul.right < rectTabuleiroID.right && liberadoDrieta) {
 
         moveContent('arrowright');
         // console.log("direta")
@@ -186,8 +186,8 @@ function calcularProximaCelula(rectCursorTabuleiro, rectCelulaAtual, rectTabulei
         }, 35);
 
         //movendo para esquerda
-    } else if (rectCursorTabuleiro.left < rectCelulaAtual.left
-        && rectCursorTabuleiro.left > rectTabuleiroID.left + limiteTabuleiroLeft && liberadoEsquerda) {
+    } else if (rectcursorTabuleiroAzul.left < rectcelulaAtualZombie.left
+        && rectcursorTabuleiroAzul.left > rectTabuleiroID.left + limiteTabuleiroLeft && liberadoEsquerda) {
 
         moveContent('arrowleft');
         //console.log("esquerda")
