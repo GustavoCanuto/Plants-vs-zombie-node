@@ -58,18 +58,18 @@
     box-sizing: border-box;
     position: absolute;
     left: 12%;
-    top: 16.8%;
+    top: 17%;
     width: 59%;
     height: 77.4%;
 
-    border: 1px solid red;
+    /* border: 1px solid red; */
 
 }
 
 /* Estilos para as células do tabuleiro */
 .cell {
     box-sizing: border-box;
-    border: 1px solid rgb(0, 68, 255);
+    /* border: 1px solid rgb(0, 68, 255); */
     width: 10%;
     height: 100%;
     position: relative;
@@ -107,7 +107,7 @@
 .superior-direito,
 .inferior-esquerdo,
 .inferior-direito {
-    background-image: url(../img/controle/seletorAzul.png);
+    background-image: url(../img/controle/seletorAmarelo.png);
     background-repeat: no-repeat;
     background-size: 100%;
     width: 45%;
@@ -201,7 +201,7 @@
     display: flex;
     gap: 0.5%;
     position: absolute;
-    top: 2%;
+    top: 0.5%;
     left: 15%;
     width: 61%;
     height: 13%;

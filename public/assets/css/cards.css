@@ -100,5 +100,6 @@
     border: 1px solid;
     bottom: 0;
     left: 0;
+    z-index: -2;
 
 }
