@@ -20,6 +20,20 @@
 <button id="btnControlePlantas">Controle Plantas</button> <br><br>
 <button>Controle Zombies</button>
 
+<div class="mouseJogador"> 
+    <br><p>Escolha o lado que irá usar o mouse:</p><br>
+    <label>
+        <input type="radio" name="opcaoMouse" value="plantas" checked> Plantas
+    </label>
+    <label>
+        <input type="radio" name="opcaoMouse" value="zombies"> Zombie
+    </label>
+    <label>
+        <input type="radio" name="opcaoMouse" value="nenhum"> Nenhum
+    </label>
+    <button type="button" onclick="gravarOpcaoMouse()">Gravar</button>
+</div>
+
 <div class="telaAjax"></div>
 
 <div id="mensagemTecla"></div>
@@ -55,8 +69,8 @@
    
     <script src="./assets/js/tabuleiro.js"></script>
     <script src="./assets/js/comandos/mouse/mouse.js"></script>
-    <script type="module" src="./assets/js/comandos/teclado/teclado.js"></script> 
-    <script type="module" src="./assets/js/comandos/gamepad/movimentosControle.js"></script> 
+    <!-- <script type="module" src="./assets/js/comandos/teclado/teclado.js"></script> 
+    <script type="module" src="./assets/js/comandos/gamepad/movimentosControle.js"></script>  -->
     <script  type="module" src="./assets/js/comandos/mouse/mouseNavBar.js"></script>
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script> 

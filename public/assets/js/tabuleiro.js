@@ -68,6 +68,11 @@ class Tabuleiro {
 
                 }
 
+                if (i == 0 && j == 1) {
+                    cell.id = 'cell1Planta';
+
+                }
+
                 if (this.tabuleiro[i][j] instanceof HTMLElement) {
                     // Se a célula contiver um elemento HTML, adicioná-lo diretamente à célula
                     cell.appendChild(this.tabuleiro[i][j]);
