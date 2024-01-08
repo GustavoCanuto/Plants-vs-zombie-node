@@ -26,12 +26,12 @@ function carregarControlePlantas() {
 
 
   function atualizarValueTeclas() {
-    document.getElementById("moveUp").value = listaTeclas.arrowUpPlanta;
-    document.getElementById("moveDown").value = listaTeclas.arrowDownPlanta;
-    document.getElementById("moveLeft").value = listaTeclas.arrowLeftPlanta;
-    document.getElementById("moveRight").value = listaTeclas.arrowRightPlanta;
-    document.getElementById("moveCardLeft").value = listaTeclas.cardEsquerdaPlanta;
-    document.getElementById("moveCardRight").value = listaTeclas.cardDireitaPlanta;
-    document.getElementById("colocarPersonagem").value = listaTeclas.colcoarPersonagemPlanta;
+    document.getElementById("moveUp").value = listaTeclasPlantas.arrowUpPlanta;
+    document.getElementById("moveDown").value = listaTeclasPlantas.arrowDownPlanta;
+    document.getElementById("moveLeft").value = listaTeclasPlantas.arrowLeftPlanta;
+    document.getElementById("moveRight").value = listaTeclasPlantas.arrowRightPlanta;
+    document.getElementById("moveCardLeft").value = listaTeclasPlantas.cardEsquerdaPlanta;
+    document.getElementById("moveCardRight").value = listaTeclasPlantas.cardDireitaPlanta;
+    document.getElementById("colocarPersonagem").value = listaTeclasPlantas.colcoarPersonagemPlanta;
    
 }

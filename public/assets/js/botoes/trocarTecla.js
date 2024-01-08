@@ -1,5 +1,5 @@
 
-var listaTeclas = {
+var listaTeclasPlantas = {
     arrowUpPlanta: "arrowup",
     arrowDownPlanta: "arrowdown",
     arrowLeftPlanta: "arrowleft",
@@ -7,6 +7,9 @@ var listaTeclas = {
     cardEsquerdaPlanta: "1",
     cardDireitaPlanta: "2",
     colcoarPersonagemPlanta: "space",
+};
+
+var listaTeclasZombies = {
     arrowUpZombie: "w",
     arrowDownZombie: "s",
     arrowLeftZombie: "a",
@@ -14,7 +17,7 @@ var listaTeclas = {
     cardEsquerdaZombie: "q",
     cardDireitaZombie: "e",
     colcoarPersonagemZombie: "g"
-};
+}
 
 function trocarTecla(id) {
 
@@ -44,7 +47,7 @@ function trocarTecla(id) {
 
         if (tecla != teclaPresionada) {
 
-            if (Object.values(listaTeclas).includes(teclaPresionada)) {
+            if (Object.values(listaTeclasPlantas).includes(teclaPresionada)|| Object.values(listaTeclasZombies).includes(teclaPresionada)) {
                 alert("Essa tecla já está sendo utilizada");
             } else {
                 document.getElementById(id).value = teclaPresionada.toLowerCase();;
@@ -64,12 +67,12 @@ function gravarTecla() {
 }
 
 function atualizarTeclas() {
-    listaTeclas.arrowUpPlanta = document.getElementById('moveUp').value;
-    listaTeclas.arrowDownPlanta = document.getElementById('moveDown').value;
-    listaTeclas.arrowLeftPlanta = document.getElementById('moveLeft').value;
-    listaTeclas.arrowRightPlanta = document.getElementById('moveRight').value;
-    listaTeclas.cardEsquerdaPlanta = document.getElementById('moveCardLeft').value;
-    listaTeclas.cardDireitaPlanta = document.getElementById('moveCardRight').value;
-    listaTeclas.colcoarPersonagemPlanta = document.getElementById('colocarPersonagem').value;
+    listaTeclasPlantas.arrowUpPlanta = document.getElementById('moveUp').value;
+    listaTeclasPlantas.arrowDownPlanta = document.getElementById('moveDown').value;
+    listaTeclasPlantas.arrowLeftPlanta = document.getElementById('moveLeft').value;
+    listaTeclasPlantas.arrowRightPlanta = document.getElementById('moveRight').value;
+    listaTeclasPlantas.cardEsquerdaPlanta = document.getElementById('moveCardLeft').value;
+    listaTeclasPlantas.cardDireitaPlanta = document.getElementById('moveCardRight').value;
+    listaTeclasPlantas.colcoarPersonagemPlanta = document.getElementById('colocarPersonagem').value;
 }
 
