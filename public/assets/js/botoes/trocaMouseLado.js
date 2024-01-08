@@ -1,4 +1,5 @@
 import {navBarEnter} from '../comandos/mouse/mouseNavBar.js';
+import {game} from '../cartas.js';
 
 var btnGravarOpcaoMouse = document.getElementById('gravarOpcaoMouse');
 
@@ -24,5 +25,6 @@ function gravarOpcaoMouse() {
     cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo: cursorTabuleiroAzul;
     mouseEnterCelula();
     navBarEnter();
+    game.atualizarLado();
 
 }

@@ -4,19 +4,21 @@ import {personagens} from "../personagens.js";
 export var cellNavBarPlanta = document.querySelectorAll('.navbar-planta .card');
 export var cellNavBarPlantaAtual = document.querySelector('.sunflower');
 export var cursorNavBarPlanta = document.getElementById('cursor-navBar-planta');
+export var prevPersonagemImgPlanta = document.getElementById('prevPersonagemPlanta');
 
 
 //navBar zombie
 export var cellNavBarZombie = document.querySelectorAll('.navbar-zombie .card');
 export var cellNavBarZombieAtual = document.querySelector('.cardtombstone');
 export var cursorNavBarZombie = document.getElementById('cursor-navBar-zombie');
+export var prevPersonagemImgZombie = document.getElementById('prevPersonagemZombie');
 
 
 //geral
 export var cellNavBar        = [cellNavBarPlanta,cellNavBarZombie]
 export var cellNavBarAtual   = [cellNavBarPlantaAtual, cellNavBarZombieAtual]
 export var cursorNavBar      = [cursorNavBarPlanta, cursorNavBarZombie]
-export var prevPersonagemImg = document.getElementById('prevPersonagem');
+
 
 
 export function moveNavBar(direction, lado){
@@ -39,7 +41,8 @@ export function moveNavBar(direction, lado){
 
     if (personagens[personagemNome]) {
         // Atualize a imagem do prevPersonagemImg
-        prevPersonagemImg.src = personagens[personagemNome].imagePath;
+        if(lado==0)prevPersonagemImgPlanta.src = personagens[personagemNome].imagePath;
+        else prevPersonagemImgZombie.src = personagens[personagemNome].imagePath;
     }
 
     cellNavBarAtual[lado].classList.add(`${classeNavBar}`);
@@ -48,6 +51,7 @@ export function moveNavBar(direction, lado){
 }
 
 export function dropPersonagem(cell, imgPreviaPersonagem){
+
     if (!cell.classList.contains('ocupado')) {
 
         const elemento = document.createElement('div');
@@ -75,7 +79,8 @@ export function criarPreviaPersonagem(cell, lado){
 
         if (personagens[personagemNome]) {
             // Atualize a imagem do prevPersonagemImg
-            prevPersonagemImg.src = personagens[personagemNome].imagePath;
+            if(lado==0)prevPersonagemImgPlanta.src = personagens[personagemNome].imagePath;
+            else prevPersonagemImgZombie.src = personagens[personagemNome].imagePath;
         }
         
         cell.classList.add(`${classeNavBar}`); 

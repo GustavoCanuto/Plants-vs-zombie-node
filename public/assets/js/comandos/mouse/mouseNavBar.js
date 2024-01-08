@@ -4,8 +4,6 @@ var ladoAnterior = 1;
 var funcoesEnter = [];
 
 export function navBarEnter() {
-    alert(ladoAnterior);
-    alert(LadoQueUsaMouse);
 
     // Remover os ouvintes de eventos mouseenter
    var contador =0;
