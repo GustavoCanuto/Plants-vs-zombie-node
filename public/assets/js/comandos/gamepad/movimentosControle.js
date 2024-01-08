@@ -119,7 +119,7 @@ function jogadorGamePad(gamepad, lado) {
 handleGamepad();
 
 // calculo proxima celula
-var liberadoBaixo = true, liberadoCima = true, liberadoEsquerda = true, liberadoDrieta = true;
+var liberadoBaixo = [true,true] , liberadoCima = [true,true], liberadoEsquerda = [true,true], liberadoDrieta =  [true,true];
 
 function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabuleiroID,
     limiteTabuleiroLeft, limiteBottomCelula, lado, chaveLado) {
@@ -127,7 +127,7 @@ function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabulei
     // alert(lado)
     //movendo para cima
     if (rectcursorTabuleiro.top < (rectcelulaAtual.top - (rectcelulaAtual.height * 10) / 100)
-        && rectcursorTabuleiro.top > rectTabuleiroID.top && liberadoBaixo) {
+        && rectcursorTabuleiro.top > rectTabuleiroID.top && liberadoBaixo[lado]) {
 
         // console.log("cima")
         if (rectcursorTabuleiro.right > rectcelulaAtual.right - (rectcelulaAtual.width * 20) / 100
@@ -146,15 +146,15 @@ function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabulei
         const centerYPercentage = ((rect.top - mainRect.top + rect.height / 2 - cursorTabuleiroAzul.height / 2) / mainRect.height) * 100;
 
         analogMoveY[lado] = centerYPercentage;
-        liberadoCima = false;
+        liberadoCima[lado] = false;
 
         setTimeout(() => {
-            liberadoCima = true;
+            liberadoCima[lado] = true;
         }, 100);
     }
 
     //movendo para baixo
-    else if (rectcursorTabuleiro.bottom > rectcelulaAtual.bottom - limiteBottomCelula && liberadoCima) {
+    else if (rectcursorTabuleiro.bottom > rectcelulaAtual.bottom - limiteBottomCelula && liberadoCima[lado]) {
 
         //  console.log("baixo")
         if (rectcursorTabuleiro.right > rectcelulaAtual.right && rectcursorTabuleiro.right < rectTabuleiroID.right) {
@@ -175,35 +175,35 @@ function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabulei
         const centerYPercentage = ((rect.top - mainRect.top) / mainRect.height) * 100;
 
         analogMoveY[lado] = centerYPercentage;
-        liberadoBaixo = false;
+        liberadoBaixo[lado] = false;
 
         setTimeout(() => {
-            liberadoBaixo = true;
+            liberadoBaixo[lado] = true;
         }, 100);
     }
 
     //movendo para direita
     else if (rectcursorTabuleiro.right > rectcelulaAtual.right
-        && rectcursorTabuleiro.right < rectTabuleiroID.right && liberadoDrieta) {
+        && rectcursorTabuleiro.right < rectTabuleiroID.right && liberadoDrieta[lado]) {
 
         moveContent('arrowright', lado);
 
-        liberadoDrieta = false;
+        liberadoDrieta[lado] = false;
 
         setTimeout(() => {
-            liberadoDrieta = true;
+            liberadoDrieta[lado] = true;
         }, 35);
 
         //movendo para esquerda
     } else if (rectcursorTabuleiro.left < rectcelulaAtual.left
-        && rectcursorTabuleiro.left > rectTabuleiroID.left + limiteTabuleiroLeft && liberadoEsquerda) {
+        && rectcursorTabuleiro.left > rectTabuleiroID.left + limiteTabuleiroLeft && liberadoEsquerda[lado]) {
 
         moveContent('arrowleft', lado);
 
-        liberadoEsquerda = false;
+        liberadoEsquerda[lado] = false;
 
         setTimeout(() => {
-            liberadoEsquerda = true;
+            liberadoEsquerda[lado] = true;
         }, 35);
     }
 }
