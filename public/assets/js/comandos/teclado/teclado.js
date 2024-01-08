@@ -1,5 +1,5 @@
 import * as comandosNavBar from '../comandosNavBar.js';
-import {comandoPersonalizado} from './tecladoPersonalizado.js';
+import { comandoPersonalizado } from './tecladoPersonalizado.js';
 
 document.addEventListener('keydown', function (e) {
 
@@ -9,82 +9,86 @@ document.addEventListener('keydown', function (e) {
 
 });
 
-var rowIndex = 1;
-var cellIndex = 1;
-var moveTimeout;
+// document.addEventListener('key', function (e) {
+
+//     var key = e.key.toLowerCase();
+
+//     comandoPersonalizado(key);
+
+// });
 
 
-export function moveCards(key,lado){
 
-    const classeSeletor = lado == 0? "seletorTabuleiroAmarelo" : "seletorTabuleiroAzul"
-
-    switch (key) {
-        case '2':
-            comandosNavBar.moveNavBar(1, lado);
-            break;
-        case '1':
-            comandosNavBar.moveNavBar(-1, lado);
-            break;
-        case ' ':
-            const celulaAtual = document.getElementById(`${classeSeletor}`);
-            comandosNavBar.dropPersonagem(celulaAtual.closest('.cell'),imgPreviaPersonagem[lado]);
-            break;
-    }
-
+export function moveCards(key, lado) {
+    if (lado == 0) jogadorPlanta.atualizarMoveCard(key, lado);
+    if (lado == 1) jogadorZombie.atualizarMoveCard(key, lado);
 }
 
 
 export function moveContent(direction, lado) {
+    if (lado == 0) jogadorPlanta.atualizarMove(direction, lado)
+    if (lado == 1) jogadorZombie.atualizarMove(direction, lado)
+}
+
+class JogadorMove {
+
+    constructor() {
+        this.rowIndex = 1;
+        this.cellIndex = 1;
+        this.moveTimeout = null;
+    }
+
+atualizarMove(direction, lado){
 
     var chaveLado = Object.keys(celulaAtual[lado]);
-   
-    rowIndex = celulaAtual[lado][chaveLado].parentElement.classList[1].replace('linha', '');
-    cellIndex = Array.from(celulaAtual[lado][chaveLado].parentElement.children).indexOf(celulaAtual[lado][chaveLado]);
+
+    this.rowIndex = celulaAtual[lado][chaveLado].parentElement.classList[1].replace('linha', '');
+    this.cellIndex = Array.from(celulaAtual[lado][chaveLado].parentElement.children).indexOf(celulaAtual[lado][chaveLado]);
 
     switch (direction) {
         case 'arrowup':
-            rowIndex = Math.max(1, parseInt(rowIndex) - 1);
+            this.rowIndex = Math.max(1, parseInt(this.rowIndex) - 1);
             break;
         case 'arrowdown':
-            rowIndex = Math.min(5, parseInt(rowIndex) + 1);
+            this.rowIndex = Math.min(5, parseInt(this.rowIndex) + 1);
             break;
         case 'arrowleft':
-            cellIndex = Math.max(1, cellIndex - 1);
+            this.cellIndex = Math.max(1, this.cellIndex - 1);
             break;
         case 'arrowright':
-            cellIndex = Math.min(9, cellIndex + 1);
+            this.cellIndex = Math.min(9, this.cellIndex + 1);
             break;
         case 'arrowupleft':
-            rowIndex = Math.max(1, parseInt(rowIndex) - 1);
-            cellIndex = Math.max(1, cellIndex - 1);
+            this.rowIndex = Math.max(1, parseInt(this.rowIndex) - 1);
+            this.cellIndex = Math.max(1, this.cellIndex - 1);
             break;
         case 'arrowupright':
-            rowIndex = Math.max(1, parseInt(rowIndex) - 1);
-            cellIndex = Math.min(9, cellIndex + 1);
+            this.rowIndex = Math.max(1, parseInt(this.rowIndex) - 1);
+            this.cellIndex = Math.min(9, this.cellIndex + 1);
             break;
         case 'arrowdownleft':
-            rowIndex = Math.min(5, parseInt(rowIndex) + 1);
-            cellIndex = Math.max(1, cellIndex - 1);
+            this.rowIndex = Math.min(5, parseInt(this.rowIndex) + 1);
+            this.cellIndex = Math.max(1, this.cellIndex - 1);
             break;
         case 'arrowdownright':
-            rowIndex = Math.min(5, parseInt(rowIndex) + 1);
-            cellIndex = Math.min(9, cellIndex + 1);
+            this.rowIndex = Math.min(5, parseInt(this.rowIndex) + 1);
+            this.cellIndex = Math.min(9, this.cellIndex + 1);
             break;
 
     }
 
-    var targetRow = document.querySelector('.linha' + rowIndex);
-    var targetCell = targetRow.children[cellIndex];
+    var targetRow = document.querySelector('.linha' + this.rowIndex);
+    var targetCell = targetRow.children[this.cellIndex];
 
     if (!targetCell.classList.contains('grass-cutter')) {
 
         celulaAnterior[lado][chaveLado] = celulaAtual[lado][chaveLado];
         celulaAtual[lado][chaveLado] = targetCell;
-  
-        clearTimeout(moveTimeout);
 
-        moveTimeout = setTimeout(function () {
-       
+        clearTimeout(this.moveTimeout);
+
+        this.moveTimeout = setTimeout(function () {
+
             centerImage(celulaAtual[lado]);
             targetCell.appendChild(seletorTabuleiro[lado][chaveLado]);
             targetCell.appendChild(divPreviaPersonagem[lado][chaveLado]);
@@ -92,9 +96,27 @@ export function moveContent(direction, lado) {
         }, 30);
 
     }
-
 }
 
 
+    atualizarMoveCard(key, lado){
+        const classeSeletor = lado == 0 ? "seletorTabuleiroAmarelo" : "seletorTabuleiroAzul"
 
+        switch (key) {
+            case '2':
+                comandosNavBar.moveNavBar(1, lado);
+                break;
+            case '1':
+                comandosNavBar.moveNavBar(-1, lado);
+                break;
+            case ' ':
+                const celulaAtual = document.getElementById(`${classeSeletor}`);
+                comandosNavBar.dropPersonagem(celulaAtual.closest('.cell'), imgPreviaPersonagem[lado]);
+                break;
+        }
+    }
 
+}
+
+export var jogadorPlanta = new JogadorMove();
+export var jogadorZombie = new JogadorMove();
