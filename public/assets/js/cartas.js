@@ -40,7 +40,7 @@ atualizarLado(){
     });
 
     this.classedragItems = LadoQueUsaMouse == 0 ? '.navbar-planta' : '.navbar-zombie'
-    alert(this.classedragItems)
+    //alert(this.classedragItems)
     this.dragItems = document.querySelectorAll(`${this.classedragItems} .card`);
     this.dropBoxes = document.querySelectorAll(".cell");
 
