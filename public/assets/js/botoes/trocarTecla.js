@@ -6,7 +6,14 @@ var listaTeclas = {
     arrowRightPlanta: "arrowright",
     cardEsquerdaPlanta: "1",
     cardDireitaPlanta: "2",
-    colcoarPersonagemPlanta: "space"
+    colcoarPersonagemPlanta: "space",
+    arrowUpZombie: "w",
+    arrowDownZombie: "s",
+    arrowLeftZombie: "a",
+    arrowRightZombie: "d",
+    cardEsquerdaZombie: "q",
+    cardDireitaZombie: "e",
+    colcoarPersonagemZombie: "g"
 };
 
 function trocarTecla(id) {
