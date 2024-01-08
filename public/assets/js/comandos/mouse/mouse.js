@@ -10,6 +10,24 @@ var seletorTabuleiroAzul = document.getElementById('seletorTabuleiroAzul');
 var celulaAtualZombie = document.getElementById('cell1Zombie');
 var celulaAnteriorZombie = document.getElementById('cell1Zombie');
 
+// previa Imagem Inicial Zombie
+var divPreviaPersonagemZombie = document.createElement('div');
+divPreviaPersonagemZombie.classList = 'previa-personagem';
+var imgPreviaPersonagemZombie = document.createElement('img');
+imgPreviaPersonagemZombie.src = '../../assets/img/personagens/zombies/cardtombstone.png';
+imgPreviaPersonagemZombie.id = "prevPersonagemZombie";
+divPreviaPersonagemZombie.appendChild(imgPreviaPersonagemZombie);
+celulaAtualZombie.appendChild(divPreviaPersonagemZombie);
+
+// previa Imagem Inicial Planta
+var divPreviaPersonagemPlanta = document.createElement('div');
+divPreviaPersonagemPlanta.classList = 'previa-personagem';
+var imgPreviaPersonagemPlanta = document.createElement('img');
+imgPreviaPersonagemPlanta.src = '../../assets/img/personagens/plants/sunflower.png';
+imgPreviaPersonagemPlanta.id = "prevPersonagemPlanta";
+divPreviaPersonagemPlanta.appendChild(imgPreviaPersonagemPlanta);
+celulaAtualPlanta.appendChild(divPreviaPersonagemPlanta);
+
 // geral
 var main = document.querySelector('main');
 var tabuleiroID = document.getElementById('tabuleiroID');
@@ -21,24 +39,7 @@ var cursorTabuleiro  =  [{planta:cursorTabuleiroAmarelo}, {zombie:cursorTabuleir
 var seletorTabuleiro =  [{planta:seletorTabuleiroAmarelo},{zombie:seletorTabuleiroAzul}]
 var celulaAtual      =  [{planta:celulaAtualPlanta}, {zombie:celulaAtualZombie}]
 var celulaAnterior   =  [{planta:celulaAnteriorPlanta}, {zombie:celulaAnteriorZombie}]
-
-// previa Imagem Inicial Zombie
-var divPreviaPersonagemZombie = document.createElement('div');
-divPreviaPersonagemZombie.classList = 'previa-personagem';
-var imgPreviaPersonagemZombie = document.createElement('img');
-imgPreviaPersonagemZombie.src = '../../assets/img/personagens/zombies/cardtombstone.png';
-imgPreviaPersonagemZombie.id = "prevPersonagem";
-divPreviaPersonagemZombie.appendChild(imgPreviaPersonagemZombie);
-celulaAtualZombie.appendChild(divPreviaPersonagemZombie);
-
-// previa Imagem Inicial Planta
-var divPreviaPersonagemPlanta = document.createElement('div');
-divPreviaPersonagemPlanta.classList = 'previa-personagem';
-var imgPreviaPersonagemPlanta = document.createElement('img');
-imgPreviaPersonagemPlanta.src = '../../assets/img/personagens/plants/sunflower.png';
-imgPreviaPersonagemPlanta.id = "prevPersonagem";
-divPreviaPersonagemPlanta.appendChild(imgPreviaPersonagemPlanta);
-celulaAtualPlanta.appendChild(divPreviaPersonagemPlanta);
+var divPreviaPersonagem   =  [{planta:divPreviaPersonagemPlanta}, {zombie:divPreviaPersonagemZombie}]
 
 //controle
 var isMouseActive = false;
@@ -93,7 +94,7 @@ cells.forEach(function (cell) {
 
             setTimeout(function () {
                  cell.appendChild(seletorTabuleiro[LadoQueUsaMouse][chaveMouse]);
-                 cell.appendChild(divPreviaPersonagemZombie);
+                 cell.appendChild(divPreviaPersonagem[LadoQueUsaMouse][chaveMouse]);
                  seletorTabuleiro[LadoQueUsaMouse][chaveMouse].style.opacity = '1';
                  cell.removeChild(prevSeletorTabuleiro);
              }, 150);
