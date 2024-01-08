@@ -8,7 +8,7 @@ cells.forEach(function(cell) {
 
     cell.addEventListener('click', function () {
         
-        dropPersonagem(cell, imgPreviaPersonagem);
+        dropPersonagem(cell, imgPreviaPersonagem[LadoQueUsaMouse]);
     }
     );
     }

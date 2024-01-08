@@ -32,14 +32,15 @@ celulaAtualPlanta.appendChild(divPreviaPersonagemPlanta);
 var main = document.querySelector('main');
 var tabuleiroID = document.getElementById('tabuleiroID');
 var cells = document.querySelectorAll('.cell');
+
 var LadoQueUsaMouse = 0;
-console.log("Lado que usa o mouse: " + LadoQueUsaMouse);
 
 var cursorTabuleiro  =  [{planta:cursorTabuleiroAmarelo}, {zombie:cursorTabuleiroAzul}]
 var seletorTabuleiro =  [{planta:seletorTabuleiroAmarelo},{zombie:seletorTabuleiroAzul}]
 var celulaAtual      =  [{planta:celulaAtualPlanta}, {zombie:celulaAtualZombie}]
 var celulaAnterior   =  [{planta:celulaAnteriorPlanta}, {zombie:celulaAnteriorZombie}]
 var divPreviaPersonagem   =  [{planta:divPreviaPersonagemPlanta}, {zombie:divPreviaPersonagemZombie}]
+var imgPreviaPersonagem     =  [imgPreviaPersonagemPlanta, imgPreviaPersonagemZombie]
 
 //controle
 var isMouseActive = false;

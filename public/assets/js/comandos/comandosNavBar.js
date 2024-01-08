@@ -18,6 +18,7 @@ export var prevPersonagemImgZombie = document.getElementById('prevPersonagemZomb
 export var cellNavBar        = [cellNavBarPlanta,cellNavBarZombie]
 export var cellNavBarAtual   = [cellNavBarPlantaAtual, cellNavBarZombieAtual]
 export var cursorNavBar      = [cursorNavBarPlanta, cursorNavBarZombie]
+export var prevPersonagemImg = [prevPersonagemImgPlanta, prevPersonagemImgZombie]
 
 
 
@@ -41,8 +42,7 @@ export function moveNavBar(direction, lado){
 
     if (personagens[personagemNome]) {
         // Atualize a imagem do prevPersonagemImg
-        if(lado==0)prevPersonagemImgPlanta.src = personagens[personagemNome].imagePath;
-        else prevPersonagemImgZombie.src = personagens[personagemNome].imagePath;
+        prevPersonagemImg[lado].src = personagens[personagemNome].imagePath;
     }
 
     cellNavBarAtual[lado].classList.add(`${classeNavBar}`);
@@ -79,8 +79,8 @@ export function criarPreviaPersonagem(cell, lado){
 
         if (personagens[personagemNome]) {
             // Atualize a imagem do prevPersonagemImg
-            if(lado==0)prevPersonagemImgPlanta.src = personagens[personagemNome].imagePath;
-            else prevPersonagemImgZombie.src = personagens[personagemNome].imagePath;
+            prevPersonagemImg[lado].src = personagens[personagemNome].imagePath;
+    
         }
         
         cell.classList.add(`${classeNavBar}`); 
