@@ -5,12 +5,7 @@ document.addEventListener('keydown', function (e) {
 
     var key = e.key.toLowerCase();
 
-    if (!teclaPersonalizada){
-    moveContent(key);
-    moveCards(key);
-    }else{
-        comandoPersonalizado(key);
-    }
+    comandoPersonalizado(key);
 
 });
 
@@ -19,27 +14,32 @@ var cellIndex = 1;
 var moveTimeout;
 
 
-export function moveCards(key){
+export function moveCards(key,lado){
+
+    const classeSeletor = lado == 0? "seletorTabuleiroAmarelo" : "seletorTabuleiroAzul"
 
     switch (key) {
         case '2':
-            comandosNavBar.moveNavBar(1);
+            comandosNavBar.moveNavBar(1, lado);
             break;
         case '1':
-            comandosNavBar.moveNavBar(-1);
+            comandosNavBar.moveNavBar(-1, lado);
             break;
         case ' ':
-            const celulaAtualZombie = document.getElementById('seletorTabuleiroAzul');
-            comandosNavBar.dropPersonagem(celulaAtualZombie.closest('.cell'),imgPreviaPersonagem);
+            const celulaAtual = document.getElementById(`${classeSeletor}`);
+            comandosNavBar.dropPersonagem(celulaAtual.closest('.cell'),imgPreviaPersonagem[lado]);
             break;
     }
 
 }
 
-export function moveContent(direction) {
 
-    rowIndex = celulaAtualZombie.parentElement.classList[1].replace('linha', '');
-    cellIndex = Array.from(celulaAtualZombie.parentElement.children).indexOf(celulaAtualZombie);
+export function moveContent(direction, lado) {
+
+    var chaveLado = Object.keys(celulaAtual[lado]);
+   
+    rowIndex = celulaAtual[lado][chaveLado].parentElement.classList[1].replace('linha', '');
+    cellIndex = Array.from(celulaAtual[lado][chaveLado].parentElement.children).indexOf(celulaAtual[lado][chaveLado]);
 
     switch (direction) {
         case 'arrowup':
@@ -47,15 +47,12 @@ export function moveContent(direction) {
             break;
         case 'arrowdown':
             rowIndex = Math.min(5, parseInt(rowIndex) + 1);
-
             break;
         case 'arrowleft':
             cellIndex = Math.max(1, cellIndex - 1);
-
             break;
         case 'arrowright':
             cellIndex = Math.min(9, cellIndex + 1);
-
             break;
         case 'arrowupleft':
             rowIndex = Math.max(1, parseInt(rowIndex) - 1);
@@ -81,16 +78,16 @@ export function moveContent(direction) {
 
     if (!targetCell.classList.contains('grass-cutter')) {
 
-        celulaAnteriorZombie = celulaAtualZombie;
-        celulaAtualZombie = targetCell;
+        celulaAnterior[lado][chaveLado] = celulaAtual[lado][chaveLado];
+        celulaAtual[lado][chaveLado] = targetCell;
   
         clearTimeout(moveTimeout);
 
         moveTimeout = setTimeout(function () {
-
-            centerImage(celulaAtualZombie);
-            targetCell.appendChild(seletorTabuleiroAzul);
-            targetCell.appendChild(divPreviaPersonagem);
+       
+            centerImage(celulaAtual[lado]);
+            targetCell.appendChild(seletorTabuleiro[lado][chaveLado]);
+            targetCell.appendChild(divPreviaPersonagem[lado][chaveLado]);
 
         }, 30);
 
