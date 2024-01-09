@@ -44,7 +44,29 @@ class AnimacaoCartas {
         elemento.classList.add('personagem');
         const gifElement = document.createElement('img');
         elemento.appendChild(gifElement);
-        cellElement.appendChild(elemento);
+        var tabuleiro = document.querySelector('.board');
+        tabuleiro.appendChild(elemento);
+
+        const posicaoLeft = cellElement.offsetLeft ;
+        const posicaoTop = cellElement.offsetTop-50;
+
+   
+        //alert(posicaoLeft)
+        elemento.style.position = 'absolute'
+        elemento.style.top = `${posicaoTop}px`;
+        elemento.style.left =  `${posicaoLeft}px`;
+        const fatorEscala = 0.8;
+
+        let positionLeft = posicaoLeft;
+
+        function moveElement() {
+         
+          elemento.style.left = positionLeft + 'px';
+          positionLeft += 10;
+        }
+        
+        setInterval(moveElement, 100); 
+        elemento.style.transform = `scale(${fatorEscala})`;
 
         this.iniciarAnimacao(frames, gifElement);
     }
@@ -57,7 +79,6 @@ class AnimacaoCartas {
             imgFrame.src = `../assets/img/frames/${nomeClasse}/frame-${i}.gif`;
             frames.push(imgFrame);
         }
-
         return frames;
     }
 
@@ -66,16 +87,15 @@ class AnimacaoCartas {
     const frameDuration = 50;
 
     const animationInterval = setInterval(() => {
-        // Verifica se gifElement é nulo ou indefinido antes de atribuir a propriedade src
         if (gifElement) {
             gifElement.src = frames[frameIndex].src;
             frameIndex = (frameIndex + 1) % frames.length;
         } else {
-            clearInterval(animationInterval); // Interrompe o intervalo se o gifElement for nulo
+            clearInterval(animationInterval);
             console.error('Elemento gifElement não encontrado.');
         }
     }, frameDuration);
-}
+  }
 }
 
 export default AnimacaoCartas;
