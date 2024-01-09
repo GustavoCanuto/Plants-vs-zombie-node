@@ -22,7 +22,6 @@ class ArrastarCards {
 
         });
 
-
         this.dropBoxes.forEach(box => {
             box.addEventListener('dragover', this.dragOver.bind(this));
             box.addEventListener('drop', this.dropEvent.bind(this));
