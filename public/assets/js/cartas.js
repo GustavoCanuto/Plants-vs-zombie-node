@@ -1,4 +1,5 @@
 import { Personagens, personagens } from "./personagens.js";
+import AnimacaoCartas from './animacaoCartas.js';
 
 class ArrastarCards {
 
@@ -73,11 +74,7 @@ class ArrastarCards {
             this.funcoesDragItems.push(handle);
 
             item.addEventListener('dragstart', handle);
-
         });
-
-
-
     }
 
     dragStart(ev) {
@@ -116,90 +113,34 @@ class ArrastarCards {
             }
         }
     }
-
-    criarAnimacaoCarta(ev) {
-
+    
+    criarElementoPersonagem() {
         const elemento = document.createElement('div');
-        elemento.classList.add("personagem");
-
-
-        const cellOcupada = ev.target.closest('.cell');
-
-        cellOcupada.classList.add("ocupado");
-
-
-        const nomeClasse = ev.dataTransfer.getData('text/plain');
-        const regex = /\/([^/]+)\.png$/;
-        const match = nomeClasse.match(regex);
-
-        // Se houver uma correspondência, o nome do personagem estará em match[1]
-        const nomePersonagem = match ? match[1] : null;
-
-        //alert(nomePersonagem)
-        const frames = [];
-        const numberOfFrames = this.framesPorClasse[nomePersonagem] || 0;
-
-        for (let i = 1; i <= numberOfFrames; i++) {
-            const img = new Image();
-            img.src = `../assets/img/frames/${nomePersonagem}/frame-${i}.gif`;
-
-            frames.push(img);
-        }
-
+        elemento.classList.add('personagem');
         const gifElement = document.createElement('img');
-
-      alert(`${nomePersonagem}prop`)
-      //  gifElement.classList.add(`${nomePersonagem}prop`)
-      
         elemento.appendChild(gifElement);
-        // cellOcupada.appendChild(elemento);
-        cellOcupada.appendChild(elemento);
-
-        let frameIndex = 0;
-        const frameDuration = 50; // Defina a duração de cada frame em milissegundos
-
-        const animationInterval = setInterval(() => {
-            gifElement.src = frames[frameIndex].src;
-            frameIndex++;
-            if (frameIndex >= frames.length) {
-                frameIndex = 0; // Reinicia a animação quando atinge o último frame
-            }
-        }, frameDuration);
+        return elemento;
     }
-
-
+    
     dropEvent = (ev) => {
         if (!ev.target.closest('.cell').classList.contains('ocupado')) {
             ev.preventDefault();
 
             ev.target.classList.remove('enter');
-
             const imgSrc = ev.dataTransfer.getData('text/plain');
             const img = new Image();
             img.src = imgSrc;
 
-            if (img.src.includes('/img/personagens/')) {
-
-                const rowElement = ev.target.closest('.row');
-                const cellElement = ev.target.closest('.cell');
-
-                if (rowElement && cellElement) {
-
-                    this.criarAnimacaoCarta(ev, img);
-
-
-                } else {
-                    console.error('Não foi possível obter os índices do tabuleiro.');
-                }
-            } else {
-                console.error('Imagem Invalida');
-            }
+            this.criarAnimacaoCarta(ev, img);
         }
     }
 
-
     dragLeave(ev) {
         ev.preventDefault();
+    }
+
+    criarAnimacaoCarta(ev, img) {
+        AnimacaoCartas.criarAnimacaoCarta(ev, img, this.framesPorClasse);
     }
 
     onItemPlaced(data) {
