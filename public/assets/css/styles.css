@@ -36,3 +36,14 @@
     position: absolute;
     top: 0;
 }
+
+.propriedades-imagem{
+    position: absolute;
+    width: 150%;
+    height: 150%;
+}
+
+.zombieprop{
+    width: 200px;
+    height: 200px;
+}
