@@ -31,23 +31,6 @@ class ArrastarCards {
 
         this.cellAnimators = {};
 
-        this.framesPorClasse = {
-            sunflower: 25,
-            peashooter: 25,
-            showpea: 25,
-            repeater: 25,
-            wallnut: 17,
-            cherrybomb: 14,
-            potatomine: 11,
-            cardtombstone: 1,
-            zombie: 47,
-            conehead: 47,
-            buckethead: 47,
-            flagzombie: 47,
-            football: 30,
-            screendoor: 47,
-        };
-
         this.socket.on('itemPlaced', this.onItemPlaced.bind(this));
     }
 
@@ -140,7 +123,7 @@ class ArrastarCards {
     }
 
     criarAnimacaoCarta(ev, img) {
-        AnimacaoCartas.criarAnimacaoCarta(ev, img, this.framesPorClasse);
+        AnimacaoCartas.criarAnimacaoCarta(ev, img);
     }
 
     onItemPlaced(data) {

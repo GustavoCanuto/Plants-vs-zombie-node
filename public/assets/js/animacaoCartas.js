@@ -1,6 +1,23 @@
 class AnimacaoCartas {
 
-    static criarAnimacaoCarta(ev, img, framesPorClasse) {
+    static framesPorClasse = {
+        sunflower: 25,
+        peashooter: 25,
+        showpea: 25,
+        repeater: 25,
+        wallnut: 17,
+        cherrybomb: 14,
+        potatomine: 11,
+        cardtombstone: 1,
+        zombie: 47,
+        conehead: 47,
+        buckethead: 47,
+        flagzombie: 47,
+        football: 30,
+        screendoor: 47,
+    };
+
+    static criarAnimacaoCarta(ev, img) {
         const imgSrc = img.src;
 
         if (!imgSrc.includes('/img/personagens/')) {
@@ -15,7 +32,7 @@ class AnimacaoCartas {
         }
 
         const nomeClasse = imgSrc.split('/').pop().split('.')[0];
-        const numberOfFrames = framesPorClasse[nomeClasse] || 0;
+        const numberOfFrames = this.framesPorClasse[nomeClasse] || 0;
         const frames = this.carregarFrames(nomeClasse, numberOfFrames);
 
         if (frames.length === 0) {
