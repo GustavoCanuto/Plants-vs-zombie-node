@@ -10,11 +10,8 @@
     width: 59%;
     height: 77.4%;
 
-    /* border: 1px solid red; */
-
 }
 
-/* Estilos para as células do tabuleiro */
 .cell {
     box-sizing: border-box;
     /* border: 1px solid rgb(0, 68, 255); */
