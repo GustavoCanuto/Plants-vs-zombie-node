@@ -33,7 +33,7 @@ var main = document.querySelector('main');
 var tabuleiroID = document.getElementById('tabuleiroID');
 var cells = document.querySelectorAll('.cell');
 
-var LadoQueUsaMouse = 0;
+var LadoQueUsaMouse = 1;
 
 var cursorTabuleiro  =  [{planta:cursorTabuleiroAmarelo}, {zombie:cursorTabuleiroAzul}]
 var seletorTabuleiro =  [{planta:seletorTabuleiroAmarelo},{zombie:seletorTabuleiroAzul}]

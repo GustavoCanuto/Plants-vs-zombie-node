@@ -32,19 +32,6 @@ class AnimacaoCartas {
         }
 
         const nomeClasse = imgSrc.split('/').pop().split('.')[0];
-
-        // Verifica se a classe pertence ao conjunto de plantas
-        const isPlanta = ['sunflower', 'peashooter', 'showpea', 'repeater', 'wallnut', 'cherrybomb', 'potatomine'].includes(nomeClasse);
-
-        if (isPlanta) {
-            this.criarAnimacaoPlanta(cellElement, nomeClasse, this.framesPorClasse);
-        } else {
-            this.criarAnimacaoZombie(cellElement, nomeClasse);
-        }
-    }
-
-
-    static criarAnimacaoPlanta(cellElement, nomeClasse, framesPorClasse) {
         const numberOfFrames = this.framesPorClasse[nomeClasse] || 0;
         const frames = this.carregarFrames(nomeClasse, numberOfFrames);
 
@@ -54,79 +41,50 @@ class AnimacaoCartas {
         }
 
         const elemento = document.createElement('div');
-        elemento.classList.add('personagemPlanta');
+        elemento.classList.add('personagem');
         const gifElement = document.createElement('img');
+        elemento.style.width = '20%'
         elemento.appendChild(gifElement);
-        cellElement.appendChild(elemento);
-
-        this.iniciarAnimacao(frames, gifElement);
-    }
-
-    static criarAnimacaoZombie(cellElement, nomeClasse) {
-        const elemento = document.createElement('div');
-        elemento.classList.add('personagemZombie');
-        const gifElement = document.createElement('img');
-        elemento.appendChild(gifElement);
-        let tabuleiro = document.querySelector('.board');
+        var tabuleiro = document.querySelector('.board');
         tabuleiro.appendChild(elemento);
+
+        
+        gifElement.style.width = '100%'
+
+      //  alert(elemento.offsetHeight)
+      //  alert(elemento.getBoundingClientRect().height)
+        const posicaoLeft = (cellElement.offsetLeft / tabuleiro.offsetWidth) * 100;
+        let posicaoTop = (((cellElement.offsetTop)- 30) / tabuleiro.offsetHeight) * 100;
+ 
+        let posicaoBottom = 72 - posicaoTop ;
+        elemento.style.position = 'absolute';
+        elemento.style.bottom = `${posicaoBottom}%`;
+        elemento.style.left = `${posicaoLeft}%`;
     
-        function atualizarPosicao(posLeft, posTop, cellWidth, cellHeight) {
-            elemento.style.position = 'absolute';
-            elemento.style.width = `${cellWidth}px`;
-            elemento.style.height = `${cellHeight}px`;
-            elemento.style.top = `${(posTop / window.innerHeight) * 100}vh`;
-            elemento.style.left = `${(posLeft / window.innerWidth) * 100}vw`;
-    
-            // Ajuste do tamanho da imagem
-            gifElement.style.maxWidth = `${cellWidth}px`;
-            gifElement.style.maxHeight = `${cellHeight}px`;
-        }
-    
-        const atualizarPosicaoInicial = () => {
-            const cellWidth = cellElement.offsetWidth;
-            const cellHeight = cellElement.offsetHeight;
-            const posicaoLeft = cellElement.offsetLeft;
-            const posicaoTop = cellElement.offsetTop;
-    
-            atualizarPosicao(posicaoLeft, posicaoTop, cellWidth, cellHeight);
-        };
-    
-        atualizarPosicaoInicial(); // Chamar inicialmente ao criar o elemento
-    
-        window.addEventListener('resize', () => {
-            const newCellWidth = cellElement.offsetWidth;
-            const newCellHeight = cellElement.offsetHeight;
-            const newPosicaoLeft = cellElement.offsetLeft;
-            const newPosicaoTop = cellElement.offsetTop;
-    
-            atualizarPosicao(newPosicaoLeft, newPosicaoTop, newCellWidth, newCellHeight); // Recalcular posição e tamanho ao redimensionar a tela
-        });
-    
-        const numberOfFrames = this.framesPorClasse[nomeClasse] || 0;
-        const frames = this.carregarFrames(nomeClasse, numberOfFrames);
-    
-        if (frames.length === 0) {
-            console.error('Não foi possível carregar os frames da animação.');
-            return;
-        }
-    
-        gifElement.style.transform = `scale(1.5)`;
-    
-        // Lógica de movimento para a esquerda
-        //const fatorEscala = 1.5;
-        let positionLeft = elemento.offsetLeft;
+        const fatorEscala = 0.8;
+        let positionLeft = posicaoLeft;
     
         function moveElement() {
-            elemento.style.left = positionLeft + 'px';
-            positionLeft -= 3;
+            elemento.style.left = positionLeft + '%';
+            positionLeft -= 1; // Ajuste a velocidade conforme necessário
         }
-    
-        setInterval(moveElement, 100);
         
+        setInterval(moveElement, 100); 
+        elemento.style.transform = `scale(${fatorEscala})`;
+
         this.iniciarAnimacao(frames, gifElement);
     }
-    
-    
+
+    static carregarFrames(nomeClasse, numberOfFrames) {
+        const frames = [];
+
+        for (let i = 1; i <= numberOfFrames; i++) {
+            const imgFrame = new Image();
+            imgFrame.src = `../assets/img/frames/${nomeClasse}/frame-${i}.gif`;
+            frames.push(imgFrame);
+        }
+        return frames;
+    }
 
     static iniciarAnimacao(frames, gifElement) {
     let frameIndex = 0;
@@ -142,18 +100,6 @@ class AnimacaoCartas {
         }
     }, frameDuration);
   }
-
-  static carregarFrames(nomeClasse, numberOfFrames) {
-    const frames = [];
-
-    for (let i = 1; i <= numberOfFrames; i++) {
-        const imgFrame = new Image();
-        imgFrame.src = `../assets/img/frames/${nomeClasse}/frame-${i}.gif`;
-        frames.push(imgFrame);
-    }
-
-    return frames;
-}
 }
 
 export default AnimacaoCartas;

@@ -51,6 +51,7 @@ class Tabuleiro {
             let rowElement = document.createElement('div');
             rowElement.classList.add('row');
             rowElement.classList.add('linha' + (i + 1));
+            rowElement.id = (i + 1);
 
             for (let j = 0; j < this.colunas; j++) {
                 if (j % this.colunasPorLinha === 0 && j !== 0) {
@@ -58,6 +59,7 @@ class Tabuleiro {
                     rowElement = document.createElement('div');
                     rowElement.classList.add('row');
                     rowElement.classList.add('linha' + (i + 1));
+                   
                 }
 
                 const cell = document.createElement('div');
