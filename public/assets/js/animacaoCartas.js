@@ -91,7 +91,7 @@ class AnimacaoCartas {
                 console.error('Não foi possível carregar os frames da animação.');
                 return;
             }
-            
+
             let positionLeft = posicaoLeft;
         
             function moveElement() {
