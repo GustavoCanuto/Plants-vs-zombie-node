@@ -43,21 +43,24 @@ class AnimacaoCartas {
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
         const gifElement = document.createElement('img');
-        elemento.style.width = '20%'
+        elemento.style.width = '15%'
         elemento.appendChild(gifElement);
         var tabuleiro = document.querySelector('.board');
-        tabuleiro.appendChild(elemento);
-
         
+
         gifElement.style.width = '100%'
 
-      //  alert(elemento.offsetHeight)
       //  alert(elemento.getBoundingClientRect().height)
+     
+      tabuleiro.appendChild(elemento)
+
+
         const posicaoLeft = (cellElement.offsetLeft / tabuleiro.offsetWidth) * 100;
-        let posicaoTop = (((cellElement.offsetTop)- 30) / tabuleiro.offsetHeight) * 100;
- 
+        let posicaoTop = (((cellElement.offsetTop) - (elemento.offsetHeight+20)) / tabuleiro.offsetHeight) * 100;
+
         let posicaoBottom = 72 - posicaoTop ;
         elemento.style.position = 'absolute';
+       
         elemento.style.bottom = `${posicaoBottom}%`;
         elemento.style.left = `${posicaoLeft}%`;
     
@@ -70,9 +73,12 @@ class AnimacaoCartas {
         }
         
         setInterval(moveElement, 100); 
-        elemento.style.transform = `scale(${fatorEscala})`;
-
         this.iniciarAnimacao(frames, gifElement);
+
+     
+        elemento.classList.remove('adicionado')
+
+
     }
 
     static carregarFrames(nomeClasse, numberOfFrames) {
