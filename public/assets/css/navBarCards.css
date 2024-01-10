@@ -64,11 +64,10 @@
 }
 
 #cursor-navBar-zombie {
-    position: relative;
+    position: absolute;
     width: 40%;
     height: 15%;
     left: 30%;
-    top: -9%;
     animation: bounceAnimationNavBar 1.5s infinite;
 }
 
@@ -97,10 +96,9 @@
 }
 
 #cursor-navBar-planta {
-    position: relative;
+    position: absolute;
     width: 40%;
     height: 15%;
     left: 30%;
-    top: -9%;
     animation: bounceAnimationNavBar 1.5s infinite;
 }
