@@ -76,11 +76,11 @@ class AnimacaoCartas {
             tabuleiro.appendChild(elemento)
 
             const posicaoLeft = (cellElement.offsetLeft / tabuleiro.offsetWidth) * 100;
-            let posicaoTop = (((cellElement.offsetTop) - (elemento.offsetHeight+20)) / tabuleiro.offsetHeight) * 100;
-
-            let posicaoBottom = 72 - posicaoTop ;
+            
             elemento.style.position = 'absolute';
         
+            let posicaoBottom = ((tabuleiro.offsetHeight - (cellElement.offsetTop + cellElement.offsetHeight)) / tabuleiro.offsetHeight) * 100;
+            
             elemento.style.bottom = `${posicaoBottom}%`;
             elemento.style.left = `${posicaoLeft}%`;
 
