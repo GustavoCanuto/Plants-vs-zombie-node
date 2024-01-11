@@ -14,6 +14,10 @@ let teclaPressionadaZombie;
 document.addEventListener('keydown', function (e) {
     var key = e.key.toLowerCase();
 
+    if (key == " ") {
+        key = "space";
+     }
+
     //planta
     if (Object.values(listaTeclasPlantas).includes(key)) {
 
@@ -65,6 +69,11 @@ document.addEventListener('keydown', function (e) {
 
 document.addEventListener('keyup', function (e) {
     var key = e.key.toLowerCase();
+
+    if (key == " ") {
+        key = "space";
+     }
+
 
     if (Object.values(listaTeclasPlantas).includes(key)) {
 
@@ -163,6 +172,7 @@ class JogadorMove {
                 centerImage(celulaAtual[lado]);
                 targetCell.appendChild(seletorTabuleiro[lado][chaveLado]);
                 targetCell.appendChild(divPreviaPersonagem[lado][chaveLado]);
+             
 
             }, 30);
 

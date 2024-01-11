@@ -112,17 +112,13 @@ class ArrastarCards {
             const imgSrc = ev.dataTransfer.getData('text/plain');
             const img = new Image();
             img.src = imgSrc;
-
-            this.criarAnimacaoCarta(ev, img);
+            const cellElement  = ev.target.closest('.cell');
+            AnimacaoCartas.criarAnimacaoCarta(cellElement, img);
         }
     }
 
     dragLeave(ev) {
         ev.preventDefault();
-    }
-
-    criarAnimacaoCarta(ev, img) {
-        AnimacaoCartas.criarAnimacaoCarta(ev, img);
     }
 
     onItemPlaced(data) {
