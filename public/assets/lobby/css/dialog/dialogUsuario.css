@@ -5,7 +5,7 @@
 
 @font-face {
     font-family: 'gameTextoFont'; /* Escolha um nome para a sua fonte */
-    src: url('../../../font/Brianne_s_hand') format('truetype'); /* Substitua pelo caminho real da sua fonte */
+    src: url('../../../font/Brianne_s_hand.ttf') format('truetype'); /* Substitua pelo caminho real da sua fonte */
 }
 
 
@@ -64,18 +64,22 @@
     height: 10%;
     width: 60%;
     left: 30%;
-    top: 34%;
+    top: 36.5%;
 }
 
 .input-usuario {
     height: 10%;
-    width: 65%;
-    left: 16%;
-    top: 40%;
+    width: 63%;
+    left: 18%;
+    top: 42.5%;
     font-size: 1.5vw;
     font-family: 'gameTextoFont';
     background-color: #d3d5e7;
+    border: 0;
+    padding-left: 2%;
 }
+
+
 
 .entrar-usuario {
     height: 5.6vw;

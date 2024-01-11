@@ -3,31 +3,45 @@
    src: url('../../../font/contb.ttf') format('truetype'); /* Substitua pelo caminho real da sua fonte */
 }
 
+@keyframes brilho {
+  0% {
+    filter: brightness(1.1) hue-rotate(0deg);
+  }
+  50% {
+    filter: brightness(1.5) hue-rotate(22deg);
+  }
+  100% {
+    filter: brightness(1.1) hue-rotate(0deg);
+  }
+}
+
+.menssagens {
+  animation: brilho 2.2s infinite; /* Ajuste a duração conforme necessário */
+}
+
 .menssagens{
     display: none;
      height: 88%;
      width: 48%;
      background-image: url(../../../img/infor/infoConvite.png);
      background-size: cover;
-     font-family: 'userFont';
+     font-family: 'Fredoka One', cursive;
      color:white;
      -webkit-text-stroke: 0.12vw black; 
-     font-size: 2vw;
-    
-     
-
+     font-size: 1.6vw;
+     margin-bottom: 1%;
  }
  
  .menssagens strong{
    font-family: 'lobbyFont';
-   color: rgb(221, 221, 221);
-   -webkit-text-stroke: 0.05vw black; 
-   font-size: 1.5vw;
+   color: rgb(218, 203, 203);
+   -webkit-text-stroke: 0.04vw rgb(68, 26, 26); 
+   font-size: 1.4vw;
  }
 
  #mandadoSolitacao , #convite {
    position: relative;
-   top: 28.8%;
+   top: 39.5%;
    width: fit-content;
    margin-left: auto;
    margin-right: auto;
@@ -36,13 +50,13 @@
  }
 
  #mandadoSolitacao strong{
-   font-size: 1.3vw;
+   font-size: 1.4vw;
  }
 
  #mandadoSolitacao{
-   font-size: 1.8vw;
+   font-size: 1.6vw;
    position: relative;
-   top: 33%;
+   top: 38%;
  }
 
  .menssagens div{
@@ -59,13 +73,17 @@
     width: 100%;  
      /* gap: 0.5rem; */
     height: 6vw;
-    margin-top: auto;
-    
-    
-   
-    
-
-    
+    margin-top: auto; 
  }
 
  
+ .aceitaSolicitacao {
+  font-family: 'Fredoka One', cursive;
+  background-color: green;
+  border: 0;
+  font-size: 1.2vw;}
+
+.recusarSolicitacao{
+   background-color: red;
+   border: 0;
+   font-size: 1.2vw}
