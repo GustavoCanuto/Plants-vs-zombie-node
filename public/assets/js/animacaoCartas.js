@@ -1,3 +1,5 @@
+var  animationInterval;
+
 class AnimacaoCartas {
 
     static framesPorClasse = {
@@ -36,15 +38,14 @@ class AnimacaoCartas {
         );
     }
 
-    static criarAnimacaoCarta(ev, img) {
+    static criarAnimacaoCarta(cellElement , img) {
         const imgSrc = img.src;
 
         if (!imgSrc.includes('/img/personagens/')) {
             console.error('Imagem Inválida');
             return;
         }
-
-        const cellElement = ev.target.closest('.cell');
+    
         if (!cellElement) {
             console.error('Não foi possível obter os índices do tabuleiro.');
             return;
@@ -71,10 +72,13 @@ class AnimacaoCartas {
         }
 
         const elemento = document.createElement('div');
+        elemento.classList.add('personagem');
+        elemento.style.width = '90%';
         elemento.classList.add('personagemPlanta');
         const gifElement = document.createElement('img');
         elemento.appendChild(gifElement);
         cellElement.appendChild(elemento);
+        elemento.closest('.cell').classList.add('ocupado')
 
         this.iniciarAnimacao(frames, gifElement);
     }
@@ -134,7 +138,7 @@ class AnimacaoCartas {
                     const continuarMovendo = setInterval(() => {
                         if (tempoRestante > 0) {
                             elemento.style.left = `${positionLeft}%`;
-                            positionLeft -= 4; // andar um pouco apos a colisao
+                            positionLeft -= 0.5; // andar um pouco apos a colisao
                             tempoRestante -= 1;
                         } else {
                             clearInterval(continuarMovendo);
@@ -166,7 +170,9 @@ class AnimacaoCartas {
 
     static iniciarAnimacaoComerPlanta(gifElement) {
         console.log('comendo...');
-        gifElement.src = 'assets/img/comerPlanta.gif';
+        clearInterval(animationInterval)
+        gifElement.style.width = '55%'
+        gifElement.src = '../assets/img/comendo.gif';
     }
 
     static removerPlanta(plantaElemento) {
@@ -178,7 +184,9 @@ class AnimacaoCartas {
         let frameIndex = 0;
         const frameDuration = 50;
 
-        const animationInterval = setInterval(() => {
+     
+
+        animationInterval = setInterval(() => {
             if (gifElement) {
                 gifElement.src = frames[frameIndex].src;
                 frameIndex = (frameIndex + 1) % frames.length;

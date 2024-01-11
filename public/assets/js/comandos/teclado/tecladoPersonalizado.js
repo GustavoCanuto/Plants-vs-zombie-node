@@ -5,10 +5,6 @@ class jogadorComandosTeclado{
 
       jogadorPlanta(key){
 
-         if (key == " ") {
-            key = "space";
-         }
-
          if(key == listaTeclasPlantas.arrowUpPlanta)                moveContent('arrowup',0);
          else if(key == listaTeclasPlantas.arrowDownPlanta)         moveContent('arrowdown',0);
          else if(key == listaTeclasPlantas.arrowLeftPlanta)         moveContent('arrowleft',0);
@@ -20,9 +16,6 @@ class jogadorComandosTeclado{
 
       jogadorZombie(key){
 
-         if (key == " ") {
-            key = "space";
-         }
 
          if(key == listaTeclasZombies.arrowUpZombie)                moveContent('arrowup',1);
          else if(key == listaTeclasZombies.arrowDownZombie)         moveContent('arrowdown',1);
