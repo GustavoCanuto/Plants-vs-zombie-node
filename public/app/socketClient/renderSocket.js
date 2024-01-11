@@ -4,14 +4,10 @@ function renderPlant(usuario) {
 
   let pontuacaoUsuario;
   if (usuario.ipMaquina.length >= 3) {
-    pontuacaoUsuario =  usuario.ipMaquina;
-    clienteLista.style.color = "red";
+    clienteLista.classList.add('textoPlantas');
+  } 
 
-  } else {
-    pontuacaoUsuario = " 0 pontos "
-  }
-
-  clienteLista.textContent = usuario.nome + " | " + pontuacaoUsuario;
+  clienteLista.textContent = usuario.nome;
   clienteLista.id = usuario.socketID;
   $(".plants").append(clienteLista);
 
@@ -25,14 +21,10 @@ function renderZombie(usuario) {
 
   let pontuacaoUsuario;
   if (usuario.ipMaquina.length >= 7) {
-    pontuacaoUsuario = usuario.ipMaquina;
-    clienteLista.style.color = "blue";
-
-  } else {
-    pontuacaoUsuario = " 0 pontos "
+    clienteLista.classList.add('textoZombies');
   }
 
-  clienteLista.textContent = usuario.nome + " | " + pontuacaoUsuario;
+  clienteLista.textContent = usuario.nome;
   clienteLista.id = usuario.socketID;
   $(".zombies").append(clienteLista);
 
@@ -55,8 +47,8 @@ function renderConvite(usuario) {
 
   let convite = `
     <p class="${usuario.id}xy ${usuario.id}"><strong>${usuario.nome} #${usuario.posicao}</strong>  convidou para jogar
-        <button style="color: green; font-size: 1vw;" onclick="aceitarSolicitacao(this)">&#10003;</button>
-        <button style="color: red; font-size: 1vw;" onclick="cancelarPendente(this)">&#10007;</button>
+        <button class = "aceitaSolicitacao" onclick="aceitarSolicitacao(this)">&#10003;</button>
+        <button class = "recusarSolicitacao" onclick="cancelarPendente(this)">&#10007;</button>
     </p> `;
 
   document.getElementById("convite").innerHTML += convite;

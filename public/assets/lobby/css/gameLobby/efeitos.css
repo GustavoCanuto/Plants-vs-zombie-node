@@ -1,7 +1,17 @@
-.clicavel>li:hover{
-    background-color: rgb(92, 89, 89);
+.clicavel> .textoPlantas:hover{
+    color: rgb(224, 248, 4);
+    transform: translateX(5%)
   }
 
+.clicavel>.textoZombies:hover{
+    color: rgb(6, 143, 255);
+    transform: translateX(5%)
+
+}
+
+li{
+  cursor: default;
+}
   .block{
     color:orange !important;
   }
