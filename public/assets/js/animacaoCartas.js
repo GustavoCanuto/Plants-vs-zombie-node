@@ -63,8 +63,7 @@ class AnimacaoCartas {
             const personagemNome = comandosNavBar.cellNavBarAtual[0].getAttribute('data-personagem');
             console.log(personagens[personagemNome].imagePath)
             console.log(personagens[personagemNome].recarregado)
-            if (personagens[personagemNome].valorCard <= pontuacaoLado[0]
-            && personagens[personagemNome].recarregado) {
+            if (personagens[personagemNome].valorCard <= pontuacaoLado[0]) {
                 this.criarAnimacaoPlanta(cellElement, nomeClasse);
                 pontuacaoLado[0] -= personagens[personagemNome].valorCard;
                 pontosLado[0].textContent = pontuacaoLado[0];
@@ -110,7 +109,8 @@ class AnimacaoCartas {
 
             // zombies
             const personagemNome = comandosNavBar.cellNavBarAtual[1].getAttribute('data-personagem');
-            if (personagens[personagemNome].valorCard <= pontuacaoLado[1]) {
+            if (personagens[personagemNome].valorCard <= pontuacaoLado[0]
+                && personagens[personagemNome].recarregado) {
                 this.criarAnimacaoZombie(cellElement, nomeClasse);
                 pontuacaoLado[1] -= personagens[personagemNome].valorCard;
                 pontosLado[1].textContent = pontuacaoLado[1];
