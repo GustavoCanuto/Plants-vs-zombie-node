@@ -3,11 +3,29 @@
     cursor: pointer;
 }
 
-.mouse-enter:hover> :not(:hover) {
+.mouse-enter:hover> .card:not(:hover) {
     opacity: .4;
     transform: scale(0.95);
     border: 0;
 
+}
+
+
+#pontosPlanta{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    position: relative;
+    top: 60%;
+    left: 8%;
+
+}
+
+#pontosZombie{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    position: relative;
+    top: 60%;
+    left: 57%;
 }
 
 

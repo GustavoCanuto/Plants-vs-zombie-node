@@ -12,13 +12,7 @@ class Tabuleiro {
         for (let i = 0; i < this.linhas; i++) {
             tabuleiro[i] = new Array(this.colunas).fill('');
         }
-        
-       tabuleiro[0][0] = 'C';
-       tabuleiro[1][0] = 'C';
-       tabuleiro[2][0] = 'C';
-       tabuleiro[3][0] = 'C';
-       tabuleiro[4][0] = 'C';
-        
+
        const divSeletorAzul = document.createElement('div');
        divSeletorAzul.id = 'seletorTabuleiroAzul';
        divSeletorAzul.innerHTML = 
@@ -51,7 +45,6 @@ class Tabuleiro {
             let rowElement = document.createElement('div');
             rowElement.classList.add('row');
             rowElement.classList.add('linha' + (i + 1));
-            rowElement.id = (i + 1);
 
             for (let j = 0; j < this.colunas; j++) {
                 if (j % this.colunasPorLinha === 0 && j !== 0) {
@@ -59,40 +52,29 @@ class Tabuleiro {
                     rowElement = document.createElement('div');
                     rowElement.classList.add('row');
                     rowElement.classList.add('linha' + (i + 1));
-                   
                 }
 
                 const cell = document.createElement('div');
                 cell.classList.add('cell');
 
-                if (i == 0 && j == 9) {
-                    cell.id = 'cell1Zombie';
+                if (i == 0 && j == 9) cell.id = 'cell1Zombie';
 
-                }
+                if (i == 0 && j == 1) cell.id = 'cell1Planta';
 
-                if (i == 0 && j == 1) {
-                    cell.id = 'cell1Planta';
-
-                }
+                if(j == 0)cell.classList.add('grass-cutter');
+                
+                if(j>0 && j<7) cell.classList.add('plant');
+                else if (j>6)  cell.classList.add('zombies');
 
                 if (this.tabuleiro[i][j] instanceof HTMLElement) {
                     // Se a célula contiver um elemento HTML, adicioná-lo diretamente à célula
                     cell.appendChild(this.tabuleiro[i][j]);
 
-                } else {
-                    cell.textContent = this.tabuleiro[i][j];
-                    // Adicionar classes com base no conteúdo da célula
-                    if (this.tabuleiro[i][j] === 'P') {
-                        cell.classList.add('plant');
-                    } else if (this.tabuleiro[i][j] === 'Z') {
-                        cell.classList.add('zombies');
-                    } else if (this.tabuleiro[i][j] === 'C') {
-                        cell.classList.add('grass-cutter');
-                    }
-                }
+                } 
+
                 rowElement.appendChild(cell);
             }
-
+               
             boardElement.appendChild(rowElement);
         }
     }

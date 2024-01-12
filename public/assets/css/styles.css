@@ -34,13 +34,18 @@
     top: 0;
 }
 
-.propriedades-imagem{
+#solPontuacao{
     position: absolute;
-    width: 150%;
-    height: 150%;
+    left: 18%;
+    top: -7%;
+    width: 8%;
+    transition: all 0.2s ease; 
 }
 
-.zombieprop{
-    width: 200px;
-    height: 200px;
+#cerebroPontuacao{
+    position: absolute;
+    left: 68%;
+    top: -7%;
+    width: 6%;
+    transition: all 0.2s ease; 
 }
