@@ -296,7 +296,7 @@ class AnimacaoCartas {
 
         for (let i = 1; i <= numberOfFrames; i++) {
             const imgFrame = new Image();
-            imgFrame.src = `../assets/img/frames/${nomeClasse}/andando/frame-${i}.gif`;
+            imgFrame.src = `../assets/img/frames/${nomeClasse}/andando/frame-${i}.webp`;
             frames.push(imgFrame);
         }
 
