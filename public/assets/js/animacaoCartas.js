@@ -214,47 +214,48 @@ class AnimacaoCartas {
         function moveElement() {
             const plantElements = document.querySelectorAll('.personagemPlanta');
             let colidiu = false;
-
+        
             plantElements.forEach((plantaElemento) => {
                 if (AnimacaoCartas.verificaColisao(elemento, plantaElemento.closest('.cell'))) {
                     clearInterval(intervaloMovimentoZumbi);
                     AnimacaoCartas.iniciarAnimacaoComerPlanta(gifElement);
-
+        
                     setTimeout(() => {
                         AnimacaoCartas.removerPlanta(plantaElemento);
-                    }, 100);
-
+                        // Reiniciar o movimento do zumbi e a animação de andar
+                        intervaloMovimentoZumbi = setInterval(moveElement, 100);
+                        AnimacaoCartas.iniciarAnimacao(frames, gifElement);
+                    }, 5000);
+        
                     colidiu = true;
                     console.log('colidiu');
-
+        
                     let tempoRestante = 3;
-
+        
                     const continuarMovendo = setInterval(() => {
                         if (tempoRestante > 0) {
                             elemento.style.left = `${positionLeft}%`;
-                            positionLeft -= 0.5; // andar um pouco apos a colisao
+                            positionLeft -= 0.5; // andar um pouco após a colisão
                             tempoRestante -= 1;
                         } else {
                             clearInterval(continuarMovendo);
                         }
                     }, 100);
-
+        
                 }
             });
-
+        
             if (!colidiu) {
                 if (positionLeft > -10) {
-                    // Continuar movendo o zumbi para a esquerda se não houve colisão
-                    elemento.style.left = `${positionLeft}%`;
+                    elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
                     positionLeft -= 3;
                 } else {
                     clearInterval(intervaloMovimentoZumbi);
                     console.log('Zumbi atingiu a borda esquerda.');
-                    // Adicione aqui qualquer lógica adicional que você deseja quando o zumbi atinge a borda esquerda
                 }
             }
         }
-
+        
         const intervaloMovimentoZumbi = setInterval(moveElement, 100);
 
         this.iniciarAnimacao(frames, gifElement);
