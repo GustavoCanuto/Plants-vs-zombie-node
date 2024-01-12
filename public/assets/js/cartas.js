@@ -69,7 +69,6 @@ class ArrastarCards {
             const imgElement = personagem.renderImage();
             imgElement.style.width = '100px';
             imgElement.style.height = '100px';
-            document.body.appendChild(imgElement);
 
             ev.dataTransfer.setData('text/plain', personagem.imagePath);
             ev.dataTransfer.setDragImage(imgElement, 0, 0);
@@ -114,6 +113,14 @@ class ArrastarCards {
             img.src = imgSrc;
             const cellElement  = ev.target.closest('.cell');
             AnimacaoCartas.criarAnimacaoCarta(cellElement, img);
+
+            const board = cellElement.closest('.board');
+
+            const rows = Array.from(board.children);
+            const cellIndex = Array.from(cellElement.parentNode.children).indexOf(cellElement);
+            const rowIndex = rows.findIndex(row => row.contains(cellElement));
+
+            this.socket.emit('draggedItem', { position: [rowIndex, cellIndex], imageSrc: imgSrc });
         }
     }
 
@@ -133,12 +140,8 @@ class ArrastarCards {
             const imgElement = document.createElement('img');
             imgElement.src = imgSrc;
 
-            const elemento = document.createElement('div');
-            elemento.classList.add("personagem");
-            elemento.appendChild(imgElement);
-            cell.appendChild(elemento);
-            cell.classList.add('ocupado');
-            document.body.style.cursor = 'none';
+            
+            AnimacaoCartas.criarAnimacaoCarta(cell, imgElement);
         } else {
             console.error('Tipo de card não reconhecido:', dragClass);
         }
