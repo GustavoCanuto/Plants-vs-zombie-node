@@ -1,7 +1,8 @@
 import * as comandosNavBar from './comandos/comandosNavBar.js';
-import {personagens} from "./personagens.js";
+import { personagens } from "./personagens.js";
+import {pontuacaoLado, pontosLado} from "./pontuacao.js";
 
-var  animationInterval;
+var animationInterval;
 
 class AnimacaoCartas {
 
@@ -41,14 +42,14 @@ class AnimacaoCartas {
         );
     }
 
-    static criarAnimacaoCarta(cellElement , img) {
+    static criarAnimacaoCarta(cellElement, img) {
         const imgSrc = img.src;
 
         if (!imgSrc.includes('/img/personagens/')) {
             console.error('Imagem Inválida');
             return;
         }
-    
+
         if (!cellElement) {
             console.error('Não foi possível obter os índices do tabuleiro.');
             return;
@@ -60,25 +61,96 @@ class AnimacaoCartas {
 
         if (isPlanta) {
             const personagemNome = comandosNavBar.cellNavBarAtual[0].getAttribute('data-personagem');
-    
-            if (personagens[personagemNome].valorCard<=pontuacaoLado[0]) {
-            this.criarAnimacaoPlanta(cellElement, nomeClasse);
-            pontuacaoLado[0] -= personagens[personagemNome].valorCard;
-            pontosLado[0].textContent = pontuacaoLado[0];
+            console.log(personagens[personagemNome].imagePath)
+            console.log(personagens[personagemNome].recarregado)
+            if (personagens[personagemNome].valorCard <= pontuacaoLado[0]
+            && personagens[personagemNome].recarregado) {
+                this.criarAnimacaoPlanta(cellElement, nomeClasse);
+                pontuacaoLado[0] -= personagens[personagemNome].valorCard;
+                pontosLado[0].textContent = pontuacaoLado[0];
+                personagens[personagemNome].recarregado = false;
+                comandosNavBar.cellNavBarAtual[0].classList.add('recarregando')
+                var celulaAnimacao = comandosNavBar.cellNavBarAtual[0];
+                personagens[personagemNome].recarregado = false;
+                var porcentagemRecarregado = 100;
+                 var setIntervalRecarga = setInterval(function () {
+                    porcentagemRecarregado -= 1
+                    celulaAnimacao.style.setProperty('--before-width', `${porcentagemRecarregado}%`);
 
-            }else{
-                console.log("sem pontos")
+                 }, personagens[personagemNome].tempoRecarga/100);
+
+                //comandosNavBar.cellNavBarAtual[0].style.setProperty('--before-width', '70%  !important');
+
+                setTimeout(function () {
+                    personagens[personagemNome].recarregado = true;
+                  //  alert('rercarregaou')
+                     comandosNavBar.cellNavBarAtual[0].classList.remove('recarregando')
+                     clearInterval(setIntervalRecarga)
+                }, personagens[personagemNome].tempoRecarga);
+
+
+                let listaCard = document.querySelectorAll('.navbar-planta .card');
+                listaCard.forEach(cardNome=> {
+                    console.log(cardNome.getAttribute('data-personagem'))
+                    console.log(personagens[cardNome.getAttribute('data-personagem')].valorCard )
+                    console.log('pontuacao' + pontuacaoLado[0] )
+                    if(personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[0]){
+                      console.log('adicionou')
+                        cardNome.classList.remove('semSaldo')
+                    }else{
+                      console.log('removeu')
+                      cardNome.classList.add('semSaldo')
+                    }});
+
+            } else {
+                console.log("carta indisponivel")
             }
 
         } else {
+
+            // zombies
             const personagemNome = comandosNavBar.cellNavBarAtual[1].getAttribute('data-personagem');
-            if (personagens[personagemNome].valorCard<=pontuacaoLado[1]) {
-            this.criarAnimacaoZombie(cellElement, nomeClasse);
-            pontuacaoLado[1] -= personagens[personagemNome].valorCard;
-            pontosLado[1].textContent = pontuacaoLado[1];
-            }else{
-                console.log("sem pontos")
-            }  
+            if (personagens[personagemNome].valorCard <= pontuacaoLado[1]) {
+                this.criarAnimacaoZombie(cellElement, nomeClasse);
+                pontuacaoLado[1] -= personagens[personagemNome].valorCard;
+                pontosLado[1].textContent = pontuacaoLado[1];
+                personagens[personagemNome].recarregado = false;
+                comandosNavBar.cellNavBarAtual[1].classList.add('recarregando')
+                var celulaAnimacao = comandosNavBar.cellNavBarAtual[1];
+                personagens[personagemNome].recarregado = false;
+                var porcentagemRecarregado = 100;
+                 var setIntervalRecarga = setInterval(function () {
+                    porcentagemRecarregado -= 1
+                    celulaAnimacao.style.setProperty('--before-width', `${porcentagemRecarregado}%`);
+
+                 }, personagens[personagemNome].tempoRecarga/100);
+
+                //comandosNavBar.cellNavBarAtual[0].style.setProperty('--before-width', '70%  !important');
+
+                setTimeout(function () {
+                    personagens[personagemNome].recarregado = true;
+                  //  alert('rercarregaou')
+                     comandosNavBar.cellNavBarAtual[1].classList.remove('recarregando')
+                     clearInterval(setIntervalRecarga)
+                }, personagens[personagemNome].tempoRecarga);
+
+
+                let listaCard = document.querySelectorAll('.navbar-zombie .card');
+                listaCard.forEach(cardNome=> {
+                    console.log(cardNome.getAttribute('data-personagem'))
+                    console.log(personagens[cardNome.getAttribute('data-personagem')].valorCard )
+                    console.log('pontuacao' + pontuacaoLado[1] )
+                    if(personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[1]){
+                      console.log('adicionou')
+                        cardNome.classList.remove('semSaldo')
+                    }else{
+                      console.log('removeu')
+                      cardNome.classList.add('semSaldo')
+                    }});
+
+            } else {
+                console.log("carta indisponivel")
+            }
 
         }
     }
@@ -112,51 +184,51 @@ class AnimacaoCartas {
         gifElement.style.width = '100%';
         elemento.appendChild(gifElement);
         let tabuleiro = document.querySelector('.board');
-    
+
         if (!tabuleiro) {
             console.error('Elemento .board não encontrado.');
             return;
         }
-    
+
         tabuleiro.appendChild(elemento);
-    
+
         const posicaoLeft = (cellElement.offsetLeft / tabuleiro.offsetWidth) * 100;
-    
+
         elemento.style.position = 'absolute';
-    
+
         let posicaoBottom = ((tabuleiro.offsetHeight - (cellElement.offsetTop + cellElement.offsetHeight)) / tabuleiro.offsetHeight) * 100;
-    
+
         elemento.style.bottom = `${posicaoBottom}%`;
         elemento.style.left = `${posicaoLeft}%`;
-    
+
         const numberOfFrames = this.framesPorClasse[nomeClasse] || 0;
         const frames = this.carregarFrames(nomeClasse, numberOfFrames);
-    
+
         if (frames.length === 0) {
             console.error('Não foi possível carregar os frames da animação.');
             return;
         }
-    
+
         let positionLeft = posicaoLeft;
-    
+
         function moveElement() {
             const plantElements = document.querySelectorAll('.personagemPlanta');
             let colidiu = false;
-        
+
             plantElements.forEach((plantaElemento) => {
                 if (AnimacaoCartas.verificaColisao(elemento, plantaElemento.closest('.cell'))) {
                     clearInterval(intervaloMovimentoZumbi);
                     AnimacaoCartas.iniciarAnimacaoComerPlanta(gifElement);
-        
+
                     setTimeout(() => {
                         AnimacaoCartas.removerPlanta(plantaElemento);
                     }, 100);
-        
+
                     colidiu = true;
                     console.log('colidiu');
-        
-                    let tempoRestante = 3; 
-        
+
+                    let tempoRestante = 3;
+
                     const continuarMovendo = setInterval(() => {
                         if (tempoRestante > 0) {
                             elemento.style.left = `${positionLeft}%`;
@@ -166,10 +238,10 @@ class AnimacaoCartas {
                             clearInterval(continuarMovendo);
                         }
                     }, 100);
-        
+
                 }
             });
-        
+
             if (!colidiu) {
                 if (positionLeft > -10) {
                     // Continuar movendo o zumbi para a esquerda se não houve colisão
@@ -182,10 +254,10 @@ class AnimacaoCartas {
                 }
             }
         }
-        
+
         const intervaloMovimentoZumbi = setInterval(moveElement, 100);
-               
-        this.iniciarAnimacao(frames, gifElement);    
+
+        this.iniciarAnimacao(frames, gifElement);
 
         elemento.classList.remove('adicionado');
     }
@@ -206,7 +278,7 @@ class AnimacaoCartas {
         let frameIndex = 0;
         const frameDuration = 50;
 
-     
+
 
         animationInterval = setInterval(() => {
             if (gifElement) {
