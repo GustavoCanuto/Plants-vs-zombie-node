@@ -43,7 +43,7 @@
 /* SeletotNavBar Zombie */
 .navbar-zombie {
     gap: 0.35%;
-    background-image: url(../img/navBar/navBarZombie.png);
+    background-image: url(../img/navBar/navBarZombie.webp);
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -76,7 +76,7 @@
 /* SeletotNavBar Planta */
 .navbar-planta {
     gap: 0.5%;
-    background-image: url(../img/navBar/navBarPlanta.png);
+    background-image: url(../img/navBar/navBarPlanta.webp);
     background-size: 100% 100%;
     background-size: contain;
     background-repeat: no-repeat;

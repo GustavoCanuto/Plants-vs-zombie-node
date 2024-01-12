@@ -87,7 +87,7 @@ function cairPontos(lado) {
 
 function criarSol() {
   const solPontuacao = document.createElement("img");
-  solPontuacao.src = "./assets/img/pontuacao/Sun.gif";
+  solPontuacao.src = "./assets/img/pontuacao/Sun.webp";
   solPontuacao.alt = "sol pontuacao";
   solPontuacao.id = 'solPontuacao'
 
@@ -97,7 +97,7 @@ function criarSol() {
 }
 function criarCerebro() {
   const cerebroPontuacao = document.createElement("img");
-  cerebroPontuacao.src = "./assets/img/pontuacao/cerebroPontos.png";
+  cerebroPontuacao.src = "./assets/img/pontuacao/cerebroPotos.webp";
   cerebroPontuacao.alt = "cerebro pontuacao";
   cerebroPontuacao.id = 'cerebroPontuacao'
 
