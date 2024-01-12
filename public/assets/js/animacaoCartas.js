@@ -1,3 +1,6 @@
+import * as comandosNavBar from './comandos/comandosNavBar.js';
+import {personagens} from "./personagens.js";
+
 var  animationInterval;
 
 class AnimacaoCartas {
@@ -56,13 +59,32 @@ class AnimacaoCartas {
         const isPlanta = ['sunflower', 'peashooter', 'showpea', 'repeater', 'wallnut', 'cherrybomb', 'potatomine'].includes(nomeClasse);
 
         if (isPlanta) {
+            const personagemNome = comandosNavBar.cellNavBarAtual[0].getAttribute('data-personagem');
+    
+            if (personagens[personagemNome].valorCard<=pontuacaoLado[0]) {
             this.criarAnimacaoPlanta(cellElement, nomeClasse);
+            pontuacaoLado[0] -= personagens[personagemNome].valorCard;
+            pontosLado[0].textContent = pontuacaoLado[0];
+
+            }else{
+                console.log("sem pontos")
+            }
+
         } else {
+            const personagemNome = comandosNavBar.cellNavBarAtual[1].getAttribute('data-personagem');
+            if (personagens[personagemNome].valorCard<=pontuacaoLado[1]) {
             this.criarAnimacaoZombie(cellElement, nomeClasse);
+            pontuacaoLado[1] -= personagens[personagemNome].valorCard;
+            pontosLado[1].textContent = pontuacaoLado[1];
+            }else{
+                console.log("sem pontos")
+            }  
+
         }
     }
 
     static criarAnimacaoPlanta(cellElement, nomeClasse) {
+
         const numberOfFrames = this.framesPorClasse[nomeClasse] || 0;
         const frames = this.carregarFrames(nomeClasse, numberOfFrames);
 

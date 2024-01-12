@@ -62,7 +62,7 @@ function cairPontos(lado) {
 
     }
 
-  }, 150);
+  }, 130);
 }
 
 
