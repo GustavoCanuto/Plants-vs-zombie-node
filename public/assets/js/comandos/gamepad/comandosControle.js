@@ -17,7 +17,7 @@ export function botoesGamepad(buttons, lado) {
 class jogadorComandosGamePad {
 
     constructor() {
-        this.tempoMinimoPressionado = 200;
+        this.tempoMinimoPressionado = 140;
         this.esperaButtons = true;
         this.esperaButtonsDuplo = true;
         this.timoutButton;
