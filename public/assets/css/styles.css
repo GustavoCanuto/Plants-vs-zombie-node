@@ -49,3 +49,28 @@
     width: 6%;
     transition: all 0.1s ease; 
 }
+
+
+
+.recarregando{
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .semSaldo{
+    opacity: 0.6;
+    filter: brightness(0.8);
+  }
+  
+
+ .recarregando::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:  var(--before-width, 100%);
+    background: rgba(0, 0, 0, 0.527);
+}
+
+

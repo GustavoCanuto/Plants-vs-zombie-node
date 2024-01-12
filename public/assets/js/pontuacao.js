@@ -1,7 +1,10 @@
-var pontuacaoLado = [50, 50];
+import { personagens } from "./personagens.js";
+
+
 var pontoPlantas = document.getElementById("pontosPlanta");
 var pontoZombies = document.getElementById("pontosZombie");
-var pontosLado = [pontoPlantas, pontoZombies]
+export var pontuacaoLado = [50, 50];
+export var pontosLado = [pontoPlantas, pontoZombies]
 var board = document.querySelector('.board')
 
 function cairPontos(lado) {
@@ -10,12 +13,14 @@ function cairPontos(lado) {
   let topLimite = Math.random() < 0.75 ? 83 : 51;
   let pontuacao;
   let posicaoLeft;
-
+  let listaCard;
   if (lado == 0) {
     posicaoLeft = Math.floor(Math.random() * (48 - 18 + 1)) + 18;
     pontuacao = criarSol();
     pontuacao.style.left = `${posicaoLeft}%`
+    listaCard = document.querySelectorAll('.navbar-planta .card');
   }else{
+    listaCard = document.querySelectorAll('.navbar-zombie .card');
     posicaoLeft = Math.floor(Math.random() * (95 - 68 + 1)) + 68;
     pontuacao = criarCerebro();
     pontuacao.style.left = `${posicaoLeft}%`
@@ -38,6 +43,20 @@ function cairPontos(lado) {
         }, 400);
         pontuacaoLado[lado] += 50;
         pontosLado[lado].textContent = pontuacaoLado[lado];
+        listaCard.forEach(cardNome=> {
+          console.log(cardNome.getAttribute('data-personagem'))
+          console.log(personagens[cardNome.getAttribute('data-personagem')].valorCard )
+          console.log('pontuacao' + pontuacaoLado[lado] )
+          if(personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[lado]){
+            console.log('adicionou')
+              cardNome.classList.remove('semSaldo')
+          }else{
+            console.log('removeu')
+            cardNome.classList.add('semSaldo')
+          }
+        
+       });
+
       }, 50);
 
       clearInterval(setIntervalSolCaindo)
@@ -95,6 +114,8 @@ setInterval(function () {
   cairPontos(1);
 }, 6000);
 
+
+
 function verificaColisaoCelular(elementoA, elementoB) {
   const aEsquerda = elementoA.offsetLeft;
   const aTopo = elementoA.offsetTop;
@@ -113,3 +134,4 @@ function verificaColisaoCelular(elementoA, elementoB) {
     aBaixo > bTopo
   );
 }
+
