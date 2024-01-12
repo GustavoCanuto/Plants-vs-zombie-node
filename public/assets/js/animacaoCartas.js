@@ -214,24 +214,24 @@ class AnimacaoCartas {
         function moveElement() {
             const plantElements = document.querySelectorAll('.personagemPlanta');
             let colidiu = false;
-        
+    
             plantElements.forEach((plantaElemento) => {
                 if (AnimacaoCartas.verificaColisao(elemento, plantaElemento.closest('.cell'))) {
                     clearInterval(intervaloMovimentoZumbi);
                     AnimacaoCartas.iniciarAnimacaoComerPlanta(gifElement);
-        
+    
                     setTimeout(() => {
                         AnimacaoCartas.removerPlanta(plantaElemento);
                         // Reiniciar o movimento do zumbi e a animação de andar
                         intervaloMovimentoZumbi = setInterval(moveElement, 100);
                         AnimacaoCartas.iniciarAnimacao(frames, gifElement);
                     }, 5000);
-        
+    
                     colidiu = true;
                     console.log('colidiu');
-        
+    
                     let tempoRestante = 3;
-        
+    
                     const continuarMovendo = setInterval(() => {
                         if (tempoRestante > 0) {
                             elemento.style.left = `${positionLeft}%`;
@@ -241,7 +241,6 @@ class AnimacaoCartas {
                             clearInterval(continuarMovendo);
                         }
                     }, 100);
-        
                 }
             });
         
@@ -256,7 +255,7 @@ class AnimacaoCartas {
             }
         }
         
-        const intervaloMovimentoZumbi = setInterval(moveElement, 100);
+        let intervaloMovimentoZumbi = setInterval(moveElement, 100);
 
         this.iniciarAnimacao(frames, gifElement);
 
