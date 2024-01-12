@@ -12,13 +12,13 @@ class AnimacaoCartas {
         showpea: 25,
         repeater: 25,
         wallnut: 17,
-        cherrybomb: 14,
+        cherrybomb: 25,
         potatomine: 11,
         cardtombstone: 1,
         zombie: 47,
-        conehead: 47,
+        conehead: 20,
         buckethead: 47,
-        flagzombie: 47,
+        flagzombie: 20,
         football: 30,
         screendoor: 47,
     };
@@ -179,7 +179,7 @@ class AnimacaoCartas {
     static criarAnimacaoZombie(cellElement, nomeClasse) {
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
-        elemento.style.width = '15%';
+        elemento.style.width = '10%';
         const gifElement = document.createElement('img');
         gifElement.style.width = '100%';
         elemento.appendChild(gifElement);
@@ -265,8 +265,8 @@ class AnimacaoCartas {
     static iniciarAnimacaoComerPlanta(gifElement) {
         console.log('comendo...');
         clearInterval(animationInterval)
-        gifElement.style.width = '55%'
-        gifElement.src = '../assets/img/comendo.gif';
+        gifElement.style.width = '100%'
+        gifElement.src = '../assets/img/frames/buckethead/atacando/attack.gif';
     }
 
     static removerPlanta(plantaElemento) {
@@ -296,7 +296,7 @@ class AnimacaoCartas {
 
         for (let i = 1; i <= numberOfFrames; i++) {
             const imgFrame = new Image();
-            imgFrame.src = `../assets/img/frames/${nomeClasse}/frame-${i}.gif`;
+            imgFrame.src = `../assets/img/frames/${nomeClasse}/andando/frame-${i}.gif`;
             frames.push(imgFrame);
         }
 
