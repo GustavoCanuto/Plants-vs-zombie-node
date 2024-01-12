@@ -3,9 +3,11 @@ import { personagens } from "./personagens.js";
 
 var pontoPlantas = document.getElementById("pontosPlanta");
 var pontoZombies = document.getElementById("pontosZombie");
-export var pontuacaoLado = [50, 50];
+export var pontuacaoLado = [5000, 5000];
 export var pontosLado = [pontoPlantas, pontoZombies]
 var board = document.querySelector('.board')
+
+var desativarCodigoTemporariamente = true;
 
 function cairPontos(lado) {
 
@@ -106,14 +108,16 @@ function criarCerebro() {
   return cerebroPontuacao;
 }
 
-setInterval(function () {
-  cairPontos(0);
-}, 5000);
+if (!desativarCodigoTemporariamente) {
+  // Se a variável de controle não estiver definida como verdadeira, execute este trecho de código
+  setInterval(function () {
+      cairPontos(0);
+  }, 5000);
 
-setInterval(function () {
-  cairPontos(1);
-}, 6000);
-
+  setInterval(function () {
+      cairPontos(1);
+  }, 6000);
+}
 
 
 function verificaColisaoCelular(elementoA, elementoB) {
