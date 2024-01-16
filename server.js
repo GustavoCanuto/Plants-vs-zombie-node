@@ -24,6 +24,7 @@ var listaTodosUsuario = [];
 var listaUsuariosPlants = [];
 var listaUsuariosZombies = [];
 var listaUsuariosConvitesPendentes = [];
+var listaUsuariosDupla = [{ PlayerConvidou: 0, PlayerConvidado: 0 }];
 
 // ao client se conectar
 io.on('connection', socket => {
@@ -45,6 +46,8 @@ io.on('connection', socket => {
 
     //cancelar pendente   
     socket.on('cancelarPendente', (usuarios) => {
+
+
 
         excluirConvitePendente(usuarios.id1, listaUsuariosConvitesPendentes);
         excluirConvitePendente(usuarios.id2, listaUsuariosConvitesPendentes);
@@ -85,19 +88,123 @@ io.on('connection', socket => {
 
         listaUsuariosConvitesPendentes.push(socket.id);
         listaUsuariosConvitesPendentes.push(usuarioConvidado);
+        listaUsuariosDupla.push({ PlayerConvidou: socket.id, PlayerConvidado: usuarioConvidado })
     });
 
     //ao clicar em sair
     socket.on('userDisconnect', () => {
+        
+        let indiceEncontrado;
+        let id1;
+        let id2;
+
+        indiceEncontrado = listaUsuariosDupla.findIndex(item =>
+            item.PlayerConvidou == socket.id
+        );
+
+        if (indiceEncontrado !== -1) {
+
+            id1 = listaUsuariosDupla[indiceEncontrado].PlayerConvidado;
+
+        } else {
+
+            indiceEncontrado = listaUsuariosDupla.findIndex(item =>
+                item.PlayerConvidado == socket.id
+            );
+
+            if (indiceEncontrado !== -1) {
+
+                id1 = listaUsuariosDupla[indiceEncontrado].PlayerConvidou;
+
+            }
+
+        }
+
+        id2 = socket.id;
+        if (indiceEncontrado !== -1) {
+
+            let usuarios = { id1: id1, id2: id2 }
+
+            //  socket.emit('cancelaPendenteConviteDisconect', usuarios)
+
+            excluirConvitePendente(usuarios.id1, listaUsuariosConvitesPendentes);
+            excluirConvitePendente(usuarios.id2, listaUsuariosConvitesPendentes);
+
+            //cancela para todos conectados o pendente
+            socket.broadcast.emit("cancelaPendente", usuarios);
+            socket.emit("cancelaPendente", usuarios);
+
+            //manda para o usuario resposta 
+            socket.to(id1).emit("cancelaPendenteConvite", id2);
+
+
+            //
+            listaUsuariosDupla.splice(indiceEncontrado, 1);
+
+        }
+
         socket.broadcast.emit('receiveusuarioDisconnect', socket.id)
         desconectarUsuario(socket.id);
     });
 
     //ao client se desconectar
     socket.on('disconnect', () => {
+
+       
+        let indiceEncontrado;
+        let id1;
+        let id2;
+
+        indiceEncontrado = listaUsuariosDupla.findIndex(item =>
+            item.PlayerConvidou == socket.id
+        );
+
+        if (indiceEncontrado !== -1) {
+
+            id1 = listaUsuariosDupla[indiceEncontrado].PlayerConvidado;
+
+        } else {
+
+            indiceEncontrado = listaUsuariosDupla.findIndex(item =>
+                item.PlayerConvidado == socket.id
+            );
+
+            if (indiceEncontrado !== -1) {
+
+                id1 = listaUsuariosDupla[indiceEncontrado].PlayerConvidou;
+
+            }
+
+        }
+
+        id2 = socket.id;
+        if (indiceEncontrado !== -1) {
+
+            let usuarios = { id1: id1, id2: id2 }
+
+            //  socket.emit('cancelaPendenteConviteDisconect', usuarios)
+
+            excluirConvitePendente(usuarios.id1, listaUsuariosConvitesPendentes);
+            excluirConvitePendente(usuarios.id2, listaUsuariosConvitesPendentes);
+
+            //cancela para todos conectados o pendente
+            socket.broadcast.emit("cancelaPendente", usuarios);
+            socket.emit("cancelaPendente", usuarios);
+
+            //manda para o usuario resposta 
+            socket.to(id1).emit("cancelaPendenteConvite", id2);
+
+
+            //
+            listaUsuariosDupla.splice(indiceEncontrado, 1);
+
+        }
+
         socket.broadcast.emit('receiveusuarioDisconnect', socket.id)
         desconectarUsuario(socket.id);
+
     });
+
 
 });
 
