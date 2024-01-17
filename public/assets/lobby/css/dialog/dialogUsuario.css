@@ -26,7 +26,7 @@
     border: none;
     height: 63%;
     width: 40%;
-    background-image: url(../../../img/dialog/usuarioDialog.png);
+    background-image: url(../../../img/dialog/usuarioDialog.webp);
     background-size: cover;
     background-position: center;
     font-family: 'lobbyFont', sans-serif;
@@ -92,7 +92,7 @@
     -webkit-text-stroke: 0.09vw black; 
     background-color: transparent;
     border: 0;
-    background-image: url(../../../img/buttons/enterButton.png);
+    background-image: url(../../../img/buttons/enterButton.webp);
     background-size: cover;
     padding-bottom: 1.2%;
      

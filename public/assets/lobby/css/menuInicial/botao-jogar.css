@@ -13,7 +13,7 @@
     font-size: 2.8vw;
     background-color: transparent;
     border: 0px;
-    background-image: url(../../../img/buttons/playButton.png);
+    background-image: url(../../../img/buttons/playButton.webp);
     background-size: cover;
     font-family: 'lobbyFont';
     color:var(--texto-branco);

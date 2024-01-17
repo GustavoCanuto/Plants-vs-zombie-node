@@ -29,7 +29,7 @@
    display: flex;
    justify-content: center;
    align-items: center;
-   background-image: url(../../../img/infor/inforInstrucoes.png);
+   background-image: url(../../../img/infor/inforInstrucoes.webp);
    background-size: cover;
    font-size: 1.3vw;  
    
@@ -46,7 +46,7 @@
   
    height: 4.7vw;
    width: 14vw;
-   background-image: url(../../../img/infor/placaNome.png);
+   background-image: url(../../../img/infor/placaNome.webp);
     background-size: cover;
  }
 
