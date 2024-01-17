@@ -58,29 +58,47 @@ game.on('connection', socket => {
     socket.on('iniciarSala', (sala, lado) => {
 
         let indicesEncontrados = [];
+        let ladoValido = true;
+
+        if(lado != 0 && lado != 1){
+            console.log("lado " +lado)
+            console.log("parametro invalido")
+            ladoValido = false;
+        }
 
         salasAtivas.forEach((user, index) => {
             if (user.numeroSala === sala) {
+
+                if(user.lado == lado){
+                    console.log("lado já em jogo")
+                    ladoValido = false;
+                }
+
                 indicesEncontrados.push(index);
+           
             }
         });
 
         console.log(indicesEncontrados);
 
-        if (indicesEncontrados.length < 2) {
+        if (indicesEncontrados.length < 2 && ladoValido) {
 
-            salasAtivas.push({ numeroSala: sala, lado: lado })
-            console.log("sala: " + sala)
-            console.log("lado: " + lado)
+                salasAtivas.push({ numeroSala: sala, lado: lado })
+                console.log("sala: " + sala)
+                console.log("lado: " + lado)
 
-        }else{
-            console.log("sala ocupada, redirecionando para o lobby")
-            socket.emit('voltandoAoLobby')
+        } else {
+            voltandoAoLobby();
         }
     }
 
+ 
     );
 
+    function voltandoAoLobby(){
+        console.log("sala ocupada, redirecionando para o lobby")
+        socket.emit('voltandoAoLobby')
+    }
 
 });
 
