@@ -10,6 +10,7 @@ function excluirUsuarioZombie(socketID, listaUsuariosZombies) {
 function conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario) {
  
     data.ipMaquina = " 0 pontos ";
+    data.lado = 1;
 
     listaUsuariosZombies.push(data);
     listaTodosUsuario.push(data);
@@ -18,4 +19,4 @@ function conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsu
     socket.broadcast.emit('atualizarClicavel');
 }
 
-module.exports = { excluirUsuarioZombie, conectarUsuarioZombie };
+export { excluirUsuarioZombie, conectarUsuarioZombie };

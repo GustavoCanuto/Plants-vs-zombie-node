@@ -1,34 +1,92 @@
-const express = require('express');
-const path = require('path');
+// const express = require('express');
+// const path = require('path');
+// const app = express();
+// const server = require('http').createServer(app);
+// const io = require('socket.io')(server);
+
+// //renderizando view
+// app.use(express.static(path.join(__dirname, 'public')))
+// app.set('views', path.join(__dirname, 'public'));
+// app.engine('html', require('ejs').renderFile);
+// app.set('view engine', 'html');
+
+// app.use('/', (req, res) => {
+
+//     res.render('index.html');
+
+// });
+
+import express from "express";
+import url from "url";
+import path from "path";
+import http from "http";
+import { Server } from "socket.io";
+
 const app = express();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const porta = process.env.porta || 3000;
 
-//renderizando view
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'public'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+const caminhoAtual = url.fileURLToPath(import.meta.url);
 
-app.use('/', (req, res) => {
+const diretorioPublicoTelaInicio = path.join(caminhoAtual, "../", "public");
+app.use(express.static(diretorioPublicoTelaInicio));
 
-    res.render('index.html');
+const servidorHttp = http.createServer(app);
 
-});
 
-const { excluirUsuarioPlants, conectarUsuarioPlant } = require('./serverFunctionsPlants');
-const { excluirUsuarioZombie, conectarUsuarioZombie } = require('./serverFunctionsZombies');
-const { excluirUsuarioListaTodosUsuarios, excluirConvitePendente } = require('./serverFunctionsGeral');
+const io = new Server(servidorHttp);
+
+//export default io;
+
+import { excluirUsuarioPlants, conectarUsuarioPlant } from './serverFunctionsPlants.js';
+import { excluirUsuarioZombie, conectarUsuarioZombie } from './serverFunctionsZombies.js';
+import { excluirUsuarioListaTodosUsuarios, excluirConvitePendente } from './serverFunctionsGeral.js';
 
 var listaTodosUsuario = [];
 var listaUsuariosPlants = [];
 var listaUsuariosZombies = [];
 var listaUsuariosConvitesPendentes = [];
 var listaUsuariosDupla = [{ PlayerConvidou: 0, PlayerConvidado: 0 }];
+var salaContador = 0;
+var salasAtivas = [];
+
+const home = io.of('/home')
+const game = io.of('/game')
+
+game.on('connection', socket => {
+    console.log("conectado")
+
+    socket.on('iniciarSala', (sala, lado) => {
+
+        let indicesEncontrados = [];
+
+        salasAtivas.forEach((user, index) => {
+            if (user.numeroSala === sala) {
+                indicesEncontrados.push(index);
+            }
+        });
+
+        console.log(indicesEncontrados);
+
+        if (indicesEncontrados.length < 2) {
+
+            salasAtivas.push({ numeroSala: sala, lado: lado })
+            console.log("sala: " + sala)
+            console.log("lado: " + lado)
+
+        }else{
+            console.log("sala ocupada, redirecionando para o lobby")
+            socket.emit('voltandoAoLobby')
+        }
+    }
+
+    );
+
+
+});
 
 // ao client se conectar
-io.on('connection', socket => {
-
+home.on('connection', socket => {
+    console.log("conectado home")
     //mandar historico
     socket.emit('previousPlants', listaUsuariosPlants);
     socket.emit('previousZombie', listaUsuariosZombies);
@@ -47,8 +105,6 @@ io.on('connection', socket => {
     //cancelar pendente   
     socket.on('cancelarPendente', (usuarios) => {
 
-
-
         excluirConvitePendente(usuarios.id1, listaUsuariosConvitesPendentes);
         excluirConvitePendente(usuarios.id2, listaUsuariosConvitesPendentes);
 
@@ -64,14 +120,19 @@ io.on('connection', socket => {
     //aceitar convite 
     socket.on('aceitarConvite', (usuarios) => {
 
+        let player1 = encontraLadoZombie(usuarios.id1)
+        let player2 = encontraLadoZombie(usuarios.id2)
+
         desconectarUsuario(usuarios.id1);
         desconectarUsuario(usuarios.id2);
 
         socket.broadcast.emit('receiveusuarioDisconnect', usuarios.id1)
         socket.broadcast.emit('receiveusuarioDisconnect', usuarios.id2)
 
-        socket.to(usuarios.id1).emit('telaJogo');
-        socket.emit('telaJogo');
+        const numeroSala = ++salaContador;
+
+        socket.to(usuarios.id1).emit('telaJogo', player1, numeroSala);
+        socket.emit('telaJogo', player2, numeroSala);
 
     });
 
@@ -93,7 +154,7 @@ io.on('connection', socket => {
 
     //ao clicar em sair
     socket.on('userDisconnect', () => {
-        
+
         let indiceEncontrado;
         let id1;
         let id2;
@@ -150,7 +211,7 @@ io.on('connection', socket => {
     //ao client se desconectar
     socket.on('disconnect', () => {
 
-       
+
         let indiceEncontrado;
         let id1;
         let id2;
@@ -216,6 +277,25 @@ function desconectarUsuario(socketID) {
 
 }
 
+function encontraLadoZombie(id) {
+    let indexPlant = listaUsuariosPlants.findIndex(user => user.socketID == id);
+
+    if (indexPlant !== -1) {
+
+        return listaUsuariosPlants[indexPlant].lado
+    }
+
+    let indexZombie = listaUsuariosZombies.findIndex(user => user.socketID == id);
+
+    if (indexZombie !== -1) {
+
+
+        return listaUsuariosZombies[indexZombie].lado
+    }
+
+
+}
+
 //verficar lista atualizada de usuarios
 function testeConsole() {
     console.log("todos usuarios: " + listaTodosUsuario)
@@ -223,6 +303,10 @@ function testeConsole() {
     console.log("zombies usuarios: " + listaUsuariosZombies)
 }
 
-server.listen(3000, () => console.log("Servidor rodando na porta 3000"));
+
+
+
+
+servidorHttp.listen(3000, () => console.log("Servidor rodando na porta 3000"));
 
 

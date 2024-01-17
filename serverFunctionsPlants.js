@@ -11,6 +11,7 @@ function excluirUsuarioPlants(socketID, listaUsuariosPlants) {
 function conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario) {
     
     data.ipMaquina = " 0 pontos ";
+    data.lado = 0;
     
     listaUsuariosPlants.push(data);
     listaTodosUsuario.push(data);
@@ -19,4 +20,4 @@ function conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuar
     socket.broadcast.emit('atualizarClicavel');
 }
 
-module.exports = { excluirUsuarioPlants, conectarUsuarioPlant };
+export  { excluirUsuarioPlants, conectarUsuarioPlant };
