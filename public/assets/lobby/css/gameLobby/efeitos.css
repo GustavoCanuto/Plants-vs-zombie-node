@@ -13,7 +13,8 @@ li{
   cursor: default;
 }
   .block{
-    color:orange !important;
+    -webkit-text-stroke: 0.05vw rgb(23, 21, 21); 
+    color:rgba(152, 99, 72, 0.863) !important;
   }
 
  .aparecerTela{

@@ -43,13 +43,14 @@ function renderusuarioDisconnect(usuario) {
 function renderConvite(usuario) {
 
   $('.menssagens').css('display','block');
+  $('.efeito').css('display','block');
  // alert("teste")
 
   let convite = `
-    <p class="${usuario.id}xy ${usuario.id}"><strong>${usuario.nome} #${usuario.posicao}</strong>  convidou para jogar
-        <button class = "aceitaSolicitacao" onclick="aceitarSolicitacao(this)">&#10003;</button>
+    <p class="${usuario.id}xy ${usuario.id} mensagem-convites"><strong>${usuario.nome} #${usuario.posicao}</strong>  convidou para jogar
+        <button class = "aceitaSolicitacao" onclick="aceitarSolicitacao(this)">&#10004;</button>
         <button class = "recusarSolicitacao" onclick="cancelarPendente(this)">&#10007;</button>
-    </p> `;
+        </p>  `;
 
   document.getElementById("convite").innerHTML += convite;
 

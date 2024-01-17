@@ -21,6 +21,8 @@ function cancelarPendente(esse) {
     atualizarClicavel();
 
     $('.menssagens').css('display','none');
+    $('.efeito').css('display','none');
+
 
   
 }

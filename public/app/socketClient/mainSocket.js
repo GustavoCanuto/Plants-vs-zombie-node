@@ -77,6 +77,7 @@ socket.on('cancelaPendente', function (usuarios) {
 socket.on('cancelaPendenteConvite', function (usuario) {
 
   $('.menssagens').css('display','none');
+  $('.efeito').css('display','none');
 
   $(`#${usuario}`).closest('ol').addClass("clicavel");
   atualizarClicavel();

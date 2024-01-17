@@ -30,9 +30,10 @@ function atualizarClicavel() {
                 let nome = partes[0].trim();
                 
                 $('.menssagens').css('display','block');
+                $('.efeito').css('display','block');
              
                 //cria convite
-                let conviteEnviado = `<p class="${elemento.id}xy ${elemento.id}" > Convite Enviado para <strong>${nome} #${numero}</strong> ! Aguarde <button class="recusarSolicitacao cancelarConvite"  " onclick="cancelarPendente(this)">&#10007; </button> </p>`;
+                let conviteEnviado = `<p class="${elemento.id}xy ${elemento.id} mensagem-convites" > Convite Enviado para <strong>${nome} #${numero}</strong> ! Aguarde <button class="recusarSolicitacao cancelarConvite"  onclick="cancelarPendente(this)">&#10007; </button> </p> `;
 
                 $(`#mandadoSolitacao`).append(conviteEnviado);
 
