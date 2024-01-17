@@ -1,4 +1,4 @@
-var socket = io('127.0.0.1:3000');
+var socket = io('/home');
 
 socket.on('atualizarClicavel', () => {
   atualizarClicavel();
@@ -85,12 +85,22 @@ socket.on('cancelaPendenteConvite', function (usuario) {
 });
 
 //gera tela de jogo (provisorio)
-socket.on('telaJogo', ()=>{
+socket.on('telaJogo', (lado,sala)=>{
 
-  let divAtual = document.querySelector("[data-gameLobby]");
-  let divJogando = document.querySelector(".jogando");
+  window.location.href = `game/game.html?sala=${sala}&lado=${lado}`
 
-  divAtual.style.display = "none"
-  divJogando.style.display = "flex"
+
+  // let divAtual = document.querySelector("[data-gameLobby]");
+  // let divJogando = document.querySelector(".jogando");
+
+  // divAtual.style.display = "none"
+  // divJogando.style.display = "flex"
+
+  // var paragrafo = document.createElement("p");
+  // // Adiciona texto ao parágrafo
+  // var texto = document.createTextNode(`--- lado: ${data}`);
+  // // Adiciona o nó de texto ao elemento <p>
+  // paragrafo.appendChild(texto);
+  // divJogando.appendChild(paragrafo);
 
 });

@@ -18,4 +18,4 @@ function excluirConvitePendente(socketID, listaUsuariosConvitesPendentes){
 
 }
 
-module.exports = { excluirUsuarioListaTodosUsuarios, excluirConvitePendente };
+export { excluirUsuarioListaTodosUsuarios, excluirConvitePendente };

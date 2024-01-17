@@ -2,7 +2,6 @@
 function cancelarPendente(esse) {
 
     let elementoPai = $(esse).closest('p');
-
     // Obtenha o id do elemento pai
     let idDoElementoPai = elementoPai.attr('class');
 
@@ -23,8 +22,6 @@ function cancelarPendente(esse) {
     $('.menssagens').css('display','none');
     $('.efeito').css('display','none');
 
-
-  
 }
 
 //aceitar solicitacao 
@@ -42,7 +39,7 @@ function aceitarSolicitacao(esse) {
 
     let elementosIraoJogar = { id1: idPai, id2: idSocket }
     //alert(idPai +" "+idSocket);
-    socket.emit('aceitarConvite', elementosIraoJogar);
+    socket.emit('aceitarConvite', elementosIraoJogar); 
 
     //retirar da lista
 }
