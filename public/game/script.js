@@ -9,3 +9,13 @@ socket2.emit('iniciarSala', sala, ladoJogador)
 socket2.on('voltandoAoLobby', () => {
     window.location.href = `/`
 });
+
+socket2.on('iniciarJogo', () => {
+    console.log("iniciar Jogo")
+});
+
+socket2.on('usuarioDesconectador', () => {
+    alert("usuario desconectou você ganhou")
+    window.location.href = `/`
+});
+
