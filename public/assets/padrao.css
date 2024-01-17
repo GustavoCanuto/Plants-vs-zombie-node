@@ -24,7 +24,7 @@ main {
     /* width: 1275px;
     height: 590px; */
     position: fixed;
-    background-image: url(./img/brackground/menu-principal2.png);
+    background-image: url(./img/brackground/menu-principal2.webp);
     background-size: cover;
     transition: opacity 0.8s ease;
 

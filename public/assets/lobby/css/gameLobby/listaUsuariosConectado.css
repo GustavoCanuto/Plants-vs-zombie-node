@@ -64,7 +64,7 @@
  }
 
  .plantasConectadas{
-    background-image: url(../../../img/conectados/plantasConectadas.png);
+    background-image: url(../../../img/conectados/plantasConectadas.webp);
     background-size: cover;
     background-repeat: no-repeat; /* Evita a repetição da imagem */
     background-position: left;
@@ -73,7 +73,7 @@
  }
 
  .zombiesConectadas{
-    background-image: url(../../../img/conectados/zombiesConectados.png);
+    background-image: url(../../../img/conectados/zombiesConectados.webp);
     background-size: cover;
     background-repeat: no-repeat; /* Evita a repetição da imagem */
     background-position: left;
