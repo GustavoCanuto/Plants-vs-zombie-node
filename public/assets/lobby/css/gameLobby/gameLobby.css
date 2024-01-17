@@ -1,0 +1,21 @@
+.game-lobby-container{
+    display: none;
+    height: 100%;
+    opacity: 0; 
+    transition: opacity 0.6s ease; /* Adiciona transição para a propriedade opacity */
+}
+
+.game-lobby {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url(../../../img/brackground/gameLobby.webp);
+    background-size: cover;
+   
+  
+    
+}
+
+.game-lobby> *{
+    font-size: 1.2vw;
+}
