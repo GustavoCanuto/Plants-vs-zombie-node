@@ -1,0 +1,32 @@
+
+:root {
+    --texto-branco:#b8b8b8;
+    --texto-verde: #05aa05;
+    --texto-contorno: -0.1vw -0.1vw 0 black, 0.1vw -0.1vw 0 black, -0.2vw 0.2vw 0 black, 0.1vw 0.1vw 0 black;
+
+}
+
+
+
+body {
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+main {
+    border: 1px solid rgb(95, 95, 95);
+    width: 100%;
+    aspect-ratio: 1275/590;
+    /* width: 1275px;
+    height: 590px; */
+    position: fixed;
+    background-image: url(./img/brackground/menu-principal2.webp);
+    background-size: cover;
+    transition: opacity 0.8s ease;
+
+   
+}

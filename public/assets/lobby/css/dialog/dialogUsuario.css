@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'gameButtonFont'; /* Escolha um nome para a sua fonte */
+    src: url('../../../font/Gamefonty-Regular.ttf') format('truetype'); /* Substitua pelo caminho real da sua fonte */
+}
+
+@font-face {
+    font-family: 'gameTextoFont'; /* Escolha um nome para a sua fonte */
+    src: url('../../../font/Brianne_s_hand.ttf') format('truetype'); /* Substitua pelo caminho real da sua fonte */
+}
+
+
+.dialog-usuario {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    /* Adiciona transição para a propriedade opacity */
+}
+
+.nome-usuario {
+    background-color: transparent;
+    border: none;
+    height: 63%;
+    width: 40%;
+    background-image: url(../../../img/dialog/usuarioDialog.webp);
+    background-size: cover;
+    background-position: center;
+    font-family: 'lobbyFont', sans-serif;
+    font-size: 1.5vw;
+    color: var(--texto-branco);
+    text-shadow: var(--texto-contorno);
+ 
+   
+
+}
+
+.nome-usuario>* {
+    position: relative;
+}
+
+.retornar-usuario {
+    background-color: transparent;
+    border: none;
+    font-family: 'lobbyFont', sans-serif;
+    color: var(--texto-branco);
+    text-shadow: var(--texto-contorno);
+}
+
+.retornar-usuario:hover {
+    color: rgb(158, 84, 84);
+}
+
+.posicaoX-dialog {
+    font-size: 1.7vw;
+    left: 88%;
+    top: 26.2%;
+}
+
+.label-usuario {
+    height: 10%;
+    width: 60%;
+    left: 30%;
+    top: 36.5%;
+}
+
+.input-usuario {
+    height: 10%;
+    width: 63%;
+    left: 18%;
+    top: 42.5%;
+    font-size: 1.5vw;
+    font-family: 'gameTextoFont';
+    background-color: #d3d5e7;
+    border: 0;
+    padding-left: 2%;
+}
+
+
+
+.entrar-usuario {
+    height: 5.6vw;
+    width: 31vw;
+    left: 10%;
+    top: 58%;
+    font-family:'gameButtonFont';
+    font-size: 3.3vw;
+    color: var(--texto-verde); /* Tornando o texto transparente */
+    -webkit-text-stroke: 0.09vw black; 
+    background-color: transparent;
+    border: 0;
+    background-image: url(../../../img/buttons/enterButton.webp);
+    background-size: cover;
+    padding-bottom: 1.2%;
+     
+}
+
+.entrar-usuario:hover{
+    filter: brightness(1.2);
+}
+
+.entrar-usuario:active {
+    transform: scaleY(0.97);
+    transform-origin: center bottom; /* Define o ponto de transformação no centro superior */
+    filter: brightness(1);
+    transition: transform 0.1s, filter 0.2s;
+}
