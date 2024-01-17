@@ -1,0 +1,59 @@
+.informacaoParaUsuario{
+    display: flex; 
+    flex-direction: row; 
+    width: 100%; 
+    justify-content: space-between; 
+    margin-bottom: 2%;
+    height: 5vw;
+    /* border: 1px solid red; */
+
+ }
+
+ .informacaoParaUsuario-infoUser{
+    
+    /* border: 1px solid rgb(94, 91, 91); */
+     font-size: 1.4vw;
+     color: white;
+     font-family: 'userFont';
+     
+ }
+
+ .informacaoParaUsuario-info{
+    align-self: flex-end;
+    margin-right: 29.5%;
+    color: rgb(241, 236, 236);
+    font-family: 'lobbyFont', sans-serif;
+    width: 44%;
+    -webkit-text-stroke: 0.08vw black; 
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-image: url(../../../img/infor/inforInstrucoes.webp);
+   background-size: cover;
+   font-size: 1.3vw;  
+   
+    
+ }
+ .informacaoParaUsuario-info p {
+   margin-top: 1%;
+   margin-left: 3%;
+   transform: rotate(0.5deg); /* Ajuste o ângulo conforme necessário */
+   transform-origin: 100% 100%; 
+ }
+
+ .placaNome{
+  
+   height: 4.7vw;
+   width: 14vw;
+   background-image: url(../../../img/infor/placaNome.webp);
+    background-size: cover;
+ }
+
+ .placaNome p{
+   position: relative;
+   
+   top: 38%;
+   text-align: center;
+   
+ }
