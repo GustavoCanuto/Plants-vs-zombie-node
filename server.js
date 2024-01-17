@@ -139,6 +139,37 @@ game.on('connection', socket => {
         socket.emit('voltandoAoLobby')
     }
 
+    //conexao com o game 
+    socket.on('criarAnimacao', (data) => {
+        socket.to(data.sala).emit('fazerAnimacao', data)
+        //socket.broadcast.emit('fazerAnimacao', data);
+      });
+    
+      socket.on('mouseMoveDentroDoTabuleiro', (data) => {
+        socket.to(data.sala).emit('mouseMoveDentroDoTabuleiroClient', data)
+       // socket.broadcast.emit('mouseMoveDentroDoTabuleiroClient', data);
+      });
+    
+      socket.on('mouseEnterCelula', (data) => {
+        socket.to(data.sala).emit('mouseEnterCelulaClient', data)
+        //socket.broadcast.emit('mouseEnterCelulaClient', data);
+      });
+    
+      socket.on('navBarEnter', (data) => {
+        socket.to(data.sala).emit('navBarEnterClient', data)
+        //socket.broadcast.emit('navBarEnterClient', data);
+      });
+    
+      socket.on('wheelNavBar', (data) => {
+        socket.to(data.sala).emit('wheelNavBarClient', data)
+        //socket.broadcast.emit('wheelNavBarClient', data);
+      });
+      
+      socket.on('dropPersonagem', (data) => {
+        socket.to(data.sala).emit('dropPersonagemClient', data)
+       // socket.broadcast.emit('dropPersonagemClient', data);
+      });
+
 });
 
 // ao client se conectar

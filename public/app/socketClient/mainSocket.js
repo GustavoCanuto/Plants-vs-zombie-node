@@ -87,7 +87,7 @@ socket.on('cancelaPendenteConvite', function (usuario) {
 //gera tela de jogo (provisorio)
 socket.on('telaJogo', (lado,sala)=>{
 
-  window.location.href = `game/game.html?sala=${sala}&lado=${lado}`
+  window.location.href = `game/public/index.html?sala=${sala}&lado=${lado}`
 
 
   // let divAtual = document.querySelector("[data-gameLobby]");

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Plantas vs. Zumbis</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/css/padrao.css">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/cards.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../socketNewGame.js"></script>
+   
+</head>
+<body>
+<main id="main">
+
+<button class="menu-button" onclick="toggleConfig()">menu</button>
+
+<div class="config">
+
+<button id="btnControlePlantas">Controle Plantas</button> <br><br>
+<button>Controle Zombies</button>
+
+<div class="mouseJogador"> 
+    <br><p>Escolha o lado que irá usar o mouse:</p><br>
+    <label>
+        <input type="radio" name="opcaoMouse" value="plantas" checked> Plantas
+    </label>
+    <label>
+        <input type="radio" name="opcaoMouse" value="zombies"> Zombie
+    </label>
+    <label>
+        <input type="radio" name="opcaoMouse" value="nenhum"> Nenhum
+    </label>
+    <button type="button" id="gravarOpcaoMouse">Gravar</button>
+</div>
+
+<div class="telaAjax"></div>
+
+<div id="mensagemTecla"></div>
+
+</div>
+
+    <img id="cursorTabuleiroAzul" src="./seletorTrianguloAzul.png" alt="Imagem a seguir o mouse no tabuleiro">
+    <img id="cursorTabuleiroAmarelo" src="./seletorTrianguloAmarelo.png" alt="Imagem a seguir o mouse no tabuleiro">
+
+    <div class="navbar">
+        <div class="style-resize navbar-planta">
+            <div class="pontuacao-planta" id="navbarPlantaPontos"><p id="pontosPlanta">50</p></div>
+            <div class="card sunflower seletorNavBarAmarelo" id="navbarPlanta1" data-personagem="sunflower" draggable="true"><img id="cursor-navBar-planta" src="./seletorTrianguloAmarelo.png" alt="Imagem a seguir o mouse no navbar planta"></div>
+            <div class="card peashooter semSaldo" id="navbarPlanta2" data-personagem="peashooter" draggable="true"></div>
+            <div class="card showpea semSaldo" id="navbarPlanta3" data-personagem="showpea" draggable="true"></div>
+            <div class="card repeater semSaldo"id="navbarPlanta4" data-personagem="repeater" draggable="true"></div>
+            <div class="card wallnut" id="navbarPlanta5" data-personagem="wallnut" draggable="true"></div>
+            <div class="card cherrybomb semSaldo" id="navbarPlanta6" data-personagem="cherrybomb" draggable="true"></div>
+            <div class="card potatomine" id="navbarPlanta7" data-personagem="potatomine" draggable="true"></div>
+        </div>
+        <div class="style-resize navbar-zombie">
+            <div class="card cardtombstone seletorNavBarAzul" id="navbarZombie1" data-personagem="cardtombstone" draggable="true"> <img id="cursor-navBar-zombie" src="./seletorTrianguloAzul.png" alt="Imagem a seguir o mouse no navbar zombie"></div>
+            <div class="card zombie" id="navbarZombie2" data-personagem="zombie" draggable="true"><div class="indisponivel"></div></div>
+            <div class="card conehead semSaldo" id="navbarZombie3" data-personagem="conehead" draggable="true"></div>
+            <div class="card buckethead semSaldo" id="navbarZombie4" data-personagem="buckethead" draggable="true"></div>
+            <div class="card flagzombie semSaldo" id="navbarZombie5" data-personagem="flagzombie" draggable="true"></div>
+            <div class="card football semSaldo" id="navbarZombie6" data-personagem="football" draggable="true"></div>
+            <div class="card screendoor semSaldo" id="navbarZombie7" data-personagem="screendoor" draggable="true"></div>
+            <div class="pontuacao-zombie" id="navbarZombiePontos"><p id="pontosZombie">50</p></div>
+        </div>
+    </div>
+    <div class="board" id="tabuleiroID"></div>
+   
+    <script src="./assets/js/tabuleiro.js"></script>
+    <script src="./assets/js/comandos/mouse/mouse.js"></script>
+    <script type="module" src="./assets/js/comandos/teclado/teclado.js"></script> 
+    <script type="module" src="./assets/js/comandos/gamepad/movimentosControle.js"></script>   
+    <script  type="module" src="./assets/js/comandos/mouse/mouseNavBar.js"></script>
+
+   
+
+    <script type="module" src="./assets/js/cartas.js"></script>
+    <script type="module" src="./assets/js/animacaoCartas.js"></script>
+    
+
+    <script src="./assets/js/botoes/menu.js"></script>
+    <script src="./assets/js/botoes/trocarTecla.js"></script>
+    <script type="module" src="./assets/js/botoes/trocaMouseLado.js"></script>
+    <script src="./assets/js/ajax.js"></script>
+    <script type="module" src="./assets/js/pontuacao.js"></script>
+    <script type="module" src="./assets/js/socketCliente.js"></script>
+    <script src="../socketIniciarJogo.js"></script>
+
+
+</main>
+</body>
+</html>
