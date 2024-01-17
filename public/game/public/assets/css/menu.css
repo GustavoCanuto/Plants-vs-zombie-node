@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'gameButtonFont'; /* Escolha um nome para a sua fonte */
+    src: url('../font/Gamefonty-Regular.ttf') format('truetype'); /* Substitua pelo caminho real da sua fonte */
+}
+
+
+.menu-button{
+    position: absolute;
+    top: 1.8%;
+    right: 1%;
+    height: 4.5%;
+    width: 7%;
+    background-image: url(../img/buttons/gameButtonPequeno.webp);
+    background-size: cover;
+    font-family:'gameButtonFont';
+    font-size: 2.1vw;
+    color:#027402; /* Tornando o texto transparente */
+    -webkit-text-stroke: 0.09vw black; 
+    padding-bottom: 0.1%;
+    background-color: transparent;
+    border: 0px;
+}
+
+.menu-button:hover{
+    color: #10ee10;
+    filter: brightness(1.1); 
+}
+
+.config{
+    display: none;
+    position: absolute;
+    border: 1px solid black;
+    height: 74%;
+    width: 22%;
+    right: 3%;
+    top: 18%;
+    background-color: rgba(199, 199, 199, 0.941);
+    
+}
+
+.config__tecla{
+    margin-bottom: 4%;
+    border: 1px solid black;
+    
+   
+}
+
+.config-input{
+    width: 30%;
+}
