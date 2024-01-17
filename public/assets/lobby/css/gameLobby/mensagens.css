@@ -5,13 +5,13 @@
 
 @keyframes brilho {
   0% {
-    filter: brightness(1.1) hue-rotate(0deg);
+    filter: brightness(0.9) hue-rotate(0deg);
   }
   50% {
-    filter: brightness(1.5) hue-rotate(22deg);
+    filter: brightness(1.2) hue-rotate(22deg);
   }
   100% {
-    filter: brightness(1.1) hue-rotate(0deg);
+    filter: brightness(0.9) hue-rotate(0deg);
   }
 }
 
@@ -19,14 +19,31 @@
   animation: brilho 2.2s infinite; /* Ajuste a duração conforme necessário */
 }
 
+.efeito {
+  animation: brilho 2.2s infinite; /* Ajuste a duração conforme necessário */
+}
+
+
+
+.efeito{
+  display: none;
+  position: absolute;
+  height: 8%;
+  width: 46.6%;
+  box-shadow: 0px 0px 1vw rgb(123, 143, 129);
+  left: 24.2%;
+  top: 90%;
+  transition: all 3s ease;
+
+}
 .menssagens{
-    display: none;
+     display: none;
      height: 88%;
      width: 48%;
      background-image: url(../../../img/infor/infoConvite.png);
      background-size: cover;
      font-family: 'Fredoka One', cursive;
-     color:white;
+     color:rgb(200, 197, 197);
      -webkit-text-stroke: 0.12vw black; 
      font-size: 1.6vw;
      margin-bottom: 1%;
@@ -34,14 +51,14 @@
  
  .menssagens strong{
    font-family: 'lobbyFont';
-   color: rgb(218, 203, 203);
+   color:rgb(200, 197, 197);
    -webkit-text-stroke: 0.04vw rgb(68, 26, 26); 
    font-size: 1.4vw;
  }
 
  #mandadoSolitacao , #convite {
    position: relative;
-   top: 39.5%;
+   top: 37%;
    width: fit-content;
    margin-left: auto;
    margin-right: auto;
@@ -62,6 +79,7 @@
  .menssagens div{
     position: relative;
     top: 37%;
+   
  }
 
  .menu-botton{
@@ -74,16 +92,39 @@
      /* gap: 0.5rem; */
     height: 6vw;
     margin-top: auto; 
+     /* border: 1px solid red;  */
  }
 
  
  .aceitaSolicitacao {
-  font-family: 'Fredoka One', cursive;
-  background-color: green;
-  border: 0;
-  font-size: 1.2vw;}
+  -webkit-text-stroke: 0.08vw rgb(14, 46, 10); 
+  background-color: transparent;
+  color:  rgb(0, 154, 26);
+   border: 0;
+   font-size: 1.6vw;
+   margin-left: 1.8%;
+
+}
 
 .recusarSolicitacao{
-   background-color: red;
+  -webkit-text-stroke: 0.08vw rgb(239, 0, 0); 
+  background-color: transparent;
+  color: red;
    border: 0;
-   font-size: 1.2vw}
+   font-size: 1.5vw;
+   margin-left: 1.2%;
+
+  }
+
+  .mensagem-convites{
+    width: 130%;
+   
+  }
+
+  .aceitaSolicitacao:hover {
+    transform: scale(1.5);
+  }
+
+  .recusarSolicitacao:hover{
+    transform: scale(1.5);
+  }

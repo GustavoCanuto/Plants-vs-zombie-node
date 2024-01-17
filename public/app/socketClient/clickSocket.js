@@ -12,6 +12,10 @@ $('[data-sair]').on("click", (event) => {
   $(".plants").removeClass("clicavel");
   $(".zombies").removeClass("clicavel");
 
+  
+  $('.menssagens').css('display','none');
+  $('.efeito').css('display','none');
+
 });
 
 //ao clicar no entrar
