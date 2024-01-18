@@ -1,21 +1,3 @@
-// const express = require('express');
-// const path = require('path');
-// const app = express();
-// const server = require('http').createServer(app);
-// const io = require('socket.io')(server);
-
-// //renderizando view
-// app.use(express.static(path.join(__dirname, 'public')))
-// app.set('views', path.join(__dirname, 'public'));
-// app.engine('html', require('ejs').renderFile);
-// app.set('view engine', 'html');
-
-// app.use('/', (req, res) => {
-
-//     res.render('index.html');
-
-// });
-
 import express from "express";
 import url from "url";
 import path from "path";
@@ -93,9 +75,12 @@ game.on('connection', socket => {
                console.log(`Cliente lado ${lado} entrou na sala: ${sala}`);
 
                 if(indicesEncontrados.length ==1 ){
-                    console.log("iniciando jogo")
-                    socket.emit('iniciarJogo')
-                    socket.to(sala).emit('iniciarJogo')
+                    setTimeout(() => {
+                        console.log("iniciando jogo")
+                        socket.emit('iniciarJogo')
+                        socket.to(sala).emit('iniciarJogo')
+                    }, 500);
+                   
                 }
 
         } else {
@@ -142,6 +127,12 @@ game.on('connection', socket => {
     //conexao com o game 
     socket.on('criarAnimacao', (data) => {
         socket.to(data.sala).emit('fazerAnimacao', data)
+        //socket.broadcast.emit('fazerAnimacao', data);
+      });
+
+    //pontuacao
+    socket.on('atualizaPontuacao', (lado, sala) => {
+        socket.to(sala).emit('atualizaPontuacaoClient', lado)
         //socket.broadcast.emit('fazerAnimacao', data);
       });
     

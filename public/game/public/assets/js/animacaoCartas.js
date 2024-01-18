@@ -259,7 +259,7 @@ class AnimacaoCartas {
             if (!colidiu) {
                 if (positionLeft > -10) {
                     elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
-                    positionLeft -= 0.3;
+                    positionLeft -= 0.2;
                 } else {
                     clearInterval(intervaloMovimentoZumbi);
                     console.log('Zumbi atingiu a borda esquerda.');
@@ -283,7 +283,9 @@ class AnimacaoCartas {
 
     static removerPlanta(plantaElemento) {
         console.log('removido');
+        plantaElemento.closest('.cell').classList.remove('ocupado');
         plantaElemento.remove();
+     
     }
 
     static iniciarAnimacao(frames, gifElement) {
