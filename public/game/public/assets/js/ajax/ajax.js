@@ -1,31 +1,42 @@
-function carregarControlePlantas() {
+
+let ladoConfigTeclado;
+//controle Planta
+function carregarControle(lado) {
     // Esconder os botões
     $(".config button").css("display", "none");
     $(".mouseJogador").css("display", "none");
     
+    ladoConfigTeclado = lado;
 
     // Carregar o conteúdo do controlePlanta.html na div telaAjax
-    $(".telaAjax").load("controlePlanta.html", function() {
+    $(".telaAjax").load("./assets/js/ajax/personalizaTeclado.html", function() {
         // Callback executado após o carregamento completo do conteúdo
-        atualizarValueTeclas();
+        if(lado == 0) atualizarValueTeclasPlantas();
+        else atualizarValueTeclasZombies();
+        
+        tecladoBloqueado = true;
     });
   }
+
+
 
   // Função para voltar e mostrar os botões novamente
   function voltarMenu() {
     // Limpar o conteúdo da div telaAjax
     $(".telaAjax").html("");
-
+    tecladoBloqueado = false;
     // Mostrar os botões novamente
     $(".config button").css("display", "block");
     $(".mouseJogador").css("display", "block");
+    $("#mensagemTecla").html("");
   }
 
   // Atribuir a função carregarControlePlantas ao clique do botão "Controle Plantas"
-  $("#btnControlePlantas").on("click", carregarControlePlantas);
+  $("#btnControlePlantas").on("click", ()=> carregarControle(0));
+  $("#btnControleZombies").on("click", ()=> carregarControle(1));
 
 
-  function atualizarValueTeclas() {
+  function atualizarValueTeclasPlantas() {
     document.getElementById("moveUp").value = listaTeclasPlantas.arrowUpPlanta;
     document.getElementById("moveDown").value = listaTeclasPlantas.arrowDownPlanta;
     document.getElementById("moveLeft").value = listaTeclasPlantas.arrowLeftPlanta;
@@ -35,3 +46,16 @@ function carregarControlePlantas() {
     document.getElementById("colocarPersonagem").value = listaTeclasPlantas.colcoarPersonagemPlanta;
    
 }
+
+function atualizarValueTeclasZombies() {
+  document.getElementById("moveUp").value = listaTeclasZombies.arrowUpZombie;
+  document.getElementById("moveDown").value = listaTeclasZombies.arrowDownZombie;
+  document.getElementById("moveLeft").value = listaTeclasZombies.arrowLeftZombie;
+  document.getElementById("moveRight").value = listaTeclasZombies.arrowRightZombie;
+  document.getElementById("moveCardLeft").value = listaTeclasZombies.cardEsquerdaZombie;
+  document.getElementById("moveCardRight").value = listaTeclasZombies.cardDireitaZombie;
+  document.getElementById("colocarPersonagem").value = listaTeclasZombies.colcoarPersonagemZombie;
+ 
+}
+
+
