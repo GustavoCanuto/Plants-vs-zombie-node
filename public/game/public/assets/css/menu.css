@@ -47,4 +47,77 @@
 
 .config-input{
     width: 30%;
+    height: 40%;
+    font-size: 1vw;
+}
+
+.telaAjax{
+    position: absolute;
+    top: 0;
+    height: 90%;
+    width: 90%;
+    /* border: 1px solid red; */
+    z-index: -1;
+   
+}
+
+.config__tecla{
+    height: 10%;
+    width: 90%;
+    font-size: 1.2vw;
+
+}
+
+.config__tecla>button{
+    width: 20%;
+    font-size: 1vw;
+}
+
+.telaAjax>button{
+    width: 30%;
+    font-size: 1vw;
+
+}
+
+#mensagemTecla{
+    position: absolute;
+    bottom: 3%;
+    font-size: 1.2vw;
+}
+
+#btnControlePlantas{
+    width: 60%;
+    height: 8%;
+    font-size: 1.3vw;
+    margin-bottom: 10%;
+
+}
+
+#btnControleZombies{
+    width: 60%;
+    height: 8%;
+    font-size: 1.3vw;
+    
+}
+
+.mouseJogador{
+    width: 90%;
+    height: 90%;
+    font-size: 1.3vw;
+}
+
+.mouseJogador input{
+    width: 5%;
+
+}
+
+#gravarOpcaoMouse{
+    width: 40%;
+    height: 8%;
+    font-size: 1.1vw;
+
+}
+
+.config{
+    z-index: -2;
 }

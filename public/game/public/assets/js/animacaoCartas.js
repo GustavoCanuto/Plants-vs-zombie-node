@@ -5,9 +5,7 @@ import { pontuacaoLado, pontosLado } from "./pontuacao.js";
 var animationInterval;
 
 class AnimacaoCartas {
-
-
-
+    
     static framesPorClasse = {
         sunflower: 25,
         peashooter: 25,

@@ -12,67 +12,75 @@ let teclaPressionadaPlanta;
 let teclaPressionadaZombie;
 
 document.addEventListener('keydown', function (e) {
-    var key = e.key.toLowerCase();
 
-    if (key == " ") {
-        key = "space";
-     }
+    if (!tecladoBloqueado) {
 
-    //planta
-    if (Object.values(listaTeclasPlantas).includes(key)) {
+        var key = e.key.toLowerCase();
 
-        if (estadoTeclas[0]) {
-            jogadorComandosTecladoPlanta.jogadorPlanta(key);
-            setIntervalPlanta = setInterval(() => {
-                jogadorComandosTecladoPlanta.jogadorPlanta(key);
-            }, 100);
-            estadoTeclas[0] = false;
-            teclaPressionadaPlanta = key;
+        if (key == " ") {
+            key = "space";
         }
 
-        if (key != teclaPressionadaPlanta) {
-            if (estadoTeclasDupla[0]) {
+        //planta
+        if (Object.values(listaTeclasPlantas).includes(key)) {
+
+            if (estadoTeclas[0]) {
                 jogadorComandosTecladoPlanta.jogadorPlanta(key);
-                setIntervalPlantaDuplo = setInterval(() => {
+                setIntervalPlanta = setInterval(() => {
                     jogadorComandosTecladoPlanta.jogadorPlanta(key);
                 }, 100);
-                estadoTeclasDupla[0] = false;
+                estadoTeclas[0] = false;
+                teclaPressionadaPlanta = key;
             }
+
+            if (key != teclaPressionadaPlanta) {
+                if (estadoTeclasDupla[0]) {
+                    jogadorComandosTecladoPlanta.jogadorPlanta(key);
+                    setIntervalPlantaDuplo = setInterval(() => {
+                        jogadorComandosTecladoPlanta.jogadorPlanta(key);
+                    }, 100);
+                    estadoTeclasDupla[0] = false;
+                }
+            }
+
         }
 
-    }
+        //zombie
+        if (Object.values(listaTeclasZombies).includes(key)) {
 
-    //zombie
-    if (Object.values(listaTeclasZombies).includes(key)) {
-
-        if (estadoTeclas[1]) {
-            jogadorComandosTecladoZombie.jogadorZombie(key);
-            setIntervalZombie = setInterval(() => {
+            if (estadoTeclas[1]) {
                 jogadorComandosTecladoZombie.jogadorZombie(key);
-            }, 100);
-            estadoTeclas[1] = false;
-            teclaPressionadaZombie = key;
-        }
-
-        if (key != teclaPressionadaZombie) {
-            if (estadoTeclasDupla[1]) {
-                jogadorComandosTecladoZombie.jogadorZombie(key);
-                setIntervalZombieDuplo = setInterval(() => {
+                setIntervalZombie = setInterval(() => {
                     jogadorComandosTecladoZombie.jogadorZombie(key);
                 }, 100);
-                estadoTeclasDupla[1] = false;
+                estadoTeclas[1] = false;
+                teclaPressionadaZombie = key;
             }
+
+            if (key != teclaPressionadaZombie) {
+                if (estadoTeclasDupla[1]) {
+                    jogadorComandosTecladoZombie.jogadorZombie(key);
+                    setIntervalZombieDuplo = setInterval(() => {
+                        jogadorComandosTecladoZombie.jogadorZombie(key);
+                    }, 100);
+                    estadoTeclasDupla[1] = false;
+                }
+            }
+
         }
 
     }
-});
+    });
 
 document.addEventListener('keyup', function (e) {
+ 
+    if (!tecladoBloqueado) {
+
     var key = e.key.toLowerCase();
 
     if (key == " ") {
         key = "space";
-     }
+    }
 
 
     if (Object.values(listaTeclasPlantas).includes(key)) {
@@ -96,6 +104,8 @@ document.addEventListener('keyup', function (e) {
 
         clearInterval(setIntervalZombieDuplo)
         estadoTeclasDupla[1] = true;
+    }
+
     }
 });
 
@@ -172,7 +182,7 @@ class JogadorMove {
                 centerImage(celulaAtual[lado]);
                 targetCell.appendChild(seletorTabuleiro[lado][chaveLado]);
                 targetCell.appendChild(divPreviaPersonagem[lado][chaveLado]);
-             
+
 
             }, 30);
 
@@ -188,16 +198,16 @@ class JogadorMove {
         switch (key) {
             case '2':
                 comandosNavBar.moveNavBar(1, lado);
-                socket2.emit('wheelNavBar', { direction: 1, LadoQueUsaMouse: lado, sala: sala});
+                socket2.emit('wheelNavBar', { direction: 1, LadoQueUsaMouse: lado, sala: sala });
                 break;
             case '1':
                 comandosNavBar.moveNavBar(-1, lado);
-                socket2.emit('wheelNavBar', { direction: -1, LadoQueUsaMouse: lado, sala: sala});
+                socket2.emit('wheelNavBar', { direction: -1, LadoQueUsaMouse: lado, sala: sala });
                 break;
             case ' ':
                 const celulaAtual = document.getElementById(`${classeSeletor}`);
                 comandosNavBar.dropPersonagem(celulaAtual.closest('.cell').id, imgPreviaPersonagem[lado].src);
-                socket2.emit("dropPersonagem", {cellID:celulaAtual.closest('.cell').id, imgPreviaPersonagem: imgPreviaPersonagem[lado].src, sala: sala} );
+                socket2.emit("dropPersonagem", { cellID: celulaAtual.closest('.cell').id, imgPreviaPersonagem: imgPreviaPersonagem[lado].src, sala: sala });
                 break;
         }
     }
