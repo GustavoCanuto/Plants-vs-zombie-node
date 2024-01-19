@@ -32,7 +32,7 @@ class AnimacaoCartas {
         const bEsquerda = elementoB.offsetLeft;
         const bTopo = elementoB.offsetTop;
         const bDireita = bEsquerda + elementoB.offsetWidth;
-        const bBaixo = bTopo + elementoB.offsetHeight;
+        const bBaixo = bTopo + elementoB.offsetHeight - 50;
 
         return (
             aEsquerda < bDireita &&
