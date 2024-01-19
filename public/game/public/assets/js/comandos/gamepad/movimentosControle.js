@@ -8,6 +8,7 @@ let analogMoveY = [];
 var mainRect = main.getBoundingClientRect();
 
 function centerAnalogico(lado) {
+    mainRect = main.getBoundingClientRect();
     const chaveLado = Object.keys(celulaAtual[lado]);
     const rectCelula = celulaAtual[lado][chaveLado].getBoundingClientRect();
 
@@ -33,26 +34,20 @@ function updateImagePosition(gamepad, lado) {
         analogMoveX[lado] += gamepad.axes[0] * analogMoveSpeed;
         analogMoveY[lado] += gamepad.axes[1] * analogMoveSpeed;
 
-        // Converte as porcentagens para pixels
-        var rectTabuleiroID = tabuleiroID.getBoundingClientRect();
-        var rectcursorTabuleiro = cursorTabuleiro[lado][chaveLado].getBoundingClientRect();
-
-        // Convertendo a porcentagem para pixels
-        var limiteTabuleiroLeft = (rectTabuleiroID.width * 10) / 100;
-
-
-        // Limita o movimento dentro de tabuleiroID
         analogMoveX[lado] = Math.min(Math.max(analogMoveX[lado], 15.5), 71.5);
         analogMoveY[lado] = Math.min(Math.max(analogMoveY[lado], 14.5), 85.5);
 
-        if (lado == 1) {
-            cursorTabuleiroAzul.style.left = `${analogMoveX[lado]}%`;
-            cursorTabuleiroAzul.style.top = `${analogMoveY[lado]}%`;
-        }
-        else if (lado == 0) {
-            cursorTabuleiroAmarelo.style.left = `${analogMoveX[lado]}%`;
-            cursorTabuleiroAmarelo.style.top = `${analogMoveY[lado]}%`;
-        }
+
+        let cursorGamePad = movimentarCursorGamePad(lado, analogMoveX[lado], analogMoveY[lado])
+
+        socket2.emit("movimentoGamePad", lado, analogMoveX[lado], analogMoveY[lado], sala);
+
+        // Converte as porcentagens para pixels
+        var rectTabuleiroID = tabuleiroID.getBoundingClientRect();
+        var rectcursorTabuleiro = cursorGamePad.getBoundingClientRect();
+
+        // Convertendo a porcentagem para pixels
+        var limiteTabuleiroLeft = (rectTabuleiroID.width * 10) / 100;
 
         var rectcelulaAtual = celulaAtual[lado][chaveLado].getBoundingClientRect();
 
@@ -74,16 +69,8 @@ function updateImagePosition(gamepad, lado) {
         isMouseActive = false;
     }
     else {
-
-        const rect = celulaAtual[lado][chaveLado].getBoundingClientRect();
-        const centerXPercentage = ((rect.left - mainRect.left + rect.width / 2 - cursorTabuleiroAzul.width / 2) / mainRect.width) * 100;
-        const centerYPercentage = ((rect.top - mainRect.top) / mainRect.height) * 100;
-
-        if (!isMouseActive) {
-            centerImage(celulaAtual[lado]);
-            analogMoveX[lado] = centerXPercentage;
-            analogMoveY[lado] = centerYPercentage;
-        }
+        centerImageGamePad(lado,chaveLado);
+        socket2.emit("centerImageGamePad", lado,chaveLado, sala)
     }
 }
 
@@ -99,18 +86,21 @@ window.addEventListener('gamepaddisconnected', (event) => {
 function handleGamepad() {
     const gamepads = navigator.getGamepads();
 
-    if (gamepads[0] ) {
-        jogadorGamePad(gamepads[0], 0)
+    if (gamepads[0]) {
+        jogadorGamePad(gamepads[0], ladoPlayerGamePad)
     }
 
     if (gamepads[1]) {
-        jogadorGamePad(gamepads[1], 1)
-    } 
+        let ladoPlayer2 = 1;
+        if (ladoPlayerGamePad == 1) ladoPlayer2 = 0;
+        jogadorGamePad(gamepads[1], ladoPlayer2)
+    }
 
     requestAnimationFrame(handleGamepad);
 }
 
 function jogadorGamePad(gamepad, lado) {
+
     updateImagePosition(gamepad, lado);
     const buttons = gamepad.buttons;
     botoesGamepad(buttons, lado);
@@ -119,7 +109,7 @@ function jogadorGamePad(gamepad, lado) {
 handleGamepad();
 
 // calculo proxima celula
-var liberadoBaixo = [true,true] , liberadoCima = [true,true], liberadoEsquerda = [true,true], liberadoDrieta =  [true,true];
+var liberadoBaixo = [true, true], liberadoCima = [true, true], liberadoEsquerda = [true, true], liberadoDrieta = [true, true];
 
 function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabuleiroID,
     limiteTabuleiroLeft, limiteBottomCelula, lado, chaveLado) {
@@ -141,7 +131,7 @@ function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabulei
         else {
             moveContent('arrowup', lado);
         }
-
+        mainRect = main.getBoundingClientRect();
         const rect = celulaAtual[lado][chaveLado].getBoundingClientRect();
         const centerYPercentage = ((rect.top - mainRect.top + rect.height / 2 - cursorTabuleiroAzul.height / 2) / mainRect.height) * 100;
 
@@ -170,7 +160,7 @@ function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabulei
             moveContent('arrowdown', lado);
 
         }
-
+        mainRect = main.getBoundingClientRect();
         const rect = celulaAtual[lado][chaveLado].getBoundingClientRect();
         const centerYPercentage = ((rect.top - mainRect.top) / mainRect.height) * 100;
 
@@ -206,4 +196,31 @@ function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabulei
             liberadoEsquerda[lado] = true;
         }, 35);
     }
+}
+
+export function movimentarCursorGamePad(lado, analogMoveX, analogMoveY) {
+
+    let cursorGamePad = lado == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
+
+    cursorGamePad.style.left = `${analogMoveX}%`;
+    cursorGamePad.style.top = `${analogMoveY}%`;
+
+    return cursorGamePad;
+
+}
+
+export function centerImageGamePad(lado,chaveLado){
+
+    mainRect = main.getBoundingClientRect();
+    const rect = celulaAtual[lado][chaveLado].getBoundingClientRect();
+    const centerXPercentage = ((rect.left - mainRect.left + rect.width / 2 - cursorTabuleiroAzul.width / 2) / mainRect.width) * 100;
+    const centerYPercentage = ((rect.top - mainRect.top) / mainRect.height) * 100;
+
+    if (!isMouseActive) {
+        centerImage(celulaAtual[lado]);
+       
+        analogMoveX[lado] = centerXPercentage;
+        analogMoveY[lado] = centerYPercentage;
+    }
+
 }

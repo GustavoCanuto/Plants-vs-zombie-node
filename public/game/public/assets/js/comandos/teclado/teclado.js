@@ -10,6 +10,7 @@ let setIntervalZombie;
 let setIntervalZombieDuplo;
 let teclaPressionadaPlanta;
 let teclaPressionadaZombie;
+let moveTimeout = [];
 
 document.addEventListener('keydown', function (e) {
 
@@ -20,6 +21,7 @@ document.addEventListener('keydown', function (e) {
         if (key == " ") {
             key = "space";
         }
+
 
         //planta
         if (Object.values(listaTeclasPlantas).includes(key)) {
@@ -125,7 +127,6 @@ class JogadorMove {
     constructor() {
         this.rowIndex = 1;
         this.cellIndex = 1;
-        this.moveTimeout = null;
     }
 
     atualizarMove(direction, lado) {
@@ -172,23 +173,10 @@ class JogadorMove {
 
         if (!targetCell.classList.contains('grass-cutter')) {
 
-            celulaAnterior[lado][chaveLado] = celulaAtual[lado][chaveLado];
-            celulaAtual[lado][chaveLado] = targetCell;
-
-            clearTimeout(this.moveTimeout);
-
-            this.moveTimeout = setTimeout(function () {
-
-                centerImage(celulaAtual[lado]);
-                targetCell.appendChild(seletorTabuleiro[lado][chaveLado]);
-                targetCell.appendChild(divPreviaPersonagem[lado][chaveLado]);
-
-
-            }, 30);
-
+            moverSeletor(targetCell.id,lado,chaveLado);
+            socket2.emit('movimentoTeclado', targetCell.id,lado,chaveLado,sala);
+            
         }
-
-
     }
 
 
@@ -216,3 +204,23 @@ class JogadorMove {
 
 export var jogadorPlanta = new JogadorMove();
 export var jogadorZombie = new JogadorMove();
+
+export function moverSeletor(targetCellID,lado,chaveLado){
+
+    const targetCell = document.getElementById(targetCellID);
+
+    celulaAnterior[lado][chaveLado] = celulaAtual[lado][chaveLado];
+    celulaAtual[lado][chaveLado] = targetCell;
+
+    clearTimeout(moveTimeout[lado]);
+
+    moveTimeout[lado] = setTimeout(function () {
+
+        centerImage(celulaAtual[lado]);
+        targetCell.appendChild(seletorTabuleiro[lado][chaveLado]);
+        targetCell.appendChild(divPreviaPersonagem[lado][chaveLado]);
+      //  centerImage(celulaAtual[lado]);
+
+    }, 30);
+   
+}
