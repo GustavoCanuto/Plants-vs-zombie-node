@@ -131,4 +131,11 @@
     width: 100%;
 } 
 
+.tiro {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 999;
+}
+
 
