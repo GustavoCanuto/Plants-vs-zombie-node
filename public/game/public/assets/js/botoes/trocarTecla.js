@@ -20,6 +20,7 @@ var listaTeclasZombies = {
 }
 
 var tecladoBloqueado = false;
+var ladoPlayerGamePad = 0;
 
 function trocarTecla(id) {
 
@@ -94,6 +95,28 @@ function atualizarTeclas(ladoConfigTeclado) {
         listaTeclasZombies.cardDireitaZombie = document.getElementById('moveCardRight').value;
         listaTeclasZombies.colcoarPersonagemZombie = document.getElementById('colocarPersonagem').value;
 
+    }
+}
+
+function limparTeclas(ladoConfigTeclado) {
+
+    if(ladoConfigTeclado == 1){
+    listaTeclasPlantas.arrowUpPlanta = "";
+    listaTeclasPlantas.arrowDownPlanta = "";
+    listaTeclasPlantas.arrowLeftPlanta = "";
+    listaTeclasPlantas.arrowRightPlanta = "";
+    listaTeclasPlantas.cardEsquerdaPlanta = "";
+    listaTeclasPlantas.cardDireitaPlanta = "";
+    listaTeclasPlantas.colcoarPersonagemPlanta = "";
+    }
+    else{
+        listaTeclasZombies.arrowUpZombie = "";
+        listaTeclasZombies.arrowDownZombie = "";
+        listaTeclasZombies.arrowLeftZombie = "";
+        listaTeclasZombies.arrowRightZombie = "";
+        listaTeclasZombies.cardEsquerdaZombie = "";
+        listaTeclasZombies.cardDireitaZombie = "";
+        listaTeclasZombies.colcoarPersonagemZombie = "";
 
     }
 }

@@ -6,6 +6,34 @@ var btnGravarOpcaoMouse = document.getElementById('gravarOpcaoMouse');
 
 btnGravarOpcaoMouse.addEventListener('click', gravarOpcaoMouse);
 
+var btnGravarOpcaoGamePad = document.getElementById('gravarOpcaoGamePad');
+
+btnGravarOpcaoGamePad.addEventListener('click', GravarOpcaoGamePad);
+
+function GravarOpcaoGamePad(){
+   
+    var opcoesGamePad = document.getElementsByName('opcaoGamePad');
+
+    for (var i = 0; i < opcoesGamePad.length; i++) {
+        if (opcoesGamePad[i].checked) {
+
+            if (opcoesGamePad[i].value == "plantas") ladoPlayerGamePad = 0;
+            else if (opcoesGamePad[i].value == "zombies") ladoPlayerGamePad = 1;
+        
+
+            break;
+        }
+    }
+    console.log("Lado que usa o gamepad: " + ladoPlayerGamePad);
+    alert("alterado com sucesso")
+    // chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
+    // cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
+    // mouseEnterCelula();
+    // navBarEnter();
+    // game.atualizarLado();
+
+}
+
 function gravarOpcaoMouse() {
 
     var opcoesMouse = document.getElementsByName('opcaoMouse');
@@ -40,4 +68,6 @@ export function atualizarLadoOnline() {
     navBarEnter();
     game.atualizarLado();
     cairPontuacao(false);
+    limparTeclas(LadoQueUsaMouse)
+    ladoPlayerGamePad = ladoJogador;
 }

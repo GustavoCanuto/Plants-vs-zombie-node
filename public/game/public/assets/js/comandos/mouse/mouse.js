@@ -30,9 +30,8 @@ celulaAtualPlanta.appendChild(divPreviaPersonagemPlanta);
 
 // geral
 var main = document.querySelector('main');
-var tabuleiroID = document.getElementById('tabuleiroID');
 var cells = document.querySelectorAll('.cell');
-
+var tabuleiroID = document.getElementById('tabuleiroID');
 var LadoQueUsaMouse = 0;
 
 var cursorTabuleiro = [{ planta: cursorTabuleiroAmarelo }, { zombie: cursorTabuleiroAzul }]
@@ -70,9 +69,6 @@ var centerImage = function (container) {
     }
 };
 
-
-
-
 centerImage(celulaAtual[0]);
 centerImage(celulaAtual[1]);
 
@@ -93,16 +89,6 @@ function mouseEnterCelula() {
 }
 
 mouseEnterCelula();
-
-function functionMouseEnterCelula(cellID, lado, chave) {
-
-    if (lado == 0) {
-        funcaoMouseGeral[2](cellID, lado, chave);
-    } else {
-        funcaoMouseGeral[3](cellID, lado, chave);
-    }
-}
-
 
 var funcaoMouseEnter = function functionMouseEnterCelulaCod(cellID, lado, chave) {
     var cell = document.getElementById(cellID)
@@ -130,75 +116,53 @@ var funcaoMouseEnter = function functionMouseEnterCelulaCod(cellID, lado, chave)
 
 }
 
-function movimentoMouseFuction(clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado) {
-
-    if (lado == 0) {
-        funcaoMouseGeral[0](clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
-    } else {
-        funcaoMouseGeral[1](clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
-    }
-}
-
-
 document.body.addEventListener('mousemove', function (e) {
 
-    var alturaDoBody = document.body.offsetHeight;
-    var larguraDoBody = document.body.offsetWidth;
+    let alturaDoBody = document.body.offsetHeight;
+    let larguraDoBody = document.body.offsetWidth;
 
-    movimentoMouseFuction(e.clientX, e.clientY, alturaDoBody, larguraDoBody, LadoQueUsaMouse)
+    var rectTabuleiro = tabuleiroID.getBoundingClientRect();
+
+    movimentoMouseFuction(chaveMouse, rectTabuleiro, main.offsetTop, main.offsetHeight, e.clientX, e.clientY,
+     alturaDoBody, larguraDoBody, LadoQueUsaMouse)
 
     socket2.emit('mouseMoveDentroDoTabuleiro', {
-        clientX: e.clientX, clientY: e.clientY,
+        chaveMouse:chaveMouse, rectTabuleiro: rectTabuleiro, mainTop: main.offsetTop, mainAltura: main.offsetHeight,clientX: e.clientX, clientY: e.clientY,
         alturaDoBody: alturaDoBody, larguraDoBody: larguraDoBody, LadoQueUsaMouse: LadoQueUsaMouse, sala: sala
     })
-
 
 });
 
 
-
-function movimentoMouseFuction(clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado) {
-
-    if (lado == 0) {
-        funcaoMouseGeral[0](clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
-    } else {
-        funcaoMouseGeral[1](clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
-    }
-}
-
-var funcaoMouse = function movimentoMouseFuctionCod(clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado) {
-
-    //   var chaveMousex = Object.keys(celulaAtual[lado]);
-    // console.log(chaveMousex)
+var funcaoMouse = function movimentoMouseFuctionCod(chaveMouse, rectTabuleiro, mainTop, mainAltura, clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado) {
 
     isMouseActive = true;
 
     let cursorMouse = lado == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
 
-    var larguraDoBody = document.body.offsetWidth;
-    var alturaDoBody = document.body.offsetHeight;
-
+    let larguraDoBody = document.body.offsetWidth;
+    let alturaDoBody = document.body.offsetHeight;
 
     var clientXRelativo = (clientX * larguraDoBody / larguraDoBodyAux);
     var clientYRelativo = (clientY * alturaDoBody / alturaDoBodyAux);
+    var mainTopRelativo = (mainTop * alturaDoBody / alturaDoBodyAux);
+    var mainAlturaRelativo = (mainAltura * alturaDoBody / alturaDoBodyAux);
 
-    var xPercentage = (clientXRelativo / window.innerWidth) * 100;
-    var yPercentage = (clientYRelativo / window.innerHeight) * 100;
-
-    var rectTabuleiro = tabuleiroID.getBoundingClientRect();
+    var xPercentage = (clientXRelativo / document.body.offsetWidth) * 100;
+    var yPercentageMain = ((clientYRelativo - mainTopRelativo) / mainAlturaRelativo) * 100;
 
     var isInsideTabuleiro = (
-        clientXRelativo >= rectTabuleiro.left &&
-        clientXRelativo <= rectTabuleiro.right &&
-        clientYRelativo >= rectTabuleiro.top &&
-        clientYRelativo <= rectTabuleiro.bottom
+        clientXRelativo >= (rectTabuleiro.left* larguraDoBody/larguraDoBodyAux) &&
+        clientXRelativo <= (rectTabuleiro.right* larguraDoBody/larguraDoBodyAux) &&
+        clientYRelativo >= (rectTabuleiro.top* alturaDoBody/alturaDoBodyAux) &&
+        clientYRelativo <= (rectTabuleiro.bottom* alturaDoBody/alturaDoBodyAux)
     );
 
     if (isInsideTabuleiro) {
 
         document.body.style.cursor = 'none';
         cursorMouse.style.left = xPercentage + '%';
-        cursorMouse.style.top = yPercentage + '%';
+        cursorMouse.style.top =  yPercentageMain + '%';
 
 
         clearTimeout(timeoutId[lado]);
@@ -216,14 +180,14 @@ var funcaoMouse = function movimentoMouseFuctionCod(clientX, clientY, alturaDoBo
     }
 
     // console.log(celulaAtual[lado][chaveMouse].innerHtml)
-    if (lado == LadoQueUsaMouse) {
-        
+   // if (lado == LadoQueUsaMouse) {
+
         if (celulaAtual[lado][chaveMouse].classList.contains('grass-cutter')) {
             //  centerImageGeral[lado](celulaAnterior[lado])
             centerImage(celulaAnterior[lado]);
             document.body.style.cursor = 'pointer';
         }
-    }
+    //}
 }
 
 var funcaoMouseGeral = [];
@@ -233,3 +197,22 @@ funcaoMouseGeral.push(funcaoMouse.bind(null));
 funcaoMouseGeral.push(funcaoMouse.bind(null));
 funcaoMouseGeral.push(funcaoMouseEnter.bind(null));
 funcaoMouseGeral.push(funcaoMouseEnter.bind(null));
+
+
+function movimentoMouseFuction(chaveMouse,rectTabuleiro,mainTop, mainAltura,clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado) {
+
+    if (lado == 0) {
+        funcaoMouseGeral[0](chaveMouse,rectTabuleiro,mainTop, mainAltura,clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
+    } else {
+        funcaoMouseGeral[1](chaveMouse,rectTabuleiro, mainTop, mainAltura,clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
+    }
+}
+
+function functionMouseEnterCelula(cellID, lado, chave) {
+
+    if (lado == 0) {
+        funcaoMouseGeral[2](cellID, lado, chave);
+    } else {
+        funcaoMouseGeral[3](cellID, lado, chave);
+    }
+}
