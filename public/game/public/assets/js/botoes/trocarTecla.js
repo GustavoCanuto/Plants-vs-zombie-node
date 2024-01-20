@@ -19,7 +19,7 @@ var listaTeclasZombies = {
     colcoarPersonagemZombie: "g"
 }
 
-var tecladoBloqueado = false;
+//var tecladoBloqueado = false;
 var ladoPlayerGamePad = 0;
 
 function trocarTecla(id) {

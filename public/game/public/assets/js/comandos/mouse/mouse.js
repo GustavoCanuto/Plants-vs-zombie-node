@@ -118,19 +118,20 @@ var funcaoMouseEnter = function functionMouseEnterCelulaCod(cellID, lado, chave)
 
 document.body.addEventListener('mousemove', function (e) {
 
-    let alturaDoBody = document.body.offsetHeight;
-    let larguraDoBody = document.body.offsetWidth;
+   
+        let alturaDoBody = document.body.offsetHeight;
+        let larguraDoBody = document.body.offsetWidth;
 
-    var rectTabuleiro = tabuleiroID.getBoundingClientRect();
+        var rectTabuleiro = tabuleiroID.getBoundingClientRect();
 
-    movimentoMouseFuction(chaveMouse, rectTabuleiro, main.offsetTop, main.offsetHeight, e.clientX, e.clientY,
-     alturaDoBody, larguraDoBody, LadoQueUsaMouse)
+        movimentoMouseFuction(chaveMouse, rectTabuleiro, main.offsetTop, main.offsetHeight, e.clientX, e.clientY,
+            alturaDoBody, larguraDoBody, LadoQueUsaMouse)
 
-    socket2.emit('mouseMoveDentroDoTabuleiro', {
-        chaveMouse:chaveMouse, rectTabuleiro: rectTabuleiro, mainTop: main.offsetTop, mainAltura: main.offsetHeight,clientX: e.clientX, clientY: e.clientY,
-        alturaDoBody: alturaDoBody, larguraDoBody: larguraDoBody, LadoQueUsaMouse: LadoQueUsaMouse, sala: sala
-    })
-
+        socket2.emit('mouseMoveDentroDoTabuleiro', {
+            chaveMouse: chaveMouse, rectTabuleiro: rectTabuleiro, mainTop: main.offsetTop, mainAltura: main.offsetHeight, clientX: e.clientX, clientY: e.clientY,
+            alturaDoBody: alturaDoBody, larguraDoBody: larguraDoBody, LadoQueUsaMouse: LadoQueUsaMouse, sala: sala
+        })
+   
 });
 
 
@@ -152,17 +153,17 @@ var funcaoMouse = function movimentoMouseFuctionCod(chaveMouse, rectTabuleiro, m
     var yPercentageMain = ((clientYRelativo - mainTopRelativo) / mainAlturaRelativo) * 100;
 
     var isInsideTabuleiro = (
-        clientXRelativo >= (rectTabuleiro.left* larguraDoBody/larguraDoBodyAux) &&
-        clientXRelativo <= (rectTabuleiro.right* larguraDoBody/larguraDoBodyAux) &&
-        clientYRelativo >= (rectTabuleiro.top* alturaDoBody/alturaDoBodyAux) &&
-        clientYRelativo <= (rectTabuleiro.bottom* alturaDoBody/alturaDoBodyAux)
+        clientXRelativo >= (rectTabuleiro.left * larguraDoBody / larguraDoBodyAux) &&
+        clientXRelativo <= (rectTabuleiro.right * larguraDoBody / larguraDoBodyAux) &&
+        clientYRelativo >= (rectTabuleiro.top * alturaDoBody / alturaDoBodyAux) &&
+        clientYRelativo <= (rectTabuleiro.bottom * alturaDoBody / alturaDoBodyAux)
     );
 
     if (isInsideTabuleiro) {
 
         document.body.style.cursor = 'none';
         cursorMouse.style.left = xPercentage + '%';
-        cursorMouse.style.top =  yPercentageMain + '%';
+        cursorMouse.style.top = yPercentageMain + '%';
 
 
         clearTimeout(timeoutId[lado]);
@@ -180,13 +181,13 @@ var funcaoMouse = function movimentoMouseFuctionCod(chaveMouse, rectTabuleiro, m
     }
 
     // console.log(celulaAtual[lado][chaveMouse].innerHtml)
-   // if (lado == LadoQueUsaMouse) {
+    // if (lado == LadoQueUsaMouse) {
 
-        if (celulaAtual[lado][chaveMouse].classList.contains('grass-cutter')) {
-            //  centerImageGeral[lado](celulaAnterior[lado])
-            centerImage(celulaAnterior[lado]);
-            document.body.style.cursor = 'pointer';
-        }
+    if (celulaAtual[lado][chaveMouse].classList.contains('grass-cutter')) {
+        //  centerImageGeral[lado](celulaAnterior[lado])
+        centerImage(celulaAnterior[lado]);
+        document.body.style.cursor = 'pointer';
+    }
     //}
 }
 
@@ -199,12 +200,12 @@ funcaoMouseGeral.push(funcaoMouseEnter.bind(null));
 funcaoMouseGeral.push(funcaoMouseEnter.bind(null));
 
 
-function movimentoMouseFuction(chaveMouse,rectTabuleiro,mainTop, mainAltura,clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado) {
+function movimentoMouseFuction(chaveMouse, rectTabuleiro, mainTop, mainAltura, clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado) {
 
     if (lado == 0) {
-        funcaoMouseGeral[0](chaveMouse,rectTabuleiro,mainTop, mainAltura,clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
+        funcaoMouseGeral[0](chaveMouse, rectTabuleiro, mainTop, mainAltura, clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
     } else {
-        funcaoMouseGeral[1](chaveMouse,rectTabuleiro, mainTop, mainAltura,clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
+        funcaoMouseGeral[1](chaveMouse, rectTabuleiro, mainTop, mainAltura, clientX, clientY, alturaDoBodyAux, larguraDoBodyAux, lado);
     }
 }
 

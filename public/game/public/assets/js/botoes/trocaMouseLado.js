@@ -1,6 +1,6 @@
 import { navBarEnter } from '../comandos/mouse/mouseNavBar.js';
 import { game } from '../cartas.js';
-import {cairPontuacao} from "../pontuacao.js";
+import { cairPontuacao } from "../pontuacao.js";
 
 var btnGravarOpcaoMouse = document.getElementById('gravarOpcaoMouse');
 
@@ -10,8 +10,8 @@ var btnGravarOpcaoGamePad = document.getElementById('gravarOpcaoGamePad');
 
 btnGravarOpcaoGamePad.addEventListener('click', GravarOpcaoGamePad);
 
-function GravarOpcaoGamePad(){
-   
+function GravarOpcaoGamePad() {
+
     var opcoesGamePad = document.getElementsByName('opcaoGamePad');
 
     for (var i = 0; i < opcoesGamePad.length; i++) {
@@ -19,7 +19,7 @@ function GravarOpcaoGamePad(){
 
             if (opcoesGamePad[i].value == "plantas") ladoPlayerGamePad = 0;
             else if (opcoesGamePad[i].value == "zombies") ladoPlayerGamePad = 1;
-        
+
 
             break;
         }
@@ -59,21 +59,54 @@ function gravarOpcaoMouse() {
 }
 
 export function atualizarLadoOnline() {
-    console.log("iniciar Jogo")
-    console.log(ladoJogador)
-    LadoQueUsaMouse = ladoJogador;
-    chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
-    cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
-    mouseEnterCelula();
-    navBarEnter();
-    game.atualizarLado();
-    cairPontuacao(false);
-    limparTeclas(LadoQueUsaMouse)
-    ladoPlayerGamePad = ladoJogador; 
 
-   
-    if (ladoJogador == 1) $('#btnControlePlantas').prop("disabled", true);
-    else $('#btnControleZombies').prop("disabled", true);
+    $(".messagemCarregamento").css("display", "none"); 
+    $(".contagemJogo").css("display", "flex");
 
-    local = false;
+   let contador = 3;
+
+   let intervalID = setInterval(() => {
+
+    contador--;
+
+     if (contador != 0) $('#contadorInicioJogo').text(contador);
+
+       
+        if (contador == 0) {
+           clearInterval(intervalID);
+        }
+
+    }, 1000);
+
+    setTimeout(() => {
+
+        if(ladoJogador==0) $('#contadorInicioJogo').text("Plante!");
+        else $('#contadorInicioJogo').text("Ataque!");
+    
+    }, 3000);
+
+    setTimeout(() => {
+        $(".carregamento").css("display", "none");
+        gamePadBloqueado = false;
+        tecladoBloqueado = false;
+        console.log("iniciar Jogo")
+        console.log(ladoJogador)
+        LadoQueUsaMouse = ladoJogador;
+        chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
+        cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
+        mouseEnterCelula();
+        navBarEnter();
+        game.atualizarLado();
+        cairPontuacao(false);
+        limparTeclas(LadoQueUsaMouse)
+        ladoPlayerGamePad = ladoJogador;
+
+
+        if (ladoJogador == 1) $('#btnControlePlantas').prop("disabled", true);
+        else $('#btnControleZombies').prop("disabled", true);
+
+        local = false;
+    
+    }, 5000);
+
 }
