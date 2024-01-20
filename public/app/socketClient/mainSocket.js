@@ -89,18 +89,4 @@ socket.on('telaJogo', (lado,sala)=>{
 
   window.location.href = `game/public/index.html?sala=${sala}&lado=${lado}`
 
-
-  // let divAtual = document.querySelector("[data-gameLobby]");
-  // let divJogando = document.querySelector(".jogando");
-
-  // divAtual.style.display = "none"
-  // divJogando.style.display = "flex"
-
-  // var paragrafo = document.createElement("p");
-  // // Adiciona texto ao parágrafo
-  // var texto = document.createTextNode(`--- lado: ${data}`);
-  // // Adiciona o nó de texto ao elemento <p>
-  // paragrafo.appendChild(texto);
-  // divJogando.appendChild(paragrafo);
-
 });

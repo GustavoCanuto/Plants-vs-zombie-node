@@ -1,11 +1,21 @@
 const socket2 = io('/game')
 
 const parametros = new URLSearchParams(window.location.search);
-const sala = parametros.get('sala');
-const ladoJogador = parametros.get('lado');
-let local = true;
-let gamePadBloqueado = true;
-let tecladoBloqueado = true;
+
+let local = parametros.get('local');
+let gamePadBloqueado = false;
+let tecladoBloqueado = false;
+let ladoJogador;
+let sala; 
+if(local == 'true') local = true;
+
+if(!local){
+
+sala = parametros.get('sala');
+ladoJogador = parametros.get('lado');
+local = false;
+gamePadBloqueado = true;
+tecladoBloqueado = true;
 
 socket2.emit('iniciarSala', sala, ladoJogador)
 
@@ -26,3 +36,5 @@ window.onload = function() {
 
  
 };
+
+}

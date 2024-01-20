@@ -82,6 +82,8 @@ export function atualizarLadoOnline() {
 
         if(ladoJogador==0) $('#contadorInicioJogo').text("Plante!");
         else $('#contadorInicioJogo').text("Ataque!");
+        $(".carregamento").css("backgroundColor", "rgba(8, 8, 8, 0.007)");
+        $(".contagemJogo").css("opacity", "0");
     
     }, 3000);
 
@@ -107,6 +109,11 @@ export function atualizarLadoOnline() {
 
         local = false;
     
-    }, 5000);
+    }, 4000);
 
+
+}
+
+export function jogarLocal(local) {
+    cairPontuacao(local)
 }
