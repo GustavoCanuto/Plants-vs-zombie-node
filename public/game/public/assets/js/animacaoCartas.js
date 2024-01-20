@@ -76,15 +76,28 @@ class AnimacaoCartas {
 
                 let porcentagemRecarregado = 100;
 
-                let setIntervalRecarga = setInterval(function () {
+                const workerRecarregando = new Worker('/game/public//assets/js/workers/recarregandoThread.js');
+
+              //  let setIntervalRecarga = setInterval(function () {
+                workerRecarregando.postMessage({comando: "startRecarga",
+                tempoRecarga:personagens[personagemNome].tempoRecarga / 100,
+                lado: 0 });
+
+                 workerRecarregando.addEventListener('message', function (e) {
+
+                    if (e.data.comando === 'recargarProcessada' && e.data.lado == 0) {
+
                     porcentagemRecarregado -= 1;
                     celulaAnimacao.style.setProperty('--before-width', `${porcentagemRecarregado}%`);
 
                     if (porcentagemRecarregado == 0) {
-                        clearInterval(setIntervalRecarga)
+                        workerRecarregando.postMessage({comando: "stopRecarga", lado: 0});
+                        workerRecarregando.terminate();
+                        //clearInterval(setIntervalRecarga)
                     }
-
-                }, personagens[personagemNome].tempoRecarga / 100);
+                }
+                });
+              //  }, personagens[personagemNome].tempoRecarga / 100);
 
 
                 setTimeout(function () {
@@ -130,20 +143,27 @@ class AnimacaoCartas {
 
                let porcentagemRecarregado = 100;
 
-                let setIntervalRecarga = setInterval(function () {
+               const workerRecarregando = new Worker('/game/public//assets/js/workers/recarregandoThread.js');
+
+              //  let setIntervalRecarga = setInterval(function () {
+                workerRecarregando.postMessage({comando: "startRecarga",
+                tempoRecarga:personagens[personagemNome].tempoRecarga / 100,
+                lado: 1 });
+
+                 workerRecarregando.addEventListener('message', function (e) {
+
+                    if (e.data.comando === 'recargarProcessada' && e.data.lado == 1) {
+
                     porcentagemRecarregado -= 1;
                     celulaAnimacao.style.setProperty('--before-width', `${porcentagemRecarregado}%`);
 
                     if (porcentagemRecarregado == 0) {
-                        clearInterval(setIntervalRecarga)
+                        workerRecarregando.postMessage({comando: "stopRecarga", lado: 1});
+                        workerRecarregando.terminate();
+                        //clearInterval(setIntervalRecarga)
                     }
-
-                }, personagens[personagemNome].tempoRecarga / 100);
-
-                setTimeout(function () {
-                    personagens[personagemNome].recarregado = true;
-                    celulaAnimacao.classList.remove('recarregando')
-                }, personagens[personagemNome].tempoRecarga);
+                }
+                });
 
 
                 let listaCard = document.querySelectorAll('.navbar-zombie .card');

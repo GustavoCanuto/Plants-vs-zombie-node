@@ -1,5 +1,3 @@
-let setIntervalSolCaindo = [];
-
 self.addEventListener('message', function (e) {
 
     if (e.data.comando === 'solCaindo') {
