@@ -6,8 +6,6 @@ import { iniciarAnimacaoTiro } from "./animacaoTiro.js";
 import { recargaCard } from "./recarga.js";
 import { iniciarAnimacao,carregarFrames } from "./framesAnimacao.js";
 
-
-
 class AnimacaoCartas {
 
     static framesPorClasse = {
@@ -53,7 +51,7 @@ class AnimacaoCartas {
 
                 let listaCard = document.querySelectorAll('.navbar-planta .card');
 
-                recargaCard(0, personagens[personagemNome])
+                recargaCard(0, personagens[personagemNome], listaCard)
 
             } else {
                 console.log("carta indisponivel")
