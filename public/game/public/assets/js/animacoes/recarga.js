@@ -2,7 +2,7 @@ import { pontuacaoLado, pontosLado } from "../pontuacao.js";
 import * as comandosNavBar from '../comandos/comandosNavBar.js';
 import { personagens} from "../personagens.js";
 
-export function recargaCard(lado,personagemNome){
+export function recargaCard(lado,personagemNome, listaCard){
 
     pontuacaoLado[lado] -= personagemNome.valorCard;
     pontosLado[lado].textContent = pontuacaoLado[lado];
@@ -31,7 +31,6 @@ export function recargaCard(lado,personagemNome){
         if (porcentagemRecarregado == 0) {
             workerRecarregando.postMessage({comando: "stopRecarga", lado: lado});
             workerRecarregando.terminate();
-            //clearInterval(setIntervalRecarga)
         }
     }
     });
@@ -42,7 +41,6 @@ export function recargaCard(lado,personagemNome){
     }, personagemNome.tempoRecarga);
 
 
-    let listaCard = document.querySelectorAll('.navbar-zombie .card');
     listaCard.forEach(cardNome => {
 
         if (personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[lado]) {

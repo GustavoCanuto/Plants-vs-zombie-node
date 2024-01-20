@@ -2,9 +2,10 @@ export class Personagens {
     constructor(imagePath, tempoRecarga, valorCard,vida) {
         this.imagePath = imagePath;
         this.tempoRecarga = tempoRecarga;
-        this.recarregado = true;
         this.valorCard = valorCard;
         this.vida = vida;
+        this.recarregado = true;
+        this.framesAnimation;
     }
 
     renderImage() {
@@ -27,6 +28,19 @@ export class Personagens {
         console.log(`${this.constructor.name} morreu.`);
     }
 
+    clone() {
+        // Cria uma nova instância da classe Personagens com os mesmos valores
+        const clonedPersonagem = new Personagens(
+            this.imagePath,
+            this.tempoRecarga,
+            this.valorCard,
+            this.vida
+        );
+
+        // Se você tiver mais propriedades na classe, certifique-se de cloná-las também
+
+        return clonedPersonagem;
+    }
 
 }
 
