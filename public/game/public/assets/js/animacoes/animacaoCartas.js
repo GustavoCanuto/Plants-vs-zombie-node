@@ -47,7 +47,7 @@ class AnimacaoCartas {
 
             if (personagens[personagemNome].valorCard <= pontuacaoLado[0] && personagens[personagemNome].recarregado) {
 
-                this.criarAnimacaoPlanta(cellElement, nomeClasse);
+                this.criarAnimacaoPlanta(cellElement, nomeClasse, personagemNome);
 
                 let listaCard = document.querySelectorAll('.navbar-planta .card');
 
@@ -64,7 +64,7 @@ class AnimacaoCartas {
             if (personagens[personagemNome].valorCard <= pontuacaoLado[1]
                 && personagens[personagemNome].recarregado) {
 
-                this.criarAnimacaoZombie(cellElement, nomeClasse);
+                this.criarAnimacaoZombie(cellElement, nomeClasse, personagemNome);
 
                 let listaCard = document.querySelectorAll('.navbar-zombie .card');
 
@@ -77,7 +77,7 @@ class AnimacaoCartas {
         }
     }
 
-    static criarAnimacaoPlanta(cellElement, nomeClasse) {
+    static criarAnimacaoPlanta(cellElement, nomeClasse,personagemNome) {
 
         const numberOfFrames = this.framesPorClasse[nomeClasse] || 0;
         const frames = carregarFrames(nomeClasse, numberOfFrames);
@@ -91,6 +91,8 @@ class AnimacaoCartas {
         elemento.classList.add('personagem');
         elemento.style.width = '90%';
         elemento.classList.add('personagemPlanta');
+        console.log(`tamanho-${personagemNome}`)
+        elemento.classList.add(`tamanho-${personagemNome}`);
         const gifElement = document.createElement('img');
         elemento.appendChild(gifElement);
         cellElement.appendChild(elemento);
@@ -101,11 +103,14 @@ class AnimacaoCartas {
     }
 
  
-    static criarAnimacaoZombie(cellElement, nomeClasse) {
+    static criarAnimacaoZombie(cellElement, nomeClasse,personagemNome) {
 
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
+
+        console.log(`tamanho-${personagemNome}`)
         elemento.style.width = '10%';
+        elemento.classList.add(`tamanho-${personagemNome}`);
         const gifElement = document.createElement('img');
         gifElement.style.width = '100%';
         elemento.appendChild(gifElement);
