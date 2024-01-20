@@ -3,6 +3,7 @@ const socket2 = io('/game')
 const parametros = new URLSearchParams(window.location.search);
 const sala = parametros.get('sala');
 const ladoJogador = parametros.get('lado');
+let local = true;
 
 socket2.emit('iniciarSala', sala, ladoJogador)
 

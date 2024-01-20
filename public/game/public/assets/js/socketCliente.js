@@ -49,4 +49,5 @@ socket2.on('centerImageGamePadClient', (lado,chaveLado) => {
 
 socket2.on('iniciarJogo', () => {
   atualizarLadoOnline();
+
 });
