@@ -27,7 +27,8 @@ function carregarControle(lado) {
     tecladoBloqueado = false;
     // Mostrar os botões novamente
     $(".config button").css("display", "block");
-    $(".mouseJogador").css("display", "block");
+    if(local) $('.mouseJogador').css("display", "block");
+    else $('.mouseJogador').css("display", "none");
     $("#mensagemTecla").html("");
   }
 

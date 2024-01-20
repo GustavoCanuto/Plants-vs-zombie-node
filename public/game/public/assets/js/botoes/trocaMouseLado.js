@@ -69,5 +69,11 @@ export function atualizarLadoOnline() {
     game.atualizarLado();
     cairPontuacao(false);
     limparTeclas(LadoQueUsaMouse)
-    ladoPlayerGamePad = ladoJogador;
+    ladoPlayerGamePad = ladoJogador; 
+
+   
+    if (ladoJogador == 1) $('#btnControlePlantas').prop("disabled", true);
+    else $('#btnControleZombies').prop("disabled", true);
+
+    local = false;
 }
