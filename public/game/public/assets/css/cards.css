@@ -55,7 +55,7 @@
 }
 
 .cherrybomb {
-    background-image: url('../img/cards/plants/cherryBomb-transformed.webp');
+    background-image: url('../img/cards/plants/cherryBomb-transformed.png');
 }
 
 .potatomine {
@@ -137,4 +137,23 @@
     top: 40%;
     transform: translateY(-50%);
     z-index: 999;
+}
+
+.tamanho-cherrybomb{
+
+    width: 125% !important;
+}
+
+.tamanho-conehead{
+    width: 9.5% !important;
+
+}
+
+.tamanho-football{
+    width: 14% !important;
+}
+
+.tamanho-screendoor{
+    width: 12% !important;
+
 }
