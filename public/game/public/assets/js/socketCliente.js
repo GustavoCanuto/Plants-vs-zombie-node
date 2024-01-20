@@ -1,7 +1,7 @@
 import AnimacaoCartas from './animacaoCartas.js';
 import { criarPreviaPersonagem, moveNavBar, dropPersonagem } from './comandos/comandosNavBar.js';
 import {criarPontos} from "./pontuacao.js";
-import {atualizarLadoOnline} from "./botoes/trocaMouseLado.js";
+import {atualizarLadoOnline, jogarLocal} from "./botoes/trocaMouseLado.js";
 import {moverSeletor} from "./comandos/teclado/teclado.js";
 import {movimentarCursorGamePad, centerImageGamePad} from "./comandos/gamepad/movimentosControle.js";
 
@@ -45,9 +45,8 @@ socket2.on('centerImageGamePadClient', (lado,chaveLado) => {
   centerImageGamePad(lado,chaveLado);
 });
 
-
-
 socket2.on('iniciarJogo', () => {
   atualizarLadoOnline();
-
 });
+
+jogarLocal(local);

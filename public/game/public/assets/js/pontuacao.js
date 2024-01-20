@@ -102,7 +102,7 @@ function criarCerebro() {
 
 export function cairPontuacao(local){
 
-console.log("oi");
+console.log("pontuacao");
 
 if (local) {
 
@@ -116,13 +116,13 @@ if (local) {
 
 } else {
 
-  if (LadoQueUsaMouse == 0) {
+  if (ladoJogador == 0) {
     setInterval(function () {
       cairPontos(0);
     }, 10000);
 
   }
-  else if (LadoQueUsaMouse == 1) {
+  else if (ladoJogador == 1) {
 
     setInterval(function () {
       cairPontos(1);
