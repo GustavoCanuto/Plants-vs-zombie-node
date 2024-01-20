@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/cards.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    
     <script src="/socket.io/socket.io.js"></script>
-    <script src="../socketNewGame.js"></script>
+    
     
 </head>
 
@@ -29,10 +28,17 @@
         <div class="config"> </div>
         <div class="navbar"> </div>
         <div class="board" id="tabuleiroID"></div>
+        <div class="carregamento">
+        
+        <div class="messagemCarregamento"><p>Aguardando outro jogador se conectar</p></div>
+        <div class="contagemJogo"><p id="contadorInicioJogo">3</p></div>
+        
+        </div>
 
     </main>
 
     <script src="./assets/js/ajax/loadAjax.js"></script>
+    <script src="../socketNewGame.js"></script>
     <div id="imports"></div>
 
 </body>

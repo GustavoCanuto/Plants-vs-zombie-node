@@ -101,9 +101,11 @@ function handleGamepad() {
 
 function jogadorGamePad(gamepad, lado) {
 
+    if(!gamePadBloqueado){
     updateImagePosition(gamepad, lado);
     const buttons = gamepad.buttons;
     botoesGamepad(buttons, lado);
+    }
 }
 
 handleGamepad();
