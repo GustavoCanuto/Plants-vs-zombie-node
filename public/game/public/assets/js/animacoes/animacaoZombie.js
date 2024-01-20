@@ -1,11 +1,10 @@
 import { verificaColisao,removerPlanta } from "./conflitoZombie.js";
 import { iniciarAnimacao } from "./framesAnimacao.js";
-import { personagens } from "../personagens.js";
-
 
 export function criarAnimacaoZombie(cellElement,gifElement, elemento,tabuleiro,frames) {
 
-   
+    let setIntervalZombie;
+
     const posicaoLeft = (cellElement.offsetLeft / tabuleiro.offsetWidth) * 100;
 
     elemento.style.position = 'absolute';
@@ -31,7 +30,8 @@ export function criarAnimacaoZombie(cellElement,gifElement, elemento,tabuleiro,f
                     removerPlanta(plantaElemento);
                     // Reiniciar o movimento do zumbi e a animação de andar
                     intervaloMovimentoZumbi = setInterval(moveElement, 100);
-                    iniciarAnimacao(frames, gifElement,setIntervalZombie);
+                    setIntervalZombie=  iniciarAnimacao(frames, gifElement);
+                    
                 }, 5000);
 
                 colidiu = true;
@@ -62,8 +62,8 @@ export function criarAnimacaoZombie(cellElement,gifElement, elemento,tabuleiro,f
         }
     }
 
-    let setIntervalZombie = iniciarAnimacao(frames, gifElement);
-    
+     setIntervalZombie = iniciarAnimacao(frames, gifElement);
+
     let intervaloMovimentoZumbi = setInterval(() => {
         moveElement();
       }, 100);

@@ -18,7 +18,6 @@ export function verificaColisao(elementoA, elementoB) {
 
 }
 
-
 export function removerPlanta(plantaElemento) {
     console.log('removido');
     plantaElemento.closest('.cell').classList.remove('ocupado');
