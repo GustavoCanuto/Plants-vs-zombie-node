@@ -1,5 +1,5 @@
 import {personagens} from "../personagens.js";
-import AnimacaoCartas from '../animacaoCartas.js';
+import AnimacaoCartas from '../animacoes/animacaoCartas.js';
 
 //navBar Planta
 export var cellNavBarPlanta = document.querySelectorAll('.navbar-planta .card');

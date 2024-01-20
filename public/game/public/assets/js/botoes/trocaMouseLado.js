@@ -1,5 +1,5 @@
 import { navBarEnter } from '../comandos/mouse/mouseNavBar.js';
-import { game } from '../cartas.js';
+import { game } from '../ArrastarCards.js';
 import { cairPontuacao } from "../pontuacao.js";
 
 var btnGravarOpcaoMouse = document.getElementById('gravarOpcaoMouse');
@@ -26,6 +26,8 @@ function GravarOpcaoGamePad() {
     }
     console.log("Lado que usa o gamepad: " + ladoPlayerGamePad);
     alert("alterado com sucesso")
+    voltarMenu();
+    toggleConfig();
     // chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
     // cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
     // mouseEnterCelula();
@@ -55,6 +57,8 @@ function gravarOpcaoMouse() {
     mouseEnterCelula();
     navBarEnter();
     game.atualizarLado();
+    voltarMenu();
+    toggleConfig();
 
 }
 

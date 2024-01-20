@@ -1,6 +1,9 @@
-import * as comandosNavBar from './comandos/comandosNavBar.js';
-import { personagens, Personagens } from "./personagens.js";
-import { pontuacaoLado, pontosLado } from "./pontuacao.js";
+import * as comandosNavBar from '../comandos/comandosNavBar.js';
+import { personagens } from "../personagens.js";
+import { pontuacaoLado, pontosLado } from "../pontuacao.js";
+import { verificaColisao,removerPlanta } from "./conflitoZombie.js";
+import { iniciarAnimacaoTiro } from "./animacaoTiro.js";
+import { recargaCard } from "./recarga.js";
 
 var animationInterval;
 
@@ -23,25 +26,6 @@ class AnimacaoCartas {
         screendoor: 47,
     };
 
-    static verificaColisao(elementoA, elementoB) {
-        const aEsquerda = elementoA.offsetLeft;
-        const aTopo = elementoA.offsetTop;
-        const aDireita = aEsquerda + elementoA.offsetWidth;
-        const aBaixo = aTopo + elementoA.offsetHeight;
-
-        const bEsquerda = elementoB.offsetLeft;
-        const bTopo = elementoB.offsetTop;
-        const bDireita = bEsquerda + elementoB.offsetWidth;
-        const bBaixo = bTopo + elementoB.offsetHeight;
-
-        return (
-            aEsquerda < bDireita &&
-            aDireita > bEsquerda &&
-            aTopo < bBaixo &&
-            aBaixo > bTopo
-        );
-    }
-
     static criarAnimacaoCarta(cellElement, img) {
         const imgSrc = img;
 
@@ -56,9 +40,7 @@ class AnimacaoCartas {
         }
 
         const nomeClasse = imgSrc.split('/').pop().split('.')[0];
-
         const isPlanta = ['sunflower', 'peashooter', 'showpea', 'repeater', 'wallnut', 'cherrybomb', 'potatomine'].includes(nomeClasse);
-
 
         if (isPlanta) {
             console.log("jogou planta")
@@ -67,118 +49,24 @@ class AnimacaoCartas {
             console.log(personagens[personagemNome].recarregado)
             if (personagens[personagemNome].valorCard <= pontuacaoLado[0] && personagens[personagemNome].recarregado) {
                 this.criarAnimacaoPlanta(cellElement, nomeClasse);
-                pontuacaoLado[0] -= personagens[personagemNome].valorCard;
-                pontosLado[0].textContent = pontuacaoLado[0];
-
-                personagens[personagemNome].recarregado = false;
-                comandosNavBar.cellNavBarAtual[0].classList.add('recarregando')
-                var celulaAnimacao = comandosNavBar.cellNavBarAtual[0];
-
-                let porcentagemRecarregado = 100;
-
-                const workerRecarregando = new Worker('/game/public//assets/js/workers/recarregandoThread.js');
-
-              //  let setIntervalRecarga = setInterval(function () {
-                workerRecarregando.postMessage({comando: "startRecarga",
-                tempoRecarga:personagens[personagemNome].tempoRecarga / 100,
-                lado: 0 });
-
-                 workerRecarregando.addEventListener('message', function (e) {
-
-                    if (e.data.comando === 'recargarProcessada' && e.data.lado == 0) {
-
-                    porcentagemRecarregado -= 1;
-                    celulaAnimacao.style.setProperty('--before-width', `${porcentagemRecarregado}%`);
-
-                    if (porcentagemRecarregado == 0) {
-                        workerRecarregando.postMessage({comando: "stopRecarga", lado: 0});
-                        workerRecarregando.terminate();
-                        //clearInterval(setIntervalRecarga)
-                    }
-                }
-                });
-              //  }, personagens[personagemNome].tempoRecarga / 100);
-
-
-                setTimeout(function () {
-                    personagens[personagemNome].recarregado = true;
-                    celulaAnimacao.classList.remove('recarregando')
-                }, personagens[personagemNome].tempoRecarga);
-
-                let listaCard = document.querySelectorAll('.navbar-planta .card');
-                listaCard.forEach(cardNome => {
-                    //    console.log(cardNome.getAttribute('data-personagem'))
-                    //    console.log(personagens[cardNome.getAttribute('data-personagem')].valorCard )
-                    //    console.log('pontuacao' + pontuacaoLado[0] )
-                    if (personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[0]) {
-                        //  console.log('adicionou')
-                        cardNome.classList.remove('semSaldo')
-                    } else {
-                        //  console.log('removeu')
-                        cardNome.classList.add('semSaldo')
-                    }
-                });
+                
+                recargaCard(0, personagens[personagemNome] )
 
             } else {
-                // console.log("carta indisponivel")
+                 console.log("carta indisponivel")
             }
 
         } else {
             console.log("jogou zombie")
-            // zombies
+
             const personagemNome = comandosNavBar.cellNavBarAtual[1].getAttribute('data-personagem');
-            console.log(personagens[personagemNome].imagePath)
-            console.log(personagens[personagemNome].recarregado)
+  
             if (personagens[personagemNome].valorCard <= pontuacaoLado[1]
                 && personagens[personagemNome].recarregado) {
+
                 this.criarAnimacaoZombie(cellElement, nomeClasse);
-                pontuacaoLado[1] -= personagens[personagemNome].valorCard;
-                pontosLado[1].textContent = pontuacaoLado[1];
-                personagens[personagemNome].recarregado = false;
-                console.log(personagens[personagemNome].imagePath)
-                console.log(personagens[personagemNome].recarregado)
-                comandosNavBar.cellNavBarAtual[1].classList.add('recarregando')
-                var celulaAnimacao = comandosNavBar.cellNavBarAtual[1];
-                personagens[personagemNome].recarregado = false;
-
-               let porcentagemRecarregado = 100;
-
-               const workerRecarregando = new Worker('/game/public//assets/js/workers/recarregandoThread.js');
-
-              //  let setIntervalRecarga = setInterval(function () {
-                workerRecarregando.postMessage({comando: "startRecarga",
-                tempoRecarga:personagens[personagemNome].tempoRecarga / 100,
-                lado: 1 });
-
-                 workerRecarregando.addEventListener('message', function (e) {
-
-                    if (e.data.comando === 'recargarProcessada' && e.data.lado == 1) {
-
-                    porcentagemRecarregado -= 1;
-                    celulaAnimacao.style.setProperty('--before-width', `${porcentagemRecarregado}%`);
-
-                    if (porcentagemRecarregado == 0) {
-                        workerRecarregando.postMessage({comando: "stopRecarga", lado: 1});
-                        workerRecarregando.terminate();
-                        //clearInterval(setIntervalRecarga)
-                    }
-                }
-                });
-
-
-                let listaCard = document.querySelectorAll('.navbar-zombie .card');
-                listaCard.forEach(cardNome => {
-                    //  console.log(cardNome.getAttribute('data-personagem'))
-                    //  console.log(personagens[cardNome.getAttribute('data-personagem')].valorCard )
-                    //   console.log('pontuacao' + pontuacaoLado[1] )
-                    if (personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[1]) {
-                        //  console.log('adicionou')
-                        cardNome.classList.remove('semSaldo')
-                    } else {
-                        //   console.log('removeu')
-                        cardNome.classList.add('semSaldo')
-                    }
-                });
+                
+                recargaCard(1, personagens[personagemNome] )
 
             } else {
                 console.log("carta indisponivel")
@@ -207,7 +95,9 @@ class AnimacaoCartas {
         elemento.closest('.cell').classList.add('ocupado')
 
         this.iniciarAnimacao(frames, gifElement);
+        iniciarAnimacaoTiro(cellElement, nomeClasse);
     }
+
     static criarAnimacaoZombie(cellElement, nomeClasse) {
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
@@ -248,12 +138,12 @@ class AnimacaoCartas {
             let colidiu = false;
 
             plantElements.forEach((plantaElemento) => {
-                if (AnimacaoCartas.verificaColisao(elemento, plantaElemento.closest('.cell'))) {
+                if (verificaColisao(elemento, plantaElemento.closest('.cell'))) {
                     clearInterval(intervaloMovimentoZumbi);
                     AnimacaoCartas.iniciarAnimacaoComerPlanta(gifElement);
 
                     setTimeout(() => {
-                        AnimacaoCartas.removerPlanta(plantaElemento);
+                        removerPlanta(plantaElemento);
                         // Reiniciar o movimento do zumbi e a animação de andar
                         intervaloMovimentoZumbi = setInterval(moveElement, 100);
                         AnimacaoCartas.iniciarAnimacao(frames, gifElement);
@@ -294,6 +184,7 @@ class AnimacaoCartas {
         elemento.classList.remove('adicionado');
     }
 
+
     static iniciarAnimacaoComerPlanta(gifElement) {
         console.log('comendo...');
         clearInterval(animationInterval)
@@ -301,18 +192,10 @@ class AnimacaoCartas {
         gifElement.src = './assets/img/frames/buckethead/atacando/attack.gif';
     }
 
-    static removerPlanta(plantaElemento) {
-        console.log('removido');
-        plantaElemento.closest('.cell').classList.remove('ocupado');
-        plantaElemento.remove();
-     
-    }
-
+    //animacao tipo gif
     static iniciarAnimacao(frames, gifElement) {
         let frameIndex = 0;
         const frameDuration = 50;
-
-
 
         animationInterval = setInterval(() => {
             if (gifElement) {
