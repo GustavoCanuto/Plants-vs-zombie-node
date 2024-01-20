@@ -72,7 +72,7 @@ export function atualizarLadoOnline() {
      if (contador != 0) $('#contadorInicioJogo').text(contador);
 
        
-        if (contador == 0) {
+        if (contador == 0) { 
            clearInterval(intervalID);
         }
 
@@ -99,7 +99,7 @@ export function atualizarLadoOnline() {
         mouseEnterCelula();
         navBarEnter();
         game.atualizarLado();
-        cairPontuacao(false);
+        cairPontuacao(false, true);
         limparTeclas(LadoQueUsaMouse)
         ladoPlayerGamePad = ladoJogador;
 
