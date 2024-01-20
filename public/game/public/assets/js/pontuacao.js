@@ -6,72 +6,89 @@ export var pontuacaoLado = [50, 50];
 export var pontosLado = [pontoPlantas, pontoZombies]
 var board = document.querySelector('.board')
 
-var desativarCodigoTemporariamente = true;
+const workerPontuacao = new Worker('/game/public//assets/js/workers/pontuacaoThread.js');
 
 function cairPontos(lado) {
 
+const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/animacaoPontuacao.js');
+
+  let parametrosStop = { comando: 'stopVelocidadePontuacao', lado: lado}
+  let parametrosStart = { comando: 'velocidadePontuacao', lado: lado}
   let posicaoTop = -7
   let topLimite = Math.random() < 0.75 ? 83 : 51;
   let pontuacao;
   let posicaoLeft;
- // let listaCard;
+
   if (lado == 0) {
     posicaoLeft = Math.floor(Math.random() * (48 - 18 + 1)) + 18;
     pontuacao = criarSol();
     pontuacao.style.left = `${posicaoLeft}%`
-   // listaCard = document.querySelectorAll('.navbar-planta .card');
+    // listaCard = document.querySelectorAll('.navbar-planta .card');
   } else {
-   // listaCard = document.querySelectorAll('.navbar-zombie .card');
+    // listaCard = document.querySelectorAll('.navbar-zombie .card');
     posicaoLeft = Math.floor(Math.random() * (95 - 68 + 1)) + 68;
     pontuacao = criarCerebro();
     pontuacao.style.left = `${posicaoLeft}%`
   }
 
   pontuacao.style.top = "-7%"
-  let setIntervalSolCaindo = setInterval(() => {
+  
+  workerPontuacaoAnimacao.postMessage(parametrosStart);
 
-    var chaveLado = Object.keys(celulaAtual[lado]);
-    if (verificaColisaoCelular(pontuacao, celulaAtual[lado][chaveLado])) {
-      setTimeout(() => {
-        pontuacao.style.transition = 'all 0.5s ease'
-        pontuacao.style.top = lado == 0 ? "-21%" : "-21%";
-        pontuacao.style.left = lado == 0 ? "6%" : "100%";
+  //let setIntervalSolCaindo = setInterval(() => {
+    workerPontuacaoAnimacao.addEventListener('message', function (e) {
+    console.log("lado worker :" +e.data.lado+"lado funcao"+ lado )
+    if (e.data.comando === 'velocidadePontuacaoProcessado' && e.data.lado == lado) {
+
+      var chaveLado = Object.keys(celulaAtual[lado]);
+      if (verificaColisaoCelular(pontuacao, celulaAtual[lado][chaveLado])) {
         setTimeout(() => {
-          pontuacao.style.opacity = 0;
+          pontuacao.style.transition = 'all 0.5s ease'
+          pontuacao.style.top = lado == 0 ? "-21%" : "-21%";
+          pontuacao.style.left = lado == 0 ? "6%" : "100%";
           setTimeout(() => {
+            pontuacao.style.opacity = 0;
+            setTimeout(() => {
+              board.removeChild(pontuacao);
+            }, 600);
+          }, 400);
+
+          //socket 
+          criarPontos(lado);
+          socket2.emit('atualizaPontuacao', lado, sala)
+
+        }, 50);
+
+        workerPontuacaoAnimacao.postMessage(parametrosStop);
+        workerPontuacaoAnimacao.terminate();
+       // clearInterval(setIntervalSolCaindo)
+      }
+
+      posicaoTop++;
+
+      //console.log(posicaoTop)
+      if (posicaoTop < topLimite) {
+        pontuacao.style.top = `${posicaoTop}%`
+      } else {
+        setTimeout(() => {
+          pontuacao.style.opacity = 0.7;
+        }, 2000);
+        setTimeout(() => {
+          if (board.contains(pontuacao)) {
             board.removeChild(pontuacao);
-          }, 600);
-        }, 400);
+          }
+          //clearInterval(setIntervalSolCaindo)
+          
+          workerPontuacaoAnimacao.postMessage(parametrosStop);
+          workerPontuacaoAnimacao.terminate();
+        }, 6000);
 
-        //socket 
-        criarPontos(lado);
-        socket2.emit('atualizaPontuacao', lado, sala)
 
-      }, 50);
+      }
 
-      clearInterval(setIntervalSolCaindo)
+      //}, 130);
     }
-
-    posicaoTop++;
-
-    //console.log(posicaoTop)
-    if (posicaoTop < topLimite) {
-      pontuacao.style.top = `${posicaoTop}%`
-    } else {
-      setTimeout(() => {
-        pontuacao.style.opacity = 0.7;
-      }, 2000);
-      setTimeout(() => {
-        if (board.contains(pontuacao)) {
-          board.removeChild(pontuacao);
-        }
-        clearInterval(setIntervalSolCaindo)
-      }, 6000);
-
-
-    }
-
-  }, 130);
+  });
 }
 
 
@@ -97,40 +114,55 @@ function criarCerebro() {
   return cerebroPontuacao;
 }
 
-//if (!desativarCodigoTemporariamente) {
-// Se a variável de controle não estiver definida como verdadeira, execute este trecho de código
+export function cairPontuacao(local, iniciado) {
 
-export function cairPontuacao(local){
+  console.log("pontuacao local é :" + local);
 
-console.log("pontuacao");
+  if (local) {
+   
+    workerPontuacao.postMessage({comando: 'solCaindo'});
 
-if (local) {
+    workerPontuacao.addEventListener('message', function (e) {
+      if (e.data === 'pontuacaoSolCaindoProcessado') {
+        cairPontos(0);
+      }
+    });
 
-  setInterval(function () {
-    cairPontos(0);
-  }, 10000);
+    workerPontuacao.postMessage({comando:'cerebroCaindo'});
 
-  setInterval(function () {
-    cairPontos(1);
-  }, 11000);
+    workerPontuacao.addEventListener('message', function (e) {
+      if (e.data === 'pontuacaoCerebroCaindoProcessado') {
+        cairPontos(1);
+      }
+    });
 
-} else {
+   
+  } else {
+   
+    if (ladoJogador == 0 && iniciado) {
+      
+      workerPontuacao.postMessage({comando: 'solCaindo'});
 
-  if (ladoJogador == 0) {
-    setInterval(function () {
-      cairPontos(0);
-    }, 10000);
+      workerPontuacao.addEventListener('message', function (e) {
+        if (e.data === 'pontuacaoSolCaindoProcessado') {
+          cairPontos(0);
+        }
+      });
+
+    }
+    else if (ladoJogador == 1 && iniciado) {
+
+      workerPontuacao.postMessage({comando:'cerebroCaindo'});
+
+      workerPontuacao.addEventListener('message', function (e) {
+        if (e.data === 'pontuacaoCerebroCaindoProcessado') {
+          cairPontos(1);
+        }
+      });
+
+    }
 
   }
-  else if (ladoJogador == 1) {
-
-    setInterval(function () {
-      cairPontos(1);
-    }, 11000);
-
-  }
-
-}
 }
 
 
@@ -153,8 +185,8 @@ function verificaColisaoCelular(elementoA, elementoB) {
   );
 }
 
-export function criarPontos(lado){
- 
+export function criarPontos(lado) {
+
   let listaCard;
   if (lado == 0) {
     listaCard = document.querySelectorAll('.navbar-planta .card');
