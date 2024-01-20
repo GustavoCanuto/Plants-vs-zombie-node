@@ -1,4 +1,4 @@
-import AnimacaoCartas from './animacaoCartas.js';
+import AnimacaoCartas from './animacoes/animacaoCartas.js';
 import { criarPreviaPersonagem, moveNavBar, dropPersonagem } from './comandos/comandosNavBar.js';
 import {criarPontos} from "./pontuacao.js";
 import {atualizarLadoOnline, jogarLocal} from "./botoes/trocaMouseLado.js";

@@ -2,7 +2,7 @@ import { personagens } from "./personagens.js";
 
 var pontoPlantas = document.getElementById("pontosPlanta");
 var pontoZombies = document.getElementById("pontosZombie");
-export var pontuacaoLado = [50, 50];
+export var pontuacaoLado = [5000, 50];
 export var pontosLado = [pontoPlantas, pontoZombies]
 var board = document.querySelector('.board')
 
@@ -37,7 +37,7 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
 
   //let setIntervalSolCaindo = setInterval(() => {
     workerPontuacaoAnimacao.addEventListener('message', function (e) {
-    console.log("lado worker :" +e.data.lado+"lado funcao"+ lado )
+   
     if (e.data.comando === 'velocidadePontuacaoProcessado' && e.data.lado == lado) {
 
       var chaveLado = Object.keys(celulaAtual[lado]);

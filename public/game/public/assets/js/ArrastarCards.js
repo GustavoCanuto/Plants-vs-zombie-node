@@ -1,5 +1,5 @@
 import { Personagens, personagens } from "./personagens.js";
-import AnimacaoCartas from './animacaoCartas.js';
+import AnimacaoCartas from './animacoes/animacaoCartas.js';
 import {dropPersonagem} from './comandos/comandosNavBar.js';
 
 class ArrastarCards {
@@ -115,22 +115,13 @@ class ArrastarCards {
             
             const cellElement  = ev.target.closest('.cell');
     
-            //AnimacaoCartas.criarAnimacaoCarta(cellElement, img.src);
            dropPersonagem(cellElement.id, img.src);
            socket2.emit("dropPersonagem", {cellID:cellElement.id, imgPreviaPersonagem: img.src, sala: sala} );
 
-
-
             const board = cellElement.closest('.board');
             const rows = Array.from(board.children);
-            const cellIndex = Array.from(cellElement.parentNode.children).indexOf(cellElement);
-            const rowIndex = rows.findIndex(row => row.contains(cellElement));
 
-           // this.socket.emit('draggedItem', { position: [rowIndex, cellIndex], imageSrc: imgSrc });
-          
-         //  console.log(img.innerHTML)
-         
-            //socket.emit('criarAnimacao', { cell: cellElement.innerHTML, img: img.innerHTML });
+
         }
     }
 
