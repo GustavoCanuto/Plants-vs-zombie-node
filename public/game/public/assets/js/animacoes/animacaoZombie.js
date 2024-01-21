@@ -1,5 +1,5 @@
 import { verificaColisao, removerPlanta } from "./conflitoZombie.js";
-import { iniciarAnimacao, pararAnimacao } from "./framesAnimacao.js";
+import { iniciarAnimacao } from "./framesAnimacao.js";
 import { AnimacaoCartas } from "./animacaoCartas.js";
 
 export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro, frames, tipoZombie) {
