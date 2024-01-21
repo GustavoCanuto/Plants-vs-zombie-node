@@ -20,6 +20,8 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
     } else if (nomeClasse === 'repeater') {
         caminhoImagem = './assets/img/peashooter_tiro.gif';
         numeroTiros = 2;
+    }else{
+        return;
     }
 
     for (let i = 0; i < numeroTiros; i++) {
@@ -27,6 +29,8 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
         const sequenciaTiro = setInterval(() => {
 
         if(AnimacaoCartas.zombieNaLinha[linhaAtiva] > 0){
+
+
 
             const tiroElementClone = tiroElement.cloneNode();
             const divTiroElementClone = divTiroElement.cloneNode();
