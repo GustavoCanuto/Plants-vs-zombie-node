@@ -1,5 +1,3 @@
-
-
 export function iniciarAnimacao(frames, gifElement) {
     let frameIndex = 0;
     const frameDuration = 50;

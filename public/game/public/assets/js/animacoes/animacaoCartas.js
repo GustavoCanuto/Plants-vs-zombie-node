@@ -64,7 +64,7 @@ class AnimacaoCartas {
             if (personagens[personagemNome].valorCard <= pontuacaoLado[1]
                 && personagens[personagemNome].recarregado) {
 
-                this.criarAnimacaoZombie(cellElement, nomeClasse, personagemNome);
+                this.criarAnimacaoZombie(cellElement, nomeClasse, personagemNome,personagens[personagemNome]);
 
                 let listaCard = document.querySelectorAll('.navbar-zombie .card');
 
@@ -131,7 +131,7 @@ class AnimacaoCartas {
             return;
         }
 
-        criarAnimacaoZombie(cellElement,gifElement, elemento, tabuleiro,frames)
+        criarAnimacaoZombie(cellElement,gifElement, elemento, tabuleiro,frames,personagens[personagemNome])
 
        
 
