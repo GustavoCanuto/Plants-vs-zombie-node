@@ -98,16 +98,30 @@ export class AnimacaoCartas {
         elemento.classList.add('personagem');
         elemento.id = idNovoPersonagem
         elemento.style.width = '90%';
-        elemento.classList.add('personagemPlanta');
-        console.log(`tamanho-${personagemNome}`)
+        //console.log(`tamanho-${personagemNome}`)
         elemento.classList.add(`tamanho-${personagemNome}`);
         const gifElement = document.createElement('img');
+
+        if(nomeClasse != 'potatomine') {
+            
+            elemento.classList.add('personagemPlanta');
+        }
+
+        else if(nomeClasse == 'potatomine'){
+            gifElement.src = 'assets/img/danoPersonagens/potatoMine/PotatoMineNotReady.gif';
+            setTimeout(() => { 
+                elemento.classList.add('personagemPlanta');
+                iniciarAnimacao(frames, gifElement,idNovoPersonagem);
+            },10000);
+
+        }
+
         elemento.appendChild(gifElement);
         cellElement.appendChild(elemento);
         elemento.closest('.cell').classList.add('ocupado')
 
         AnimacaoCartas.personagensJogando.push({idNovoPersonagem : novoPersonagem })
-        iniciarAnimacao(frames, gifElement,idNovoPersonagem);
+        if(nomeClasse != 'potatomine') iniciarAnimacao(frames, gifElement,idNovoPersonagem);
         iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem);
         iniciarAnimacaoPontuacao(cellElement, nomeClasse);
     }
