@@ -44,7 +44,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                     if (morreu) {
 
                         clearInterval(atacando);
-                        removerPlanta(plantaElemento);
+                        removerPlanta(plantaElemento, plantaElemento.id);
                         // remover da lista personagensJogando
                         intervaloMovimentoZumbi = setInterval(moveElement, 100);
                         setIntervalZombie = iniciarAnimacao(frames, gifElement);
