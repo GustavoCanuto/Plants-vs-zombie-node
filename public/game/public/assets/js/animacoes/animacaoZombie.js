@@ -1,5 +1,5 @@
 import { verificaColisao, removerPlanta } from "./conflitoZombie.js";
-import { iniciarAnimacao } from "./framesAnimacao.js";
+import { iniciarAnimacao, pararAnimacao } from "./framesAnimacao.js";
 import { AnimacaoCartas } from "./animacaoCartas.js";
 
 export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro, frames, tipoZombie) {
@@ -35,6 +35,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
                 console.log(personagemEncontrado.idNovoPersonagem.id)
 
+               // pararAnimacao(plantaElemento.id)
                 let atacando = setInterval(() => {
 
                     morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(tipoZombie.ataque)

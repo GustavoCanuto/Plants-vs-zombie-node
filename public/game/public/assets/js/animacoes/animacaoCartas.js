@@ -106,7 +106,7 @@ export class AnimacaoCartas {
         elemento.closest('.cell').classList.add('ocupado')
 
         AnimacaoCartas.personagensJogando.push({idNovoPersonagem : novoPersonagem })
-        iniciarAnimacao(frames, gifElement);
+        iniciarAnimacao(frames, gifElement,idNovoPersonagem);
         iniciarAnimacaoTiro(cellElement, nomeClasse);
         iniciarAnimacaoPontuacao(cellElement, nomeClasse);
     }
