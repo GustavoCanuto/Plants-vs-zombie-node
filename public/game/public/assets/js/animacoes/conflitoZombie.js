@@ -44,10 +44,18 @@ export function verificaColisaoTiro(elementoA, elementoB) {
 // console.log("elemento A:" + " esqueda: " + aEsquerda +  " topo: " + aTopo+  " direta: " +aDireita +  " baixo: " + aBaixo)
 // console.log("elemento B:"  + " esqueda: " + bEsquerda +  " topo: " + bTopo+  " direta: " + bDireita +  " baixo: " + bBaixo)
 
-export function removerPlanta(plantaElemento,idNovoPersonagem) {
-    console.log('removido');
+export function removerPlanta(plantaElemento,idNovoPersonagem,plantaSendoAtacada) {
+    console.log('planta removida');
+    console.log(plantaSendoAtacada.idNovoPersonagem.nomePersonagem )
     plantaElemento.closest('.cell').classList.remove('ocupado');
-    plantaElemento.remove();
+
+   if(plantaSendoAtacada.idNovoPersonagem.nomePersonagem != 'potatomine') {plantaElemento.remove();}
+   else if(plantaSendoAtacada.idNovoPersonagem.nomePersonagem == 'potatomine'){ 
+    
+    setTimeout(() => { 
+        plantaElemento.remove()
+    },3500);
+}
 
      pararAnimacaoTiro(idNovoPersonagem);
     
@@ -55,7 +63,7 @@ export function removerPlanta(plantaElemento,idNovoPersonagem) {
 }
 
 export function removerZombie(zombieElemento) {
-    console.log('removido');
+    console.log('zombie removido');
     zombieElemento.remove();
  
 }
