@@ -1,8 +1,8 @@
-import { verificaColisao, removerPlanta } from "./conflitoZombie.js";
+import { verificaColisao, removerPlanta, removerZombie } from "./conflitoZombie.js";
 import { iniciarAnimacao } from "./framesAnimacao.js";
 import { AnimacaoCartas } from "./animacaoCartas.js";
 
-export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro, frames, tipoZombie) {
+export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro, frames, tipoZombie ) {
 
     let setIntervalZombie;
 
@@ -26,29 +26,41 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
             if (verificaColisao(elemento, plantaElemento.closest('.cell'))) {
                 let morreu;
+                let morreuContraAtaque;
                 //ao acontecer conflito com a planta
                 clearInterval(intervaloMovimentoZumbi);
 
-                iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie);
+               
+                const plantaSendoAtacada = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == plantaElemento.id);
 
-                const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == plantaElemento.id);
+                console.log(plantaSendoAtacada.idNovoPersonagem.id)
 
-                console.log(personagemEncontrado.idNovoPersonagem.id)
-
-               // pararAnimacao(plantaElemento.id)
+                // pararAnimacao(plantaElemento.id)
                 let atacando = setInterval(() => {
 
-                    morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(tipoZombie.ataque)
+                    morreu = plantaSendoAtacada.idNovoPersonagem.reduzirVida(tipoZombie.ataque)
 
+                    const zombieQueEstaAtacando = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == elemento.id);
+                    console.log(zombieQueEstaAtacando.idNovoPersonagem.id)
+
+                    morreuContraAtaque = zombieQueEstaAtacando.idNovoPersonagem.reduzirVida(plantaSendoAtacada.idNovoPersonagem.ataque);
+
+                    if (morreuContraAtaque) {
+                        removerZombie(elemento);  
+                    }
+
+                    if(!morreuContraAtaque) iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie);
 
                     if (morreu) {
 
                         clearInterval(atacando);
-                        removerPlanta(plantaElemento, plantaElemento.id);
+                        removerPlanta(plantaElemento, plantaElemento.id, plantaSendoAtacada);
                         // remover da lista personagensJogando
                         intervaloMovimentoZumbi = setInterval(moveElement, 100);
                         setIntervalZombie = iniciarAnimacao(frames, gifElement);
                     }
+
+                  
 
                 }, 1000);
 

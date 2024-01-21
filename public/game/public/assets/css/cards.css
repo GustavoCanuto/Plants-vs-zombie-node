@@ -172,3 +172,7 @@
     width: 12% !important;
 
 }
+
+.tamanho-potatomine{
+    transition: all 0.15s ease; 
+}
