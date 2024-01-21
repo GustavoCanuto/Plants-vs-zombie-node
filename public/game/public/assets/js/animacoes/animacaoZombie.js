@@ -1,7 +1,7 @@
 import { verificaColisao,removerPlanta } from "./conflitoZombie.js";
 import { iniciarAnimacao } from "./framesAnimacao.js";
 
-export function criarAnimacaoZombie(cellElement,gifElement, elemento,tabuleiro,frames) {
+export function criarAnimacaoZombie(cellElement,gifElement, elemento,tabuleiro,frames, tipoZombie) {
 
     let setIntervalZombie;
 
@@ -54,7 +54,7 @@ export function criarAnimacaoZombie(cellElement,gifElement, elemento,tabuleiro,f
         if (!colidiu) {
             if (positionLeft > -10) {
                 elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
-                positionLeft -= 0.2;
+                positionLeft -= tipoZombie.velocidadeCaminhar;
             } else {
                 clearInterval(intervaloMovimentoZumbi);
                 console.log('Zumbi atingiu a borda esquerda.');
