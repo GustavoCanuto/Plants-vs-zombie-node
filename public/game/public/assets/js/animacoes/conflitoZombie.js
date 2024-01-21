@@ -1,3 +1,5 @@
+import { pararAnimacaoTiro } from "./animacaoTiro.js";
+
 export function verificaColisao(elementoA, elementoB) {
     const aEsquerda = elementoA.offsetLeft;
     const aTopo = elementoA.offsetTop;
@@ -7,7 +9,7 @@ export function verificaColisao(elementoA, elementoB) {
     const bEsquerda = elementoB.offsetLeft;
     const bTopo = elementoB.offsetTop;
     const bDireita = bEsquerda + elementoB.offsetWidth;
-    const bBaixo = bTopo + elementoB.offsetHeight;
+    const bBaixo = bTopo + elementoB.offsetHeight -50;
 
     return (
         aEsquerda < bDireita &&
@@ -42,10 +44,13 @@ export function verificaColisaoTiro(elementoA, elementoB) {
 // console.log("elemento A:" + " esqueda: " + aEsquerda +  " topo: " + aTopo+  " direta: " +aDireita +  " baixo: " + aBaixo)
 // console.log("elemento B:"  + " esqueda: " + bEsquerda +  " topo: " + bTopo+  " direta: " + bDireita +  " baixo: " + bBaixo)
 
-export function removerPlanta(plantaElemento) {
+export function removerPlanta(plantaElemento,idNovoPersonagem) {
     console.log('removido');
     plantaElemento.closest('.cell').classList.remove('ocupado');
     plantaElemento.remove();
+
+     pararAnimacaoTiro(idNovoPersonagem);
+    
  
 }
 

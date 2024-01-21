@@ -10,6 +10,7 @@ import { iniciarAnimacaoPontuacao } from "./animacaoPontuacao.js";
 export class AnimacaoCartas {
 
     static personagensJogando = [];
+    static zombieNaLinha = {linha1: 0, linha2: 0, linha3: 0, linha4: 0, linha5: 0};
 
     static framesPorClasse = {
         sunflower: 25,
@@ -107,12 +108,13 @@ export class AnimacaoCartas {
 
         AnimacaoCartas.personagensJogando.push({idNovoPersonagem : novoPersonagem })
         iniciarAnimacao(frames, gifElement,idNovoPersonagem);
-        iniciarAnimacaoTiro(cellElement, nomeClasse);
+        iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem);
         iniciarAnimacaoPontuacao(cellElement, nomeClasse);
     }
 
  
     static criarAnimacaoZombie(cellElement, nomeClasse,personagemNome) {
+
 
         let novoPersonagem = personagens[personagemNome].clone();
         let idNovoPersonagem =  novoPersonagem.id;
@@ -128,6 +130,13 @@ export class AnimacaoCartas {
         elemento.appendChild(gifElement);
         let tabuleiro = document.querySelector('.board');
         AnimacaoCartas.personagensJogando.push({idNovoPersonagem : novoPersonagem })
+
+        let classeLinha = cellElement.closest(".row").className.split(' ');
+        let linhaAtiva = classeLinha[1];
+
+        AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
+
+       // console.log(AnimacaoCartas.zombieNaLinha[linhaAtiva]);
 
         if (!tabuleiro) {
             console.error('Elemento .board não encontrado.');
