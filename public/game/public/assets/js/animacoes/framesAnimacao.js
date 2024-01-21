@@ -1,8 +1,10 @@
-export function iniciarAnimacao(frames, gifElement) {
+let listaInterval = []
+
+export function iniciarAnimacao(frames, gifElement, idNovoPersonagem) {
     let frameIndex = 0;
     const frameDuration = 50;
-    let animationInterval;
-    return animationInterval = setInterval(() => {
+
+    const animationInterval = setInterval(() => {
         if (gifElement) {
             gifElement.src = frames[frameIndex].src;
             frameIndex = (frameIndex + 1) % frames.length;
@@ -12,8 +14,24 @@ export function iniciarAnimacao(frames, gifElement) {
         }
     }, frameDuration);
 
+    // Armazena o ID no objeto animationInterval
+    listaInterval.push({ idNovoPersonagem: idNovoPersonagem, intervalId: animationInterval });
+
+    return animationInterval;
+
+
 }
 
+export function pararAnimacao(idNovoPersonagem) {
+    const intervalObj = listaInterval.find(item => item.idNovoPersonagem == idNovoPersonagem);
+
+    if (intervalObj) {
+        clearInterval(intervalObj.intervalId);
+        listaInterval = listaInterval.filter(item => item.idNovoPersonagem != idNovoPersonagem);
+    } else {
+        console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
+    }
+}
 export function carregarFrames(nomeClasse, numberOfFrames) {
     const frames = [];
 

@@ -1,3 +1,5 @@
+import { pararAnimacao } from "./animacoes/framesAnimacao.js";
+
 export class Personagens {
 
     static contadorId = 0;
@@ -12,6 +14,7 @@ export class Personagens {
         this.recarregado = true;
         this.framesAnimation;
         this.id = `pN${Personagens.contadorId++}ID` ;
+        this.nomePersonagem = this.imagePath.split('/').pop().split('.')[0]; 
         
     }
 
@@ -26,6 +29,19 @@ export class Personagens {
     reduzirVida(dano) {
         this.vida -= dano;
         console.log(this.vida)
+        console.log(this.nomePersonagem)
+
+        if(this.nomePersonagem == 'wallnut'){
+            let gifElement = document.getElementById(this.id).firstChild;
+            if(this.vida>8 && this.vida<22){
+                pararAnimacao(this.id)
+                gifElement.src = 'assets/img/danoPersonagens/wallnut/Wallnut_cracked1.gif'
+            }else if((this.vida>0 && this.vida<=8)){
+                pararAnimacao(this.id)
+                gifElement.src = 'assets/img/danoPersonagens/wallnut/Wallnut_cracked2.gif'
+            }
+        }
+
         if (this.vida <= 0) {
             console.log(this.vida)
           return true;
