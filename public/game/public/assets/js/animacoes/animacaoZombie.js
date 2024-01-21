@@ -1,7 +1,8 @@
-import { verificaColisao,removerPlanta } from "./conflitoZombie.js";
+import { verificaColisao, removerPlanta } from "./conflitoZombie.js";
 import { iniciarAnimacao } from "./framesAnimacao.js";
+import { AnimacaoCartas } from "./animacaoCartas.js";
 
-export function criarAnimacaoZombie(cellElement,gifElement, elemento,tabuleiro,frames, tipoZombie) {
+export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro, frames, tipoZombie) {
 
     let setIntervalZombie;
 
@@ -17,22 +18,39 @@ export function criarAnimacaoZombie(cellElement,gifElement, elemento,tabuleiro,f
     let positionLeft = posicaoLeft;
 
     function moveElement() {
-       
+
         const plantElements = document.querySelectorAll('.personagemPlanta');
         let colidiu = false;
 
         plantElements.forEach((plantaElemento) => {
-            if (verificaColisao(elemento, plantaElemento.closest('.cell'))) {
-                clearInterval(intervaloMovimentoZumbi);
-                iniciarAnimacaoComerPlanta(gifElement,setIntervalZombie);
 
-                setTimeout(() => {
-                    removerPlanta(plantaElemento);
-                    // Reiniciar o movimento do zumbi e a animação de andar
-                    intervaloMovimentoZumbi = setInterval(moveElement, 100);
-                    setIntervalZombie=  iniciarAnimacao(frames, gifElement);
-                    
-                }, 5000);
+            if (verificaColisao(elemento, plantaElemento.closest('.cell'))) {
+                let morreu;
+                //ao acontecer conflito com a planta
+                clearInterval(intervaloMovimentoZumbi);
+
+                iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie);
+
+                const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == plantaElemento.id);
+
+                console.log(personagemEncontrado.idNovoPersonagem.id)
+
+                let atacando = setInterval(() => {
+
+                    morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(tipoZombie.ataque)
+
+
+                    if (morreu) {
+
+                        clearInterval(atacando);
+                        removerPlanta(plantaElemento);
+                        // remover da lista personagensJogando
+                        intervaloMovimentoZumbi = setInterval(moveElement, 100);
+                        setIntervalZombie = iniciarAnimacao(frames, gifElement);
+                    }
+
+                }, 1000);
+
 
                 colidiu = true;
                 console.log('colidiu');
@@ -62,18 +80,18 @@ export function criarAnimacaoZombie(cellElement,gifElement, elemento,tabuleiro,f
         }
     }
 
-     setIntervalZombie = iniciarAnimacao(frames, gifElement);
+    setIntervalZombie = iniciarAnimacao(frames, gifElement);
 
     let intervaloMovimentoZumbi = setInterval(() => {
         moveElement();
-      }, 100);
+    }, 100);
 
-   
+
 
 }
 
 
-function iniciarAnimacaoComerPlanta(gifElement,setIntervalZombie) {
+function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie) {
     console.log('comendo...');
     clearInterval(setIntervalZombie)
     gifElement.style.width = '100%'

@@ -25,8 +25,10 @@ export class Personagens {
 
     reduzirVida(dano) {
         this.vida -= dano;
+        console.log(this.vida)
         if (this.vida <= 0) {
-            this.morrer();
+            console.log(this.vida)
+          return true;
         }
     }
 

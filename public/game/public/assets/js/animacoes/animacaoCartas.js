@@ -7,7 +7,9 @@ import { recargaCard } from "./recarga.js";
 import { iniciarAnimacao,carregarFrames } from "./framesAnimacao.js";
 import { iniciarAnimacaoPontuacao } from "./animacaoPontuacao.js";
 
-class AnimacaoCartas {
+export class AnimacaoCartas {
+
+    static personagensJogando = [];
 
     static framesPorClasse = {
         sunflower: 25,
@@ -89,10 +91,11 @@ class AnimacaoCartas {
         }
 
         let novoPersonagem = personagens[personagemNome].clone();
+        let idNovoPersonagem =  novoPersonagem.id;
         console.log(novoPersonagem.id)
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
-        elemento.id = novoPersonagem.id
+        elemento.id = idNovoPersonagem
         elemento.style.width = '90%';
         elemento.classList.add('personagemPlanta');
         console.log(`tamanho-${personagemNome}`)
@@ -102,6 +105,7 @@ class AnimacaoCartas {
         cellElement.appendChild(elemento);
         elemento.closest('.cell').classList.add('ocupado')
 
+        AnimacaoCartas.personagensJogando.push({idNovoPersonagem : novoPersonagem })
         iniciarAnimacao(frames, gifElement);
         iniciarAnimacaoTiro(cellElement, nomeClasse);
         iniciarAnimacaoPontuacao(cellElement, nomeClasse);
@@ -110,15 +114,19 @@ class AnimacaoCartas {
  
     static criarAnimacaoZombie(cellElement, nomeClasse,personagemNome) {
 
+        let novoPersonagem = personagens[personagemNome].clone();
+        let idNovoPersonagem =  novoPersonagem.id;
+
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
-
+        elemento.id = idNovoPersonagem
         elemento.style.width = '10%';
         elemento.classList.add(`tamanho-${personagemNome}`);
         const gifElement = document.createElement('img');
         gifElement.style.width = '100%';
         elemento.appendChild(gifElement);
         let tabuleiro = document.querySelector('.board');
+        AnimacaoCartas.personagensJogando.push({idNovoPersonagem : novoPersonagem })
 
         if (!tabuleiro) {
             console.error('Elemento .board não encontrado.');
