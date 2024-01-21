@@ -52,9 +52,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
                 }, 1000);
 
-
                 colidiu = true;
-                console.log('colidiu');
 
                 let tempoRestante = 3;
 
@@ -76,7 +74,8 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                 positionLeft -= tipoZombie.velocidadeCaminhar;
             } else {
                 clearInterval(intervaloMovimentoZumbi);
-                console.log('Zumbi atingiu a borda esquerda.');
+                alert('Zumbi Venceu!!');
+                location.reload();
             }
         }
     }
@@ -87,14 +86,28 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
         moveElement();
     }, 100);
 
-
-
 }
 
-
 function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie) {
-    console.log('comendo...');
-    clearInterval(setIntervalZombie)
-    gifElement.style.width = '100%'
-    gifElement.src = './assets/img/frames/buckethead/atacando/attack.gif';
+    const zumbiElements = document.querySelectorAll('.personagemZombie');
+    
+    zumbiElements.forEach(zumbiElement => {
+        if (zumbiElement.classList.contains('tamanho-conehead')) {
+            gifElement.src = './assets/img/frames/conehead/atacando/HeadAttack1.gif';
+        } else if (zumbiElement.classList.contains('tamanho-buckethead')) {
+            gifElement.src = './assets/img/frames/buckethead/atacando/attack.gif';
+        } else if(zumbiElement.classList.contains('tamanho-flagzombie')) {
+            gifElement.src = './assets/img/frames/flagzombie/atacando/ZombieAttack.gif';
+        } else if(zumbiElement.classList.contains('tamanho-football')) {
+            gifElement.src = './assets/img/frames/football/atacando/Attack.gif';
+        } else if(zumbiElement.classList.contains('tamanho-screendoor')) {
+            gifElement.src = './assets/img/frames/screendoor/atacando/ScreenDoorZombieAttack.gif';
+        } else if(zumbiElement.classList.contains('tamanho-zombie')) {
+            gifElement.src = './assets/img/frames/zombie/atacando/ZombieAttack(1).gif';
+        }
+        
+    });
+
+    clearInterval(setIntervalZombie);
+    gifElement.style.width = '100%';
 }
