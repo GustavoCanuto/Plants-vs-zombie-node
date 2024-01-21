@@ -119,6 +119,7 @@ export class AnimacaoCartas {
 
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
+        elemento.classList.add('personagemZombie');
         elemento.id = idNovoPersonagem
         elemento.style.width = '10%';
         elemento.classList.add(`tamanho-${personagemNome}`);

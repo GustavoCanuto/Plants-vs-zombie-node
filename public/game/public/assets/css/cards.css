@@ -136,10 +136,13 @@
     position: absolute;
     top: 40%;
     transform: translateY(-50%);
-    z-index: 999;
+    z-index: 700;
     border: 1px solid red;
 }
 
+.personagemPlanta {
+    z-index: 800;
+}
 .pontos {
     position: absolute;
     top: 50%;
