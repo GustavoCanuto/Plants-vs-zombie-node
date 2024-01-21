@@ -88,8 +88,11 @@ class AnimacaoCartas {
             return;
         }
 
+        let novoPersonagem = personagens[personagemNome].clone();
+        console.log(novoPersonagem.id)
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
+        elemento.id = novoPersonagem.id
         elemento.style.width = '90%';
         elemento.classList.add('personagemPlanta');
         console.log(`tamanho-${personagemNome}`)
@@ -110,7 +113,6 @@ class AnimacaoCartas {
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
 
-        console.log(`tamanho-${personagemNome}`)
         elemento.style.width = '10%';
         elemento.classList.add(`tamanho-${personagemNome}`);
         const gifElement = document.createElement('img');

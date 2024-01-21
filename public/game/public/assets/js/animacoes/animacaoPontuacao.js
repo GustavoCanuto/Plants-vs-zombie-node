@@ -56,7 +56,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse) {
     const intervaloTiro = setInterval(() => {
         // divPontosElement.style.top = `${movimentosTop[contador]}%`;
         //divPontosElement.style.left = `${movimentosLeft[contador]}%`;
-        contador++;
+       // contador++;
         // if (posicaoTop < 85) {
         //     posicaoTop += 1;
         //    // divPontosElement.style.top = `${posicaoTop}%`;
