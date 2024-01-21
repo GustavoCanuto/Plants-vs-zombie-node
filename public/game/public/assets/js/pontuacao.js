@@ -94,7 +94,7 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
 
 function criarSol() {
   const solPontuacao = document.createElement("img");
-  solPontuacao.src = "./assets/img/pontuacao/Sun.webp";
+  solPontuacao.src = "./assets/img/pontuacao/Sun.gif";
   solPontuacao.alt = "sol pontuacao";
   solPontuacao.id = 'solPontuacao'
 

@@ -139,6 +139,17 @@
     z-index: 999;
 }
 
+.pontos {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translateY(-50%); 
+    z-index: 700;
+    transition: all 1.5s ease; 
+    
+   
+}
+
 .tamanho-cherrybomb{
 
     width: 125% !important;

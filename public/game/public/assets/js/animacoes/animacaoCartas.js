@@ -5,6 +5,7 @@ import { criarAnimacaoZombie } from "./animacaoZombie.js";
 import { iniciarAnimacaoTiro } from "./animacaoTiro.js";
 import { recargaCard } from "./recarga.js";
 import { iniciarAnimacao,carregarFrames } from "./framesAnimacao.js";
+import { iniciarAnimacaoPontuacao } from "./animacaoPontuacao.js";
 
 class AnimacaoCartas {
 
@@ -100,6 +101,7 @@ class AnimacaoCartas {
 
         iniciarAnimacao(frames, gifElement);
         iniciarAnimacaoTiro(cellElement, nomeClasse);
+        iniciarAnimacaoPontuacao(cellElement, nomeClasse);
     }
 
  
@@ -133,7 +135,7 @@ class AnimacaoCartas {
 
         criarAnimacaoZombie(cellElement,gifElement, elemento, tabuleiro,frames,personagens[personagemNome])
 
-       
+        iniciarAnimacaoPontuacao(cellElement, nomeClasse);
 
         elemento.classList.remove('adicionado');
     }
