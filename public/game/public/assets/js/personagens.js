@@ -1,4 +1,7 @@
 export class Personagens {
+
+    static contadorId = 0;
+
     constructor(imagePath, tempoRecarga, valorCard,vida, velocidadeCaminhar, ataque) {
         this.imagePath = imagePath;
         this.tempoRecarga = tempoRecarga;
@@ -6,9 +9,9 @@ export class Personagens {
         this.vida = vida;
         this.velocidadeCaminhar = velocidadeCaminhar;
         this.ataque = ataque;
-
         this.recarregado = true;
         this.framesAnimation;
+        this.id = `pN${Personagens.contadorId++}ID` ;
         
     }
 
