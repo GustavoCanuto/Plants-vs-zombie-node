@@ -41,7 +41,10 @@ export function moveNavBar(direction, lado){
 
     if (personagens[personagemNome]) {
         // Atualize a imagem do prevPersonagemImg
+        prevPersonagemImg[lado].className = '';
         prevPersonagemImg[lado].src = personagens[personagemNome].imagePath;
+        prevPersonagemImg[lado].classList.add(`tamanhoPrevia-${personagens[personagemNome].nomePersonagem}`)
+      
     }
 
     cellNavBarAtual[lado].classList.add(`${classeNavBar}`);
@@ -85,6 +88,9 @@ export function criarPreviaPersonagem(cellID, lado){
         if (personagens[personagemNome]) {
             // Atualize a imagem do prevPersonagemImg
             prevPersonagemImg[lado].src = personagens[personagemNome].imagePath;
+           // console.log(personagens[personagemNome].imagePath)
+            prevPersonagemImg[lado].classList.add(`tamanhoPrevia-${personagens[personagemNome].nomePersonagem}`)
+           // console.log(`tamnhaPrevia-${personagens[personagemNome].nomePersonagem}`)
     
         }
         

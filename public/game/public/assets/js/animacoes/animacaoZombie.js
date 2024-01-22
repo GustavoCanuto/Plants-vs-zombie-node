@@ -94,7 +94,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
             } else {
                 clearInterval(intervaloMovimentoZumbi);
                 alert('Zumbi Venceu!!');
-                location.reload();
+              //  location.reload();
             }
         }
     }
@@ -113,14 +113,17 @@ function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie) {
     zumbiElements.forEach(zumbiElement => {
         if (zumbiElement.classList.contains('tamanho-conehead')) {
             gifElement.src = './assets/img/frames/conehead/atacando/HeadAttack1.gif';
+            gifElement.style.width = '115%';
         } else if (zumbiElement.classList.contains('tamanho-buckethead')) {
             gifElement.src = './assets/img/frames/buckethead/atacando/attack.gif';
         } else if(zumbiElement.classList.contains('tamanho-flagzombie')) {
             gifElement.src = './assets/img/frames/flagzombie/atacando/ZombieAttack.gif';
         } else if(zumbiElement.classList.contains('tamanho-football')) {
             gifElement.src = './assets/img/frames/football/atacando/Attack.gif';
+            gifElement.style.width = '95%';
         } else if(zumbiElement.classList.contains('tamanho-screendoor')) {
             gifElement.src = './assets/img/frames/screendoor/atacando/ScreenDoorZombieAttack.gif';
+            gifElement.style.width = '85%';
         } else if(zumbiElement.classList.contains('tamanho-zombie')) {
             gifElement.src = './assets/img/frames/zombie/atacando/ZombieAttack(1).gif';
         }
@@ -128,5 +131,5 @@ function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie) {
     });
 
     clearInterval(setIntervalZombie);
-    gifElement.style.width = '100%';
+   
 }

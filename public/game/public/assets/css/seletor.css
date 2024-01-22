@@ -69,7 +69,7 @@
 }
 
 #seletorTabuleiroAzul {
-    z-index: 5;
+    z-index: -5;
     position: absolute;
     left: 0;
     top: 0;
@@ -116,7 +116,7 @@
 }
 
 #seletorTabuleiroAmarelo {
-    z-index: 5;
+    z-index: -5;
     /* Remova a propriedade position: relative; */
     position: absolute;
     /* Adicione position: absolute; */

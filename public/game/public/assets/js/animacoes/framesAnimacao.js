@@ -3,7 +3,7 @@ let listaInterval = []
 export function iniciarAnimacao(frames, gifElement, idNovoPersonagem) {
     let frameIndex = 0;
     const frameDuration = 50;
-
+    gifElement.style.width = '100%';
     const animationInterval = setInterval(() => {
         if (gifElement) {
             gifElement.src = frames[frameIndex].src;
