@@ -85,10 +85,14 @@ export function removerPlanta(plantaElemento,idNovoPersonagem,plantaSendoAtacada
 }
 
 export function removerZombie(zombieElemento,numeroLinha) {
+    if (zombieElemento.classList.contains('tamanho-cardtombstone')) {
+        zombieElemento.closest('.cell').classList.remove('tumba');
+    }
     console.log('zombie removido ' + zombieElemento.classList );
     console.log("linha"+ numeroLinha)
     zombieElemento.remove();
     AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`] -= 1;
     console.log(`linha${numeroLinha} `+  AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`])
+    
  
 }

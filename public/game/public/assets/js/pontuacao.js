@@ -2,7 +2,7 @@ import { personagens } from "./personagens.js";
 
 var pontoPlantas = document.getElementById("pontosPlanta");
 var pontoZombies = document.getElementById("pontosZombie");
-export var pontuacaoLado = [2000, 5000];
+export var pontuacaoLado = [50, 50];
 export var pontosLado = [pontoPlantas, pontoZombies]
 var board = document.querySelector('.board')
 
@@ -41,7 +41,7 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
     if (e.data.comando === 'velocidadePontuacaoProcessado' && e.data.lado == lado) {
 
       var chaveLado = Object.keys(celulaAtual[lado]);
-      if (verificaColisaoCelular(pontuacao, celulaAtual[lado][chaveLado])) {
+      if (verificaColisaoPontos(pontuacao, celulaAtual[lado][chaveLado])) {
         setTimeout(() => {
           pontuacao.style.transition = 'all 0.5s ease'
           pontuacao.style.top = lado == 0 ? "-21%" : "-21%";
@@ -166,7 +166,7 @@ export function cairPontuacao(local, iniciado) {
 }
 
 
-function verificaColisaoCelular(elementoA, elementoB) {
+export function verificaColisaoPontos(elementoA, elementoB) {
   const aEsquerda = elementoA.offsetLeft;
   const aTopo = elementoA.offsetTop;
   const aDireita = aEsquerda + elementoA.offsetWidth;
@@ -186,7 +186,7 @@ function verificaColisaoCelular(elementoA, elementoB) {
 }
 
 export function criarPontos(lado) {
-
+console.log("pontos para o lado "+ lado)
   let listaCard;
   if (lado == 0) {
     listaCard = document.querySelectorAll('.navbar-planta .card');
