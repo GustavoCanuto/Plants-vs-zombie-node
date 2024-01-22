@@ -116,21 +116,6 @@
     height: 100%;
 }
 
-.personagem {
-    position: absolute;
-    border: 1px solid;
-    bottom: 0;
-    left: 0;
-    z-index: -2;
-    height: fit-content;
-    width: 20%;
-  
-}
-
-.personagem img{
-    
-    width: 100%;
-} 
 
 .tamanhoPrevia-football{
 
@@ -147,6 +132,18 @@
     width: 125% !important;
 }
 
+@keyframes increaseBrightness {
+    0% {
+        filter: brightness(1); /* Brilho inicial */
+    }
+    50% {
+        filter: brightness(2.2); /* Brilho desejado */
+    }
+    100% {
+        filter: brightness(1); /* Brilho de volta ao inicial */
+    }
+}
+
 
 .tiro {
     position: absolute;
@@ -156,19 +153,7 @@
     border: 1px solid red;
 }
 
-.personagemPlanta {
-    z-index: 800;
-}
-.pontos {
-    position: absolute;
-    top: 50%;
-    left: 20%;
-    transform: translateY(-50%); 
-    z-index: 999;
-    transition: all 1.5s ease; 
-    
-   
-}
+
 
 .tamanho-cherrybomb{
     width: 125% !important;
@@ -207,8 +192,37 @@
     position: absolute;
     width: 100%;
     top: 40%;
-    right: -20%;
+    right: -20% ;
     transform: translateY(-50%);
-    z-index: -5;
+    z-index: -3 !important;
     border: 1px solid rgb(25, 3, 214);
+    
 }
+
+.personagem {
+    position: absolute;
+    border: 1px solid;
+    bottom: 0;
+    left: 0;
+    z-index: -2;
+    height: fit-content;
+    width: 20%;
+  
+}
+
+.personagem img{
+    
+    width: 100%;
+} 
+
+.pontos {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translateY(-50%); 
+    z-index: 999;
+    transition: all 1.5s ease; 
+    
+   
+}
+

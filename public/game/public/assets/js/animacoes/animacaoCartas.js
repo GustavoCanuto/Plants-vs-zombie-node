@@ -129,6 +129,42 @@ export class AnimacaoCartas {
  
     static criarAnimacaoZombie(cellElement, nomeClasse,personagemNome) {
 
+        if(nomeClasse== 'cardtombstone'){
+
+            if (!cellElement.classList.contains('tumba')) {
+
+            let novoPersonagem = personagens[personagemNome].clone();
+            let idNovoPersonagem =  novoPersonagem.id;
+         
+            const elemento = document.createElement('div');
+            elemento.classList.add('personagem');
+            elemento.id = idNovoPersonagem
+            elemento.style.width = '100%';
+            //console.log(`tamanho-${personagemNome}`)
+            elemento.classList.add(`tamanho-${personagemNome}`);
+            const gifElement = document.createElement('img');
+            elemento.classList.add('personagemZombie');
+    
+            elemento.appendChild(gifElement);
+            cellElement.appendChild(elemento);
+            elemento.closest('.cell').classList.add('tumba')
+            const numberOfFrames = this.framesPorClasse[nomeClasse] || 0;
+            const frames = carregarFrames(nomeClasse, numberOfFrames);
+
+            iniciarAnimacao(frames, gifElement,idNovoPersonagem);
+            iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonagem);
+            AnimacaoCartas.personagensJogando.push({idNovoPersonagem : novoPersonagem })
+
+            let classeLinha = cellElement.closest(".row").className.split(' ');
+            let linhaAtiva = classeLinha[1];
+    
+            AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
+    
+            console.log(linhaAtiva + " " + AnimacaoCartas.zombieNaLinha[linhaAtiva]);
+         
+            }
+
+        }else{
 
         let novoPersonagem = personagens[personagemNome].clone();
         let idNovoPersonagem =  novoPersonagem.id;
@@ -169,9 +205,10 @@ export class AnimacaoCartas {
 
         criarAnimacaoZombie(cellElement,gifElement, elemento, tabuleiro,frames,personagens[personagemNome], idNovoPersonagem)
 
-        iniciarAnimacaoPontuacao(cellElement, nomeClasse);
+        iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonagem);
 
         elemento.classList.remove('adicionado');
+    }
     }
   
 }

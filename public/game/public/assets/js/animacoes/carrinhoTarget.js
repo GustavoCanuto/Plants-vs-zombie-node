@@ -141,8 +141,8 @@ function criarCarrinhoETarget() {
             const targetElement = document.createElement('img');
 
             targetElement.src = './assets/img/personagens/zombies/Zombie_Target1.gif';
-            divTargetElement.classList.add('target');
             divTargetElement.classList.add('personagemZombie');
+            divTargetElement.classList.add('target');
             divTargetElement.id = idNovoPersonagem;
             divTargetElement.appendChild(targetElement);
             cellElement.appendChild(divTargetElement);
