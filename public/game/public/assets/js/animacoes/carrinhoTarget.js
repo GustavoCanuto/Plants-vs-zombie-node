@@ -1,7 +1,9 @@
 
 import { AnimacaoCartas } from "./animacaoCartas.js";
 import { personagens } from "../personagens.js";
-import { verificaColisaoTiro,removerZombie } from "./conflitoZombie.js";
+import { verificaColisaoCarrinho,removerZombie } from "./conflitoZombie.js";
+import { pararAnimacaoZombie } from "./animacaoZombie.js";
+import { pararAnimacao } from "./framesAnimacao.js";
 
 
 function criarCarrinhoETarget() {
@@ -9,6 +11,8 @@ function criarCarrinhoETarget() {
     let contadorTarget = 0;
     let celulasCarinnho = document.querySelectorAll('.grass-cutter');
     let celulasTarget = document.querySelectorAll('[id$="Coluna10"]');
+    let tabuleiro = document.querySelector('.board')
+   
 
     celulasCarinnho.forEach((cellElement) => {
         contadorCarrinho++;
@@ -25,22 +29,50 @@ function criarCarrinhoETarget() {
             divCarrinhoElement.style.left = "10%"
         }
 
+        let posicaoLeft = 20;
 
         // verificar conflito com zumbi 
         const intervaloCarrinho = setInterval(() => {
-
+           
             let colidiu = false;
 
             const zombieElements = document.querySelectorAll('.personagemZombie');
 
             zombieElements.forEach((zombieElemento) => {
 
-                if (verificaColisaoTiro(zombieElemento, divCarrinhoElement)) {
+                if (verificaColisaoCarrinho(zombieElemento, divCarrinhoElement)) {
+                   
                     let morreu;
                     colidiu = true;
+                    let numeroLinha = divCarrinhoElement.id;
+                    numeroLinha = numeroLinha.charAt(numeroLinha.length - 1);
 
-                    console.log("conflitou")
-                    clearInterval(intervaloCarrinho);
+                    const carrinhoAndando = setInterval(() => {
+
+                        console.log("iniciou animacao carrrinho")
+
+                        const tabuleiroRect = tabuleiro.getBoundingClientRect();
+                        const cellRect = cellElement.getBoundingClientRect();
+                        const tabuleiroWidth = tabuleiroRect.width;
+                        const tiroWidth = (divCarrinhoElement.offsetWidth / tabuleiroWidth) * 100; // Convertendo para porcentagem
+    
+                        const posicaoFinal = ((tabuleiroRect.left + tabuleiroWidth - cellRect.left - tiroWidth) / tabuleiroWidth) * 1000; // Convertendo para porcentagem
+    
+                        if (posicaoLeft < posicaoFinal) {
+                            posicaoLeft += 10; // Ajuste para um movimento mais suave, você pode ajustar conforme necessário
+                            divCarrinhoElement.style.left = `${posicaoLeft}%`;
+                        } else {
+                            divCarrinhoElement.remove();
+                           clearInterval(carrinhoAndando);
+                           clearInterval(intervaloCarrinho);
+                            
+                        }
+    
+
+                   }, 50);
+
+                    console.log("conflitou com carrinho")
+                    
                 
                     //ao acontecer conflito com o zombie
 
@@ -48,14 +80,42 @@ function criarCarrinhoETarget() {
 
                     console.log(personagemEncontrado.idNovoPersonagem.id)
 
-
+                    if(personagemEncontrado.idNovoPersonagem.nomePersonagem != 'Zombie_Target1'){
                     morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(999)
+                    }
 
 
 
                     if (morreu) {
-                        removerZombie(zombieElemento);
-                        AnimacaoCartas.zombieNaLinha[`linha${contadorCarrinho}`] = 0;
+                        console.log("morreu com carrinho")
+                      
+                        pararAnimacaoZombie(personagemEncontrado.idNovoPersonagem.id)
+                        pararAnimacao(personagemEncontrado.idNovoPersonagem.id)
+                       // zombieElemento.style.height = '50%';
+                       let imgZombie = zombieElemento.firstChild;
+                       zombieElemento.style.height = '12%';
+                      zombieElemento.style.marginBottom = '2%';
+                      
+                
+                       imgZombie.style.width = '160%';
+                       imgZombie.style.height = '100%';
+
+                      // imgZombie.style.transform = 'scaleX(1.5)';
+
+                   //   zombieElemento.style.transform = 'scaleY(0.5)';
+                       
+                     // zombieElemento.style.transform = 'scaleX(2)';
+                        //esmagar zombieElement 
+
+                        // setTimeout(()=>{
+                        //     zombieElemento.style.transform = 'scaleX(5)';
+                        // },500)
+
+                        setTimeout(()=>{
+                            removerZombie(zombieElemento, numeroLinha);
+                        },1000)
+                        
+              
 
                     }
 

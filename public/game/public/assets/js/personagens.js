@@ -16,6 +16,7 @@ export class Personagens {
         this.id = `pN${Personagens.contadorId++}ID`;
         this.nomePersonagem = this.imagePath.split('/').pop().split('.')[0];
         this.mastigando = false;
+        this.vivo = true;
 
 
     }
@@ -30,8 +31,8 @@ export class Personagens {
 
     reduzirVida(dano) {
         this.vida -= dano;
-        console.log(this.vida)
-        console.log(this.nomePersonagem)
+      //  console.log(this.vida)
+      //  console.log(this.nomePersonagem)
 
         //wallnut
         if (this.nomePersonagem == 'wallnut') {
@@ -111,15 +112,14 @@ export class Personagens {
 
 
         if (this.vida <= 0) {
-            console.log(this.vida)
+
+           if(this.vivo){
+            this.vivo = false;
             return true;
+           }
         }
     }
 
-    morrer() {
-        // Lógica para quando o personagem morrer
-        console.log(`${this.constructor.name} morreu.`);
-    }
 
     clone() {
         // Cria uma nova instância da classe Personagens com os mesmos valores

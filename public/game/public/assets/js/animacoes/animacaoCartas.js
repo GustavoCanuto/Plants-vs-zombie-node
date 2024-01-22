@@ -150,7 +150,7 @@ export class AnimacaoCartas {
 
         AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
 
-       // console.log(AnimacaoCartas.zombieNaLinha[linhaAtiva]);
+        console.log(linhaAtiva + " " + AnimacaoCartas.zombieNaLinha[linhaAtiva]);
 
         if (!tabuleiro) {
             console.error('Elemento .board não encontrado.');
@@ -167,7 +167,7 @@ export class AnimacaoCartas {
             return;
         }
 
-        criarAnimacaoZombie(cellElement,gifElement, elemento, tabuleiro,frames,personagens[personagemNome])
+        criarAnimacaoZombie(cellElement,gifElement, elemento, tabuleiro,frames,personagens[personagemNome], idNovoPersonagem)
 
         iniciarAnimacaoPontuacao(cellElement, nomeClasse);
 

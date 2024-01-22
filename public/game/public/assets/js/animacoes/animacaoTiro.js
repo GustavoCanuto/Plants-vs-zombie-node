@@ -1,5 +1,6 @@
 import { verificaColisaoTiro,removerZombie } from "./conflitoZombie.js";
 import { AnimacaoCartas } from "./animacaoCartas.js";
+import { pararAnimacaoZombie } from "./animacaoZombie.js";
 
  let listaIntervalTiro = [];
 
@@ -12,6 +13,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
     let tabuleiro = document.querySelector('.board')
     let classeLinha = cellElement.closest(".row").className.split(' ');
     let linhaAtiva = classeLinha[1];
+    let numeroLinha = linhaAtiva.charAt(linhaAtiva.length - 1);
 
     if (nomeClasse === 'peashooter') {
         caminhoImagem = './assets/img/peashooter_tiro.gif';
@@ -29,8 +31,6 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
         const sequenciaTiro = setInterval(() => {
 
         if(AnimacaoCartas.zombieNaLinha[linhaAtiva] > 0){
-
-
 
             const tiroElementClone = tiroElement.cloneNode();
             const divTiroElementClone = divTiroElement.cloneNode();
@@ -66,7 +66,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
                     
                             const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == zombieElemento.id);
                     
-                            console.log(personagemEncontrado.idNovoPersonagem.id)
+                            //console.log(personagemEncontrado.idNovoPersonagem.id)
                            
                     
                             morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(1)
@@ -74,8 +74,10 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
                            
                     
                             if (morreu) {
-                                removerZombie(zombieElemento);
-                                AnimacaoCartas.zombieNaLinha[linhaAtiva] -= 1;
+                                console.log("zumbi morreu por tiro")
+                                pararAnimacaoZombie(zombieElemento.id)
+                                removerZombie(zombieElemento,  numeroLinha);
+                                //AnimacaoCartas.zombieNaLinha[linhaAtiva] -= 1;
 
                             }
                    
