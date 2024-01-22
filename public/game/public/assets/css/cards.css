@@ -128,8 +128,24 @@
 }
 
 .personagem img{
+    
     width: 100%;
 } 
+
+.tamanhoPrevia-football{
+
+    width: 130% !important;
+}
+
+.tamanhoPrevia-screendoor{
+
+    width: 115% !important;
+}
+
+.tamanhoPrevia-showpea{
+
+    width: 125% !important;
+}
 
 
 .tiro {
@@ -155,7 +171,6 @@
 }
 
 .tamanho-cherrybomb{
-
     width: 125% !important;
 }
 

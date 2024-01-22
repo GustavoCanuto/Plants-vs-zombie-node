@@ -30,7 +30,7 @@
     bottom: 0;
     left: 0;
     border: 1px solid;
-    z-index: -10;
+    z-index: -2;
 }
 
 .previa-personagem img{
@@ -38,6 +38,7 @@
     height: 100%;
     opacity: 0.5;
     filter: brightness(0.8);
+   
 }
 
 /* SeletotNavBar Zombie */
