@@ -45,10 +45,6 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
                     morreuContraAtaque = zombieQueEstaAtacando.idNovoPersonagem.reduzirVida(plantaSendoAtacada.idNovoPersonagem.ataque);
 
-                    if (morreuContraAtaque) {
-                        removerZombie(elemento);  
-                    }
-
                     if(!morreuContraAtaque) iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie);
 
                     if (morreu) {
@@ -60,7 +56,18 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                         setIntervalZombie = iniciarAnimacao(frames, gifElement);
                     }
 
-                  
+                    if (morreuContraAtaque) {
+                        clearInterval(atacando);
+ 
+                        if(plantaSendoAtacada.idNovoPersonagem.nomePersonagem == 'cherrybomb'){
+                          setTimeout(() => { 
+                            removerZombie(elemento); 
+                          },600);
+                        }else{
+                            removerZombie(elemento); 
+                        }
+                        
+                    }
 
                 }, 1000);
 
