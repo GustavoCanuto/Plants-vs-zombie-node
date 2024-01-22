@@ -65,8 +65,6 @@ class Tabuleiro {
                 
                 if(j>0 && j<7) cell.classList.add('plant');
                 
-             
-
                 else if (j>6) cell.classList.add('zombies');
            
 
