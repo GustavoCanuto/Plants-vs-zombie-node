@@ -153,6 +153,8 @@ const buckethead = new Personagens('./assets/img/personagens/zombies/buckethead.
 const flagzombie = new Personagens('./assets/img/personagens/zombies/flagzombie.webp', 30000, 300, 7, 0.35, 2);
 const football = new Personagens('./assets/img/personagens/zombies/football.webp', 10000, 150, 7, 0.6, 2);
 const screendoor = new Personagens('./assets/img/personagens/zombies/screendoor.webp', 5000, 100, 12, 0.15, 1);
+const carrinho = new Personagens('./assets/img/personagens/plants/LawnCleaner.png', 0, 0, 5000, 0, 5000);
+const target = new Personagens('./assets/img/personagens/zombies/Zombie_Target1.gif', 0, 0, 7, 0, 10);
 
 export const personagens = {
     sunflower: sunflower,
@@ -168,5 +170,7 @@ export const personagens = {
     buckethead: buckethead,
     flagzombie: flagzombie,
     football: football,
-    screendoor: screendoor
+    screendoor: screendoor,
+    carrinho: carrinho,
+    target: target
 };
