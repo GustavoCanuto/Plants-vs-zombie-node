@@ -1,4 +1,5 @@
 import { pararAnimacaoTiro } from "./animacaoTiro.js";
+import { AnimacaoCartas } from "./animacaoCartas.js";
 
 export function verificaColisao(elementoA, elementoB) {
     const aEsquerda = elementoA.offsetLeft;
@@ -41,6 +42,27 @@ export function verificaColisaoTiro(elementoA, elementoB) {
 
 }
 
+export function verificaColisaoCarrinho(elementoA, elementoB) {
+    const aEsquerda = elementoA.getBoundingClientRect().left; 
+    const aTopo = elementoA.getBoundingClientRect().top;
+    const aDireita = aEsquerda + elementoA.offsetWidth;
+    const aBaixo = aTopo + elementoA.offsetHeight ;
+
+    const bEsquerda = elementoB.getBoundingClientRect().left;
+    const bTopo = elementoB.getBoundingClientRect().top;
+    const bDireita = bEsquerda + elementoB.offsetWidth;
+    const bBaixo = bTopo + elementoB.offsetHeight -50 ;
+
+
+    return (
+        aEsquerda < bDireita &&
+        aDireita > bEsquerda &&
+        aTopo < bBaixo &&
+        aBaixo > bTopo
+    );
+
+}
+
 // console.log("elemento A:" + " esqueda: " + aEsquerda +  " topo: " + aTopo+  " direta: " +aDireita +  " baixo: " + aBaixo)
 // console.log("elemento B:"  + " esqueda: " + bEsquerda +  " topo: " + bTopo+  " direta: " + bDireita +  " baixo: " + bBaixo)
 
@@ -62,8 +84,11 @@ export function removerPlanta(plantaElemento,idNovoPersonagem,plantaSendoAtacada
  
 }
 
-export function removerZombie(zombieElemento) {
-    console.log('zombie removido');
+export function removerZombie(zombieElemento,numeroLinha) {
+    console.log('zombie removido ' + zombieElemento.classList );
+    console.log("linha"+ numeroLinha)
     zombieElemento.remove();
+    AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`] -= 1;
+    console.log(`linha${numeroLinha} `+  AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`])
  
 }

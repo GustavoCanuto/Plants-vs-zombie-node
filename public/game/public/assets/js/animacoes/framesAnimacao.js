@@ -28,6 +28,7 @@ export function pararAnimacao(idNovoPersonagem) {
     if (intervalObj) {
         clearInterval(intervalObj.intervalId);
         listaInterval = listaInterval.filter(item => item.idNovoPersonagem != idNovoPersonagem);
+    //    console.log(animacaoParada)
     } else {
         console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
     }
