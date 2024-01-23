@@ -112,7 +112,7 @@ function criarCarrinhoETarget() {
                         // },500)
 
                         setTimeout(()=>{
-                            removerZombie(zombieElemento, numeroLinha);
+                            removerZombie(zombieElemento, numeroLinha, zombieElemento.id);
                         },1000)
                         
               
