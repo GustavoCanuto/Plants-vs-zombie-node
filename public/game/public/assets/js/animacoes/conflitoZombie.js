@@ -1,6 +1,7 @@
 import { pararAnimacaoTiro } from "./animacaoTiro.js";
 import { AnimacaoCartas } from "./animacaoCartas.js";
 
+
 export function verificaColisao(elementoA, elementoB) {
     const aEsquerda = elementoA.offsetLeft;
     const aTopo = elementoA.offsetTop;
@@ -67,8 +68,8 @@ export function verificaColisaoCarrinho(elementoA, elementoB) {
 // console.log("elemento B:"  + " esqueda: " + bEsquerda +  " topo: " + bTopo+  " direta: " + bDireita +  " baixo: " + bBaixo)
 
 export function removerPlanta(plantaElemento,idNovoPersonagem,plantaSendoAtacada) {
-    console.log('planta removida');
-    console.log(plantaSendoAtacada.idNovoPersonagem.nomePersonagem )
+    // console.log('planta removida');
+    // console.log(plantaSendoAtacada.idNovoPersonagem.nomePersonagem )
     plantaElemento.closest('.cell').classList.remove('ocupado');
 
    if(plantaSendoAtacada.idNovoPersonagem.nomePersonagem != 'potatomine') {plantaElemento.remove();}
@@ -80,6 +81,7 @@ export function removerPlanta(plantaElemento,idNovoPersonagem,plantaSendoAtacada
 }
 
      pararAnimacaoTiro(idNovoPersonagem);
+     socket2.emit('paraAnimacaoTiro',idNovoPersonagem, sala )
     
  
 }
@@ -88,11 +90,11 @@ export function removerZombie(zombieElemento,numeroLinha) {
     if (zombieElemento.classList.contains('tamanho-cardtombstone')) {
         zombieElemento.closest('.cell').classList.remove('tumba');
     }
-    console.log('zombie removido ' + zombieElemento.classList );
-    console.log("linha"+ numeroLinha)
+    // console.log('zombie removido ' + zombieElemento.classList );
+    // console.log("linha"+ numeroLinha)
     zombieElemento.remove();
     AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`] -= 1;
-    console.log(`linha${numeroLinha} `+  AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`])
+    // console.log(`linha${numeroLinha} `+  AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`])
     
  
 }

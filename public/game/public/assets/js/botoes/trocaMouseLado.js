@@ -24,7 +24,7 @@ function GravarOpcaoGamePad() {
             break;
         }
     }
-    console.log("Lado que usa o gamepad: " + ladoPlayerGamePad);
+    // console.log("Lado que usa o gamepad: " + ladoPlayerGamePad);
     alert("alterado com sucesso")
     voltarMenu();
     toggleConfig();
@@ -50,7 +50,7 @@ function gravarOpcaoMouse() {
             break;
         }
     }
-    console.log("Lado que usa o mouse: " + LadoQueUsaMouse);
+    // console.log("Lado que usa o mouse: " + LadoQueUsaMouse);
     alert("alterado com sucesso")
     chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
     cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
@@ -95,8 +95,8 @@ export function atualizarLadoOnline() {
         $(".carregamento").css("display", "none");
         gamePadBloqueado = false;
         tecladoBloqueado = false;
-        console.log("iniciar Jogo")
-        console.log(ladoJogador)
+        // console.log("iniciar Jogo")
+        // console.log(ladoJogador)
         LadoQueUsaMouse = ladoJogador;
         chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
         cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;

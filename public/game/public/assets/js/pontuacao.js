@@ -116,7 +116,7 @@ function criarCerebro() {
 
 export function cairPontuacao(local, iniciado) {
 
-  console.log("pontuacao local é :" + local);
+  // console.log("pontuacao local é :" + local);
 
   if (local) {
    
@@ -186,7 +186,7 @@ export function verificaColisaoPontos(elementoA, elementoB) {
 }
 
 export function criarPontos(lado) {
-console.log("pontos para o lado "+ lado)
+// console.log("pontos para o lado "+ lado)
   let listaCard;
   if (lado == 0) {
     listaCard = document.querySelectorAll('.navbar-planta .card');

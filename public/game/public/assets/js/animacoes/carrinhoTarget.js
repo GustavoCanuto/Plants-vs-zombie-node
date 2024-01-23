@@ -49,7 +49,7 @@ function criarCarrinhoETarget() {
 
                     const carrinhoAndando = setInterval(() => {
 
-                        console.log("iniciou animacao carrrinho")
+                        // console.log("iniciou animacao carrrinho")
 
                         const tabuleiroRect = tabuleiro.getBoundingClientRect();
                         const cellRect = cellElement.getBoundingClientRect();
@@ -71,14 +71,14 @@ function criarCarrinhoETarget() {
 
                    }, 50);
 
-                    console.log("conflitou com carrinho")
+                    // console.log("conflitou com carrinho")
                     
                 
                     //ao acontecer conflito com o zombie
 
                     const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == zombieElemento.id);
 
-                    console.log(personagemEncontrado.idNovoPersonagem.id)
+                    // console.log(personagemEncontrado.idNovoPersonagem.id)
 
                     if(personagemEncontrado.idNovoPersonagem.nomePersonagem != 'Zombie_Target1'){
                     morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(999)
@@ -87,7 +87,7 @@ function criarCarrinhoETarget() {
 
 
                     if (morreu) {
-                        console.log("morreu com carrinho")
+                        // console.log("morreu com carrinho")
                       
                         pararAnimacaoZombie(personagemEncontrado.idNovoPersonagem.id)
                         pararAnimacao(personagemEncontrado.idNovoPersonagem.id)

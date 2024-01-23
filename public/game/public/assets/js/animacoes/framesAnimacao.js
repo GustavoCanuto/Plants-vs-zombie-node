@@ -30,7 +30,7 @@ export function pararAnimacao(idNovoPersonagem) {
         listaInterval = listaInterval.filter(item => item.idNovoPersonagem != idNovoPersonagem);
     //    console.log(animacaoParada)
     } else {
-        console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
+        // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
     }
 }
 export function carregarFrames(nomeClasse, numberOfFrames) {

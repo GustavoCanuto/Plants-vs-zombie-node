@@ -62,7 +62,7 @@ class ArrastarCards {
 
     dragStart(ev) {
         const dragClass = ev.target.classList[1];
-        console.log(dragClass);
+        // console.log(dragClass);
 
         const personagem = this.classToPersonagem[dragClass];
         if (personagem instanceof Personagens) {

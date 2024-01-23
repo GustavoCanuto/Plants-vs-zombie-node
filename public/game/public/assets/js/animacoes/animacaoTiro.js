@@ -14,6 +14,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
     let classeLinha = cellElement.closest(".row").className.split(' ');
     let linhaAtiva = classeLinha[1];
     let numeroLinha = linhaAtiva.charAt(linhaAtiva.length - 1);
+    let verificaFilho;
 
     if (nomeClasse === 'peashooter') {
         caminhoImagem = './assets/img/peashooter_tiro.gif';
@@ -47,6 +48,16 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
 
 
                 const intervaloTiro = setInterval(() => {
+
+                    
+                    verificaFilho = document.getElementById(idNovoPersonagem)
+                   
+                    if(!verificaFilho){ 
+                        clearInterval(intervaloTiro);
+                        clearInterval(sequenciaTiro);
+                        divTiroElementClone.remove();
+                    }
+
                     let colidiu = false;
                     //verificar conflito aqui
 
@@ -58,7 +69,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
                             let morreu;
                             colidiu = true;
                             
-                            console.log("conflitou")
+                            // console.log("conflitou")
                             clearInterval(intervaloTiro);
                             divTiroElementClone.remove();
 
@@ -74,7 +85,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
                            
                     
                             if (morreu) {
-                                console.log("zumbi morreu por tiro")
+                                // console.log("zumbi morreu por tiro")
                                 pararAnimacaoZombie(zombieElemento.id)
                                 removerZombie(zombieElemento,  numeroLinha);
                                 //AnimacaoCartas.zombieNaLinha[linhaAtiva] -= 1;
@@ -132,6 +143,6 @@ export function pararAnimacaoTiro(idNovoPersonagem) {
         clearInterval(intervalObj.intervalId);
         listaIntervalTiro = listaIntervalTiro.filter(item => item.idNovoPersonagem != idNovoPersonagem);
     } else {
-        console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
+        // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
     }
 }

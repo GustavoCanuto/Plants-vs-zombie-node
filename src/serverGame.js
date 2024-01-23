@@ -139,6 +139,11 @@ export default function gameSocket(socket, salasAtivas){
       
       });
 
+      socket.on('paraAnimacaoTiro', (idNovoPersonagem, sala) => {
+        socket.to(sala).emit('paraAnimacaoTiroClient', idNovoPersonagem)
+      
+      });
+
 
 
       
