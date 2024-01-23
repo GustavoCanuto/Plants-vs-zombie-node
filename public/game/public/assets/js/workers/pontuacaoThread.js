@@ -9,7 +9,7 @@ self.addEventListener('message', function (e) {
     if (e.data.comando === 'cerebroCaindo') {
         setInterval(function () {
             self.postMessage("pontuacaoCerebroCaindoProcessado");
-        }, 16000);
+        }, 25000);
     }
 
 });
