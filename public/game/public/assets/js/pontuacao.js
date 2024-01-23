@@ -2,7 +2,7 @@ import { personagens } from "./personagens.js";
 
 var pontoPlantas = document.getElementById("pontosPlanta");
 var pontoZombies = document.getElementById("pontosZombie");
-export var pontuacaoLado = [50, 50];
+export var pontuacaoLado = [75, 75];
 export var pontosLado = [pontoPlantas, pontoZombies]
 var board = document.querySelector('.board')
 
@@ -194,7 +194,7 @@ export function criarPontos(lado) {
     listaCard = document.querySelectorAll('.navbar-zombie .card');
   }
 
-  pontuacaoLado[lado] += 50;
+  pontuacaoLado[lado] += 25;
   pontosLado[lado].textContent = pontuacaoLado[lado];
 
   listaCard.forEach(cardNome => {

@@ -87,7 +87,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
                             if (morreu) {
                                 // console.log("zumbi morreu por tiro")
                                 pararAnimacaoZombie(zombieElemento.id)
-                                removerZombie(zombieElemento,  numeroLinha);
+                                removerZombie(zombieElemento,  numeroLinha, zombieElemento.id);
                                 //AnimacaoCartas.zombieNaLinha[linhaAtiva] -= 1;
 
                             }

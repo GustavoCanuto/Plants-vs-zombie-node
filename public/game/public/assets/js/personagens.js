@@ -38,7 +38,9 @@ export class Personagens {
 
         //wallnut
         if (this.nomePersonagem == 'wallnut') {
-            let gifElement = document.getElementById(this.id).firstChild;
+            let div =  document.getElementById(this.id);
+            if(div){
+            let gifElement = div.firstChild;
             if (this.vida > 8 && this.vida < 22) {
                 pararAnimacao(this.id)
                 gifElement.src = 'assets/img/danoPersonagens/wallnut/Wallnut_cracked1.gif'
@@ -46,6 +48,7 @@ export class Personagens {
                 pararAnimacao(this.id)
                 gifElement.src = 'assets/img/danoPersonagens/wallnut/Wallnut_cracked2.gif'
             }
+         }
         }
 
         //potatomine

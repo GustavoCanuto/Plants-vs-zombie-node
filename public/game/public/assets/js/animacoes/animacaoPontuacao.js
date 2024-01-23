@@ -158,7 +158,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
 
 
 
-        }, 9500)
+        }, 10500)
 
 
 

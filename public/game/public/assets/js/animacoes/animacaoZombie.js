@@ -29,6 +29,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
         if(!verificaFilho) {
             clearInterval(intervaloMovimentoZumbi);
             clearInterval(setIntervalAtacando);
+            return;
         }
 
         const plantElements = document.querySelectorAll('.personagemPlanta');
@@ -37,6 +38,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
         plantElements.forEach((plantaElemento) => {
 
             if (verificaColisao(elemento, plantaElemento.closest('.cell'))) {
+                colidiu = true;
                 let classeLinha = plantaElemento.closest('.cell').closest(".row").className.split(' ');
                 let linhaAtiva = classeLinha[1];
                 let numeroLinha = linhaAtiva.charAt(linhaAtiva.length - 1);
@@ -52,7 +54,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                 // console.log(plantaSendoAtacada.idNovoPersonagem.id)
 
                 // pararAnimacao(plantaElemento.id)
-                let atacando = setInterval(() => {
+                let atacando = setInterval(() => { 
 
                     setIntervalAtacando = atacando;
 
@@ -102,24 +104,22 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                     }
 
 
-
-                    colidiu = true;
-
                     if (morreuContraAtaque) {
                         clearInterval(atacando);
-                        clearInterval(intervaloMovimentoZumbi);
                         clearInterval(setIntervalAtacando);
+                        clearInterval(intervaloMovimentoZumbi);
+                        
                         colidiu = false;
                         if (plantaSendoAtacada.idNovoPersonagem.nomePersonagem == 'cherrybomb') {
                             setTimeout(() => {
                                 // console.log("zumbi morreu por contraAtaque")
                                 pararAnimacaoZombie(elemento.id)
-                                removerZombie(elemento, numeroLinha);
+                                removerZombie(elemento, numeroLinha, elemento.id);
                             }, 600);
                         } else {
                             // console.log("zumbi morreu por contraAtaque")
                             pararAnimacaoZombie(elemento.id)
-                            removerZombie(elemento, numeroLinha);
+                            removerZombie(elemento, numeroLinha, elemento.id);
                         }
 
                     }
@@ -180,6 +180,7 @@ function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie, idNovoPersona
 
       const zumbiElement = document.getElementById(idNovoPersonagem)
 
+      if(zumbiElement){
         if (zumbiElement.classList.contains('tamanho-conehead')) {
             gifElement.src = './assets/img/frames/conehead/atacando/HeadAttack1.gif';
             gifElement.style.width = '115%';
@@ -196,10 +197,12 @@ function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie, idNovoPersona
         } else if (zumbiElement.classList.contains('tamanho-zombie')) {
             gifElement.src = './assets/img/frames/zombie/atacando/ZombieAttack(1).gif';
         }
-
+    
   //  });
 
     clearInterval(setIntervalZombie);
+      }
+      
 
 }
 
