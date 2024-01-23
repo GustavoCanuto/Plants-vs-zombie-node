@@ -10,7 +10,7 @@
     top: 17%;
     width: 59%;
     height: 77.4%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 
 }
 
@@ -71,3 +71,9 @@
 }
 
 
+#divisor{
+    position: absolute;
+    top: 15.3%;
+    left: 52%;
+    height: 78%;
+}

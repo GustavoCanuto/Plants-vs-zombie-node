@@ -1,8 +1,10 @@
 import { pararAnimacao } from "./animacoes/framesAnimacao.js";
+import { pararAnimacaoTiro } from "./animacoes/animacaoTiro.js";
 
 export class Personagens {
 
     static contadorId = 0;
+    static contadorVitoriaPlanta = 0;
 
     constructor(imagePath, tempoRecarga, valorCard, vida, velocidadeCaminhar, ataque) {
         this.imagePath = imagePath;
@@ -111,7 +113,31 @@ export class Personagens {
         }
 
 
+        
         if (this.vida <= 0) {
+
+            if (this.nomePersonagem == 'Zombie_Target1') {
+
+                // console.log("planta ganhou um tagert");
+                // console.log(Personagens.contadorVitoriaPlanta);
+    
+                Personagens.contadorVitoriaPlanta++;
+            
+                if(Personagens.contadorVitoriaPlanta>=3){
+                    
+                    alert("Plantas Venceu!")
+                    location.reload();
+                    return;
+                }
+            }
+    
+            if (this.nomePersonagem=== 'peashooter') {
+                pararAnimacaoTiro(this.id);
+            } else if (this.nomePersonagem === 'showpea') {
+                pararAnimacaoTiro(this.id);
+            } else if (this.nomePersonagem=== 'repeater') {
+                pararAnimacaoTiro(this.id);
+            }
 
            if(this.vivo){
             this.vivo = false;
@@ -144,8 +170,8 @@ const peashooter = new Personagens('./assets/img/personagens/plants/peashooter.w
 const showpea = new Personagens('./assets/img/personagens/plants/showpea.webp', 20000, 150, 5, 0, 1);
 const repeater = new Personagens('./assets/img/personagens/plants/repeater.webp', 20000, 150, 5, 0, 1);
 const wallnut = new Personagens('./assets/img/personagens/plants/wallnut.webp', 30000, 50, 30, 0, 0);
-const cherrybomb = new Personagens('./assets/img/personagens/plants/cherrybomb.png', 20000, 150, 15, 0, 30); //ataque muda para 0 
-const potatomine = new Personagens('./assets/img/personagens/plants/potatomine.webp', 10000, 25, 0, 0, 30);
+const cherrybomb = new Personagens('./assets/img/personagens/plants/cherrybomb.png', 35000, 150, 15, 0, 30); //ataque muda para 0 
+const potatomine = new Personagens('./assets/img/personagens/plants/potatomine.webp', 30000, 25, 0, 0, 30);
 const cardtombstone = new Personagens('./assets/img/personagens/zombies/cardtombstone.webp', 7500, 50, 14, 0);
 const zombie = new Personagens('./assets/img/personagens/zombies/zombie.webp', 7000, 25, 5, 0.15, 1);
 const conehead = new Personagens('./assets/img/personagens/zombies/conehead.webp', 10000, 75, 8, 0.25, 3);

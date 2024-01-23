@@ -46,7 +46,9 @@ export class AnimacaoCartas {
         const isPlanta = ['sunflower', 'peashooter', 'showpea', 'repeater', 'wallnut', 'cherrybomb', 'potatomine'].includes(nomeClasse);
 
         if (isPlanta) {
-           
+
+            if (cellElement.classList.contains('plant')) {
+
             const personagemNome = comandosNavBar.cellNavBarAtual[0].getAttribute('data-personagem');
 
             if (personagens[personagemNome].valorCard <= pontuacaoLado[0] && personagens[personagemNome].recarregado) {
@@ -58,10 +60,13 @@ export class AnimacaoCartas {
                 recargaCard(0, personagens[personagemNome], listaCard)
 
             } else {
-                console.log("carta indisponivel")
+                // console.log("carta indisponivel")
             }
+        }
 
         } else {
+
+            if (cellElement.classList.contains('zombies')) {
 
             const personagemNome = comandosNavBar.cellNavBarAtual[1].getAttribute('data-personagem');
 
@@ -75,8 +80,9 @@ export class AnimacaoCartas {
                 recargaCard(1, personagens[personagemNome],listaCard)
 
             } else {
-                console.log("carta indisponivel")
+                // console.log("carta indisponivel")
             }
+        }
 
         }
     }
@@ -93,7 +99,7 @@ export class AnimacaoCartas {
 
         let novoPersonagem = personagens[personagemNome].clone();
         let idNovoPersonagem =  novoPersonagem.id;
-        console.log(novoPersonagem.id)
+        // console.log(novoPersonagem.id)
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
         elemento.id = idNovoPersonagem
@@ -160,7 +166,7 @@ export class AnimacaoCartas {
     
             AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
     
-            console.log(linhaAtiva + " " + AnimacaoCartas.zombieNaLinha[linhaAtiva]);
+            // console.log(linhaAtiva + " " + AnimacaoCartas.zombieNaLinha[linhaAtiva]);
          
             }
 
@@ -186,7 +192,7 @@ export class AnimacaoCartas {
 
         AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
 
-        console.log(linhaAtiva + " " + AnimacaoCartas.zombieNaLinha[linhaAtiva]);
+        // console.log(linhaAtiva + " " + AnimacaoCartas.zombieNaLinha[linhaAtiva]);
 
         if (!tabuleiro) {
             console.error('Elemento .board não encontrado.');

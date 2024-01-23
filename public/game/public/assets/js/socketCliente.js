@@ -4,6 +4,7 @@ import {criarPontos} from "./pontuacao.js";
 import {atualizarLadoOnline, jogarLocal} from "./botoes/trocaMouseLado.js";
 import {moverSeletor} from "./comandos/teclado/teclado.js";
 import {movimentarCursorGamePad, centerImageGamePad} from "./comandos/gamepad/movimentosControle.js";
+import { pararAnimacaoTiro } from "./animacoes/animacaoTiro.js";
 
 socket2.on('fazerAnimacao', (data) => {
   AnimacaoCartas.criarAnimacaoCarta(data.cell, data.img);
@@ -44,6 +45,11 @@ socket2.on('movimentoGamePadClient', (lado, analogMoveX, analogMoveY) => {
 socket2.on('centerImageGamePadClient', (lado,chaveLado) => {
   centerImageGamePad(lado,chaveLado);
 });
+
+socket2.on('paraAnimacaoTiroClient', (idNovoPersonagem) => {
+  pararAnimacaoTiro(idNovoPersonagem);
+});
+
 
 socket2.on('iniciarJogo', () => {
   atualizarLadoOnline();

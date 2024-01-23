@@ -18,9 +18,18 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
     elemento.style.bottom = `${posicaoBottom}%`;
     elemento.style.left = `${posicaoLeft}%`;
 
+    let verificaFilho;
+
     let positionLeft = posicaoLeft;
 
     function moveElement() {
+
+        verificaFilho = document.getElementById(idNovoPersonagem)
+                   
+        if(!verificaFilho) {
+            clearInterval(intervaloMovimentoZumbi);
+            clearInterval(setIntervalAtacando);
+        }
 
         const plantElements = document.querySelectorAll('.personagemPlanta');
         let colidiu = false;
@@ -40,7 +49,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
                 const plantaSendoAtacada = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == plantaElemento.id);
 
-                console.log(plantaSendoAtacada.idNovoPersonagem.id)
+                // console.log(plantaSendoAtacada.idNovoPersonagem.id)
 
                 // pararAnimacao(plantaElemento.id)
                 let atacando = setInterval(() => {
@@ -55,23 +64,25 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                         intervalObj.setIntervalAtacando = setIntervalAtacando;
 
                     } else {
-                        console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
+                        // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
                     }
 
 
                     morreu = plantaSendoAtacada.idNovoPersonagem.reduzirVida(tipoZombie.ataque)
 
                     const zombieQueEstaAtacando = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == elemento.id);
-                    console.log(zombieQueEstaAtacando.idNovoPersonagem.id)
+                    // console.log(zombieQueEstaAtacando.idNovoPersonagem.id)
 
                     morreuContraAtaque = zombieQueEstaAtacando.idNovoPersonagem.reduzirVida(plantaSendoAtacada.idNovoPersonagem.ataque);
 
-                    if (!morreuContraAtaque) iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie);
+                    if (!morreuContraAtaque) iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie, idNovoPersonagem);
 
                     //matou a planta
                     if (morreu) {
 
                         clearInterval(atacando);
+                        clearInterval(setIntervalAtacando);
+                        
                         removerPlanta(plantaElemento, plantaElemento.id, plantaSendoAtacada);
                         // remover da lista personagensJogando
 
@@ -86,7 +97,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                             intervalObj.intervalId = intervaloMovimentoZumbi;
 
                         } else {
-                            console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
+                            // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
                         }
                     }
 
@@ -97,15 +108,16 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                     if (morreuContraAtaque) {
                         clearInterval(atacando);
                         clearInterval(intervaloMovimentoZumbi);
+                        clearInterval(setIntervalAtacando);
                         colidiu = false;
                         if (plantaSendoAtacada.idNovoPersonagem.nomePersonagem == 'cherrybomb') {
                             setTimeout(() => {
-                                console.log("zumbi morreu por contraAtaque")
+                                // console.log("zumbi morreu por contraAtaque")
                                 pararAnimacaoZombie(elemento.id)
                                 removerZombie(elemento, numeroLinha);
                             }, 600);
                         } else {
-                            console.log("zumbi morreu por contraAtaque")
+                            // console.log("zumbi morreu por contraAtaque")
                             pararAnimacaoZombie(elemento.id)
                             removerZombie(elemento, numeroLinha);
                         }
@@ -140,7 +152,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
             } else {
                 clearInterval(intervaloMovimentoZumbi);
                 alert('Zumbi Venceu!!');
-                //  location.reload();
+                  location.reload();
             }
         }
     }
@@ -160,10 +172,14 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
 }
 
-function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie) {
-    const zumbiElements = document.querySelectorAll('.personagemZombie');
+function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie, idNovoPersonagem) {
+  //  const zumbiElements = document.querySelectorAll('.personagemZombie');
 
-    zumbiElements.forEach(zumbiElement => {
+ //   zumbiElements.forEach(zumbiElement => {
+
+
+      const zumbiElement = document.getElementById(idNovoPersonagem)
+
         if (zumbiElement.classList.contains('tamanho-conehead')) {
             gifElement.src = './assets/img/frames/conehead/atacando/HeadAttack1.gif';
             gifElement.style.width = '115%';
@@ -181,7 +197,7 @@ function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie) {
             gifElement.src = './assets/img/frames/zombie/atacando/ZombieAttack(1).gif';
         }
 
-    });
+  //  });
 
     clearInterval(setIntervalZombie);
 
@@ -189,7 +205,7 @@ function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie) {
 
 export function pararAnimacaoZombie(idNovoPersonagem) {
 
-    console.log("para animacao zumbi")
+    // console.log("para animacao zumbi")
 
     const intervalObj = listaIntervalZombie.find(item => item.idNovoPersonagem == idNovoPersonagem);
 
@@ -198,6 +214,6 @@ export function pararAnimacaoZombie(idNovoPersonagem) {
         clearInterval(intervalObj.intervalId);
         listaIntervalZombie = listaIntervalZombie.filter(item => item.idNovoPersonagem != idNovoPersonagem);
     } else {
-        console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
+        // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
     }
 }
