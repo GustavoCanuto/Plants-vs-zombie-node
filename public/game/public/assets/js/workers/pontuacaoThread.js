@@ -3,13 +3,13 @@ self.addEventListener('message', function (e) {
     if (e.data.comando === 'solCaindo') {
         setInterval(function () {
             self.postMessage("pontuacaoSolCaindoProcessado");
-        }, 15000);
+        }, 18000);
     }
 
     if (e.data.comando === 'cerebroCaindo') {
         setInterval(function () {
             self.postMessage("pontuacaoCerebroCaindoProcessado");
-        }, 25000);
+        }, 23000);
     }
 
 });

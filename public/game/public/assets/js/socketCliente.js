@@ -46,9 +46,9 @@ socket2.on('centerImageGamePadClient', (lado,chaveLado) => {
   centerImageGamePad(lado,chaveLado);
 });
 
-socket2.on('paraAnimacaoTiroClient', (idNovoPersonagem) => {
-  pararAnimacaoTiro(idNovoPersonagem);
-});
+// socket2.on('paraAnimacaoTiroClient', (idNovoPersonagem) => {
+//   pararAnimacaoTiro(idNovoPersonagem);
+// });
 
 
 socket2.on('iniciarJogo', () => {
