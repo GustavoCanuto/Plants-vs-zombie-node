@@ -13,8 +13,20 @@ export function recargaCard(lado,personagemNome, listaCard){
     personagemNome.recarregado = false;
 
    let porcentagemRecarregado = 100;
+   celulaAnimacao.style.setProperty('--before-width', `${porcentagemRecarregado}%`);
 
    const workerRecarregando = new Worker('/game/public//assets/js/workers/recarregandoThread.js');
+
+   listaCard.forEach(cardNome => {
+
+    if (personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[lado]) {
+
+        cardNome.classList.remove('semSaldo')
+    } else {
+
+        cardNome.classList.add('semSaldo')
+    }
+});
 
   //  let setIntervalRecarga = setInterval(function () {
     workerRecarregando.postMessage({comando: "startRecarga",
@@ -41,14 +53,5 @@ export function recargaCard(lado,personagemNome, listaCard){
     }, personagemNome.tempoRecarga);
 
 
-    listaCard.forEach(cardNome => {
-
-        if (personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[lado]) {
-
-            cardNome.classList.remove('semSaldo')
-        } else {
-
-            cardNome.classList.add('semSaldo')
-        }
-    });
+   
 }

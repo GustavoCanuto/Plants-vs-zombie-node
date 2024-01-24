@@ -1,5 +1,6 @@
 import { pararAnimacaoTiro } from "./animacaoTiro.js";
 import { AnimacaoCartas } from "./animacaoCartas.js";
+import { pararAnimacao } from "./framesAnimacao.js";
 
 
 export function verificaColisao(elementoA, elementoB) {
@@ -70,6 +71,8 @@ export function verificaColisaoCarrinho(elementoA, elementoB) {
 export function removerPlanta(plantaElemento, idNovoPersonagem, plantaSendoAtacada) {
     // console.log('planta removida');
     // console.log(plantaSendoAtacada.idNovoPersonagem.nomePersonagem )
+    pararAnimacao(plantaElemento.id)
+
     plantaElemento.closest('.cell').classList.remove('ocupado');
 
     if (plantaSendoAtacada.idNovoPersonagem.nomePersonagem != 'potatomine') { plantaElemento.remove(); }
@@ -89,7 +92,9 @@ export function removerPlanta(plantaElemento, idNovoPersonagem, plantaSendoAtaca
 export function removerZombie(zombieElemento, numeroLinha, idZombie) {
 
 
+    pararAnimacao(idZombie)
 
+  //  console.log(`Antes linha${numeroLinha} : `+  AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`])
         if (zombieElemento.classList.contains('tamanho-cardtombstone')) {
             zombieElemento.closest('.cell').classList.remove('tumba');
         }
@@ -97,7 +102,7 @@ export function removerZombie(zombieElemento, numeroLinha, idZombie) {
         // console.log("linha"+ numeroLinha)
         zombieElemento.remove();
         AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`] -= 1;
-        // console.log(`linha${numeroLinha} `+  AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`])
+ //   console.log(`Depois morte linha${numeroLinha} `+  AnimacaoCartas.zombieNaLinha[`linha${numeroLinha}`])
 
     
 

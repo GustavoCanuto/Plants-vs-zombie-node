@@ -27,6 +27,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
         verificaFilho = document.getElementById(idNovoPersonagem)
                    
         if(!verificaFilho) {
+          //  console.log("nao existe zombie")
             clearInterval(intervaloMovimentoZumbi);
             clearInterval(setIntervalAtacando);
             return;
@@ -37,7 +38,9 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
         plantElements.forEach((plantaElemento) => {
 
+
             if (verificaColisao(elemento, plantaElemento.closest('.cell'))) {
+             //   console.log(tipoZombie.nomePersonagem + "  conflitou")
                 colidiu = true;
                 let classeLinha = plantaElemento.closest('.cell').closest(".row").className.split(' ');
                 let linhaAtiva = classeLinha[1];
@@ -48,16 +51,28 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                 //ao acontecer conflito com a planta
                 clearInterval(intervaloMovimentoZumbi);
 
-
                 const plantaSendoAtacada = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == plantaElemento.id);
 
                 // console.log(plantaSendoAtacada.idNovoPersonagem.id)
 
-                // pararAnimacao(plantaElemento.id)
-                let atacando = setInterval(() => { 
+            // dar e recebe dano a cada 1s
+            let atacando = setInterval(() => { 
+
+              //  console.log(tipoZombie.nomePersonagem + " está atacando")
+
+                    let plantaAtacadaId = document.getElementById(plantaElemento.id)
+                   // console.log("o id da planta é "+ plantaAtacadaId.id)
+                    if(!plantaAtacadaId){
+                      //  console.log(tipoZombie.nomePersonagem + " nao pode mais atacar pq alguem ja matou ela")
+                        clearInterval(setIntervalAtacando);
+                        clearInterval(atacando);
+                        intervaloMovimentoZumbi = setInterval(moveElement, 100);
+                        setIntervalZombie = iniciarAnimacao(frames, gifElement, idNovoPersonagem);
+                       return;
+                        
+                    }
 
                     setIntervalAtacando = atacando;
-
 
                     //atualizar a lista
                     const intervalObj = listaIntervalZombie.find(item => item.idNovoPersonagem == idNovoPersonagem);
@@ -68,7 +83,6 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                     } else {
                         // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
                     }
-
 
                     morreu = plantaSendoAtacada.idNovoPersonagem.reduzirVida(tipoZombie.ataque)
 
@@ -82,15 +96,15 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                     //matou a planta
                     if (morreu) {
 
-                        clearInterval(atacando);
+                     //  console.log(tipoZombie.nomePersonagem + " matou a planta que estava atacando")
                         clearInterval(setIntervalAtacando);
+                        clearInterval(atacando);
                         
                         removerPlanta(plantaElemento, plantaElemento.id, plantaSendoAtacada);
                         // remover da lista personagensJogando
 
                         intervaloMovimentoZumbi = setInterval(moveElement, 100);
                         setIntervalZombie = iniciarAnimacao(frames, gifElement, idNovoPersonagem);
-
 
                         //atualizar a lista
                         const intervalObj = listaIntervalZombie.find(item => item.idNovoPersonagem == idNovoPersonagem);
@@ -103,13 +117,12 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                         }
                     }
 
-
+                    //zombi morreu contra ataque
                     if (morreuContraAtaque) {
-                        clearInterval(atacando);
-                        clearInterval(setIntervalAtacando);
-                        clearInterval(intervaloMovimentoZumbi);
+                      
                         
-                        colidiu = false;
+                   //    console.log(tipoZombie.nomePersonagem + " morreu de contraataque")
+                       // colidiu = false;
                         if (plantaSendoAtacada.idNovoPersonagem.nomePersonagem == 'cherrybomb') {
                             setTimeout(() => {
                                 // console.log("zumbi morreu por contraAtaque")
@@ -122,6 +135,12 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                             removerZombie(elemento, numeroLinha, elemento.id);
                         }
 
+                        clearInterval(intervaloMovimentoZumbi);
+                        clearInterval(setIntervalAtacando);
+                        clearInterval(atacando);
+                        
+                        
+
                     }
 
                 }, 1000);
@@ -133,7 +152,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                 const continuarMovendo = setInterval(() => {
                     if (tempoRestante > 0) {
                         elemento.style.left = `${positionLeft}%`;
-                        positionLeft -= 0.8; // andar um pouco após a colisão
+                        positionLeft -= 0.9; // andar um pouco após a colisão
                         tempoRestante -= 1;
                     } else {
                         clearInterval(continuarMovendo);
@@ -146,6 +165,8 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
         });
 
         if (!colidiu) {
+          //  console.log(tipoZombie.nomePersonagem + "continuou andando após o ataque")
+            clearInterval(setIntervalAtacando);
             if (positionLeft > -10) {
                 elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
                 positionLeft -= tipoZombie.velocidadeCaminhar;

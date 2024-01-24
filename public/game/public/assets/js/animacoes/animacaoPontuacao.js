@@ -113,7 +113,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
 
                                 //socket 
                                 criarPontos(lado);
-                                socket2.emit('atualizaPontuacao', lado, sala)
+                               // socket2.emit('atualizaPontuacao', lado, sala)
 
                                 clearInterval(verificaConflito)
                             }, 50);
@@ -158,7 +158,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
 
 
 
-        }, 10500)
+        }, 15500)
 
 
 
