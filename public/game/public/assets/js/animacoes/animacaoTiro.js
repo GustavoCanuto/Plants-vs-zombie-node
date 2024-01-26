@@ -1,10 +1,15 @@
-import { verificaColisaoTiro,removerZombie } from "./conflitoZombie.js";
+import { verificaColisaoTiro, removerZombie } from "./conflitoZombie.js";
 import { AnimacaoCartas } from "./animacaoCartas.js";
 import { pararAnimacaoZombie } from "./animacaoZombie.js";
 
- let listaIntervalTiro = [];
+let listaIntervalTiro = [];
 
 export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
+
+    const workerSequenciaTiro = new Worker('/game/public/assets/js/workers/sequenciaTiroThread.js');
+    let workerIntervaloTiro;
+   
+
 
     const divTiroElement = document.createElement('div');
     const tiroElement = document.createElement('img');
@@ -23,114 +28,141 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
     } else if (nomeClasse === 'repeater') {
         caminhoImagem = './assets/img/peashooter_tiro.gif';
         numeroTiros = 2;
-    }else{
+    } else {
         return;
     }
 
     for (let i = 0; i < numeroTiros; i++) {
 
-        const sequenciaTiro = setInterval(() => {
+        workerSequenciaTiro.postMessage({ comando: "startSequenciaTiro" })
 
-        if(AnimacaoCartas.zombieNaLinha[linhaAtiva] > 0){
+        workerSequenciaTiro.addEventListener('message', function (e) {
 
-            const tiroElementClone = tiroElement.cloneNode();
-            const divTiroElementClone = divTiroElement.cloneNode();
-            let posicaoLeft = 20; // Defina a posição inicial do tiro (ajuste conforme necessário)
+            if (e.data.comando === 'sequenciaTiroProcessado') {
 
-            // verificar se há zombie na linha 
+                //const sequenciaTiro = setInterval(() => {
 
-            setTimeout(() => {
+                if (AnimacaoCartas.zombieNaLinha[linhaAtiva] > 0) {
 
-                tiroElementClone.src = caminhoImagem;
-                divTiroElementClone.classList.add('tiro');
-                divTiroElementClone.appendChild(tiroElementClone);
-                cellElement.appendChild(divTiroElementClone);
+                    const tiroElementClone = tiroElement.cloneNode();
+                    const divTiroElementClone = divTiroElement.cloneNode();
+                    let posicaoLeft = 20; // Defina a posição inicial do tiro (ajuste conforme necessário)
+
+                    // verificar se há zombie na linha 
+
+                    setTimeout(() => {
+
+                       
+
+                        tiroElementClone.src = caminhoImagem;
+                        divTiroElementClone.classList.add('tiro');
+                        divTiroElementClone.appendChild(tiroElementClone);
+                        cellElement.appendChild(divTiroElementClone);
 
 
-                const intervaloTiro = setInterval(() => {
+                        //  const intervaloTiro = setInterval(() => {
+                        const newWorkerIntervaloTiro  = new Worker('/game/public/assets/js/workers/intervaloTiroThread.js');
+                        workerIntervaloTiro = newWorkerIntervaloTiro;
 
-                    
-                    verificaFilho = document.getElementById(idNovoPersonagem)
-                   
-                    if(!verificaFilho){ 
-                        clearInterval(intervaloTiro);
-                        clearInterval(sequenciaTiro);
-                        divTiroElementClone.remove();
-                    }
+                        newWorkerIntervaloTiro.postMessage({ comando: "startIntervaloTiro" })
 
-                    let colidiu = false;
-                    //verificar conflito aqui
+                        newWorkerIntervaloTiro.addEventListener('message', function (e) {
 
-                    const zombieElements = document.querySelectorAll('.personagemZombie');
-                    
-                    zombieElements.forEach((zombieElemento) => {
-                    
-                        if (verificaColisaoTiro(zombieElemento,divTiroElementClone)) {
-                            let morreu;
-                            colidiu = true;
-                            
-                            // console.log("conflitou")
-                            clearInterval(intervaloTiro);
-                            divTiroElementClone.remove();
+                            if (e.data.comando === 'intervaloTiroProcessado') {
 
-                            //ao acontecer conflito com o zombie
-                    
-                            const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == zombieElemento.id);
-                    
-                            //console.log(personagemEncontrado.idNovoPersonagem.id)
-                           
-                    
-                            morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(1)
+                            verificaFilho = document.getElementById(idNovoPersonagem)
 
-                           
-                    
-                            if (morreu) {
-                                // console.log("zumbi morreu por tiro")
-                                pararAnimacaoZombie(zombieElemento.id)
-                                removerZombie(zombieElemento,  numeroLinha, zombieElemento.id);
-                                //AnimacaoCartas.zombieNaLinha[linhaAtiva] -= 1;
+                            if (!verificaFilho) {
+                                divTiroElementClone.remove();
+                                //clearInterval(intervaloTiro);
+                                newWorkerIntervaloTiro.postMessage({ comando: "stopIntervaloTiro" });
+                                newWorkerIntervaloTiro.terminate();
+                                // clearInterval(sequenciaTiro);
+                                workerSequenciaTiro.postMessage({ comando: "stopSequenciaTiro" });
+                                workerSequenciaTiro.terminate();
 
                             }
-                   
-                        }
-                    });
 
-                
-                    if(!colidiu){
-                    //comportamento  do tiro
-                    const tabuleiroRect = tabuleiro.getBoundingClientRect();
-                    const cellRect = cellElement.getBoundingClientRect();
-                    const tabuleiroWidth = tabuleiroRect.width;
-                    const tiroWidth = (divTiroElementClone.offsetWidth / tabuleiroWidth) * 100; // Convertendo para porcentagem
+                            let colidiu = false;
+                            //verificar conflito aqui
 
-                    const posicaoFinal = ((tabuleiroRect.left + tabuleiroWidth - cellRect.left - tiroWidth) / tabuleiroWidth) * 1000; // Convertendo para porcentagem
+                            const zombieElements = document.querySelectorAll('.personagemZombie');
 
-                    if (posicaoLeft < posicaoFinal) {
-                        posicaoLeft += 7; // Ajuste para um movimento mais suave, você pode ajustar conforme necessário
-                        divTiroElementClone.style.left = `${posicaoLeft}%`;
-                    } else {
-                        clearInterval(intervaloTiro);
-                        divTiroElementClone.remove();
-                    }
+                            zombieElements.forEach((zombieElemento) => {
+
+                                if (verificaColisaoTiro(zombieElemento, divTiroElementClone)) {
+
+                                    let morreu;
+                                    colidiu = true;
+                                    // console.log("conflitou")
+                                  
+                                    divTiroElementClone.remove();
+                                    
+                                    //ao acontecer conflito com o zombie
+
+                                    const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == zombieElemento.id);
+
+                                    //console.log(personagemEncontrado.idNovoPersonagem.id)
+
+                                    morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(1)
+
+                                    if (morreu) {
+                                        // console.log("zumbi morreu por tiro")
+                                        pararAnimacaoZombie(zombieElemento.id)
+                                        removerZombie(zombieElemento, numeroLinha, zombieElemento.id);
+                                        //AnimacaoCartas.zombieNaLinha[linhaAtiva] -= 1;
+
+                                    }
+                                      //clearInterval(intervaloTiro);
+                                    newWorkerIntervaloTiro.postMessage({ comando: "stopIntervaloTiro" });
+                                    newWorkerIntervaloTiro.terminate();
+
+                                }
+
+                            });
+
+
+                            if (!colidiu) {
+                                //comportamento  do tiro
+                                const tabuleiroRect = tabuleiro.getBoundingClientRect();
+                                const cellRect = cellElement.getBoundingClientRect();
+                                const tabuleiroWidth = tabuleiroRect.width;
+                                const tiroWidth = (divTiroElementClone.offsetWidth / tabuleiroWidth) * 100; // Convertendo para porcentagem
+
+                                const posicaoFinal = ((tabuleiroRect.left + tabuleiroWidth - cellRect.left - tiroWidth) / tabuleiroWidth) * 1000; // Convertendo para porcentagem
+
+                                if (posicaoLeft < posicaoFinal) {
+                                    posicaoLeft += 7; // Ajuste para um movimento mais suave, você pode ajustar conforme necessário
+                                    divTiroElementClone.style.left = `${posicaoLeft}%`;
+                                } else {
+                                  //  clearInterval(intervaloTiro);
+                                    divTiroElementClone.remove();
+                                    newWorkerIntervaloTiro.postMessage({comando: "stopIntervaloTiro"});
+                                    newWorkerIntervaloTiro.terminate();
+                                }
+
+                            }
+
+                       // }, 50);
+                        }});
+
+
+
+                        divTiroElementClone.style.width = '46%';
+                        divTiroElementClone.style.height = '23%';
+
+
+                    }, i * 500);
+
 
                 }
 
-                }, 50);
+            }
+        });
+        //}, 3500);
 
-             
-            
-                divTiroElementClone.style.width = '46%';
-                divTiroElementClone.style.height = '23%';
-            
+        listaIntervalTiro.push({ idNovoPersonagem: idNovoPersonagem, intervalId: workerSequenciaTiro, intervalIntervaloId: workerIntervaloTiro });
 
-            }, i * 500);
-
-
-        }
-        }, 3500);
-
-        listaIntervalTiro.push({ idNovoPersonagem: idNovoPersonagem, intervalId: sequenciaTiro });
-    
     }
 }
 
@@ -140,9 +172,19 @@ export function pararAnimacaoTiro(idNovoPersonagem) {
     const intervalObj = listaIntervalTiro.find(item => item.idNovoPersonagem == idNovoPersonagem);
 
     if (intervalObj) {
-        clearInterval(intervalObj.intervalId);
+        const workerSequencia = intervalObj.intervalId;
+        workerSequencia.postMessage({ comando: "stopSequenciaTiro" });
+        workerSequencia.terminate();
+
+        const workerIntervalo = intervalObj.intervalIntervaloId;
+
+        if(workerIntervalo){
+        workerIntervalo.postMessage({ comando: "stopIntervaloTiro" });
+        workerIntervalo.terminate();
+        }
+
         listaIntervalTiro = listaIntervalTiro.filter(item => item.idNovoPersonagem != idNovoPersonagem);
     } else {
-        // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
+        console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
     }
 }
