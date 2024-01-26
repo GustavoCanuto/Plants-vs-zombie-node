@@ -12,7 +12,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
 
 
     const divTiroElement = document.createElement('div');
-    const tiroElement = document.createElement('img');
+   // const tiroElement = document.createElement('img');
     let caminhoImagem;
     let numeroTiros = 1;
     let tabuleiro = document.querySelector('.board')
@@ -44,9 +44,9 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
 
                 if (AnimacaoCartas.zombieNaLinha[linhaAtiva] > 0) {
 
-                    const tiroElementClone = tiroElement.cloneNode();
+                  //  const tiroElementClone = tiroElement.cloneNode();
                     const divTiroElementClone = divTiroElement.cloneNode();
-                    let posicaoLeft = 20; // Defina a posição inicial do tiro (ajuste conforme necessário)
+                    let posicaoLeft = 50; // Defina a posição inicial do tiro (ajuste conforme necessário)
 
                     // verificar se há zombie na linha 
 
@@ -54,9 +54,12 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
 
                        
 
-                        tiroElementClone.src = caminhoImagem;
-                        divTiroElementClone.classList.add('tiro');
-                        divTiroElementClone.appendChild(tiroElementClone);
+                      //  tiroElementClone.src = caminhoImagem;
+                        divTiroElementClone.classList.add('tiro'); // aqui adicionar  um top position
+                        divTiroElementClone.style.backgroundImage = `url("${caminhoImagem}")`;
+                        divTiroElementClone.style.backgroundSize = 'cover'; // You can als
+                      //  divTiroElementClone.appendChild(tiroElementClone);
+                      divTiroElementClone.style.left = `${posicaoLeft}%`;
                         cellElement.appendChild(divTiroElementClone);
 
 
@@ -132,8 +135,10 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
                                 const posicaoFinal = ((tabuleiroRect.left + tabuleiroWidth - cellRect.left - tiroWidth) / tabuleiroWidth) * 1000; // Convertendo para porcentagem
 
                                 if (posicaoLeft < posicaoFinal) {
-                                    posicaoLeft += 7; // Ajuste para um movimento mais suave, você pode ajustar conforme necessário
-                                    divTiroElementClone.style.left = `${posicaoLeft}%`;
+                                     // Ajuste para um movimento mais suave, você pode ajustar conforme necessário
+                                     posicaoLeft += 7;
+                                     divTiroElementClone.style.left = `${posicaoLeft}%`;
+                                    
                                 } else {
                                   //  clearInterval(intervaloTiro);
                                     divTiroElementClone.remove();
@@ -173,8 +178,10 @@ export function pararAnimacaoTiro(idNovoPersonagem) {
 
     if (intervalObj) {
         const workerSequencia = intervalObj.intervalId;
+        if(workerSequencia){
         workerSequencia.postMessage({ comando: "stopSequenciaTiro" });
         workerSequencia.terminate();
+         }
 
         const workerIntervalo = intervalObj.intervalIntervaloId;
 

@@ -11,8 +11,8 @@ export function verificaColisao(elementoA, elementoB) {
 
     const bEsquerda = elementoB.offsetLeft;
     const bTopo = elementoB.offsetTop;
-    const bDireita = bEsquerda + elementoB.offsetWidth;
-    const bBaixo = bTopo + elementoB.offsetHeight - 50;
+    const bDireita = bEsquerda + elementoB.offsetWidth * 0.6;
+    const bBaixo = bTopo + elementoB.offsetHeight * 0.5;
 
     return (
         aEsquerda < bDireita &&
@@ -46,14 +46,14 @@ export function verificaColisaoTiro(elementoA, elementoB) {
 
 export function verificaColisaoCarrinho(elementoA, elementoB) {
     const aEsquerda = elementoA.getBoundingClientRect().left;
-    const aTopo = elementoA.getBoundingClientRect().top;
+    const aTopo = elementoA.getBoundingClientRect().top  + (elementoA.offsetHeight - (celulaAtualZombie.offsetHeight));
     const aDireita = aEsquerda + elementoA.offsetWidth;
-    const aBaixo = aTopo + elementoA.offsetHeight;
+    const aBaixo = aTopo + celulaAtualZombie.offsetHeight;
 
     const bEsquerda = elementoB.getBoundingClientRect().left;
-    const bTopo = elementoB.getBoundingClientRect().top;
+    const bTopo = elementoB.getBoundingClientRect().top ;
     const bDireita = bEsquerda + elementoB.offsetWidth;
-    const bBaixo = bTopo + elementoB.offsetHeight - 50;
+    const bBaixo = bTopo  + elementoB.offsetHeight*0.5;
 
 
     return (
