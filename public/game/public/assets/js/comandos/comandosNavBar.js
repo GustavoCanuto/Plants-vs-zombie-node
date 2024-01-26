@@ -61,14 +61,6 @@ export function dropPersonagem(cellID, imgPreviaPersonagem){
 
         AnimacaoCartas.criarAnimacaoCarta(cell , imgPreviaPersonagem);
 
-        //const elemento = document.createElement('div');
-       // elemento.classList.add("personagem");
-       // var imgPersonagem = document.createElement('img');
-        //imgPersonagem.src = imgPreviaPersonagem.src;
-        // elemento.appendChild(imgPersonagem);
-        // cell.appendChild(elemento);
-        // elemento.closest('.cell').classList.add("ocupado");
-
     }
 }
 

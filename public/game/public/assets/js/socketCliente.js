@@ -4,7 +4,7 @@ import {criarPontos} from "./pontuacao.js";
 import {atualizarLadoOnline, jogarLocal} from "./botoes/trocaMouseLado.js";
 import {moverSeletor} from "./comandos/teclado/teclado.js";
 import {movimentarCursorGamePad, centerImageGamePad} from "./comandos/gamepad/movimentosControle.js";
-import { pararAnimacaoTiro } from "./animacoes/animacaoTiro.js";
+
 
 socket2.on('fazerAnimacao', (data) => {
   AnimacaoCartas.criarAnimacaoCarta(data.cell, data.img);
@@ -31,7 +31,8 @@ socket2.on('wheelNavBarClient', (data) => {
 });
 
 socket2.on('dropPersonagemClient', (data) => {
-  dropPersonagem(data.cellID, data.imgPreviaPersonagem)
+  AnimacaoCartas.dropPersonagemEmit(data.cellID, data.nomeClasse,data.personagemNome, data.lado)
+
 });
 
 socket2.on('movimentoTecladoClient', (targetCell,lado,chaveLado) => {
