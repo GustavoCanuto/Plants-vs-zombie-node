@@ -155,7 +155,7 @@
     top: 28%;
     z-index: 500;
    
-     border: 1px solid red; 
+     /* border: 1px solid red;  */
 }
 
 
@@ -194,7 +194,7 @@
     transform: translateY(-50%);
 
     z-index: 800;
-     border: 1px solid rgb(25, 3, 214); 
+     /* border: 1px solid rgb(25, 3, 214);  */
 
 }
 
@@ -213,7 +213,7 @@
 
 .personagem {
     position: absolute;
-     border: 1px solid; 
+     /* border: 1px solid;  */
     bottom: 0;
     left: 0;
     z-index: -2;

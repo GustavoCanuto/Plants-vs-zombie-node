@@ -2,7 +2,7 @@ import { personagens } from "./personagens.js";
 
 var pontoPlantas = document.getElementById("pontosPlanta");
 var pontoZombies = document.getElementById("pontosZombie");
-export var pontuacaoLado = [75000, 75000];
+export var pontuacaoLado = [75, 75];
 export var pontosLado = [pontoPlantas, pontoZombies]
 var board = document.querySelector('.board')
 
