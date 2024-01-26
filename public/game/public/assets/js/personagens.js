@@ -87,6 +87,8 @@ export class Personagens {
       
         if(!this.mastigando){
 
+          
+
             let intervalMastigando;
 
             let divImage = document.getElementById(this.id);

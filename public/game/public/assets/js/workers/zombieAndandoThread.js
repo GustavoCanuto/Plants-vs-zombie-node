@@ -3,9 +3,9 @@ let zombieAndando;
 self.addEventListener('message', function (e) {
 
     if (e.data.comando === 'startZombieAndando') {
-        console.log("thread zombie Andando começou")
+        //console.log("thread zombie Andando começou")
 
-        zombieAndando = setInterval(() => {
+        zombieAtacando = setInterval(() => {
 
             self.postMessage({ comando: "zombieAndandoProcessado"});
             
@@ -14,6 +14,7 @@ self.addEventListener('message', function (e) {
 
     if (e.data.comando === 'stopZombieAndando') {
        // console.log("thread sequencia tiro parou")
-        clearInterval(zombieAndando);
+        clearInterval(zombieAtacando);
     }
 });
+ 
