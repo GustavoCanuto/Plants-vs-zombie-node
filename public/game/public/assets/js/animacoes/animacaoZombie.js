@@ -1,5 +1,5 @@
 import { verificaColisao, removerPlanta, removerZombie } from "./conflitoZombie.js";
-import { iniciarAnimacao } from "./framesAnimacao.js";
+import { iniciarAnimacao, pararAnimacao } from "./framesAnimacao.js";
 import { AnimacaoCartas } from "./animacaoCartas.js";
 
 let listaIntervalZombie = [];
@@ -7,7 +7,7 @@ let listaIntervalZombie = [];
 export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro, frames, tipoZombie, idNovoPersonagem) {
 
     let setIntervalAtacando;
-    let setIntervalZombie;
+
 
     const posicaoLeft = (cellElement.offsetLeft / tabuleiro.offsetWidth) * 100;
 
@@ -31,7 +31,9 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
             //  clearInterval(intervaloMovimentoZumbi);
             intervaloMovimentoZumbi.postMessage({ comando: "stopZombieAndando" });
             intervaloMovimentoZumbi.terminate();
-            clearInterval(setIntervalAtacando);
+            // clearInterval(setIntervalAtacando);
+            setIntervalAtacando.postMessage({ comando: "stopZombieAtacando" });
+            setIntervalAtacando.terminate();
             return;
         }
 
@@ -52,140 +54,197 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                 let morreuContraAtaque;
                 //ao acontecer conflito com a planta
                 // clearInterval(intervaloMovimentoZumbi);
+
                 intervaloMovimentoZumbi.postMessage({ comando: "stopZombieAndando" });
                 intervaloMovimentoZumbi.terminate();
 
                 const plantaSendoAtacada = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == plantaElemento.id);
 
+
                 // console.log(plantaSendoAtacada.idNovoPersonagem.id)
 
                 // dar e recebe dano a cada 1s
-                let atacando = setInterval(() => {
+                //   let atacando = setInterval(() => {
+                const workerZombieAtacando = new Worker('/game/public/assets/js/workers/zombieAtacandoThread.js');
+                workerZombieAtacando.postMessage({ comando: "startZombieAtacando" })
+                setIntervalAtacando = workerZombieAtacando;
+                setIntervalAtacando.addEventListener('message', function (e) {
+                    if (e.data.comando === 'zombieAtacandoProcessado') {
 
-                    //  console.log(tipoZombie.nomePersonagem + " está atacando")
+                        //  console.log(tipoZombie.nomePersonagem + " está atacando")
 
-                    let plantaAtacadaId = document.getElementById(plantaElemento.id)
-                    // console.log("o id da planta é "+ plantaAtacadaId.id)
-                    if (!plantaAtacadaId) {
-                        //  console.log(tipoZombie.nomePersonagem + " nao pode mais atacar pq alguem ja matou ela")
-                        clearInterval(setIntervalAtacando);
-                        clearInterval(atacando);
-                        //  intervaloMovimentoZumbi = setInterval(moveElement, 100);
-                        const workerZombieAndando = new Worker('/game/public/assets/js/workers/zombieAndandoThread.js');
-                        workerZombieAndando.postMessage({ comando: "startZombieAndando" })
-                        intervaloMovimentoZumbi = workerZombieAndando;
-                        intervaloMovimentoZumbi.addEventListener('message', function (e) {
-                            if (e.data.comando === 'zombieAndandoProcessado') {
-                                moveElement();
-                            }
-                        });
+                        let plantaAtacadaId = document.getElementById(plantaElemento.id)
+                        // console.log("o id da planta é "+ plantaAtacadaId.id)
+                        if (!plantaAtacadaId) {
+                            //  console.log(tipoZombie.nomePersonagem + " nao pode mais atacar pq alguem ja matou ela")
+                            // clearInterval(setIntervalAtacando);
+                            //clearInterval(atacando);
 
-                        setIntervalZombie = iniciarAnimacao(frames, gifElement, idNovoPersonagem);
-                        return;
+                            //  intervaloMovimentoZumbi = setInterval(moveElement, 100);
+                            const workerZombieAndando = new Worker('/game/public/assets/js/workers/zombieAndandoThread.js');
+                            workerZombieAndando.postMessage({ comando: "startZombieAndando" })
+                            intervaloMovimentoZumbi = workerZombieAndando;
 
-                    }
 
-                    setIntervalAtacando = atacando;
+                            intervaloMovimentoZumbi.addEventListener('message', function (e) {
+                                if (e.data.comando === 'zombieAndandoProcessado') {
+                                    moveElement();
+                                }
+                            });
 
-                    //atualizar a lista
-                    const intervalObj = listaIntervalZombie.find(item => item.idNovoPersonagem == idNovoPersonagem);
+                            iniciarAnimacao(frames, gifElement, idNovoPersonagem);
 
-                    if (intervalObj) {
-                        intervalObj.setIntervalAtacando = setIntervalAtacando;
+                            setIntervalAtacando.postMessage({ comando: "stopZombieAtacando" });
+                            setIntervalAtacando.terminate();
+                            return;
 
-                    } else {
-                        // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
-                    }
+                        }
 
-                    morreu = plantaSendoAtacada.idNovoPersonagem.reduzirVida(tipoZombie.ataque)
-
-                    const zombieQueEstaAtacando = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == elemento.id);
-                    // console.log(zombieQueEstaAtacando.idNovoPersonagem.id)
-
-                    morreuContraAtaque = zombieQueEstaAtacando.idNovoPersonagem.reduzirVida(plantaSendoAtacada.idNovoPersonagem.ataque);
-
-                    if (!morreuContraAtaque) iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie, idNovoPersonagem);
-
-                    //matou a planta
-                    if (morreu) {
-
-                        //  console.log(tipoZombie.nomePersonagem + " matou a planta que estava atacando")
-                        clearInterval(setIntervalAtacando);
-                        clearInterval(atacando);
-
-                        removerPlanta(plantaElemento, plantaElemento.id, plantaSendoAtacada);
-                        // remover da lista personagensJogando
-
-                        //  intervaloMovimentoZumbi = setInterval(moveElement, 100);
-
-                        const workerZombieAndando = new Worker('/game/public/assets/js/workers/zombieAndandoThread.js');
-                        workerZombieAndando.postMessage({ comando: "startZombieAndando" })
-                        intervaloMovimentoZumbi = workerZombieAndando;
-
-                        intervaloMovimentoZumbi.addEventListener('message', function (e) {
-
-                            if (e.data.comando === 'zombieAndandoProcessado') {
-
-                                moveElement();
-
-                            }
-                        });
-
-                        setIntervalZombie = iniciarAnimacao(frames, gifElement, idNovoPersonagem);
+                        // setIntervalAtacando = atacando;
 
                         //atualizar a lista
                         const intervalObj = listaIntervalZombie.find(item => item.idNovoPersonagem == idNovoPersonagem);
 
                         if (intervalObj) {
-                            intervalObj.intervalId = intervaloMovimentoZumbi;
+                            intervalObj.setIntervalAtacando = setIntervalAtacando;
 
                         } else {
                             // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
                         }
-                    }
 
-                    //zombi morreu contra ataque
-                    if (morreuContraAtaque) {
+                        const zombieQueEstaAtacando = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == elemento.id);
+                        // console.log(zombieQueEstaAtacando.idNovoPersonagem.id)
 
+                        morreuContraAtaque = zombieQueEstaAtacando.idNovoPersonagem.reduzirVida(plantaSendoAtacada.idNovoPersonagem.ataque);
+                        //zombi morreu contra ataque
+                        if (morreuContraAtaque) {
 
-                        //    console.log(tipoZombie.nomePersonagem + " morreu de contraataque")
-                        // colidiu = false;
-                        if (plantaSendoAtacada.idNovoPersonagem.nomePersonagem == 'cherrybomb') {
-                            setTimeout(() => {
+                            pararAnimacao(idNovoPersonagem);
+                            //    console.log(tipoZombie.nomePersonagem + " morreu de contraataque")
+                            // colidiu = false;
+                            if (plantaSendoAtacada.idNovoPersonagem.nomePersonagem == 'cherrybomb') {
+                                setTimeout(() => {
+                                    // console.log("zumbi morreu por contraAtaque")
+                                    pararAnimacaoZombie(elemento.id)
+                                    removerZombie(elemento, numeroLinha, elemento.id);
+                                }, 600);
+                            } else {
                                 // console.log("zumbi morreu por contraAtaque")
                                 pararAnimacaoZombie(elemento.id)
                                 removerZombie(elemento, numeroLinha, elemento.id);
-                            }, 600);
-                        } else {
-                            // console.log("zumbi morreu por contraAtaque")
-                            pararAnimacaoZombie(elemento.id)
-                            removerZombie(elemento, numeroLinha, elemento.id);
+                            }
+
+                            //  clearInterval(intervaloMovimentoZumbi);
+                            intervaloMovimentoZumbi.postMessage({ comando: "stopZombieAndando" });
+                            intervaloMovimentoZumbi.terminate();
+                            // clearInterval(setIntervalAtacando);
+                            // clearInterval(atacando);
+                            setIntervalAtacando.postMessage({ comando: "stopZombieAtacando" });
+                            setIntervalAtacando.terminate();
+
+
+
                         }
 
-                        //  clearInterval(intervaloMovimentoZumbi);
-                        intervaloMovimentoZumbi.postMessage({ comando: "stopZombieAndando" });
-                        intervaloMovimentoZumbi.terminate();
-                        clearInterval(setIntervalAtacando);
-                        clearInterval(atacando);
+                        iniciarAnimacaoComerPlanta(gifElement, idNovoPersonagem);
+
+                        morreu = plantaSendoAtacada.idNovoPersonagem.reduzirVida(tipoZombie.ataque)
+
+                        //matou a planta
+                        if (morreu) {
+
+                            //  console.log(tipoZombie.nomePersonagem + " matou a planta que estava atacando")
+                            // clearInterval(setIntervalAtacando);
+                            // clearInterval(atacando);
+
+                            removerPlanta(plantaElemento, plantaElemento.id, plantaSendoAtacada);
+                            // remover da lista personagensJogando
+
+                            //  intervaloMovimentoZumbi = setInterval(moveElement, 100);
+
+                            const workerZombieAndando = new Worker('/game/public/assets/js/workers/zombieAndandoThread.js');
+                            workerZombieAndando.postMessage({ comando: "startZombieAndando" })
+                            intervaloMovimentoZumbi = workerZombieAndando;
+
+                            intervaloMovimentoZumbi.addEventListener('message', function (e) {
+
+                                if (e.data.comando === 'zombieAndandoProcessado') {
+
+                                    moveElement();
+
+                                }
+                            });
+
+                            iniciarAnimacao(frames, gifElement, idNovoPersonagem);
+
+                            //atualizar a lista
+                            const intervalObj = listaIntervalZombie.find(item => item.idNovoPersonagem == idNovoPersonagem);
+
+                            if (intervalObj) {
+                                intervalObj.intervalId = intervaloMovimentoZumbi;
+
+                            } else {
+                                // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
+                            }
+
+                            setIntervalAtacando.postMessage({ comando: "stopZombieAtacando" });
+                            setIntervalAtacando.terminate();
+                        }
 
 
 
+                        //}, 1000);
                     }
-
-                }, 1000);
-
+                });
 
 
-         
+                // let tempoRestante = 5;
+    
+                // const continuarMovendo = setInterval(() => {
+                //     if (tempoRestante > 0) {
+                //         elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
+                //         positionLeft -= tipoZombie.velocidadeCaminhar;
+                //         tempoRestante--;
+                //     } else {
+                //         clearInterval(continuarMovendo);
+                //     }
+                // }, 100);
+                const workerContinuarMovendo = new Worker('/game/public/assets/js/workers/continuarMovendoZombie.js');
+                workerContinuarMovendo.postMessage({ comando: "startContinuaMovendoZombie" })
+            
+                //let intervaloMovimentoZumbi = setInterval(() => {
+                    workerContinuarMovendo.addEventListener('message', function (e) {
+            
+                    if (e.data.comando === 'continuaMovendoZombieProcessado') {
 
+                        if (e.data.tempoRestante > 0) {
+                            elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
+                            positionLeft -= tipoZombie.velocidadeCaminhar;
+                           
+                        } else {
+                            workerContinuarMovendo.postMessage({ comando: "stopContinuaMovendoZombie" });
+                            workerContinuarMovendo.terminate();
+                        }
+            
+            
+                    }
+                });
+
+           
 
 
             }
         });
 
+     
         if (!colidiu) {
             //  console.log(tipoZombie.nomePersonagem + "continuou andando após o ataque")
-            clearInterval(setIntervalAtacando);
+            // clearInterval(setIntervalAtacando);
+            if (setIntervalAtacando) {
+                setIntervalAtacando.postMessage({ comando: "stopZombieAtacando" });
+                setIntervalAtacando.terminate();
+            }
+
             if (positionLeft > -10) {
                 elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
                 positionLeft -= tipoZombie.velocidadeCaminhar;
@@ -199,7 +258,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
         }
     }
 
-    setIntervalZombie = iniciarAnimacao(frames, gifElement, idNovoPersonagem);
+    iniciarAnimacao(frames, gifElement, idNovoPersonagem);
 
     const workerZombieAndando = new Worker('/game/public/assets/js/workers/zombieAndandoThread.js');
     workerZombieAndando.postMessage({ comando: "startZombieAndando" })
@@ -225,7 +284,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
 }
 
-function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie, idNovoPersonagem) {
+function iniciarAnimacaoComerPlanta(gifElement, idNovoPersonagem) {
     //  const zumbiElements = document.querySelectorAll('.personagemZombie');
 
     //   zumbiElements.forEach(zumbiElement => {
@@ -234,6 +293,8 @@ function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie, idNovoPersona
     const zumbiElement = document.getElementById(idNovoPersonagem)
 
     if (zumbiElement) {
+        pararAnimacao(idNovoPersonagem)
+
         if (zumbiElement.classList.contains('tamanho-conehead')) {
             gifElement.src = './assets/img/frames/conehead/atacando/HeadAttack1.gif';
             gifElement.style.width = '115%';
@@ -253,7 +314,8 @@ function iniciarAnimacaoComerPlanta(gifElement, setIntervalZombie, idNovoPersona
 
         //  });
 
-        clearInterval(setIntervalZombie);
+        // clearInterval(setIntervalZombie);
+
     }
 
 
@@ -266,13 +328,21 @@ export function pararAnimacaoZombie(idNovoPersonagem) {
     const intervalObj = listaIntervalZombie.find(item => item.idNovoPersonagem == idNovoPersonagem);
 
     if (intervalObj) {
-        clearInterval(intervalObj.setIntervalAtacando);
+        //clearInterval(intervalObj.setIntervalAtacando);
         // clearInterval(intervalObj.intervalId);
+
+        const workerAtacando = intervalObj.setIntervalAtacando;
+        if (workerAtacando) {
+            workerAtacando.postMessage({ comando: "stopZombieAtacando" });
+            workerAtacando.terminate();
+        }
+
         const workerAndando = intervalObj.intervalId;
         if (workerAndando) {
             workerAndando.postMessage({ comando: "stopZombieAndando" });
             workerAndando.terminate();
         }
+
 
         listaIntervalZombie = listaIntervalZombie.filter(item => item.idNovoPersonagem != idNovoPersonagem);
     } else {
