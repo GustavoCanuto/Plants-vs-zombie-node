@@ -1,4 +1,4 @@
-import { pontuacaoLado, pontosLado } from "../pontuacao.js";
+import { pontuacaoLado, pontosLado } from "../pontuacao.js"; 
 import * as comandosNavBar from '../comandos/comandosNavBar.js';
 import { personagens} from "../personagens.js";
 

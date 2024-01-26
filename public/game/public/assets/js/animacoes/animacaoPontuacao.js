@@ -82,7 +82,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
 
                             // Ajuste as coordenadas de divPontosElementClone
 
-                            let clonePontos = divPontosElementClone.cloneNode();
+                            let clonePontos = divPontosElementClone.cloneNode();// provavel que esteja fazendo clone de varios melhor criar um do zero
                             let imgPontos = pontosElementClone.cloneNode();
                             imgPontos.style.width = "8%"
                             clonePontos.appendChild(imgPontos)
@@ -149,6 +149,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
                 setTimeout(() => {
                     if(cellElement.contains(divPontosElementClone)) cellElement.removeChild(divPontosElementClone);
                     eleminadoPorTempo = true;
+                    //esta eleminando mas continua existindo ?
                 }, 12000);
 
                 divPontosElementClone.style.width = tamanho;
