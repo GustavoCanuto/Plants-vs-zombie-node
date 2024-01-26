@@ -7,9 +7,10 @@ export function recargaCard(lado,personagemNome, listaCard){
     pontuacaoLado[lado] -= personagemNome.valorCard;
     pontosLado[lado].textContent = pontuacaoLado[lado];
     personagemNome.recarregado = false;
-
-    comandosNavBar.cellNavBarAtual[lado].classList.add('recarregando')
-    var celulaAnimacao = comandosNavBar.cellNavBarAtual[lado];
+    var celulaAnimacao = comandosNavBar.cellNavBarAtual[lado].querySelector('.cardIMG');;
+    celulaAnimacao.classList.add('recarregando')
+  
+    
     personagemNome.recarregado = false;
 
    let porcentagemRecarregado = 100;
@@ -18,13 +19,16 @@ export function recargaCard(lado,personagemNome, listaCard){
    const workerRecarregando = new Worker('/game/public//assets/js/workers/recarregandoThread.js');
 
    listaCard.forEach(cardNome => {
+    const cardNomeImg = cardNome.querySelector('.cardIMG');
 
     if (personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[lado]) {
-
-        cardNome.classList.remove('semSaldo')
+        
+   
+        cardNomeImg.classList.remove('semSaldo')
     } else {
+        
 
-        cardNome.classList.add('semSaldo')
+        cardNomeImg.classList.add('semSaldo')
     }
 });
 

@@ -17,12 +17,12 @@ function criarCarrinhoETarget() {
     celulasCarinnho.forEach((cellElement) => {
         contadorCarrinho++;
         const divCarrinhoElement = document.createElement('div');
-        const carrinhoElement = document.createElement('img');
+       // const carrinhoElement = document.createElement('img');
 
-        carrinhoElement.src = './assets/img/personagens/plants/LawnCleaner.png';
+       // carrinhoElement.src = './assets/img/personagens/plants/LawnCleaner.png';
         divCarrinhoElement.classList.add('carrinho');
         divCarrinhoElement.id = `carrinhoLinha${contadorCarrinho}`;
-        divCarrinhoElement.appendChild(carrinhoElement);
+      
         cellElement.appendChild(divCarrinhoElement);
 
         if (contadorCarrinho == 5) {

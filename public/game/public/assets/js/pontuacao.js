@@ -2,7 +2,7 @@ import { personagens } from "./personagens.js";
 
 var pontoPlantas = document.getElementById("pontosPlanta");
 var pontoZombies = document.getElementById("pontosZombie");
-export var pontuacaoLado = [75000, 75000];
+export var pontuacaoLado = [75, 75000];
 export var pontosLado = [pontoPlantas, pontoZombies]
 var board = document.querySelector('.board')
 
@@ -198,10 +198,11 @@ export function criarPontos(lado) {
   pontosLado[lado].textContent = pontuacaoLado[lado];
 
   listaCard.forEach(cardNome => {
+    const cardNomeImg = cardNome.querySelector('.cardIMG');
     if (personagens[cardNome.getAttribute('data-personagem')].valorCard <= pontuacaoLado[lado]) {
-      cardNome.classList.remove('semSaldo')
+      cardNomeImg.classList.remove('semSaldo')
     } else {
-      cardNome.classList.add('semSaldo')
+      cardNomeImg.classList.add('semSaldo')
     }
 
   });
