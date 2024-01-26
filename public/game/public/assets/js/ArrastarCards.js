@@ -116,7 +116,7 @@ class ArrastarCards {
             const cellElement  = ev.target.closest('.cell');
     
            dropPersonagem(cellElement.id, img.src);
-           socket2.emit("dropPersonagem", {cellID:cellElement.id, imgPreviaPersonagem: img.src, sala: sala} );
+          // socket2.emit("dropPersonagem", {cellID:cellElement.id, imgPreviaPersonagem: img.src, sala: sala} );
 
             const board = cellElement.closest('.board');
             const rows = Array.from(board.children);

@@ -47,7 +47,7 @@ function criarCarrinhoETarget() {
 
             zombieElements.forEach((zombieElemento) => {
 
-                if (verificaColisaoCarrinho(zombieElemento, divCarrinhoElement)) {
+                if (verificaColisaoCarrinho(zombieElemento, divCarrinhoElement)) { // ou emitido pelo socket
                    
                     let morreu;
                     colidiu = true;

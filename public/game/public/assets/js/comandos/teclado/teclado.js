@@ -195,7 +195,7 @@ class JogadorMove {
             case ' ':
                 const celulaAtual = document.getElementById(`${classeSeletor}`);
                 comandosNavBar.dropPersonagem(celulaAtual.closest('.cell').id, imgPreviaPersonagem[lado].src);
-                socket2.emit("dropPersonagem", { cellID: celulaAtual.closest('.cell').id, imgPreviaPersonagem: imgPreviaPersonagem[lado].src, sala: sala });
+             //   socket2.emit("dropPersonagem", { cellID: celulaAtual.closest('.cell').id, imgPreviaPersonagem: imgPreviaPersonagem[lado].src, sala: sala });
                 break;
         }
     }
