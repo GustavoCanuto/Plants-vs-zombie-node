@@ -32,7 +32,14 @@ function criarCarrinhoETarget() {
         let posicaoLeft = 20;
 
         // verificar conflito com zumbi 
-        const intervaloCarrinho = setInterval(() => {
+      //  const intervaloCarrinho = setInterval(() => {
+        const workerCarrinho = new Worker('/game/public/assets/js/workers/carrinhoThread.js');
+
+        workerCarrinho.postMessage({ comando: "startCarrinho" })
+
+        workerCarrinho.addEventListener('message', function (e) {
+
+          if (e.data.comando === 'carrinhoProcessado') {
            
             let colidiu = false;
 
@@ -47,7 +54,14 @@ function criarCarrinhoETarget() {
                     let numeroLinha = divCarrinhoElement.id;
                     numeroLinha = numeroLinha.charAt(numeroLinha.length - 1);
 
-                    const carrinhoAndando = setInterval(() => {
+                   // const carrinhoAndando = setInterval(() => {
+                    const workerCarrinhoAndando = new Worker('/game/public/assets/js/workers/carrinhoAndandoThread.js');
+
+                    workerCarrinhoAndando.postMessage({ comando: "startCarrinhoAndando" })
+            
+                    workerCarrinhoAndando.addEventListener('message', function (e) {
+            
+                      if (e.data.comando === 'carrinhoAndandoProcessado') {
 
                         // console.log("iniciou animacao carrrinho")
 
@@ -63,13 +77,19 @@ function criarCarrinhoETarget() {
                             divCarrinhoElement.style.left = `${posicaoLeft}%`;
                         } else {
                             divCarrinhoElement.remove();
-                           clearInterval(carrinhoAndando);
-                           clearInterval(intervaloCarrinho);
+                          // clearInterval(carrinhoAndando);
+                          workerCarrinhoAndando.postMessage({ comando: "stopCarrinhoAndando" });
+                          workerCarrinhoAndando.terminate();
+                         //  clearInterval(intervaloCarrinho);
+                         workerCarrinho.postMessage({ comando: "stopCarrinho" });
+                         workerCarrinho.terminate();
+
                             
                         }
     
 
-                   }, 50);
+                 //  }, 50);
+                    }});
 
                     // console.log("conflitou com carrinho")
                     
@@ -122,7 +142,8 @@ function criarCarrinhoETarget() {
                 }
             });
 
-        }, 100);
+       // }, 100);
+        }});
 
 
 
