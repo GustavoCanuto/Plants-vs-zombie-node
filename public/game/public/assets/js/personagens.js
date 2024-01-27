@@ -69,6 +69,20 @@ export class Personagens {
                 }
             }
 
+            //cardstone and target 
+            //'brightness(70%) sepia(20%)';
+            if (this.nomePersonagem == 'cardtombstone'||this.nomePersonagem == 'Zombie_Target1') {
+                let div = document.getElementById(this.id);
+             
+                if(div){
+                    if (this.vida < 5) {
+                        div.style.filter = 'brightness(70%) sepia(20%)';
+                    } 
+                }
+            }
+
+
+
             //potatomine
             if (this.nomePersonagem == 'potatomine') {
                 let divImage = document.getElementById(this.id);
@@ -198,10 +212,10 @@ const cherrybomb = new Personagens('./assets/img/personagens/plants/cherrybomb.p
 const potatomine = new Personagens('./assets/img/personagens/plants/potatomine.webp', 25000, 25, 0, 0, 30);
 const cardtombstone = new Personagens('./assets/img/personagens/zombies/cardtombstone.webp', 15000, 50, 14, 0);
 const zombie = new Personagens('./assets/img/personagens/zombies/zombie.webp', 20000, 25, 7, 0.14, 1);
-const conehead = new Personagens('./assets/img/personagens/zombies/conehead.png', 65000, 75, 11, 0.25, 3);
+const conehead = new Personagens('./assets/img/personagens/zombies/conehead.png', 65000, 75, 12, 0.25, 3);
 const buckethead = new Personagens('./assets/img/personagens/zombies/buckethead.webp', 20000, 100, 12, 0.17, 1);
 const flagzombie = new Personagens('./assets/img/personagens/zombies/flagzombie.png', 2000, 300, 8, 0.35, 2);
-const football = new Personagens('./assets/img/personagens/zombies/football.webp', 35000, 150, 8, 0.6, 2);
+const football = new Personagens('./assets/img/personagens/zombies/football.webp', 35000, 150, 10, 0.6, 2);
 const screendoor = new Personagens('./assets/img/personagens/zombies/screendoor.webp', 22000, 100, 13, 0.15, 1);
 const carrinho = new Personagens('./assets/img/personagens/plants/LawnCleaner.png', 0, 0, 5000, 0, 5000);
 const target = new Personagens('./assets/img/personagens/zombies/Zombie_Target1.gif', 0, 0, 7, 0, 10);
