@@ -123,13 +123,24 @@
     </div>
 
   </div>
-    <!-- Div Usuarios jogando -->
-    <div class="jogando">
-      <p>Jogando</p>
-    </div>
+
 
 
   </main>
+
+  <div class="loading-overlay" id="loadingOverlay">
+
+    <div class="loading-screen">
+        <div class="loading-spinner" ></div>
+        <div class="loading-planta" ></div>
+        <div class="loading-zombie" ></div>
+    <div class="loading-personalizado">
+    <div class="loading-text">Carregando</div><div class="pontinho"><span class="loading-dots"></span></div>
+    </div>
+    </div>
+   
+
+</div>
 
   <script src="./app/lobby/trocarTela.js"></script>
   <script src="./app/lobby/listaClicavel.js"></script>
@@ -140,6 +151,8 @@
   <script type="text/javascript" src="./app/socketClient/renderSocket.js">  </script>
   <script type="text/javascript" src="./app/socketClient/clickSocket.js">  </script>
   <script type="text/javascript" src="./app/lobby/local.js">  </script>
+  <script type="text/javascript" src="./app/lobby/loading.js">  </script>
+  <script type="text/javascript" src="./app/lobby/loadingPersonalizado.js">  </script>
 
 </body>
 

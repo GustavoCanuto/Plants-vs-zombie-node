@@ -17,8 +17,6 @@ local = false;
 gamePadBloqueado = true;
 tecladoBloqueado = true;
 
-socket2.emit('iniciarSala', sala, ladoJogador)
-
 socket2.on('voltandoAoLobby', () => {
     window.location.href = `/`
 });
@@ -29,7 +27,10 @@ socket2.on('usuarioDesconectador', () => {
     window.location.href = `/`
 });
 
+
+
 window.onload = function() {
+
     $(".carregamento").css("display", "flex"); 
     $(".contagemJogo").css("display", "none");
    
@@ -38,3 +39,5 @@ window.onload = function() {
 };
 
 }
+
+loadingPersonalizado(ladoJogador)

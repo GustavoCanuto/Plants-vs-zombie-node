@@ -2,6 +2,7 @@
 @import "./navBarCards.css";
 @import "./menu.css";
 @import "./carregamento.css";
+@import "./loading.css";
 
 .board {
     box-sizing: border-box;

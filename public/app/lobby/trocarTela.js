@@ -87,11 +87,13 @@ entrar.addEventListener("click", () => {
 
 //entrar na como planta
 buttonPlanta.addEventListener("click", () => {
+    loadingPersonalizado(0);
     entrarGameLobby()
 });
 
 //entrar na como zombie
 buttonZombie.addEventListener("click", () => {
+    loadingPersonalizado(1);
     entrarGameLobby();
 });
 
@@ -108,7 +110,7 @@ function entrarGameLobby(){
 
         setTimeout(() => {
             main.style.backgroundImage = originalBackground;
-        }, 500);
+        }, 50);
 
     }, 10);
 
