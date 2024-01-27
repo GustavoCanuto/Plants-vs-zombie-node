@@ -31,7 +31,7 @@ export function verificaColisaoTiro(elementoA, elementoB) {
 
     const bEsquerda = elementoB.getBoundingClientRect().left;
     const bTopo = elementoB.getBoundingClientRect().top;
-    const bDireita = bEsquerda + elementoB.offsetWidth;
+    const bDireita = bEsquerda + elementoB.offsetWidth*0.1;
     const bBaixo = bTopo + elementoB.offsetHeight;
 
 
