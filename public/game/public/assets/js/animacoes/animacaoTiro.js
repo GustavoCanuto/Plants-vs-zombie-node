@@ -8,7 +8,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
 
     const workerSequenciaTiro = new Worker('/game/public/assets/js/workers/sequenciaTiroThread.js');
     let workerIntervaloTiro;
-   
+    let especial = false;
 
 
     const divTiroElement = document.createElement('div');
@@ -23,11 +23,14 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
 
     if (nomeClasse === 'peashooter') {
         caminhoImagem = './assets/img/peashooter_tiro.gif';
+        especial = false;
     } else if (nomeClasse === 'showpea') {
         caminhoImagem = './assets/img/peashooter_tiro_gelo.gif';
+        especial = true;
     } else if (nomeClasse === 'repeater') {
         caminhoImagem = './assets/img/peashooter_tiro.gif';
         numeroTiros = 2;
+        especial = false;
     } else {
         return;
     }
@@ -106,7 +109,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
                                     const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == zombieElemento.id);
 
                                     //console.log(personagemEncontrado.idNovoPersonagem.id)
-
+                                    personagemEncontrado.idNovoPersonagem.golpeEspecial(especial,zombieElemento);
                                     morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(1)
 
                                     if (morreu) {

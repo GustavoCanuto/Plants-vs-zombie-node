@@ -19,6 +19,7 @@ export class Personagens {
         this.nomePersonagem = this.imagePath.split('/').pop().split('.')[0];
         this.mastigando = false;
         this.vivo = true;
+        this.velocidadeCaminharDefinitiva = this.velocidadeCaminhar;
 
 
     }
@@ -31,127 +32,142 @@ export class Personagens {
         return imgElement;
     }
 
-    reduzirVida(dano) {
+    golpeEspecial(especial,zombieElemento) {
 
-    if(this.vivo){
-        this.vida -= dano;
-      //  console.log(this.vida)
-      //  console.log(this.nomePersonagem)
-
-        //wallnut
-        if (this.nomePersonagem == 'wallnut') {
-            let div =  document.getElementById(this.id);
-            if(div){
-            let gifElement = div.firstChild;
-            if (this.vida > 8 && this.vida < 22) {
-                pararAnimacao(this.id)
-                gifElement.src = 'assets/img/danoPersonagens/wallnut/Wallnut_cracked1.gif'
-            } else if ((this.vida > 0 && this.vida <= 8)) {
-                pararAnimacao(this.id)
-                gifElement.src = 'assets/img/danoPersonagens/wallnut/Wallnut_cracked2.gif'
+        if (this.velocidadeCaminhar > 0) {
+            if (especial) {
+                let novaVelocidade = this.velocidadeCaminharDefinitiva * 0.7;
+                this.velocidadeCaminhar = novaVelocidade;
+              //  zombieElemento.style.filter = 'grayscale(100%) brightness(50%) sepia(100%)'; //efeito para morte 
+              zombieElemento.style.filter = 'brightness(120%) hue-rotate(190deg)';
+                setTimeout(() => {
+                    this.velocidadeCaminhar = this.velocidadeCaminharDefinitiva;
+                    zombieElemento.style.filter = 'none';
+                }, 2000)
             }
-         }
-        }
-
-        //potatomine
-        if (this.nomePersonagem == 'potatomine') {
-            let divImage = document.getElementById(this.id);
-            let gifElement2 = document.createElement('img');
-            let gifElement = divImage.firstChild;
-            pararAnimacao(this.id)
-            gifElement.src = 'assets/img/danoPersonagens/potatoMine/PotatoMine_mashed.gif'
-            gifElement2.src = 'assets/img/danoPersonagens/potatoMine/ExplosionSpudow.gif'
-            gifElement2.style.position = 'absolute'
-            // gifElement2.style.opacity = '1'
-            gifElement2.style.transform = "scale(0.4)"
-            gifElement2.style.transition = "all 2s ease"
-            gifElement2.style.width = '180%'
-            gifElement2.style.left = '-40%'
-            divImage.appendChild(gifElement2);
-            divImage.style.transform = "scale(1.4)"
-
-
-            setTimeout(() => {
-                gifElement2.style.opacity = '0'
-            }, 100);
-
-            setTimeout(() => {
-                divImage.removeChild(gifElement2);
-            }, 1800);
-
-        }
-
-        //chomper
-        if (this.nomePersonagem == 'cherrybomb') {
-
-      
-        if(!this.mastigando){
-
-          
-
-            let intervalMastigando;
-
-            let divImage = document.getElementById(this.id);
-
-            let gifElement = divImage.firstChild;
-
-            pararAnimacao(this.id)
-
-            gifElement.src = 'assets/img/danoPersonagens/chomper/ChomperAttack.gif'
-
-            setTimeout(() => {
-
-                intervalMastigando = setInterval(() => {
-                    gifElement.src = 'assets/img/danoPersonagens/chomper/ChomperDigest.gif'
-                }, 500);
-                this.ataque = 0;
-                this.mastigando = true;
-            }, 700);
-
-            setTimeout(() => {
-                clearInterval(intervalMastigando)
-                this.ataque = 30;
-                gifElement.src = 'assets/img/danoPersonagens/chomper/Chomper.gif'
-                this.mastigando = false;
-            }, 25000); // 40s
-
-        }
-      
-        }
-
-
-        
-        if (this.vida <= 0) {
-
-            if (this.nomePersonagem == 'Zombie_Target1') {
-
-                // console.log("planta ganhou um tagert");
-                // console.log(Personagens.contadorVitoriaPlanta);
-    
-                Personagens.contadorVitoriaPlanta++;
-            
-                if(Personagens.contadorVitoriaPlanta>=3){
-                    
-                    alert("Plantas Venceu!")
-                    location.reload();
-                    return;
-                }
-            }
-    
-            if (this.nomePersonagem=== 'peashooter') {
-                pararAnimacaoTiro(this.id);
-            } else if (this.nomePersonagem === 'showpea') {
-                pararAnimacaoTiro(this.id);
-            } else if (this.nomePersonagem=== 'repeater') {
-                pararAnimacaoTiro(this.id);
-            }
-
-           if(this.vivo){
-            this.vivo = false;
-            return true;
-           }
         }
     }
+    reduzirVida(dano) {
+
+        if (this.vivo) {
+            this.vida -= dano;
+            //  console.log(this.vida)
+            //  console.log(this.nomePersonagem)
+
+            //wallnut
+            if (this.nomePersonagem == 'wallnut') {
+                let div = document.getElementById(this.id);
+                if (div) {
+                    let gifElement = div.firstChild;
+                    if (this.vida > 8 && this.vida < 22) {
+                        pararAnimacao(this.id)
+                        gifElement.src = 'assets/img/danoPersonagens/wallnut/Wallnut_cracked1.gif'
+                    } else if ((this.vida > 0 && this.vida <= 8)) {
+                        pararAnimacao(this.id)
+                        gifElement.src = 'assets/img/danoPersonagens/wallnut/Wallnut_cracked2.gif'
+                    }
+                }
+            }
+
+            //potatomine
+            if (this.nomePersonagem == 'potatomine') {
+                let divImage = document.getElementById(this.id);
+                let gifElement2 = document.createElement('img');
+                let gifElement = divImage.firstChild;
+                pararAnimacao(this.id)
+                gifElement.src = 'assets/img/danoPersonagens/potatoMine/PotatoMine_mashed.gif'
+                gifElement2.src = 'assets/img/danoPersonagens/potatoMine/ExplosionSpudow.gif'
+                gifElement2.style.position = 'absolute'
+                // gifElement2.style.opacity = '1'
+                gifElement2.style.transform = "scale(0.4)"
+                gifElement2.style.transition = "all 2s ease"
+                gifElement2.style.width = '180%'
+                gifElement2.style.left = '-40%'
+                divImage.appendChild(gifElement2);
+                divImage.style.transform = "scale(1.4)"
+
+
+                setTimeout(() => {
+                    gifElement2.style.opacity = '0'
+                }, 100);
+
+                setTimeout(() => {
+                    divImage.removeChild(gifElement2);
+                }, 1800);
+
+            }
+
+            //chomper
+            if (this.nomePersonagem == 'cherrybomb') {
+
+
+                if (!this.mastigando) {
+
+
+
+                    let intervalMastigando;
+
+                    let divImage = document.getElementById(this.id);
+
+                    let gifElement = divImage.firstChild;
+
+                    pararAnimacao(this.id)
+
+                    gifElement.src = 'assets/img/danoPersonagens/chomper/ChomperAttack.gif'
+
+                    setTimeout(() => {
+
+                        intervalMastigando = setInterval(() => {
+                            gifElement.src = 'assets/img/danoPersonagens/chomper/ChomperDigest.gif'
+                        }, 500);
+                        this.ataque = 0;
+                        this.mastigando = true;
+                    }, 700);
+
+                    setTimeout(() => {
+                        clearInterval(intervalMastigando)
+                        this.ataque = 30;
+                        gifElement.src = 'assets/img/danoPersonagens/chomper/Chomper.gif'
+                        this.mastigando = false;
+                    }, 25000); // 40s
+
+                }
+
+            }
+
+
+
+            if (this.vida <= 0) {
+
+                if (this.nomePersonagem == 'Zombie_Target1') {
+
+                    // console.log("planta ganhou um tagert");
+                    // console.log(Personagens.contadorVitoriaPlanta);
+
+                    Personagens.contadorVitoriaPlanta++;
+
+                    if (Personagens.contadorVitoriaPlanta >= 3) {
+
+                        alert("Plantas Venceu!")
+                        location.reload();
+                        return;
+                    }
+                }
+
+                if (this.nomePersonagem === 'peashooter') {
+                    pararAnimacaoTiro(this.id);
+                } else if (this.nomePersonagem === 'showpea') {
+                    pararAnimacaoTiro(this.id);
+                } else if (this.nomePersonagem === 'repeater') {
+                    pararAnimacaoTiro(this.id);
+                }
+
+                if (this.vivo) {
+                    this.vivo = false;
+                    return true;
+                }
+            }
+        }
     }
 
 
