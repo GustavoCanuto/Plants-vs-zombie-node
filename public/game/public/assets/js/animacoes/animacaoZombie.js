@@ -8,7 +8,9 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
     let setIntervalAtacando;
 
-
+    const zombie = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == elemento.id);
+    
+  
     const posicaoLeft = (cellElement.offsetLeft / tabuleiro.offsetWidth) * 100;
 
     elemento.style.position = 'absolute';
@@ -198,17 +200,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                 });
 
 
-                // let tempoRestante = 5;
-    
-                // const continuarMovendo = setInterval(() => {
-                //     if (tempoRestante > 0) {
-                //         elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
-                //         positionLeft -= tipoZombie.velocidadeCaminhar;
-                //         tempoRestante--;
-                //     } else {
-                //         clearInterval(continuarMovendo);
-                //     }
-                // }, 100);
+        
                 const workerContinuarMovendo = new Worker('/game/public/assets/js/workers/continuarMovendoZombie.js');
                 workerContinuarMovendo.postMessage({ comando: "startContinuaMovendoZombie" })
             
@@ -219,7 +211,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
                         if (e.data.tempoRestante > 0) {
                             elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
-                            positionLeft -= tipoZombie.velocidadeCaminhar;
+                            positionLeft -= zombie.idNovoPersonagem.velocidadeCaminhar;
                            
                         } else {
                             workerContinuarMovendo.postMessage({ comando: "stopContinuaMovendoZombie" });
@@ -247,7 +239,7 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
 
             if (positionLeft > -10) {
                 elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
-                positionLeft -= tipoZombie.velocidadeCaminhar;
+                positionLeft -= zombie.idNovoPersonagem.velocidadeCaminhar;
             } else {
                 // clearInterval(intervaloMovimentoZumbi);
                 intervaloMovimentoZumbi.postMessage({ comando: "stopZombieAndando" });

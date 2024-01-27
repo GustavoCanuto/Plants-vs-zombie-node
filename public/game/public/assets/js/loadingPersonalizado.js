@@ -68,6 +68,6 @@ function loadingPersonalizado(lado){
         console.error("Erro ao carregar uma ou mais imagens.");
     });
 
-}, 800);
+}, 700);
 
 }
