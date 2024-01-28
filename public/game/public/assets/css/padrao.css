@@ -16,7 +16,7 @@ main {
     height: 590px; */
    
     position: fixed;
-    background-image: url(../img/public_assets_img_brackground_gameLobby2Antig.png);
+    background-image: url(../img/public_assets_img_brackground_gameLobby2.png);
     background-size: cover;
     transition: opacity 0.8s ease;
    

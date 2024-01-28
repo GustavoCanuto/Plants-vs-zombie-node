@@ -56,4 +56,4 @@ socket2.on('iniciarJogo', () => {
   atualizarLadoOnline();
 });
 
-jogarLocal(local);
+jogarLocal(local,cenario,nome,ladoJogador);

@@ -1,0 +1,60 @@
+.splide {
+    width: 15%;
+
+}
+
+.splide__track {
+    margin-top: 8.2%;
+    margin-left: 23%;
+    font-size: 2vw;
+    width: 55%;
+
+    text-align: center;
+}
+
+/* Estilo personalizado para os botões prev e next */
+.splide__arrow--prev,
+.splide__arrow--next {
+    background-color: transparent;
+    /* Cor de fundo dos botões */
+    font-size: 2vw;
+}
+
+.splide__arrow--prev {
+    position: absolute;
+    left: 0;
+}
+
+.splide__arrow--next {
+    position: absolute;
+    right: 0;
+}
+
+/* Estilo para as setas nos botões prev e next */
+.splide__arrow--prev::before,
+.splide__arrow--next::before {
+    font-family: "Font Awesome 5 Free";
+    /* Substitua pela fonte de ícones que você está usando */
+    font-weight: 900;
+    content: "\f104";
+    /* Código unicode para a seta esquerda - ajuste conforme necessário */
+    color: rgb(207, 198, 198) !important;
+    -webkit-text-stroke: 0.08vw black;
+}
+
+.splide__arrow--next::before {
+    content: "\f105";
+    /* Código unicode para a seta direita - ajuste conforme necessário */
+}
+
+/* Estilo para alterar a cor da seta quando o mouse passa sobre ela */
+.splide__arrow:hover::before {
+    color: #72856d !important;
+    /* Cor da seta ao passar o mouse sobre ela */
+}
+
+.splide__slide {
+    color: rgb(207, 198, 198);
+    font-family: 'Fredoka One', cursive;
+    -webkit-text-stroke: 0.08vw black;
+}

@@ -61,7 +61,7 @@ home.on('connection', socket => {
 
         const numeroSala = ++salaContador;
 
-        socket.to(usuarios.id1).emit('telaJogo', player1, numeroSala);
+        socket.to(usuarios.id1).emit('telaJogo', player1, numeroSala); 
         socket.emit('telaJogo', player2, numeroSala);
 
     });
