@@ -2,12 +2,12 @@
 function renderPlant(usuario) {
   let clienteLista = document.createElement("li");
 
-  let pontuacaoUsuario;
   if (usuario.ipMaquina.length >= 3) {
     clienteLista.classList.add('textoPlantas');
   } 
 
-  clienteLista.textContent = usuario.nome;
+  
+  clienteLista.textContent = usuario.nome + " | " + usuario.numeroVitorias + " 🏆";
   clienteLista.id = usuario.socketID;
   $(".plants").append(clienteLista);
 
@@ -19,12 +19,12 @@ function renderPlant(usuario) {
 function renderZombie(usuario) {
   let clienteLista = document.createElement("li");
 
-  let pontuacaoUsuario;
-  if (usuario.ipMaquina.length >= 7) {
+
+  if (usuario.ipMaquina.length >= 3) {
     clienteLista.classList.add('textoZombies');
   }
 
-  clienteLista.textContent = usuario.nome;
+  clienteLista.textContent = usuario.nome + " | " + usuario.numeroVitorias + " 🏆";
   clienteLista.id = usuario.socketID;
   $(".zombies").append(clienteLista);
 

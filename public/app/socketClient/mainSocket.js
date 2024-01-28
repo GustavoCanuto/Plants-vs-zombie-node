@@ -1,5 +1,6 @@
 var socket = io('/home');
 
+
 socket.on('atualizarClicavel', () => {
   atualizarClicavel();
 });
@@ -34,7 +35,7 @@ socket.on('previousPendentes', function (listaUsuariosConvitesPendentes) {
     if($(`#${usuario}`)){
 
     $(`#${usuario}`).addClass("block");
-    $(`#${usuario}`).append(" | [pendente]");
+    $(`#${usuario}`).append("<br>&nbsp;&nbsp;&nbsp;&nbsp; (pendente)");
     
     }
   }
@@ -50,8 +51,8 @@ socket.on('convitePendente', function (usuarios) {
   $(`#${usuarios.id}`).addClass("block");
   $(`#${usuarios.usuarioConvidado}`).addClass("block");
 
-  $(`#${usuarios.id}`).append(" | [pendente]");
-  $(`#${usuarios.usuarioConvidado}`).append(" | [pendente]");
+  $(`#${usuarios.id}`).append("<br>&nbsp;&nbsp;&nbsp;&nbsp; (pendente)");
+  $(`#${usuarios.usuarioConvidado}`).append("<br>&nbsp;&nbsp;&nbsp;&nbsp; (pendente)");
 
 });
 
@@ -61,11 +62,12 @@ socket.on('cancelaPendente', function (usuarios) {
   $(`#${usuarios.id1}`).removeClass("block");
   $(`#${usuarios.id2}`).removeClass("block");
 
-  // Remover o texto " | [convite pendente]" do elemento com o ID 'usuarios.id'
-  $(`#${usuarios.id1}`).text($(`#${usuarios.id1}`).text().replace(" | [pendente]", ""));
+  let textoSemPendente1 = $(`#${usuarios.id1}`).text().replace(/\s*\(pendente\)/g, "");
+  $(`#${usuarios.id1}`).text(textoSemPendente1);
 
   // Remover o texto " | [convite pendente]" do elemento com o ID 'usuarios.usuarioConvidado'
-  $(`#${usuarios.id2}`).text($(`#${usuarios.id2}`).text().replace(" | [pendente]", ""));
+  let textoSemPendente2 = $(`#${usuarios.id2}`).text().replace(/\s*\(pendente\)/g, "");
+  $(`#${usuarios.id2}`).text(textoSemPendente2);
 
   $(`.${usuarios.id1}xy`).remove();
   $(`.${usuarios.id2}xy`).remove();
@@ -90,3 +92,4 @@ socket.on('telaJogo', (lado,sala)=>{
   window.location.href = `game/public/index.html?sala=${sala}&lado=${lado}&cenario=${cenario}&nome=${nomeUsuario}` 
 
 });
+

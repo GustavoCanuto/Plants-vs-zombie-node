@@ -7,9 +7,10 @@ function excluirUsuarioZombie(socketID, listaUsuariosZombies) {
     }
 }
 
-function conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario) {
+function conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario, numeroVitorias) {
  
-    data.ipMaquina = " 0 pontos ";
+    data.ipMaquina = "MaiorQue3"
+    data.numeroVitorias = numeroVitorias;
     data.lado = 1;
 
     listaUsuariosZombies.push(data);

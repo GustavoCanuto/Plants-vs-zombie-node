@@ -3,7 +3,7 @@ const socket2 = io('/game')
 const parametros = new URLSearchParams(window.location.search);
 
 let vitoria = false;
-
+ 
 let local = parametros.get('local');
 let cenario = parametros.get('cenario');
 
@@ -39,6 +39,8 @@ socket2.on('usuarioDesconectador', () => {
          $(".carregamento").css("display", "flex"); 
          $(".messagemCarregamento").css("display", "flex"); 
          vitoria = true;
+         let tokenUsuario = localStorage.getItem('tokenUsuario');
+         socket2.emit('pontosParaOVencedor', tokenUsuario)
        }
 });
 

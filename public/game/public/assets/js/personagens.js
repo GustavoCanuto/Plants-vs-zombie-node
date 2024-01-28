@@ -175,6 +175,10 @@ export class Personagens {
                              $(".carregamento").css("display", "flex"); 
                              $(".messagemCarregamento").css("display", "flex"); 
                              vitoria = true;
+                             if (ladoJogador == 0) {
+                                let tokenUsuario = localStorage.getItem('tokenUsuario');
+                                socket2.emit('pontosParaOVencedor', tokenUsuario)
+                            }
                         }
 
                         return;

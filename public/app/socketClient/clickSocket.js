@@ -12,9 +12,9 @@ $('[data-sair]').on("click", (event) => {
   $(".plants").removeClass("clicavel");
   $(".zombies").removeClass("clicavel");
 
-  
-  $('.menssagens').css('display','none');
-  $('.efeito').css('display','none');
+
+  $('.menssagens').css('display', 'none');
+  $('.efeito').css('display', 'none');
 
 });
 
@@ -30,44 +30,58 @@ $('[data-buttonPlanta]').on("click", (event) => {
 
   let usuario = gerarUsuario();
 
-  renderPlant(usuario);
+  socket.emit('pegarPontucao', usuario);
 
-  let numero = posicaoLista(usuario);
+  socket.on('receberPontuacao', (numeroVitorias) => {
 
-  $(".informacaoParaUsuario-infoUser").text(usuario.nome);
-  $(".zombies").addClass("clicavel");
-
-  usuario.posicao = numero;
-
-  socket.emit('plantConnected', usuario);
-
+    usuario.numeroVitorias = numeroVitorias;
+    renderPlant(usuario);
   
-  nomeUsuario = usuario.nome;
+    let numero = posicaoLista(usuario);
   
-  atualizarClicavel();
+    $(".informacaoParaUsuario-infoUser").text(usuario.nome);
+    $(".zombies").addClass("clicavel");
+  
+    usuario.posicao = numero;
+  
+    socket.emit('plantConnected', usuario, numeroVitorias);
+  
+  
+    nomeUsuario = usuario.nome;
+  
+    atualizarClicavel();
+  
+  });
 
 });
+
 
 
 //ao clicar no botao zombie
 $('[data-buttonZombie]').on("click", (event) => {
 
   let usuario = gerarUsuario();
+  socket.emit('pegarPontucao', usuario);
 
-  renderZombie(usuario);
+  socket.on('receberPontuacao', (numeroVitorias) => {
 
-  let numero = posicaoLista(usuario);
+    usuario.numeroVitorias = numeroVitorias;
+    renderZombie(usuario);
 
-  $(".informacaoParaUsuario-infoUser").text(usuario.nome);
-  $(".plants").addClass("clicavel");
+    let numero = posicaoLista(usuario);
 
-  usuario.posicao = numero;
+    $(".informacaoParaUsuario-infoUser").text(usuario.nome);
+    $(".plants").addClass("clicavel");
 
-  socket.emit('zombieConnected', usuario);
+    usuario.posicao = numero;
 
-  nomeUsuario = usuario.nome;
+    socket.emit('zombieConnected', usuario,numeroVitorias);
 
-  atualizarClicavel();
+    nomeUsuario = usuario.nome;
+
+    atualizarClicavel();
+
+  });
 
 });
 
@@ -84,12 +98,25 @@ function gerarUsuario() {
   }
 
 
-  let sessaoUsuario = "sessao" + socket.id.substr(0, 5);
+  let tokenUsuario = localStorage.getItem('tokenUsuario');
+
+  if (!tokenUsuario) {
+    // Se não existe, cria um novo token
+    tokenUsuario = "sessao" + socket.id.substr(0, 5) + Math.floor(100 + Math.random() * 900);
+
+    // Salva o novo token no localStorage
+    localStorage.setItem('tokenUsuario', tokenUsuario);
+  } else {
+    // Se já existe, você pode simplesmente usar o token existente
+    console.log("Token existente:", tokenUsuario);
+  }
+
+
   let socketIdUsuario = socket.id;
 
   let usuario = {
     nome: nomeUsuario,
-    sessao: sessaoUsuario,
+    sessao: tokenUsuario,
     socketID: socketIdUsuario
   };
 
