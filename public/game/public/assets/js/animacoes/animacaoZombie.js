@@ -9,8 +9,8 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
     let setIntervalAtacando;
 
     const zombie = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == elemento.id);
-    
-  
+
+
     const posicaoLeft = (cellElement.offsetLeft / tabuleiro.offsetWidth) * 100;
 
     elemento.style.position = 'absolute';
@@ -200,35 +200,35 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                 });
 
 
-        
+
                 const workerContinuarMovendo = new Worker('/game/public/assets/js/workers/continuarMovendoZombie.js');
                 workerContinuarMovendo.postMessage({ comando: "startContinuaMovendoZombie" })
-            
+
                 //let intervaloMovimentoZumbi = setInterval(() => {
-                    workerContinuarMovendo.addEventListener('message', function (e) {
-            
+                workerContinuarMovendo.addEventListener('message', function (e) {
+
                     if (e.data.comando === 'continuaMovendoZombieProcessado') {
 
                         if (e.data.tempoRestante > 0) {
                             elemento.style.left = `${positionLeft}%`; // Continuar movendo o zumbi para a esquerda se não houve colisão
                             positionLeft -= zombie.idNovoPersonagem.velocidadeCaminhar;
-                           
+
                         } else {
                             workerContinuarMovendo.postMessage({ comando: "stopContinuaMovendoZombie" });
                             workerContinuarMovendo.terminate();
                         }
-            
-            
+
+
                     }
                 });
 
-           
+
 
 
             }
         });
 
-     
+
         if (!colidiu) {
             //  console.log(tipoZombie.nomePersonagem + "continuou andando após o ataque")
             // clearInterval(setIntervalAtacando);
@@ -244,22 +244,25 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                 // clearInterval(intervaloMovimentoZumbi);
                 intervaloMovimentoZumbi.postMessage({ comando: "stopZombieAndando" });
                 intervaloMovimentoZumbi.terminate();
-               // alert('Zumbi Venceu!!');
-               // location.reload();
-              
-               if(!vitoria){
-                $(".messagemCarregamento").css("height", "15%"); 
-                $(".messagemCarregamento").css("width", "35%"); 
-                $(".contagemJogo").css("display", "none");
-                $('.textoVitoria').text("Zumbis Venceu!");
-                $(".btnVoltarLobby").css("display", "block");
-                $(".carregamento").css("backgroundColor", " rgba(8, 8, 8, 0.61)");
-                 $(".carregamento").css("display", "flex"); 
-                 $(".messagemCarregamento").css("display", "flex"); 
-                 vitoria = true;
+                // alert('Zumbi Venceu!!');
+                // location.reload();
 
-               }
-                 
+                if (!vitoria) {
+                    $(".messagemCarregamento").css("height", "15%");
+                    $(".messagemCarregamento").css("width", "35%");
+                    $(".contagemJogo").css("display", "none");
+                    $('.textoVitoria').text("Zumbis Venceu!");
+                    $(".btnVoltarLobby").css("display", "block");
+                    $(".carregamento").css("backgroundColor", " rgba(8, 8, 8, 0.61)");
+                    $(".carregamento").css("display", "flex");
+                    $(".messagemCarregamento").css("display", "flex");
+                    vitoria = true;
+                    if (ladoJogador == 1) {
+                        let tokenUsuario = localStorage.getItem('tokenUsuario');
+                        socket2.emit('pontosParaOVencedor',  tokenUsuario)
+                    }
+                }
+
             }
         }
     }

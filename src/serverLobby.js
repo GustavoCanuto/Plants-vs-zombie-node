@@ -11,6 +11,7 @@ var listaTodosUsuario = [];
 var listaUsuariosPlants = [];
 var listaUsuariosZombies = [];
 var listaUsuariosConvitesPendentes = [];
+var listaPontuacaoNavegador = [];
 var listaUsuariosDupla = [{ PlayerConvidou: 0, PlayerConvidado: 0 }];
 var salaContador = 0;
 
@@ -22,14 +23,31 @@ home.on('connection', socket => {
     socket.emit('previousZombie', listaUsuariosZombies);
     socket.emit('previousPendentes', listaUsuariosConvitesPendentes);
 
+    socket.on('pegarPontucao', (data) => {
+        let numeroVitorias;
+        console.log(data.sessao)
+        // Verifica se 'data.sessao' existe na listaPontuacaoNavegador
+        if (listaPontuacaoNavegador[data.sessao]) {
+          // Obtém o número de vitórias da listaPontuacaoNavegador
+          numeroVitorias = listaPontuacaoNavegador[data.sessao];
+        } else {
+            numeroVitorias = 0;
+            listaPontuacaoNavegador[data.sessao] = 0; // ou outra lógica, dependendo do que você precisa
+        }
+
+        socket.emit("receberPontuacao", numeroVitorias);
+    });
+
     //açao para quando planta se conectar
-    socket.on('plantConnected', (data) => {
-        conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario);
+    socket.on('plantConnected', (data,numeroVitorias) => {
+    
+        conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario,numeroVitorias);
     })
 
     //açao para quando zombie se conectar
-    socket.on('zombieConnected', (data) => {
-        conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario);
+    socket.on('zombieConnected', (data,numeroVitorias) => {
+
+        conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario,  numeroVitorias);
     })
 
     //cancelar pendente   
@@ -242,6 +260,6 @@ const game = io.of('/game')
 game.on('connection', socket => {
  
     console.log("conectado game")
-    gameSocket(socket, salasAtivas);
+    gameSocket(socket, salasAtivas, listaPontuacaoNavegador);
 
 });

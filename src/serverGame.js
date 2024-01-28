@@ -1,4 +1,4 @@
-export default function gameSocket(socket, salasAtivas){
+export default function gameSocket(socket, salasAtivas, listaPontuacaoNavegador){
 
     socket.on('iniciarSala', (sala, lado) => {
 
@@ -139,13 +139,30 @@ export default function gameSocket(socket, salasAtivas){
       
       });
 
-      // socket.on('paraAnimacaoTiro', (idNovoPersonagem, sala) => {
-      //   socket.to(sala).emit('paraAnimacaoTiroClient', idNovoPersonagem)
+
+      socket.on('pontosParaOVencedor', (tokenUsuario) => {
+       
+
+        if (!tokenUsuario) {
+          // Se não existe, cria um novo token
+          tokenUsuario = "sessao" + socket.id.substr(0, 5) + Math.floor(100 + Math.random() * 900);
       
-      // });
+          // Salva o novo token no localStorage
+          localStorage.setItem('tokenUsuario', tokenUsuario);
+        
 
+        }
+ 
+        // Verifica se 'data.sessao' existe na listaPontuacaoNavegador
+        if (listaPontuacaoNavegador[ tokenUsuario]) {
+          // Obtém o número de vitórias da listaPontuacaoNavegador
+          listaPontuacaoNavegador[tokenUsuario] +=1;
+        } else {
+            
+           listaPontuacaoNavegador[tokenUsuario] = 1; // ou outra lógica, dependendo do que você precisa
+        }
 
+        });
 
-      
-
+  
 }
