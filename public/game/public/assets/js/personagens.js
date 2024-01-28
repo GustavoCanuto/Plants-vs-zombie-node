@@ -162,8 +162,21 @@ export class Personagens {
 
                     if (Personagens.contadorVitoriaPlanta >= 3) {
 
-                        alert("Plantas Venceu!")
-                        location.reload();
+                        // alert("Plantas Venceu!")
+                        // location.reload();
+                        
+                        if(!vitoria){
+                            $(".messagemCarregamento").css("height", "15%"); 
+                            $(".messagemCarregamento").css("width", "35%"); 
+                            $(".contagemJogo").css("display", "none");
+                            $('.textoVitoria').text("Plantas Venceu!");
+                            $(".btnVoltarLobby").css("display", "block");
+                            $(".carregamento").css("backgroundColor", " rgba(8, 8, 8, 0.61)");
+                             $(".carregamento").css("display", "flex"); 
+                             $(".messagemCarregamento").css("display", "flex"); 
+                             vitoria = true;
+                        }
+
                         return;
                     }
                 }

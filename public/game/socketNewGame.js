@@ -2,6 +2,8 @@ const socket2 = io('/game')
 
 const parametros = new URLSearchParams(window.location.search);
 
+let vitoria = false;
+
 let local = parametros.get('local');
 let cenario = parametros.get('cenario');
 
@@ -27,8 +29,17 @@ socket2.on('voltandoAoLobby', () => {
 
 
 socket2.on('usuarioDesconectador', () => {
-    alert("usuario desconectou você ganhou")
-    window.location.href = `/`
+    if(!vitoria){
+        $(".messagemCarregamento").css("height", "17%"); 
+        $(".messagemCarregamento").css("width", "65%"); 
+        $(".contagemJogo").css("display", "none");
+        $('.textoVitoria').text("Usuario desconectou, Você Ganhou!");
+        $(".btnVoltarLobby").css("display", "block");
+        $(".carregamento").css("backgroundColor", " rgba(8, 8, 8, 0.61)");
+         $(".carregamento").css("display", "flex"); 
+         $(".messagemCarregamento").css("display", "flex"); 
+         vitoria = true;
+       }
 });
 
 
