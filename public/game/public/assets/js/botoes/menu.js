@@ -10,3 +10,8 @@ function toggleConfig() {
       configDiv.style.display = 'none';
     }
   }
+
+
+  function voltarLobby() {
+    window.location.href = `/?nome=${nome}&lado=${ladoJogador}`
+  }

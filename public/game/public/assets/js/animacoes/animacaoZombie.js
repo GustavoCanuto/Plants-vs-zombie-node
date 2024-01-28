@@ -244,8 +244,22 @@ export function criarAnimacaoZombie(cellElement, gifElement, elemento, tabuleiro
                 // clearInterval(intervaloMovimentoZumbi);
                 intervaloMovimentoZumbi.postMessage({ comando: "stopZombieAndando" });
                 intervaloMovimentoZumbi.terminate();
-                alert('Zumbi Venceu!!');
-                location.reload();
+               // alert('Zumbi Venceu!!');
+               // location.reload();
+              
+               if(!vitoria){
+                $(".messagemCarregamento").css("height", "15%"); 
+                $(".messagemCarregamento").css("width", "35%"); 
+                $(".contagemJogo").css("display", "none");
+                $('.textoVitoria').text("Zumbis Venceu!");
+                $(".btnVoltarLobby").css("display", "block");
+                $(".carregamento").css("backgroundColor", " rgba(8, 8, 8, 0.61)");
+                 $(".carregamento").css("display", "flex"); 
+                 $(".messagemCarregamento").css("display", "flex"); 
+                 vitoria = true;
+
+               }
+                 
             }
         }
     }
