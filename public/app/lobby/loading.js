@@ -1,5 +1,20 @@
 
+function aguardarSocketId(callback) {
+    // Define um intervalo para verificar se o socket.id está disponível
+    const intervalId = setInterval(function () {
+        if (socket.id) {
+            // Se o socket.id está disponível, chama o callback e limpa o intervalo
+            callback();
+            clearInterval(intervalId);
+            
+        }
+    }, 100); // Ajuste o intervalo conforme necessário
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
+
+    aguardarSocketId(function () {
 
         // Lista de URLs das imagens
         var imageUrls = ["./assets/img/brackground/menu-principal2.webp", 
@@ -37,6 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Erro ao carregar uma ou mais imagens.");
         });
 
-
+    });
 
 });
