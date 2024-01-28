@@ -8,6 +8,8 @@ let buttonZombie = document.querySelector("[data-buttonZombie]");
 let divEscolherPersonagem = document.querySelector(".escolha");
 let divGameLobby = document.querySelector("[data-gameLobby]");
 let divNomeUsuario = document.querySelector("[data-nomeUsuario]")
+let cenario = 0;
+let ladoJogador = 0;
 
 let main = document.querySelector("main");
 const originalBackground = main.style.backgroundImage;

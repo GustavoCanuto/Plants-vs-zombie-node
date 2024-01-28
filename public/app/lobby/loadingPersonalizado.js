@@ -14,12 +14,14 @@ function loadingPersonalizado(lado){
     loadingZombie.style.display = "none"
     loadingNormal.style.display = "none"
     loadingPlanta.style.display = "block"
+    ladoJogador = 0;
 
     }else if(lado==1){
 
     loadingNormal.style.display = "none"
     loadingPlanta.style.display = "none"
     loadingZombie.style.display = "block"
+    ladoJogador = 1;
 
     }
     

@@ -51,7 +51,7 @@ function gravarOpcaoMouse() {
         }
     }
     // console.log("Lado que usa o mouse: " + LadoQueUsaMouse);
-    alert("alterado com sucesso")
+    console.log("alterado com sucesso")
     chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
     cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
     mouseEnterCelula();
@@ -118,6 +118,18 @@ export function atualizarLadoOnline() {
 
 }
 
-export function jogarLocal(local) {
+export function jogarLocal(local,cenario,nome,ladoJogador) {
+    let main = document.querySelector("main")
+    if(!nome) nome = "Guest0" + Math.floor(100 + Math.random() * 900);
+    console.log(cenario)
+    if(cenario==1) main.style.backgroundImage = "url(./assets/img/public_assets_img_brackground_gameLobby2Antig.png)";
+    if(ladoJogador ==1){
+    LadoQueUsaMouse = ladoJogador;
+    chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
+    cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
+    mouseEnterCelula();
+    navBarEnter();
+    game.atualizarLado();
+    }
     cairPontuacao(local)
 }

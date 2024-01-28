@@ -41,6 +41,9 @@ $('[data-buttonPlanta]').on("click", (event) => {
 
   socket.emit('plantConnected', usuario);
 
+  
+  nomeUsuario = usuario.nome;
+  
   atualizarClicavel();
 
 });
@@ -61,6 +64,8 @@ $('[data-buttonZombie]').on("click", (event) => {
   usuario.posicao = numero;
 
   socket.emit('zombieConnected', usuario);
+
+  nomeUsuario = usuario.nome;
 
   atualizarClicavel();
 
