@@ -17,7 +17,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
         opacity = "90%"
         brilho = 'brightness(1.8)'
     } else if (nomeClasse === 'cardtombstone') {
-        caminhoImagem = './assets/img/pontuacao/cerebroPotos.webp';
+        caminhoImagem = './assets/img/pontuacao/cerebroPontos.png';
         tamanho = '50%';
         lado = 1;
         opacity = "75%"

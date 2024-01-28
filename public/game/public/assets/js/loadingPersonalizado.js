@@ -32,8 +32,9 @@ function loadingPersonalizado(lado){
     
     setTimeout(() => {
     // Lista de URLs das imagens
-    var imageUrls = ["./assets/img/public_assets_img_brackground_gameLobby2.png", 
-     "./assets/img/public_assets_img_brackground_gameLobby2Antig.webp"
+    var imageUrls = ["./assets/img/public_assets_img_brackground_gameLobby2.png"
+    // , 
+    //  "./assets/img/public_assets_img_brackground_gameLobby2Antig.webp"
     ];
 
     // Função para pré-carregar uma imagem
