@@ -95,17 +95,15 @@
           <script>
             var splide = new Splide('.splide', {
               pagination: false,
-              rewind: true,  // Habilita a opção de retroceder para o início quando chega ao final
+              rewind: true,  
             });
-
-
 
             splide.mount();
 
             splide.on('moved', function (newIndex) {
-              console.log('Slide atual:', newIndex);
+              //console.log('Slide atual:', newIndex);
               cenario =  newIndex;
-              // Faça o que quiser com o índice do slide atual
+             
             });
             
           </script>
@@ -192,6 +190,7 @@
   <script type="text/javascript" src="./app/lobby/local.js">  </script>
   <script type="text/javascript" src="./app/lobby/loading.js">  </script>
   <script type="text/javascript" src="./app/lobby/loadingPersonalizado.js">  </script>
+  <script src="./app/lobby/parametros.js"></script>
 
 </body>
 
