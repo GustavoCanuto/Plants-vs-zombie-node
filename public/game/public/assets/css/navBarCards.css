@@ -30,7 +30,7 @@
     bottom: 0;
     left: 0;
     /* border: 1px solid; */
-    z-index: -2;
+    z-index: -1.9;
 }
 
 .previa-personagem img{
@@ -44,7 +44,7 @@
 /* SeletotNavBar Zombie */
 .navbar-zombie {
     gap: 0.35%;
-    background-image: url(../img/navBar/navBarZombie.webp);
+    background-image: url(../img/navBar/navBarZombie.png);
     background-size: contain;
     background-repeat: no-repeat;
 }

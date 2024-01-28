@@ -105,7 +105,7 @@ function criarSol() {
 
 function criarCerebro() {
   const cerebroPontuacao = document.createElement("img");
-  cerebroPontuacao.src = "./assets/img/pontuacao/cerebroPotos.webp";
+  cerebroPontuacao.src = "./assets/img/pontuacao/cerebroPontos.png";
   cerebroPontuacao.alt = "cerebro pontuacao";
   cerebroPontuacao.id = 'cerebroPontuacao'
 
