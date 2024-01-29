@@ -107,11 +107,7 @@ function gerarUsuario() {
 
     // Salva o novo token no localStorage
     localStorage.setItem('tokenUsuario', tokenUsuario);
-  } else {
-    // Se já existe, você pode simplesmente usar o token existente
-    console.log("Token existente:", tokenUsuario);
-  }
-
+  } 
 
   let socketIdUsuario = socket.id;
 

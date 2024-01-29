@@ -69,7 +69,7 @@ let teclaPersonalizada = false;
 function gravarTecla() {
     atualizarTeclas(ladoConfigTeclado);
     teclaPersonalizada = true;
-    alert("gravado com sucesso");
+    // alert("gravado com sucesso");
     tecladoBloqueado = false;
     voltarMenu();
     toggleConfig();
@@ -77,16 +77,16 @@ function gravarTecla() {
 
 function atualizarTeclas(ladoConfigTeclado) {
 
-    if(ladoConfigTeclado == 0){
-    listaTeclasPlantas.arrowUpPlanta = document.getElementById('moveUp').value;
-    listaTeclasPlantas.arrowDownPlanta = document.getElementById('moveDown').value;
-    listaTeclasPlantas.arrowLeftPlanta = document.getElementById('moveLeft').value;
-    listaTeclasPlantas.arrowRightPlanta = document.getElementById('moveRight').value;
-    listaTeclasPlantas.cardEsquerdaPlanta = document.getElementById('moveCardLeft').value;
-    listaTeclasPlantas.cardDireitaPlanta = document.getElementById('moveCardRight').value;
-    listaTeclasPlantas.colcoarPersonagemPlanta = document.getElementById('colocarPersonagem').value;
+    if (ladoConfigTeclado == 0) {
+        listaTeclasPlantas.arrowUpPlanta = document.getElementById('moveUp').value;
+        listaTeclasPlantas.arrowDownPlanta = document.getElementById('moveDown').value;
+        listaTeclasPlantas.arrowLeftPlanta = document.getElementById('moveLeft').value;
+        listaTeclasPlantas.arrowRightPlanta = document.getElementById('moveRight').value;
+        listaTeclasPlantas.cardEsquerdaPlanta = document.getElementById('moveCardLeft').value;
+        listaTeclasPlantas.cardDireitaPlanta = document.getElementById('moveCardRight').value;
+        listaTeclasPlantas.colcoarPersonagemPlanta = document.getElementById('colocarPersonagem').value;
     }
-    else{
+    else {
         listaTeclasZombies.arrowUpZombie = document.getElementById('moveUp').value;
         listaTeclasZombies.arrowDownZombie = document.getElementById('moveDown').value;
         listaTeclasZombies.arrowLeftZombie = document.getElementById('moveLeft').value;
@@ -100,16 +100,16 @@ function atualizarTeclas(ladoConfigTeclado) {
 
 function limparTeclas(ladoConfigTeclado) {
 
-    if(ladoConfigTeclado == 1){
-    listaTeclasPlantas.arrowUpPlanta = "";
-    listaTeclasPlantas.arrowDownPlanta = "";
-    listaTeclasPlantas.arrowLeftPlanta = "";
-    listaTeclasPlantas.arrowRightPlanta = "";
-    listaTeclasPlantas.cardEsquerdaPlanta = "";
-    listaTeclasPlantas.cardDireitaPlanta = "";
-    listaTeclasPlantas.colcoarPersonagemPlanta = "";
+    if (ladoConfigTeclado == 1) {
+        listaTeclasPlantas.arrowUpPlanta = "";
+        listaTeclasPlantas.arrowDownPlanta = "";
+        listaTeclasPlantas.arrowLeftPlanta = "";
+        listaTeclasPlantas.arrowRightPlanta = "";
+        listaTeclasPlantas.cardEsquerdaPlanta = "";
+        listaTeclasPlantas.cardDireitaPlanta = "";
+        listaTeclasPlantas.colcoarPersonagemPlanta = "";
     }
-    else{
+    else {
         listaTeclasZombies.arrowUpZombie = "";
         listaTeclasZombies.arrowDownZombie = "";
         listaTeclasZombies.arrowLeftZombie = "";

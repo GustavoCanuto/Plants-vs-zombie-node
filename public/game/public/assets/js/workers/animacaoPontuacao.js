@@ -12,7 +12,7 @@ self.addEventListener('message', function (e) {
     }
 
     if (e.data.comando === 'stopVelocidadePontuacao') {
-   
+
         clearInterval(setIntervalSolCaindo[e.data.lado]);
     }
 });

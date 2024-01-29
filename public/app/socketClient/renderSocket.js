@@ -43,7 +43,7 @@ function renderConvite(usuario) {
 
   $('.menssagens').css('display','block');
   $('.efeito').css('display','block');
- // alert("teste")
+
 
   let convite = `
     <p class="${usuario.id}xy ${usuario.id} mensagem-convites"><strong>${usuario.nome} #${usuario.posicao}</strong>  convidou para jogar

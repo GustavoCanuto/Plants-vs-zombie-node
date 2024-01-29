@@ -55,7 +55,7 @@ function criarCarrinhoETarget() {
                         let numeroLinha = divCarrinhoElement.id;
                         numeroLinha = numeroLinha.charAt(numeroLinha.length - 1);
 
-                      
+
                         const workerCarrinhoAndando = new Worker('/game/public/assets/js/workers/carrinhoAndandoThread.js');
 
                         workerCarrinhoAndando.postMessage({ comando: "startCarrinhoAndando" })
@@ -64,7 +64,7 @@ function criarCarrinhoETarget() {
 
                             if (e.data.comando === 'carrinhoAndandoProcessado') {
 
-                              
+
 
                                 const tabuleiroRect = tabuleiro.getBoundingClientRect();
                                 const cellRect = cellElement.getBoundingClientRect();
@@ -78,10 +78,10 @@ function criarCarrinhoETarget() {
                                     divCarrinhoElement.style.left = `${posicaoLeft}%`;
                                 } else {
                                     divCarrinhoElement.remove();
-                                  
+
                                     workerCarrinhoAndando.postMessage({ comando: "stopCarrinhoAndando" });
                                     workerCarrinhoAndando.terminate();
-                                 
+
                                     workerCarrinho.postMessage({ comando: "stopCarrinho" });
                                     workerCarrinho.terminate();
 
@@ -89,15 +89,15 @@ function criarCarrinhoETarget() {
                                 }
 
 
-                           
+
                             }
                         });
 
-                    
+
 
                         const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == zombieElemento.id);
 
-             
+
                         if (personagemEncontrado.idNovoPersonagem.nomePersonagem != 'Zombie_Target1') {
                             morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(999)
                         }
@@ -105,11 +105,11 @@ function criarCarrinhoETarget() {
 
 
                         if (morreu) {
-                      
+
 
                             pararAnimacaoZombie(personagemEncontrado.idNovoPersonagem.id)
                             pararAnimacao(personagemEncontrado.idNovoPersonagem.id)
-                         
+
                             let imgZombie = zombieElemento.firstChild;
                             zombieElemento.style.height = '12%';
                             zombieElemento.style.marginBottom = '2%';

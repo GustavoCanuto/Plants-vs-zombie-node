@@ -69,8 +69,8 @@ function updateImagePosition(gamepad, lado) {
         isMouseActive = false;
     }
     else {
-        centerImageGamePad(lado,chaveLado);
-        socket2.emit("centerImageGamePad", lado,chaveLado, sala)
+        centerImageGamePad(lado, chaveLado);
+        socket2.emit("centerImageGamePad", lado, chaveLado, sala)
     }
 }
 
@@ -101,10 +101,10 @@ function handleGamepad() {
 
 function jogadorGamePad(gamepad, lado) {
 
-    if(!gamePadBloqueado){
-    updateImagePosition(gamepad, lado);
-    const buttons = gamepad.buttons;
-    botoesGamepad(buttons, lado);
+    if (!gamePadBloqueado) {
+        updateImagePosition(gamepad, lado);
+        const buttons = gamepad.buttons;
+        botoesGamepad(buttons, lado);
     }
 }
 
@@ -116,12 +116,11 @@ let liberadoBaixo = [true, true], liberadoCima = [true, true], liberadoEsquerda 
 function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabuleiroID,
     limiteTabuleiroLeft, limiteBottomCelula, lado, chaveLado) {
 
-    // alert(lado)
     //movendo para cima
     if (rectcursorTabuleiro.top < (rectcelulaAtual.top - (rectcelulaAtual.height * 10) / 100)
         && rectcursorTabuleiro.top > rectTabuleiroID.top && liberadoBaixo[lado]) {
 
-        // console.log("cima")
+
         if (rectcursorTabuleiro.right > rectcelulaAtual.right - (rectcelulaAtual.width * 20) / 100
             && rectcursorTabuleiro.right < rectTabuleiroID.right) {
             moveContent('arrowupright', lado);
@@ -148,7 +147,7 @@ function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabulei
     //movendo para baixo
     else if (rectcursorTabuleiro.bottom > rectcelulaAtual.bottom - limiteBottomCelula && liberadoCima[lado]) {
 
-        //  console.log("baixo")
+
         if (rectcursorTabuleiro.right > rectcelulaAtual.right && rectcursorTabuleiro.right < rectTabuleiroID.right) {
             moveContent('arrowdownright', lado);
 
@@ -211,7 +210,7 @@ export function movimentarCursorGamePad(lado, analogMoveX, analogMoveY) {
 
 }
 
-export function centerImageGamePad(lado,chaveLado){
+export function centerImageGamePad(lado, chaveLado) {
 
     mainRect = main.getBoundingClientRect();
     const rect = celulaAtual[lado][chaveLado].getBoundingClientRect();
@@ -220,7 +219,7 @@ export function centerImageGamePad(lado,chaveLado){
 
     if (!isMouseActive) {
         centerImage(celulaAtual[lado]);
-       
+
         analogMoveX[lado] = centerXPercentage;
         analogMoveY[lado] = centerYPercentage;
     }

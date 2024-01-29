@@ -4,19 +4,18 @@ let sequenciaTiro;
 self.addEventListener('message', function (e) {
 
     if (e.data.comando === 'startSequenciaTiro') {
-      //  console.log("thread sequencia tiro começou")
 
         setTimeout(() => {
 
-         self.postMessage({ comando: "sequenciaTiroProcessado"});
+            self.postMessage({ comando: "sequenciaTiroProcessado" });
 
-        },500);
+        }, 500);
 
-           sequenciaTiro = setInterval(() => {
-       
-            self.postMessage({ comando: "sequenciaTiroProcessado"});
+        sequenciaTiro = setInterval(() => {
+
+            self.postMessage({ comando: "sequenciaTiroProcessado" });
             primeiroTiro = false;
-            
+
         }, 4000);
     }
 

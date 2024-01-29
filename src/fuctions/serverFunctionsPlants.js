@@ -8,17 +8,17 @@ function excluirUsuarioPlants(socketID, listaUsuariosPlants) {
     }
 }
 
-function conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario,numeroVitorias) {
-    
+function conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario, numeroVitorias) {
+
     data.ipMaquina = "MaiorQue3"
     data.numeroVitorias = numeroVitorias;
     data.lado = 0;
     listaUsuariosPlants.push(data);
     listaTodosUsuario.push(data);
-   
+
     socket.broadcast.emit('receivePlant', data);
 
     socket.broadcast.emit('atualizarClicavel');
 }
 
-export  { excluirUsuarioPlants, conectarUsuarioPlant };
+export { excluirUsuarioPlants, conectarUsuarioPlant };

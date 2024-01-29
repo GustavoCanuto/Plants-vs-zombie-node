@@ -24,8 +24,8 @@ function GravarOpcaoGamePad() {
             break;
         }
     }
-  
-    alert("alterado com sucesso")
+
+    // alert("alterado com sucesso")
     voltarMenu();
     toggleConfig();
 
@@ -45,8 +45,8 @@ function gravarOpcaoMouse() {
             break;
         }
     }
-    
-    console.log("alterado com sucesso")
+
+    //console.log("alterado com sucesso")
     chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
     cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
     mouseEnterCelula();
@@ -59,38 +59,38 @@ function gravarOpcaoMouse() {
 
 export function atualizarLadoOnline() {
 
-    $(".messagemCarregamento").css("display", "none"); 
+    $(".messagemCarregamento").css("display", "none");
     $(".contagemJogo").css("display", "flex");
 
-   let contador = 3;
+    let contador = 3;
 
-   let intervalID = setInterval(() => {
+    let intervalID = setInterval(() => {
 
-    contador--;
+        contador--;
 
-     if (contador != 0) $('#contadorInicioJogo').text(contador);
+        if (contador != 0) $('#contadorInicioJogo').text(contador);
 
-       
-        if (contador == 0) { 
-           clearInterval(intervalID);
+
+        if (contador == 0) {
+            clearInterval(intervalID);
         }
 
     }, 1000);
 
     setTimeout(() => {
 
-        if(ladoJogador==0) $('#contadorInicioJogo').text("Plante!");
+        if (ladoJogador == 0) $('#contadorInicioJogo').text("Plante!");
         else $('#contadorInicioJogo').text("Ataque!");
         $(".carregamento").css("backgroundColor", "rgba(8, 8, 8, 0.007)");
         $(".contagemJogo").css("opacity", "0");
-    
+
     }, 3000);
 
     setTimeout(() => {
         $(".carregamento").css("display", "none");
         gamePadBloqueado = false;
         tecladoBloqueado = false;
- 
+
         LadoQueUsaMouse = ladoJogador;
         chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
         cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
@@ -106,24 +106,24 @@ export function atualizarLadoOnline() {
         else $('#btnControleZombies').prop("disabled", true);
 
         local = false;
-    
+
     }, 4000);
 
 
 }
 
-export function jogarLocal(local,cenario,nome,ladoJogador) {
+export function jogarLocal(local, cenario, nome, ladoJogador) {
     let main = document.querySelector("main")
-    if(!nome) nome = "Guest0" + Math.floor(100 + Math.random() * 900);
-    console.log(cenario)
-    if(cenario==1) main.style.backgroundImage = "url(./assets/img/public_assets_img_brackground_gameLobby2Antig.png)";
-    if(ladoJogador ==1){
-    LadoQueUsaMouse = ladoJogador;
-    chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
-    cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
-    mouseEnterCelula();
-    navBarEnter();
-    game.atualizarLado();
+    if (!nome) nome = "Guest0" + Math.floor(100 + Math.random() * 900);
+
+    if (cenario == 1) main.style.backgroundImage = "url(./assets/img/public_assets_img_brackground_gameLobby2Antig.png)";
+    if (ladoJogador == 1) {
+        LadoQueUsaMouse = ladoJogador;
+        chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
+        cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
+        mouseEnterCelula();
+        navBarEnter();
+        game.atualizarLado();
     }
     cairPontuacao(local)
 }

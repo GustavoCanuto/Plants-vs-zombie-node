@@ -8,7 +8,7 @@ function excluirUsuarioListaTodosUsuarios(socketID, listaTodosUsuario) {
 
 }
 
-function excluirConvitePendente(socketID, listaUsuariosConvitesPendentes){
+function excluirConvitePendente(socketID, listaUsuariosConvitesPendentes) {
 
     let index = listaUsuariosConvitesPendentes.findIndex(user => user == socketID);
 

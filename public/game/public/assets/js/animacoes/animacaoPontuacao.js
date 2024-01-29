@@ -4,6 +4,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
 
     const divPontosElement = document.createElement('div');
     const pontosElement = document.createElement('img');
+   
     let caminhoImagem;
     let tamanho;
     let lado;
@@ -39,6 +40,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
 
             cellElement.style.transition = 'filter 1.8s ease';
             cellElement.style.filter = brilho
+
             let verificaFilho;
             let eleminado;
             let setTimeoutConflito;
@@ -137,6 +139,8 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
 
                 setTimeout(() => {
                     cellElement.style.filter = 'brightness(1)'
+                    cellElement.style.filter = 'none'
+                    cellElement.style.transition = "none"
                     divPontosElementClone.style.transition = "all 3s ease"
                     divPontosElementClone.style.top = `40%`;
                     divPontosElementClone.style.left = `${Math.floor(Math.random() * 39) + 1}%`; //randon 1 a 40
@@ -148,7 +152,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
                     if(cellElement.contains(divPontosElementClone)) cellElement.removeChild(divPontosElementClone);
                     
                     clearInterval(verificaConflito)
-                    //esta eleminando mas continua existindo ?
+                   
                 }, 10000);
 
                 divPontosElementClone.style.width = tamanho;

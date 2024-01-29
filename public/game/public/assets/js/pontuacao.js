@@ -2,7 +2,7 @@ import { personagens } from "./personagens.js";
 
 let pontoPlantas = document.getElementById("pontosPlanta");
 let pontoZombies = document.getElementById("pontosZombie");
-export let pontuacaoLado = [7500, 7500];
+export let pontuacaoLado = [75, 75];
 export let pontosLado = [pontoPlantas, pontoZombies]
 let board = document.querySelector('.board')
 
@@ -10,10 +10,10 @@ const workerPontuacao = new Worker('/game/public//assets/js/workers/pontuacaoThr
 
 function cairPontos(lado) {
 
-const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/animacaoPontuacao.js');
+  const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/animacaoPontuacao.js');
 
-  let parametrosStop = { comando: 'stopVelocidadePontuacao', lado: lado}
-  let parametrosStart = { comando: 'velocidadePontuacao', lado: lado}
+  let parametrosStop = { comando: 'stopVelocidadePontuacao', lado: lado }
+  let parametrosStart = { comando: 'velocidadePontuacao', lado: lado }
   let posicaoTop = -7
   let topLimite = Math.random() < 0.75 ? 83 : 51;
   let pontuacao;
@@ -25,18 +25,18 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
     pontuacao.style.left = `${posicaoLeft}%`
 
   } else {
- 
+
     posicaoLeft = Math.floor(Math.random() * (95 - 68 + 1)) + 68;
     pontuacao = criarCerebro();
     pontuacao.style.left = `${posicaoLeft}%`
   }
 
   pontuacao.style.top = "-7%"
-  
+
   workerPontuacaoAnimacao.postMessage(parametrosStart);
 
-    workerPontuacaoAnimacao.addEventListener('message', function (e) {
-   
+  workerPontuacaoAnimacao.addEventListener('message', function (e) {
+
     if (e.data.comando === 'velocidadePontuacaoProcessado' && e.data.lado == lado) {
 
       let chaveLado = Object.keys(celulaAtual[lado]);
@@ -76,8 +76,8 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
           if (board.contains(pontuacao)) {
             board.removeChild(pontuacao);
           }
-        
-          
+
+
           workerPontuacaoAnimacao.postMessage(parametrosStop);
           workerPontuacaoAnimacao.terminate();
         }, 6000);
@@ -85,7 +85,7 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
 
       }
 
-   
+
     }
   });
 }
@@ -117,8 +117,8 @@ export function cairPontuacao(local, iniciado) {
 
 
   if (local) {
-   
-    workerPontuacao.postMessage({comando: 'solCaindo'});
+
+    workerPontuacao.postMessage({ comando: 'solCaindo' });
 
     workerPontuacao.addEventListener('message', function (e) {
       if (e.data === 'pontuacaoSolCaindoProcessado') {
@@ -126,7 +126,7 @@ export function cairPontuacao(local, iniciado) {
       }
     });
 
-    workerPontuacao.postMessage({comando:'cerebroCaindo'});
+    workerPontuacao.postMessage({ comando: 'cerebroCaindo' });
 
     workerPontuacao.addEventListener('message', function (e) {
       if (e.data === 'pontuacaoCerebroCaindoProcessado') {
@@ -134,12 +134,12 @@ export function cairPontuacao(local, iniciado) {
       }
     });
 
-   
+
   } else {
-   
+
     if (ladoJogador == 0 && iniciado) {
-      
-      workerPontuacao.postMessage({comando: 'solCaindo'});
+
+      workerPontuacao.postMessage({ comando: 'solCaindo' });
 
       workerPontuacao.addEventListener('message', function (e) {
         if (e.data === 'pontuacaoSolCaindoProcessado') {
@@ -150,7 +150,7 @@ export function cairPontuacao(local, iniciado) {
     }
     else if (ladoJogador == 1 && iniciado) {
 
-      workerPontuacao.postMessage({comando:'cerebroCaindo'});
+      workerPontuacao.postMessage({ comando: 'cerebroCaindo' });
 
       workerPontuacao.addEventListener('message', function (e) {
         if (e.data === 'pontuacaoCerebroCaindoProcessado') {

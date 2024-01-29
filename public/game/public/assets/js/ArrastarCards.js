@@ -1,12 +1,12 @@
 import { Personagens, personagens } from "./personagens.js";
 import AnimacaoCartas from './animacoes/animacaoCartas.js';
-import {dropPersonagem} from './comandos/comandosNavBar.js';
+import { dropPersonagem } from './comandos/comandosNavBar.js';
 
 class ArrastarCards {
 
     constructor() {
 
-  
+
         this.classedragItems = LadoQueUsaMouse == 0 ? '.navbar-planta' : '.navbar-zombie'
         this.dragItems = document.querySelectorAll(`${this.classedragItems} > .card`);
         this.dropBoxes = document.querySelectorAll(".cell");
@@ -91,7 +91,7 @@ class ArrastarCards {
             }
         }
     }
-    
+
     criarElementoPersonagem() {
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
@@ -99,7 +99,7 @@ class ArrastarCards {
         elemento.appendChild(gifElement);
         return elemento;
     }
-    
+
     dropEvent = (ev) => {
         if (!ev.target.closest('.cell').classList.contains('ocupado')) {
             ev.preventDefault();
@@ -108,10 +108,10 @@ class ArrastarCards {
             const imgSrc = ev.dataTransfer.getData('text/plain');
             const img = new Image();
             img.src = imgSrc;
-            
-            const cellElement  = ev.target.closest('.cell');
-    
-           dropPersonagem(cellElement.id, img.src);
+
+            const cellElement = ev.target.closest('.cell');
+
+            dropPersonagem(cellElement.id, img.src);
 
         }
     }
@@ -132,7 +132,7 @@ class ArrastarCards {
             const imgElement = document.createElement('img');
             imgElement.src = imgSrc;
 
-            
+
             AnimacaoCartas.criarAnimacaoCarta(cell, imgElement);
         } else {
             console.error('Tipo de card não reconhecido:', dragClass);

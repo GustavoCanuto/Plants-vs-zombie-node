@@ -94,18 +94,18 @@ export class AnimacaoCartas {
 
             if (nomeClasse == 'cardtombstone') {
 
-          
+
 
                 if (!cellElement.classList.contains('tumba')) {
                     tumba = true;
-           
-                }else{
-      
+
+                } else {
+
                     return;
                 }
             }
-            //console.log(tumba)
-            this.criarAnimacaoZombie(cellElement, nomeClasse, personagemNome,tumba);
+
+            this.criarAnimacaoZombie(cellElement, nomeClasse, personagemNome, tumba);
             listaCard = document.querySelectorAll('.navbar-zombie .card');
 
         }
@@ -130,7 +130,7 @@ export class AnimacaoCartas {
 
         let novoPersonagem = personagens[personagemNome].clone();
         let idNovoPersonagem = novoPersonagem.id;
-    
+
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
         elemento.id = idNovoPersonagem
@@ -164,38 +164,38 @@ export class AnimacaoCartas {
     }
 
 
-    static criarAnimacaoZombie(cellElement, nomeClasse, personagemNome,tumba) {
- 
+    static criarAnimacaoZombie(cellElement, nomeClasse, personagemNome, tumba) {
+
 
         if (tumba) {
 
-            
-                let novoPersonagem = personagens[personagemNome].clone();
-                let idNovoPersonagem = novoPersonagem.id;
 
-                const elemento = document.createElement('div');
-                elemento.classList.add('personagem');
-                elemento.id = idNovoPersonagem
-                elemento.style.width = '100%';
-              
-                elemento.classList.add(`tamanho-${personagemNome}`);
-                const gifElement = document.createElement('img');
-                elemento.classList.add('personagemZombie');
+            let novoPersonagem = personagens[personagemNome].clone();
+            let idNovoPersonagem = novoPersonagem.id;
 
-                elemento.appendChild(gifElement);
-                cellElement.appendChild(elemento);
-                elemento.closest('.cell').classList.add('tumba')
-                const numberOfFrames = this.framesPorClasse[nomeClasse] || 0;
-                const frames = carregarFrames(nomeClasse, numberOfFrames);
+            const elemento = document.createElement('div');
+            elemento.classList.add('personagem');
+            elemento.id = idNovoPersonagem
+            elemento.style.width = '100%';
 
-                iniciarAnimacao(frames, gifElement, idNovoPersonagem);
-                iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonagem);
-                AnimacaoCartas.personagensJogando.push({ idNovoPersonagem: novoPersonagem })
+            elemento.classList.add(`tamanho-${personagemNome}`);
+            const gifElement = document.createElement('img');
+            elemento.classList.add('personagemZombie');
 
-                let classeLinha = cellElement.closest(".row").className.split(' ');
-                let linhaAtiva = classeLinha[1];
+            elemento.appendChild(gifElement);
+            cellElement.appendChild(elemento);
+            elemento.closest('.cell').classList.add('tumba')
+            const numberOfFrames = this.framesPorClasse[nomeClasse] || 0;
+            const frames = carregarFrames(nomeClasse, numberOfFrames);
 
-                AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
+            iniciarAnimacao(frames, gifElement, idNovoPersonagem);
+            iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonagem);
+            AnimacaoCartas.personagensJogando.push({ idNovoPersonagem: novoPersonagem })
+
+            let classeLinha = cellElement.closest(".row").className.split(' ');
+            let linhaAtiva = classeLinha[1];
+
+            AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
 
         } else {
 
@@ -219,7 +219,7 @@ export class AnimacaoCartas {
 
             AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
 
-   
+
 
             if (!tabuleiro) {
                 console.error('Elemento .board não encontrado.');

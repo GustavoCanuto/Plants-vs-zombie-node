@@ -5,10 +5,10 @@ self.addEventListener('message', function (e) {
     if (e.data.comando === 'startCarrinho') {
 
 
-      intervaloCarrinho = setInterval(() => {
+        intervaloCarrinho = setInterval(() => {
 
-            self.postMessage({ comando: "carrinhoProcessado"});
-            
+            self.postMessage({ comando: "carrinhoProcessado" });
+
         }, 100);
     }
 
@@ -17,4 +17,3 @@ self.addEventListener('message', function (e) {
         clearInterval(intervaloCarrinho);
     }
 });
- 
