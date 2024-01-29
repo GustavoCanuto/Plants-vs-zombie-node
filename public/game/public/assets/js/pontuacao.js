@@ -1,10 +1,10 @@
 import { personagens } from "./personagens.js";
 
-var pontoPlantas = document.getElementById("pontosPlanta");
-var pontoZombies = document.getElementById("pontosZombie");
-export var pontuacaoLado = [7500, 7500];
-export var pontosLado = [pontoPlantas, pontoZombies]
-var board = document.querySelector('.board')
+let pontoPlantas = document.getElementById("pontosPlanta");
+let pontoZombies = document.getElementById("pontosZombie");
+export let pontuacaoLado = [7500, 7500];
+export let pontosLado = [pontoPlantas, pontoZombies]
+let board = document.querySelector('.board')
 
 const workerPontuacao = new Worker('/game/public//assets/js/workers/pontuacaoThread.js');
 
@@ -23,9 +23,9 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
     posicaoLeft = Math.floor(Math.random() * (48 - 18 + 1)) + 18;
     pontuacao = criarSol();
     pontuacao.style.left = `${posicaoLeft}%`
-    // listaCard = document.querySelectorAll('.navbar-planta .card');
+
   } else {
-    // listaCard = document.querySelectorAll('.navbar-zombie .card');
+ 
     posicaoLeft = Math.floor(Math.random() * (95 - 68 + 1)) + 68;
     pontuacao = criarCerebro();
     pontuacao.style.left = `${posicaoLeft}%`
@@ -35,12 +35,11 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
   
   workerPontuacaoAnimacao.postMessage(parametrosStart);
 
-  //let setIntervalSolCaindo = setInterval(() => {
     workerPontuacaoAnimacao.addEventListener('message', function (e) {
    
     if (e.data.comando === 'velocidadePontuacaoProcessado' && e.data.lado == lado) {
 
-      var chaveLado = Object.keys(celulaAtual[lado]);
+      let chaveLado = Object.keys(celulaAtual[lado]);
       if (verificaColisaoPontos(pontuacao, celulaAtual[lado][chaveLado])) {
         setTimeout(() => {
           pontuacao.style.transition = 'all 0.5s ease'
@@ -61,12 +60,12 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
 
         workerPontuacaoAnimacao.postMessage(parametrosStop);
         workerPontuacaoAnimacao.terminate();
-       // clearInterval(setIntervalSolCaindo)
+
       }
 
       posicaoTop++;
 
-      //console.log(posicaoTop)
+
       if (posicaoTop < topLimite) {
         pontuacao.style.top = `${posicaoTop}%`
       } else {
@@ -77,7 +76,7 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
           if (board.contains(pontuacao)) {
             board.removeChild(pontuacao);
           }
-          //clearInterval(setIntervalSolCaindo)
+        
           
           workerPontuacaoAnimacao.postMessage(parametrosStop);
           workerPontuacaoAnimacao.terminate();
@@ -86,7 +85,7 @@ const workerPontuacaoAnimacao = new Worker('/game/public//assets/js/workers/anim
 
       }
 
-      //}, 130);
+   
     }
   });
 }
@@ -116,7 +115,6 @@ function criarCerebro() {
 
 export function cairPontuacao(local, iniciado) {
 
-  // console.log("pontuacao local é :" + local);
 
   if (local) {
    
@@ -186,7 +184,7 @@ export function verificaColisaoPontos(elementoA, elementoB) {
 }
 
 export function criarPontos(lado) {
-// console.log("pontos para o lado "+ lado)
+
   let listaCard;
   if (lado == 0) {
     listaCard = document.querySelectorAll('.navbar-planta .card');

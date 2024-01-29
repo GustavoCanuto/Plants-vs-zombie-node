@@ -31,7 +31,6 @@ class ArrastarCards {
 
         this.cellAnimators = {};
 
-       // this.socket.on('itemPlaced', this.onItemPlaced.bind(this));
     }
 
     atualizarLado() {
@@ -44,7 +43,6 @@ class ArrastarCards {
         });
 
         this.classedragItems = LadoQueUsaMouse == 0 ? '.navbar-planta' : '.navbar-zombie'
-        //alert(this.classedragItems)
         this.dragItems = document.querySelectorAll(`${this.classedragItems} .card`);
         this.dropBoxes = document.querySelectorAll(".cell");
 
@@ -62,7 +60,6 @@ class ArrastarCards {
 
     dragStart(ev) {
         const dragClass = ev.target.classList[1];
-        // console.log(dragClass);
 
         const personagem = this.classToPersonagem[dragClass];
         if (personagem instanceof Personagens) {
@@ -87,7 +84,6 @@ class ArrastarCards {
             if (seletorTabuleiro[LadoQueUsaMouse][chaveMouse]) {
                 ev.target.closest('.cell').appendChild(seletorTabuleiro[LadoQueUsaMouse][chaveMouse]);
                 ev.target.closest('.cell').appendChild(divPreviaPersonagem[LadoQueUsaMouse][chaveMouse]);
-                //var overAtual      =  [{planta:ev.target.closest('.cell')}, {zombie:ev.target.closest('.cell')}]
                 celulaAtual[LadoQueUsaMouse][chaveMouse] = ev.target.closest('.cell')
                 centerImage(celulaAtual[LadoQueUsaMouse]);
                 celulaAnterior[LadoQueUsaMouse][chaveMouse] = ev.target.closest('.cell')
@@ -116,11 +112,6 @@ class ArrastarCards {
             const cellElement  = ev.target.closest('.cell');
     
            dropPersonagem(cellElement.id, img.src);
-          // socket2.emit("dropPersonagem", {cellID:cellElement.id, imgPreviaPersonagem: img.src, sala: sala} );
-
-            const board = cellElement.closest('.board');
-            const rows = Array.from(board.children);
-
 
         }
     }
@@ -149,4 +140,4 @@ class ArrastarCards {
     }
 }
 
-export var game = new ArrastarCards();
+export let game = new ArrastarCards();

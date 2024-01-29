@@ -16,7 +16,7 @@ document.addEventListener('keydown', function (e) {
 
     if (!tecladoBloqueado) {
 
-        var key = e.key.toLowerCase();
+        let key = e.key.toLowerCase();
 
         if (key == " ") {
             key = "space";
@@ -78,7 +78,7 @@ document.addEventListener('keyup', function (e) {
  
     if (!tecladoBloqueado) {
 
-    var key = e.key.toLowerCase();
+    let key = e.key.toLowerCase();
 
     if (key == " ") {
         key = "space";
@@ -131,7 +131,7 @@ class JogadorMove {
 
     atualizarMove(direction, lado) {
 
-        var chaveLado = Object.keys(celulaAtual[lado]);
+        let chaveLado = Object.keys(celulaAtual[lado]);
 
         this.rowIndex = celulaAtual[lado][chaveLado].parentElement.classList[1].replace('linha', '');
         this.cellIndex = Array.from(celulaAtual[lado][chaveLado].parentElement.children).indexOf(celulaAtual[lado][chaveLado]);
@@ -168,8 +168,8 @@ class JogadorMove {
 
         }
 
-        var targetRow = document.querySelector('.linha' + this.rowIndex);
-        var targetCell = targetRow.children[this.cellIndex];
+        let targetRow = document.querySelector('.linha' + this.rowIndex);
+        let targetCell = targetRow.children[this.cellIndex];
 
         if (!targetCell.classList.contains('grass-cutter')) {
 
@@ -195,15 +195,14 @@ class JogadorMove {
             case ' ':
                 const celulaAtual = document.getElementById(`${classeSeletor}`);
                 comandosNavBar.dropPersonagem(celulaAtual.closest('.cell').id, imgPreviaPersonagem[lado].src);
-             //   socket2.emit("dropPersonagem", { cellID: celulaAtual.closest('.cell').id, imgPreviaPersonagem: imgPreviaPersonagem[lado].src, sala: sala });
                 break;
         }
     }
 
 }
 
-export var jogadorPlanta = new JogadorMove();
-export var jogadorZombie = new JogadorMove();
+export let jogadorPlanta = new JogadorMove();
+export let jogadorZombie = new JogadorMove();
 
 export function moverSeletor(targetCellID,lado,chaveLado){
 

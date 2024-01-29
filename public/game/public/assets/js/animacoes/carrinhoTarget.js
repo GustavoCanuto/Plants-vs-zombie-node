@@ -55,7 +55,7 @@ function criarCarrinhoETarget() {
                         let numeroLinha = divCarrinhoElement.id;
                         numeroLinha = numeroLinha.charAt(numeroLinha.length - 1);
 
-                        // const carrinhoAndando = setInterval(() => {
+                      
                         const workerCarrinhoAndando = new Worker('/game/public/assets/js/workers/carrinhoAndandoThread.js');
 
                         workerCarrinhoAndando.postMessage({ comando: "startCarrinhoAndando" })
@@ -64,7 +64,7 @@ function criarCarrinhoETarget() {
 
                             if (e.data.comando === 'carrinhoAndandoProcessado') {
 
-                                // console.log("iniciou animacao carrrinho")
+                              
 
                                 const tabuleiroRect = tabuleiro.getBoundingClientRect();
                                 const cellRect = cellElement.getBoundingClientRect();
@@ -78,10 +78,10 @@ function criarCarrinhoETarget() {
                                     divCarrinhoElement.style.left = `${posicaoLeft}%`;
                                 } else {
                                     divCarrinhoElement.remove();
-                                    // clearInterval(carrinhoAndando);
+                                  
                                     workerCarrinhoAndando.postMessage({ comando: "stopCarrinhoAndando" });
                                     workerCarrinhoAndando.terminate();
-                                    //  clearInterval(intervaloCarrinho);
+                                 
                                     workerCarrinho.postMessage({ comando: "stopCarrinho" });
                                     workerCarrinho.terminate();
 
@@ -89,19 +89,15 @@ function criarCarrinhoETarget() {
                                 }
 
 
-                                //  }, 50);
+                           
                             }
                         });
 
-                        // console.log("conflitou com carrinho")
-
-
-                        //ao acontecer conflito com o zombie
+                    
 
                         const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == zombieElemento.id);
 
-                        // console.log(personagemEncontrado.idNovoPersonagem.id)
-
+             
                         if (personagemEncontrado.idNovoPersonagem.nomePersonagem != 'Zombie_Target1') {
                             morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(999)
                         }
@@ -109,11 +105,11 @@ function criarCarrinhoETarget() {
 
 
                         if (morreu) {
-                            // console.log("morreu com carrinho")
+                      
 
                             pararAnimacaoZombie(personagemEncontrado.idNovoPersonagem.id)
                             pararAnimacao(personagemEncontrado.idNovoPersonagem.id)
-                            // zombieElemento.style.height = '50%';
+                         
                             let imgZombie = zombieElemento.firstChild;
                             zombieElemento.style.height = '12%';
                             zombieElemento.style.marginBottom = '2%';
@@ -122,21 +118,9 @@ function criarCarrinhoETarget() {
                             imgZombie.style.width = '160%';
                             imgZombie.style.height = '100%';
 
-                            // imgZombie.style.transform = 'scaleX(1.5)';
-
-                            //   zombieElemento.style.transform = 'scaleY(0.5)';
-
-                            // zombieElemento.style.transform = 'scaleX(2)';
-                            //esmagar zombieElement 
-
-                            // setTimeout(()=>{
-                            //     zombieElemento.style.transform = 'scaleX(5)';
-                            // },500)
-
                             setTimeout(() => {
                                 removerZombie(zombieElemento, numeroLinha, zombieElemento.id);
                             }, 1000)
-
 
 
                         }
@@ -144,7 +128,6 @@ function criarCarrinhoETarget() {
                     }
                 });
 
-                // }, 100);
             }
         });
 

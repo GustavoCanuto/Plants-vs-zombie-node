@@ -1,19 +1,19 @@
 //export default io;eren
-import  io  from "./server.js";
-import  gameSocket from "./serverGame.js";
+import io from "./server.js";
+import gameSocket from "./serverGame.js";
 import { excluirUsuarioPlants, conectarUsuarioPlant } from './fuctions/serverFunctionsPlants.js';
 import { excluirUsuarioZombie, conectarUsuarioZombie } from './fuctions/serverFunctionsZombies.js';
 import { excluirUsuarioListaTodosUsuarios, excluirConvitePendente } from './fuctions/serverFunctionsGeral.js';
 
 const home = io.of('/home')
 
-var listaTodosUsuario = [];
-var listaUsuariosPlants = [];
-var listaUsuariosZombies = [];
-var listaUsuariosConvitesPendentes = [];
-var listaPontuacaoNavegador = [];
-var listaUsuariosDupla = [{ PlayerConvidou: 0, PlayerConvidado: 0 }];
-var salaContador = 0;
+let listaTodosUsuario = [];
+let listaUsuariosPlants = [];
+let listaUsuariosZombies = [];
+let listaUsuariosConvitesPendentes = [];
+let listaPontuacaoNavegador = [];
+let listaUsuariosDupla = [{ PlayerConvidou: 0, PlayerConvidado: 0 }];
+let salaContador = 0;
 
 // ao client se conectar
 home.on('connection', socket => {
@@ -23,31 +23,46 @@ home.on('connection', socket => {
     socket.emit('previousZombie', listaUsuariosZombies);
     socket.emit('previousPendentes', listaUsuariosConvitesPendentes);
 
-    socket.on('pegarPontucao', (data) => {
+    socket.on('pegarPontucaoPlanta', (data) => {
         let numeroVitorias;
-        console.log(data.sessao)
+       
         // Verifica se 'data.sessao' existe na listaPontuacaoNavegador
         if (listaPontuacaoNavegador[data.sessao]) {
-          // Obtém o número de vitórias da listaPontuacaoNavegador
-          numeroVitorias = listaPontuacaoNavegador[data.sessao];
+            // Obtém o número de vitórias da listaPontuacaoNavegador
+            numeroVitorias = listaPontuacaoNavegador[data.sessao];
         } else {
             numeroVitorias = 0;
             listaPontuacaoNavegador[data.sessao] = 0; // ou outra lógica, dependendo do que você precisa
         }
 
-        socket.emit("receberPontuacao", numeroVitorias);
+        socket.emit("receberPontuacaoPlanta", numeroVitorias, data);
+    });
+
+    socket.on('pegarPontucaoZombie', (data) => {
+        let numeroVitorias;
+       
+        // Verifica se 'data.sessao' existe na listaPontuacaoNavegador
+        if (listaPontuacaoNavegador[data.sessao]) {
+            // Obtém o número de vitórias da listaPontuacaoNavegador
+            numeroVitorias = listaPontuacaoNavegador[data.sessao];
+        } else {
+            numeroVitorias = 0;
+            listaPontuacaoNavegador[data.sessao] = 0; // ou outra lógica, dependendo do que você precisa
+        }
+
+        socket.emit("receberPontuacaoZombie", numeroVitorias, data);
     });
 
     //açao para quando planta se conectar
-    socket.on('plantConnected', (data,numeroVitorias) => {
-    
-        conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario,numeroVitorias);
+    socket.on('plantConnected', (data, numeroVitorias) => {
+
+        conectarUsuarioPlant(socket, data, listaUsuariosPlants, listaTodosUsuario, numeroVitorias);
     })
 
     //açao para quando zombie se conectar
-    socket.on('zombieConnected', (data,numeroVitorias) => {
+    socket.on('zombieConnected', (data, numeroVitorias) => {
 
-        conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario,  numeroVitorias);
+        conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario, numeroVitorias);
     })
 
     //cancelar pendente   
@@ -79,7 +94,7 @@ home.on('connection', socket => {
 
         const numeroSala = ++salaContador;
 
-        socket.to(usuarios.id1).emit('telaJogo', player1, numeroSala); 
+        socket.to(usuarios.id1).emit('telaJogo', player1, numeroSala);
         socket.emit('telaJogo', player2, numeroSala);
 
     });
@@ -122,9 +137,7 @@ home.on('connection', socket => {
             );
 
             if (indiceEncontrado !== -1) {
-
                 id1 = listaUsuariosDupla[indiceEncontrado].PlayerConvidou;
-
             }
 
         }
@@ -133,8 +146,6 @@ home.on('connection', socket => {
         if (indiceEncontrado !== -1) {
 
             let usuarios = { id1: id1, id2: id2 }
-
-            //  socket.emit('cancelaPendenteConviteDisconect', usuarios)
 
             excluirConvitePendente(usuarios.id1, listaUsuariosConvitesPendentes);
             excluirConvitePendente(usuarios.id2, listaUsuariosConvitesPendentes);
@@ -146,8 +157,6 @@ home.on('connection', socket => {
             //manda para o usuario resposta 
             socket.to(id1).emit("cancelaPendenteConvite", id2);
 
-
-            //
             listaUsuariosDupla.splice(indiceEncontrado, 1);
 
         }
@@ -158,7 +167,6 @@ home.on('connection', socket => {
 
     //ao client se desconectar
     socket.on('disconnect', () => {
-
 
         let indiceEncontrado;
         let id1;
@@ -191,8 +199,6 @@ home.on('connection', socket => {
 
             let usuarios = { id1: id1, id2: id2 }
 
-            //  socket.emit('cancelaPendenteConviteDisconect', usuarios)
-
             excluirConvitePendente(usuarios.id1, listaUsuariosConvitesPendentes);
             excluirConvitePendente(usuarios.id2, listaUsuariosConvitesPendentes);
 
@@ -203,10 +209,7 @@ home.on('connection', socket => {
             //manda para o usuario resposta 
             socket.to(id1).emit("cancelaPendenteConvite", id2);
 
-
-            //
             listaUsuariosDupla.splice(indiceEncontrado, 1);
-
         }
 
         socket.broadcast.emit('receiveusuarioDisconnect', socket.id)
@@ -244,21 +247,14 @@ function encontraLadoZombie(id) {
 
 }
 
-//verficar lista atualizada de usuarios
-function testeConsole() {
-    console.log("todos usuarios: " + listaTodosUsuario)
-    console.log("plantas usuarios: " + listaUsuariosPlants)
-    console.log("zombies usuarios: " + listaUsuariosZombies)
-}
 
 // server Game
-
-var salasAtivas = [];
+let salasAtivas = [];
 
 const game = io.of('/game')
 
 game.on('connection', socket => {
- 
+
     console.log("conectado game")
     gameSocket(socket, salasAtivas, listaPontuacaoNavegador);
 

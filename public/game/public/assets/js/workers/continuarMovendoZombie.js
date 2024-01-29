@@ -3,7 +3,7 @@ let tempoRestante = 5;
 self.addEventListener('message', function (e) {
 
     if (e.data.comando === 'startContinuaMovendoZombie') {
-       // console.log("thread continuar Movendo Zombie começou")
+   
 
         zombieAtacando = setInterval(() => {
             tempoRestante--;
@@ -12,7 +12,7 @@ self.addEventListener('message', function (e) {
     }
 
     if (e.data.comando === 'stopContinuaMovendoZombie') {
-      //  console.log("thread continuar Movendo Zombie Para")
+
         clearInterval(zombieAtacando);
     }
 });

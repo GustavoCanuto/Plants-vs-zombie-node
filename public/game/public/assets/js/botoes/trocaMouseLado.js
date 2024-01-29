@@ -2,19 +2,19 @@ import { navBarEnter } from '../comandos/mouse/mouseNavBar.js';
 import { game } from '../ArrastarCards.js';
 import { cairPontuacao } from "../pontuacao.js";
 
-var btnGravarOpcaoMouse = document.getElementById('gravarOpcaoMouse');
+let btnGravarOpcaoMouse = document.getElementById('gravarOpcaoMouse');
 
 btnGravarOpcaoMouse.addEventListener('click', gravarOpcaoMouse);
 
-var btnGravarOpcaoGamePad = document.getElementById('gravarOpcaoGamePad');
+let btnGravarOpcaoGamePad = document.getElementById('gravarOpcaoGamePad');
 
 btnGravarOpcaoGamePad.addEventListener('click', GravarOpcaoGamePad);
 
 function GravarOpcaoGamePad() {
 
-    var opcoesGamePad = document.getElementsByName('opcaoGamePad');
+    let opcoesGamePad = document.getElementsByName('opcaoGamePad');
 
-    for (var i = 0; i < opcoesGamePad.length; i++) {
+    for (let i = 0; i < opcoesGamePad.length; i++) {
         if (opcoesGamePad[i].checked) {
 
             if (opcoesGamePad[i].value == "plantas") ladoPlayerGamePad = 0;
@@ -24,23 +24,18 @@ function GravarOpcaoGamePad() {
             break;
         }
     }
-    // console.log("Lado que usa o gamepad: " + ladoPlayerGamePad);
+  
     alert("alterado com sucesso")
     voltarMenu();
     toggleConfig();
-    // chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
-    // cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
-    // mouseEnterCelula();
-    // navBarEnter();
-    // game.atualizarLado();
 
 }
 
 function gravarOpcaoMouse() {
 
-    var opcoesMouse = document.getElementsByName('opcaoMouse');
+    let opcoesMouse = document.getElementsByName('opcaoMouse');
 
-    for (var i = 0; i < opcoesMouse.length; i++) {
+    for (let i = 0; i < opcoesMouse.length; i++) {
         if (opcoesMouse[i].checked) {
 
             if (opcoesMouse[i].value == "plantas") LadoQueUsaMouse = 0;
@@ -50,7 +45,7 @@ function gravarOpcaoMouse() {
             break;
         }
     }
-    // console.log("Lado que usa o mouse: " + LadoQueUsaMouse);
+    
     console.log("alterado com sucesso")
     chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
     cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;
@@ -95,8 +90,7 @@ export function atualizarLadoOnline() {
         $(".carregamento").css("display", "none");
         gamePadBloqueado = false;
         tecladoBloqueado = false;
-        // console.log("iniciar Jogo")
-        // console.log(ladoJogador)
+ 
         LadoQueUsaMouse = ladoJogador;
         chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
         cursorTabuleiroMouse = LadoQueUsaMouse == 0 ? cursorTabuleiroAmarelo : cursorTabuleiroAzul;

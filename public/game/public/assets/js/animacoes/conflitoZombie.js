@@ -1,4 +1,3 @@
-import { pararAnimacaoTiro } from "./animacaoTiro.js";
 import { AnimacaoCartas } from "./animacaoCartas.js";
 import { pararAnimacao } from "./framesAnimacao.js";
 
@@ -65,21 +64,12 @@ export function verificaColisaoCarrinho(elementoA, elementoB) {
 
 }
 
-// console.log("elemento A:" + " esqueda: " + aEsquerda +  " topo: " + aTopo+  " direta: " +aDireita +  " baixo: " + aBaixo)
-// console.log("elemento B:"  + " esqueda: " + bEsquerda +  " topo: " + bTopo+  " direta: " + bDireita +  " baixo: " + bBaixo)
-
 export function removerPlanta(plantaElemento, idNovoPersonagem, plantaSendoAtacada) {
-    // console.log('planta removida');
-    // console.log(plantaSendoAtacada.idNovoPersonagem.nomePersonagem )
-   
 
     let celulaDaPlanta = plantaElemento.closest('.cell');
     let nomePersonagemPlanta = plantaSendoAtacada.idNovoPersonagem.nomePersonagem
 
     removerPlantaEmit(celulaDaPlanta.id,  plantaElemento.id,nomePersonagemPlanta)
-
-
-    //usar socket aqui
 
 
 }
@@ -124,15 +114,16 @@ export function removerZombie(zombieElemento, numeroLinha, idZombie) {
 
         if (zombieElemento.classList.contains('tamanho-cardtombstone')) {
             celulaZombieTumba = zombieElemento.closest('.cell').id
-           // celulaZombieTumba = celulaZombieTumba.id
+          
             
         }else{
             celulaZombieTumba = false;
         }
    
+        let verificaExistenciaZombie = document.getElementById(idZombie);
+
+        if(verificaExistenciaZombie){
         removerZombieEmit(celulaZombieTumba,numeroLinha,idZombie,zombieElemento.id)
-
-
-    //usar socket aqui
-
+        }
+ 
 }

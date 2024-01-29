@@ -19,7 +19,6 @@ export function iniciarAnimacao(frames, gifElement, idNovoPersonagem) {
 
     return animationInterval;
 
-
 }
 
 export function pararAnimacao(idNovoPersonagem) {

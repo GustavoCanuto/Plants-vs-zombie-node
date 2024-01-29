@@ -29,5 +29,5 @@ class jogadorComandosTeclado{
 
 }
 
-export var jogadorComandosTecladoPlanta = new jogadorComandosTeclado();
-export var jogadorComandosTecladoZombie = new jogadorComandosTeclado();
+export let jogadorComandosTecladoPlanta = new jogadorComandosTeclado();
+export let jogadorComandosTecladoZombie = new jogadorComandosTeclado();

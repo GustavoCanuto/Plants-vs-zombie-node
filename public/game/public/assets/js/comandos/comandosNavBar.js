@@ -2,31 +2,31 @@ import {personagens} from "../personagens.js";
 import AnimacaoCartas from '../animacoes/animacaoCartas.js';
 
 //navBar Planta
-export var cellNavBarPlanta = document.querySelectorAll('.navbar-planta .card');
-export var cellNavBarPlantaAtual = document.querySelector('.sunflower');
-export var cursorNavBarPlanta = document.getElementById('cursor-navBar-planta');
-export var prevPersonagemImgPlanta = document.getElementById('prevPersonagemPlanta');
+export let cellNavBarPlanta = document.querySelectorAll('.navbar-planta .card');
+export let cellNavBarPlantaAtual = document.querySelector('.sunflower');
+export let cursorNavBarPlanta = document.getElementById('cursor-navBar-planta');
+export let prevPersonagemImgPlanta = document.getElementById('prevPersonagemPlanta');
 
 
 //navBar zombie
-export var cellNavBarZombie = document.querySelectorAll('.navbar-zombie .card');
-export var cellNavBarZombieAtual = document.querySelector('.cardtombstone');
-export var cursorNavBarZombie = document.getElementById('cursor-navBar-zombie');
-export var prevPersonagemImgZombie = document.getElementById('prevPersonagemZombie');
+export let cellNavBarZombie = document.querySelectorAll('.navbar-zombie .card');
+export let cellNavBarZombieAtual = document.querySelector('.cardtombstone');
+export let cursorNavBarZombie = document.getElementById('cursor-navBar-zombie');
+export let prevPersonagemImgZombie = document.getElementById('prevPersonagemZombie');
 
 
 //geral
-export var cellNavBar        = [cellNavBarPlanta,cellNavBarZombie]
-export var cellNavBarAtual   = [cellNavBarPlantaAtual, cellNavBarZombieAtual]
-export var cursorNavBar      = [cursorNavBarPlanta, cursorNavBarZombie]
-export var prevPersonagemImg = [prevPersonagemImgPlanta, prevPersonagemImgZombie]
+export let cellNavBar        = [cellNavBarPlanta,cellNavBarZombie]
+export let cellNavBarAtual   = [cellNavBarPlantaAtual, cellNavBarZombieAtual]
+export let cursorNavBar      = [cursorNavBarPlanta, cursorNavBarZombie]
+export let prevPersonagemImg = [prevPersonagemImgPlanta, prevPersonagemImgZombie]
 
 export function moveNavBar(direction, lado){
 
-    var currentIndex = Array.from(cellNavBar[lado]).indexOf(cellNavBarAtual[lado]);
+    let currentIndex = Array.from(cellNavBar[lado]).indexOf(cellNavBarAtual[lado]);
 
     // Calcule o próximo índice com base na direção do scroll
-    var nextIndex = currentIndex + direction;
+    let nextIndex = currentIndex + direction;
 
     // Garanta que o próximo índice está dentro dos limites
     nextIndex = Math.max(0, Math.min(cellNavBar[lado].length - 1, nextIndex));
@@ -54,7 +54,7 @@ export function moveNavBar(direction, lado){
 
 export function dropPersonagem(cellID, imgPreviaPersonagem){
 
-    var cell = document.getElementById(cellID)
+    let cell = document.getElementById(cellID)
   
 
     if (!cell.classList.contains('ocupado')) {
@@ -65,8 +65,8 @@ export function dropPersonagem(cellID, imgPreviaPersonagem){
 }
 
 export function criarPreviaPersonagem(cellID, lado){
-  //console.log(cellID)
-   var cell = document.getElementById(cellID)
+
+   let cell = document.getElementById(cellID)
     const classeNavBar =  lado == 0 ? 'seletorNavBarAmarelo' : 'seletorNavBarAzul'
     const divNavBar = lado == 0 ? 'pontuacao-planta' : 'pontuacao-zombie'
     // Mova a div seletorTabuleiroAzul para a célula atual
@@ -78,12 +78,12 @@ export function criarPreviaPersonagem(cellID, lado){
         const personagemNome = cell.getAttribute('data-personagem');
 
         if (personagens[personagemNome]) {
-            // Atualize a imagem do prevPersonagemImg
+         
             prevPersonagemImg[lado].className = '';
            prevPersonagemImg[lado].src = personagens[personagemNome].imagePath;
-           // console.log(personagens[personagemNome].imagePath)
+         
            prevPersonagemImg[lado].classList.add(`tamanhoPrevia-${personagens[personagemNome].nomePersonagem}`)
-           // console.log(`tamnhaPrevia-${personagens[personagemNome].nomePersonagem}`)
+   
     
         }
         

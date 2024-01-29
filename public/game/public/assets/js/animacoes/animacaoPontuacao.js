@@ -41,9 +41,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
             cellElement.style.filter = brilho
             let verificaFilho;
             let eleminado;
-            let eleminadoPorTempo;
             let setTimeoutConflito;
-            let jaColidiuUmaVez;
 
             setTimeout(() => {
 
@@ -65,7 +63,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
 
                     if (!eleminado) {
                         //verifique se cell contem elemento 
-                        var chaveLado = Object.keys(celulaAtual[lado]);
+                        let chaveLado = Object.keys(celulaAtual[lado]);
 
                         if (verificaColisaoPersonagemPontos(celulaAtual[lado][chaveLado], cellElement)) {
 
@@ -113,9 +111,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
                                     }, 600);
                                 }, 400);
 
-                                //socket 
                                 criarPontos(lado);
-                               // socket2.emit('atualizaPontuacao', lado, sala)
 
                                 clearInterval(verificaConflito)
                             }, 50);
@@ -150,7 +146,7 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
 
                 setTimeout(() => {
                     if(cellElement.contains(divPontosElementClone)) cellElement.removeChild(divPontosElementClone);
-                    eleminadoPorTempo = true;
+                    
                     clearInterval(verificaConflito)
                     //esta eleminando mas continua existindo ?
                 }, 10000);

@@ -104,20 +104,20 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
 
                                         let morreu;
                                         colidiu = true;
-                                        // console.log("conflitou")
+                                    
 
                                         divTiroElementClone.remove();
 
-                                        //ao acontecer conflito com o zombie
+                                    
 
                                         const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == zombieElemento.id);
 
-                                        //console.log(personagemEncontrado.idNovoPersonagem.id)
+                                     
                                         personagemEncontrado.idNovoPersonagem.golpeEspecial(especial, zombieElemento);
                                         morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(danoTiro);
 
                                         if (morreu) {
-                                            // console.log("zumbi morreu por tiro")
+                                            
 
 
                                             pararAnimacaoZombie(zombieElemento.id)

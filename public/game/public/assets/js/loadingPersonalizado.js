@@ -10,21 +10,21 @@ function loadingPersonalizado(lado) {
 
 
     if (lado == 0) {
-        //alert("lado 0")
+        
         textoCarregando.style.display = "flex";
         loadingZombie.style.display = "none"
         loadingNormal.style.display = "none"
         loadingPlanta.style.display = "block"
 
     } else if (lado == 1) {
-        // alert("lado 1")
+        
         textoCarregando.style.display = "flex";
         loadingNormal.style.display = "none"
         loadingPlanta.style.display = "none"
         loadingZombie.style.display = "block"
 
     } else {
-        // alert("lado null")
+       
         loadingPlanta.style.display = "none"
         loadingZombie.style.display = "none"
         textoCarregando.style.display = "none"
@@ -34,14 +34,14 @@ function loadingPersonalizado(lado) {
 
     setTimeout(() => {
         // Lista de URLs das imagens
-        var imageUrls = ["./assets/img/public_assets_img_brackground_gameLobby2.png" , 
+        let imageUrls = ["./assets/img/public_assets_img_brackground_gameLobby2.png" , 
               "./assets/img/public_assets_img_brackground_gameLobby2Antig.png"
         ];
 
         // Função para pré-carregar uma imagem
         function preloadImage(url) {
             return new Promise(function (resolve, reject) {
-                var img = new Image();
+                let img = new Image();
                 img.onload = function () {
                     resolve();
                 };
@@ -53,7 +53,7 @@ function loadingPersonalizado(lado) {
         }
 
         // Array de Promises para todas as imagens
-        var preloadPromises = imageUrls.map(function (url) {
+        let preloadPromises = imageUrls.map(function (url) {
             return preloadImage(url);
         });
 

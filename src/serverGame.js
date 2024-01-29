@@ -6,8 +6,7 @@ export default function gameSocket(socket, salasAtivas, listaPontuacaoNavegador)
         let ladoValido = true;
 
         if(lado != 0 && lado != 1){
-           // console.log("lado " +lado)
-           // console.log("parametro invalido")
+         
             ladoValido = false;
         }
 
@@ -19,7 +18,7 @@ export default function gameSocket(socket, salasAtivas, listaPontuacaoNavegador)
             if (user.numeroSala === sala) {
 
                 if(user.lado == lado){
-                  //  console.log("lado já em jogo")
+                
                     ladoValido = false;
                 }
 
@@ -28,7 +27,7 @@ export default function gameSocket(socket, salasAtivas, listaPontuacaoNavegador)
             }
         });
 
-        //console.log(indicesEncontrados);
+   
 
         if (indicesEncontrados.length <=1  && ladoValido) {
 
@@ -57,7 +56,7 @@ export default function gameSocket(socket, salasAtivas, listaPontuacaoNavegador)
      //ao client se desconectar
      socket.on('disconnect', () => {
 
-       // console.log(salasAtivas)
+    
 
         let index = salasAtivas.findIndex(user => user.socketID == socket.id);
 
@@ -78,7 +77,7 @@ export default function gameSocket(socket, salasAtivas, listaPontuacaoNavegador)
         }
 
         }
-       // console.log(salasAtivas)
+   
 
     });
 
@@ -90,38 +89,38 @@ export default function gameSocket(socket, salasAtivas, listaPontuacaoNavegador)
     //conexao com o game 
     socket.on('criarAnimacao', (data) => {
         socket.to(data.sala).emit('fazerAnimacao', data)
-        //socket.broadcast.emit('fazerAnimacao', data);
+       
       });
 
     //pontuacao
     socket.on('atualizaPontuacao', (lado, sala) => {
         socket.to(sala).emit('atualizaPontuacaoClient', lado)
-        //socket.broadcast.emit('fazerAnimacao', data);
+   
       });
     
       socket.on('mouseMoveDentroDoTabuleiro', (data) => {
         socket.to(data.sala).emit('mouseMoveDentroDoTabuleiroClient', data)
-       // socket.broadcast.emit('mouseMoveDentroDoTabuleiroClient', data);
+     
       });
     
       socket.on('mouseEnterCelula', (data) => {
         socket.to(data.sala).emit('mouseEnterCelulaClient', data)
-        //socket.broadcast.emit('mouseEnterCelulaClient', data);
+        
       });
     
       socket.on('navBarEnter', (data) => {
         socket.to(data.sala).emit('navBarEnterClient', data)
-        //socket.broadcast.emit('navBarEnterClient', data);
+        
       });
     
       socket.on('wheelNavBar', (data) => {
         socket.to(data.sala).emit('wheelNavBarClient', data)
-        //socket.broadcast.emit('wheelNavBarClient', data);
+       
       });
       
       socket.on('dropPersonagem', (data) => {
         socket.to(data.sala).emit('dropPersonagemClient', data)
-       // socket.broadcast.emit('dropPersonagemClient', data);
+       
       });
 
       socket.on('movimentoTeclado', (targetCell,lado,chaveLado,sala) => {

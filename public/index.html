@@ -93,7 +93,7 @@
             </div>
           </section>
           <script>
-            var splide = new Splide('.splide', {
+            let splide = new Splide('.splide', {
               pagination: false,
               rewind: true,  
             });
@@ -101,7 +101,6 @@
             splide.mount();
 
             splide.on('moved', function (newIndex) {
-              //console.log('Slide atual:', newIndex);
               cenario =  newIndex;
              
             });

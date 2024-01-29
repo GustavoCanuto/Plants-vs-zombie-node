@@ -37,8 +37,7 @@ export class Personagens {
         if (this.velocidadeCaminhar > 0) {
             if (especial) {
                 let novaVelocidade = this.velocidadeCaminharDefinitiva * 0.7;
-                this.velocidadeCaminhar = novaVelocidade;
-              //  zombieElemento.style.filter = 'grayscale(100%) brightness(50%) sepia(100%)'; //efeito para morte 
+                this.velocidadeCaminhar = novaVelocidade; 
               zombieElemento.style.filter = 'brightness(120%) hue-rotate(190deg)';
                 setTimeout(() => {
                     this.velocidadeCaminhar = this.velocidadeCaminharDefinitiva;
@@ -51,8 +50,6 @@ export class Personagens {
 
         if (this.vivo) {
             this.vida -= dano;
-            //  console.log(this.vida)
-            //  console.log(this.nomePersonagem)
 
             //wallnut
             if (this.nomePersonagem == 'wallnut') {
@@ -70,7 +67,6 @@ export class Personagens {
             }
 
             //cardstone and target 
-            //'brightness(70%) sepia(20%)';
             if (this.nomePersonagem == 'cardtombstone'||this.nomePersonagem == 'Zombie_Target1') {
                 let div = document.getElementById(this.id);
              
@@ -92,7 +88,6 @@ export class Personagens {
                 gifElement.src = 'assets/img/danoPersonagens/potatoMine/PotatoMine_mashed.gif'
                 gifElement2.src = 'assets/img/danoPersonagens/potatoMine/ExplosionSpudow.gif'
                 gifElement2.style.position = 'absolute'
-                // gifElement2.style.opacity = '1'
                 gifElement2.style.transform = "scale(0.4)"
                 gifElement2.style.transition = "all 2s ease"
                 gifElement2.style.width = '180%'
@@ -155,16 +150,12 @@ export class Personagens {
 
                 if (this.nomePersonagem == 'Zombie_Target1') {
 
-                    // console.log("planta ganhou um tagert");
-                    // console.log(Personagens.contadorVitoriaPlanta);
-
                     Personagens.contadorVitoriaPlanta++;
 
                     if (Personagens.contadorVitoriaPlanta >= 3) {
 
-                        // alert("Plantas Venceu!")
-                        // location.reload();
-                        
+
+                    setTimeout(()=>{
                         if(!vitoria){
                             $(".messagemCarregamento").css("height", "15%"); 
                             $(".messagemCarregamento").css("width", "35%"); 
@@ -180,8 +171,9 @@ export class Personagens {
                                 socket2.emit('pontosParaOVencedor', tokenUsuario)
                             }
                         }
+                    },500);
 
-                        return;
+                        return true;
                     }
                 }
 
@@ -212,9 +204,6 @@ export class Personagens {
             this.velocidadeCaminhar,
             this.ataque
         );
-
-        // Se você tiver mais propriedades na classe, certifique-se de cloná-las também
-
         return clonedPersonagem;
     }
 

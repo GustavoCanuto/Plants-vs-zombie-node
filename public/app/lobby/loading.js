@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     aguardarSocketId(function () {
 
         // Lista de URLs das imagens
-        var imageUrls = ["./assets/img/brackground/menu-principal2.webp", 
+        let imageUrls = ["./assets/img/brackground/menu-principal2.webp", 
         "./assets/img/dialog/usuarioDialog.webp",
         "./assets/img/chooseSide/plantSide.webp",
         "./assets/img/chooseSide/zombieSide.webp"
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Função para pré-carregar uma imagem
         function preloadImage(url) {
             return new Promise(function (resolve, reject) {
-                var img = new Image();
+                let img = new Image();
                 img.onload = function () {
                     resolve();
                 };
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Array de Promises para todas as imagens
-        var preloadPromises = imageUrls.map(function (url) {
+        let preloadPromises = imageUrls.map(function (url) {
             return preloadImage(url);
         });
 
