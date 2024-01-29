@@ -25,7 +25,7 @@ home.on('connection', socket => {
 
     socket.on('pegarPontucaoPlanta', (data) => {
         let numeroVitorias;
-       
+
         // Verifica se 'data.sessao' existe na listaPontuacaoNavegador
         if (listaPontuacaoNavegador[data.sessao]) {
             // Obtém o número de vitórias da listaPontuacaoNavegador
@@ -40,7 +40,7 @@ home.on('connection', socket => {
 
     socket.on('pegarPontucaoZombie', (data) => {
         let numeroVitorias;
-       
+
         // Verifica se 'data.sessao' existe na listaPontuacaoNavegador
         if (listaPontuacaoNavegador[data.sessao]) {
             // Obtém o número de vitórias da listaPontuacaoNavegador

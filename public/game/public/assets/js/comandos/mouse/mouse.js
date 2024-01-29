@@ -118,20 +118,20 @@ let funcaoMouseEnter = function functionMouseEnterCelulaCod(cellID, lado, chave)
 
 document.body.addEventListener('mousemove', function (e) {
 
-   
-        let alturaDoBody = document.body.offsetHeight;
-        let larguraDoBody = document.body.offsetWidth;
 
-        let rectTabuleiro = tabuleiroID.getBoundingClientRect();
+    let alturaDoBody = document.body.offsetHeight;
+    let larguraDoBody = document.body.offsetWidth;
 
-        movimentoMouseFuction(chaveMouse, rectTabuleiro, main.offsetTop, main.offsetHeight, e.clientX, e.clientY,
-            alturaDoBody, larguraDoBody, LadoQueUsaMouse)
+    let rectTabuleiro = tabuleiroID.getBoundingClientRect();
 
-        socket2.emit('mouseMoveDentroDoTabuleiro', {
-            chaveMouse: chaveMouse, rectTabuleiro: rectTabuleiro, mainTop: main.offsetTop, mainAltura: main.offsetHeight, clientX: e.clientX, clientY: e.clientY,
-            alturaDoBody: alturaDoBody, larguraDoBody: larguraDoBody, LadoQueUsaMouse: LadoQueUsaMouse, sala: sala
-        })
-   
+    movimentoMouseFuction(chaveMouse, rectTabuleiro, main.offsetTop, main.offsetHeight, e.clientX, e.clientY,
+        alturaDoBody, larguraDoBody, LadoQueUsaMouse)
+
+    socket2.emit('mouseMoveDentroDoTabuleiro', {
+        chaveMouse: chaveMouse, rectTabuleiro: rectTabuleiro, mainTop: main.offsetTop, mainAltura: main.offsetHeight, clientX: e.clientX, clientY: e.clientY,
+        alturaDoBody: alturaDoBody, larguraDoBody: larguraDoBody, LadoQueUsaMouse: LadoQueUsaMouse, sala: sala
+    })
+
 });
 
 
@@ -175,18 +175,18 @@ let funcaoMouse = function movimentoMouseFuctionCod(chaveMouse, rectTabuleiro, m
 
     } else {
         document.body.style.cursor = 'pointer';
-  
+
         centerImage(celulaAtual[lado]);
     }
 
-  
+
 
     if (celulaAtual[lado][chaveMouse].classList.contains('grass-cutter')) {
-   
+
         centerImage(celulaAnterior[lado]);
         document.body.style.cursor = 'pointer';
     }
-  
+
 }
 
 let funcaoMouseGeral = [];

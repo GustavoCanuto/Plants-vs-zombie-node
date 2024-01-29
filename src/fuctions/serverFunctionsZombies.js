@@ -8,14 +8,14 @@ function excluirUsuarioZombie(socketID, listaUsuariosZombies) {
 }
 
 function conectarUsuarioZombie(socket, data, listaUsuariosZombies, listaTodosUsuario, numeroVitorias) {
- 
+
     data.ipMaquina = "MaiorQue3"
     data.numeroVitorias = numeroVitorias;
     data.lado = 1;
 
     listaUsuariosZombies.push(data);
     listaTodosUsuario.push(data);
-   
+
     socket.broadcast.emit('receiveZombie', data);
     socket.broadcast.emit('atualizarClicavel');
 }

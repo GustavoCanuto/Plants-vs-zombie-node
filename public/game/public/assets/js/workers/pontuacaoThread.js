@@ -4,14 +4,14 @@ self.addEventListener('message', function (e) {
         setInterval(function () {
             self.postMessage("pontuacaoSolCaindoProcessado");
 
-        }, 18000);
+        }, 17000);
     }
 
     if (e.data.comando === 'cerebroCaindo') {
         setInterval(function () {
-         
+
             self.postMessage("pontuacaoCerebroCaindoProcessado");
-        }, 23000);
+        }, 19000);
     }
 
 });

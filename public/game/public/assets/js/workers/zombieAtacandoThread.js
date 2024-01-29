@@ -7,14 +7,13 @@ self.addEventListener('message', function (e) {
 
         zombieAtacando = setInterval(() => {
 
-            self.postMessage({ comando: "zombieAtacandoProcessado"});
-            
+            self.postMessage({ comando: "zombieAtacandoProcessado" });
+
         }, 1000);
     }
 
     if (e.data.comando === 'stopZombieAtacando') {
-    
+
         clearInterval(zombieAtacando);
     }
 });
- 

@@ -72,41 +72,41 @@ document.addEventListener('keydown', function (e) {
         }
 
     }
-    });
+});
 
 document.addEventListener('keyup', function (e) {
- 
+
     if (!tecladoBloqueado) {
 
-    let key = e.key.toLowerCase();
+        let key = e.key.toLowerCase();
 
-    if (key == " ") {
-        key = "space";
-    }
-
-
-    if (Object.values(listaTeclasPlantas).includes(key)) {
-
-        if (key == teclaPressionadaPlanta) {
-            clearInterval(setIntervalPlanta)
-            estadoTeclas[0] = true;
+        if (key == " ") {
+            key = "space";
         }
 
-        clearInterval(setIntervalPlantaDuplo)
-        estadoTeclasDupla[0] = true;
 
-    }
+        if (Object.values(listaTeclasPlantas).includes(key)) {
 
-    if (Object.values(listaTeclasZombies).includes(key)) {
+            if (key == teclaPressionadaPlanta) {
+                clearInterval(setIntervalPlanta)
+                estadoTeclas[0] = true;
+            }
 
-        if (key == teclaPressionadaZombie) {
-            clearInterval(setIntervalZombie)
-            estadoTeclas[1] = true;
+            clearInterval(setIntervalPlantaDuplo)
+            estadoTeclasDupla[0] = true;
+
         }
 
-        clearInterval(setIntervalZombieDuplo)
-        estadoTeclasDupla[1] = true;
-    }
+        if (Object.values(listaTeclasZombies).includes(key)) {
+
+            if (key == teclaPressionadaZombie) {
+                clearInterval(setIntervalZombie)
+                estadoTeclas[1] = true;
+            }
+
+            clearInterval(setIntervalZombieDuplo)
+            estadoTeclasDupla[1] = true;
+        }
 
     }
 });
@@ -173,9 +173,9 @@ class JogadorMove {
 
         if (!targetCell.classList.contains('grass-cutter')) {
 
-            moverSeletor(targetCell.id,lado,chaveLado);
-            socket2.emit('movimentoTeclado', targetCell.id,lado,chaveLado,sala);
-            
+            moverSeletor(targetCell.id, lado, chaveLado);
+            socket2.emit('movimentoTeclado', targetCell.id, lado, chaveLado, sala);
+
         }
     }
 
@@ -204,7 +204,7 @@ class JogadorMove {
 export let jogadorPlanta = new JogadorMove();
 export let jogadorZombie = new JogadorMove();
 
-export function moverSeletor(targetCellID,lado,chaveLado){
+export function moverSeletor(targetCellID, lado, chaveLado) {
 
     const targetCell = document.getElementById(targetCellID);
 
@@ -218,8 +218,8 @@ export function moverSeletor(targetCellID,lado,chaveLado){
         centerImage(celulaAtual[lado]);
         targetCell.appendChild(seletorTabuleiro[lado][chaveLado]);
         targetCell.appendChild(divPreviaPersonagem[lado][chaveLado]);
-      //  centerImage(celulaAtual[lado]);
+        //  centerImage(celulaAtual[lado]);
 
     }, 30);
-   
+
 }

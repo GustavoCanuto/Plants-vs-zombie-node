@@ -10,21 +10,21 @@ function loadingPersonalizado(lado) {
 
 
     if (lado == 0) {
-        
+
         textoCarregando.style.display = "flex";
         loadingZombie.style.display = "none"
         loadingNormal.style.display = "none"
         loadingPlanta.style.display = "block"
 
     } else if (lado == 1) {
-        
+
         textoCarregando.style.display = "flex";
         loadingNormal.style.display = "none"
         loadingPlanta.style.display = "none"
         loadingZombie.style.display = "block"
 
     } else {
-       
+
         loadingPlanta.style.display = "none"
         loadingZombie.style.display = "none"
         textoCarregando.style.display = "none"
@@ -34,8 +34,8 @@ function loadingPersonalizado(lado) {
 
     setTimeout(() => {
         // Lista de URLs das imagens
-        let imageUrls = ["./assets/img/public_assets_img_brackground_gameLobby2.png" , 
-              "./assets/img/public_assets_img_brackground_gameLobby2Antig.png"
+        let imageUrls = ["./assets/img/public_assets_img_brackground_gameLobby2.png",
+            "./assets/img/public_assets_img_brackground_gameLobby2Antig.png"
         ];
 
         // Função para pré-carregar uma imagem

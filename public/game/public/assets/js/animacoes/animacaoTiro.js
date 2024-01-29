@@ -104,20 +104,20 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
 
                                         let morreu;
                                         colidiu = true;
-                                    
+
 
                                         divTiroElementClone.remove();
 
-                                    
+
 
                                         const personagemEncontrado = AnimacaoCartas.personagensJogando.find(personagem => personagem.idNovoPersonagem.id == zombieElemento.id);
 
-                                     
+
                                         personagemEncontrado.idNovoPersonagem.golpeEspecial(especial, zombieElemento);
                                         morreu = personagemEncontrado.idNovoPersonagem.reduzirVida(danoTiro);
 
                                         if (morreu) {
-                                            
+
 
 
                                             pararAnimacaoZombie(zombieElemento.id)
@@ -133,7 +133,7 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
                                                     zombieElemento.style.left = `${zombieElemento.offsetLeft - 15}px`;
                                                     gifElement.src = './assets/img/zombieMorrendo/ZombieDie.gif';
                                                     gifElement.style.width = '150%';
-                                                
+
 
 
                                                 } else if (zombieElemento.classList.contains('tamanho-flagzombie')) {
@@ -167,9 +167,9 @@ export function iniciarAnimacaoTiro(cellElement, nomeClasse, idNovoPersonagem) {
                                                     gifElement.src = './assets/img/zombieMorrendo/ZombieDie.gif';
                                                     gifElement.style.width = '150%';
 
-                                                }else{
+                                                } else {
                                                     zombieElemento.style.transition = 'opacity 1s ease';
-                                                    zombieElemento.style.filter =  'grayscale(10%) brightness(80%) sepia(80%)';
+                                                    zombieElemento.style.filter = 'grayscale(10%) brightness(80%) sepia(80%)';
                                                     zombieElemento.style.transition = 'opacity 0.3s ease';
                                                     setTimeout(() => {
                                                         zombieElemento.style.opacity = '0.09';
@@ -261,6 +261,6 @@ export function pararAnimacaoTiro(idNovoPersonagem) {
 
         listaIntervalTiro = listaIntervalTiro.filter(item => item.idNovoPersonagem != idNovoPersonagem);
     } else {
-        console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
+        // console.log(`Intervalo com idNovoPersonagem ${idNovoPersonagem} não encontrado.`);
     }
 }
