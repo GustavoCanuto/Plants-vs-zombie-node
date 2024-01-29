@@ -21,7 +21,7 @@ self.addEventListener('message', function (e) {
     }
 
     if (e.data.comando === 'stopSequenciaTiro') {
-       // console.log("thread sequencia tiro parou")
+
         clearInterval(sequenciaTiro);
     }
 });

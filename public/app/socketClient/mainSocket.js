@@ -1,4 +1,4 @@
-var socket = io('/home');
+let socket = io('/home');
 
 
 socket.on('atualizarClicavel', () => {

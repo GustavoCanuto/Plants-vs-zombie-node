@@ -1,5 +1,5 @@
 
-var listaTeclasPlantas = {
+let listaTeclasPlantas = {
     arrowUpPlanta: "arrowup",
     arrowDownPlanta: "arrowdown",
     arrowLeftPlanta: "arrowleft",
@@ -9,7 +9,7 @@ var listaTeclasPlantas = {
     colcoarPersonagemPlanta: "space",
 };
 
-var listaTeclasZombies = {
+let listaTeclasZombies = {
     arrowUpZombie: "w",
     arrowDownZombie: "s",
     arrowLeftZombie: "a",
@@ -19,8 +19,8 @@ var listaTeclasZombies = {
     colcoarPersonagemZombie: "g"
 }
 
-//var tecladoBloqueado = false;
-var ladoPlayerGamePad = 0;
+
+let ladoPlayerGamePad = 0;
 
 function trocarTecla(id) {
 
@@ -44,7 +44,7 @@ function trocarTecla(id) {
                 botoesTrocar[i].disabled = false;
             }
 
-            var tecla = document.getElementById(id).value;
+            let tecla = document.getElementById(id).value;
 
             if (teclaPresionada == " ") {
                 teclaPresionada = "space"
@@ -64,7 +64,7 @@ function trocarTecla(id) {
     }, { once: true });
 }
 
-var teclaPersonalizada = false;
+let teclaPersonalizada = false;
 
 function gravarTecla() {
     atualizarTeclas(ladoConfigTeclado);

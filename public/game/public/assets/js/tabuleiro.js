@@ -58,9 +58,6 @@ class Tabuleiro {
                 cell.classList.add('cell');
                 cell.id = `cellLinha${i+1}Coluna${j+1}`
                 
-                // if (i == 0 && j == 9) cell.id = 'cell1Zombie';
-                // if (i == 0 && j == 1) cell.id = 'cell1Planta';
-
                 if(j == 0)cell.classList.add('grass-cutter');
                 
                 if(j>0 && j<7) cell.classList.add('plant');

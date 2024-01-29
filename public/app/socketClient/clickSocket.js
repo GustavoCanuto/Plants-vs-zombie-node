@@ -30,58 +30,59 @@ $('[data-buttonPlanta]').on("click", (event) => {
 
   let usuario = gerarUsuario();
 
-  socket.emit('pegarPontucao', usuario);
+  socket.emit('pegarPontucaoPlanta', usuario);
 
-  socket.on('receberPontuacao', (numeroVitorias) => {
-
-    usuario.numeroVitorias = numeroVitorias;
-    renderPlant(usuario);
-  
-    let numero = posicaoLista(usuario);
-  
-    $(".informacaoParaUsuario-infoUser").text(usuario.nome);
-    $(".zombies").addClass("clicavel");
-  
-    usuario.posicao = numero;
-  
-    socket.emit('plantConnected', usuario, numeroVitorias);
-  
-  
-    nomeUsuario = usuario.nome;
-  
-    atualizarClicavel();
-  
-  });
+ 
 
 });
 
+socket.on('receberPontuacaoPlanta', (numeroVitorias, usuario) => {
 
+  usuario.numeroVitorias = numeroVitorias;
+  renderPlant(usuario);
+
+  let numero = posicaoLista(usuario);
+
+  $(".informacaoParaUsuario-infoUser").text(usuario.nome);
+  $(".zombies").addClass("clicavel");
+
+  usuario.posicao = numero;
+
+  socket.emit('plantConnected', usuario, numeroVitorias);
+
+  nomeUsuario = usuario.nome;
+
+  atualizarClicavel();
+
+});
 
 //ao clicar no botao zombie
 $('[data-buttonZombie]').on("click", (event) => {
 
   let usuario = gerarUsuario();
-  socket.emit('pegarPontucao', usuario);
+  socket.emit('pegarPontucaoZombie', usuario);
 
-  socket.on('receberPontuacao', (numeroVitorias) => {
+ 
 
-    usuario.numeroVitorias = numeroVitorias;
-    renderZombie(usuario);
+});
 
-    let numero = posicaoLista(usuario);
+socket.on('receberPontuacaoZombie', (numeroVitorias, usuario) => {
 
-    $(".informacaoParaUsuario-infoUser").text(usuario.nome);
-    $(".plants").addClass("clicavel");
+  usuario.numeroVitorias = numeroVitorias;
+  renderZombie(usuario);
 
-    usuario.posicao = numero;
+  let numero = posicaoLista(usuario);
 
-    socket.emit('zombieConnected', usuario,numeroVitorias);
+  $(".informacaoParaUsuario-infoUser").text(usuario.nome);
+  $(".plants").addClass("clicavel");
 
-    nomeUsuario = usuario.nome;
+  usuario.posicao = numero;
 
-    atualizarClicavel();
+  socket.emit('zombieConnected', usuario,numeroVitorias);
 
-  });
+  nomeUsuario = usuario.nome;
+
+  atualizarClicavel();
 
 });
 
@@ -128,11 +129,11 @@ function gerarUsuario() {
 //pega posicao na lista
 function posicaoLista(elemento) {
 
-  var li = document.getElementById(elemento.socketID);
+  let li = document.getElementById(elemento.socketID);
   let listaOrdenada = Array.from(li.parentNode.children).filter(e => e.tagName === "LI");
 
   let indice = listaOrdenada.indexOf(li);
-  var numero = indice + 1;
+  let numero = indice + 1;
 
   return numero;
 }

@@ -7,7 +7,7 @@ export function recargaCard(lado,personagemNome, listaCard){
     pontuacaoLado[lado] -= personagemNome.valorCard;
     pontosLado[lado].textContent = pontuacaoLado[lado];
     personagemNome.recarregado = false;
-    var celulaAnimacao = comandosNavBar.cellNavBarAtual[lado].querySelector('.cardIMG');;
+    let celulaAnimacao = comandosNavBar.cellNavBarAtual[lado].querySelector('.cardIMG');;
     celulaAnimacao.classList.add('recarregando')
   
     

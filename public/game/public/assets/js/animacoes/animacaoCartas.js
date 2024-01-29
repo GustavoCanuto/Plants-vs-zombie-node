@@ -34,7 +34,6 @@ export class AnimacaoCartas {
         const imgSrc = img;
 
         if (!imgSrc.includes('/img/personagens/')) {
-            console.error('Imagem Inválida');
             return;
         }
 
@@ -95,13 +94,13 @@ export class AnimacaoCartas {
 
             if (nomeClasse == 'cardtombstone') {
 
-                //console.log("dropouTumba")
+          
 
                 if (!cellElement.classList.contains('tumba')) {
                     tumba = true;
-                    //console.log("tumba não ocupada")
+           
                 }else{
-                 //   console.log("tumba ocupada cancelando...")
+      
                     return;
                 }
             }
@@ -131,12 +130,12 @@ export class AnimacaoCartas {
 
         let novoPersonagem = personagens[personagemNome].clone();
         let idNovoPersonagem = novoPersonagem.id;
-        // console.log(novoPersonagem.id)
+    
         const elemento = document.createElement('div');
         elemento.classList.add('personagem');
         elemento.id = idNovoPersonagem
         elemento.style.width = '90%';
-        //console.log(`tamanho-${personagemNome}`)
+
         elemento.classList.add(`tamanho-${personagemNome}`);
         const gifElement = document.createElement('img');
 
@@ -166,11 +165,11 @@ export class AnimacaoCartas {
 
 
     static criarAnimacaoZombie(cellElement, nomeClasse, personagemNome,tumba) {
-       // console.log(tumba)
+ 
 
         if (tumba) {
 
-                //console.log("tumbou")
+            
                 let novoPersonagem = personagens[personagemNome].clone();
                 let idNovoPersonagem = novoPersonagem.id;
 
@@ -178,7 +177,7 @@ export class AnimacaoCartas {
                 elemento.classList.add('personagem');
                 elemento.id = idNovoPersonagem
                 elemento.style.width = '100%';
-                //console.log(`tamanho-${personagemNome}`)
+              
                 elemento.classList.add(`tamanho-${personagemNome}`);
                 const gifElement = document.createElement('img');
                 elemento.classList.add('personagemZombie');
@@ -197,8 +196,6 @@ export class AnimacaoCartas {
                 let linhaAtiva = classeLinha[1];
 
                 AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
-
-                // console.log(linhaAtiva + " " + AnimacaoCartas.zombieNaLinha[linhaAtiva]);
 
         } else {
 
@@ -222,7 +219,7 @@ export class AnimacaoCartas {
 
             AnimacaoCartas.zombieNaLinha[linhaAtiva] += 1;
 
-            // console.log(linhaAtiva + " " + AnimacaoCartas.zombieNaLinha[linhaAtiva]);
+   
 
             if (!tabuleiro) {
                 console.error('Elemento .board não encontrado.');

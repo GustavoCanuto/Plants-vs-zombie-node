@@ -38,8 +38,6 @@ function aceitarSolicitacao(esse) {
     let idSocket = socket.id;
 
     let elementosIraoJogar = { id1: idPai, id2: idSocket }
-    //alert(idPai +" "+idSocket);
     socket.emit('aceitarConvite', elementosIraoJogar);  
 
-    //retirar da lista
 }

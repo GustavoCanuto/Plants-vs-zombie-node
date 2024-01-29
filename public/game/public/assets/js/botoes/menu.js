@@ -1,7 +1,7 @@
 function toggleConfig() {
   tecladoBloqueado = false;
   voltarMenu();
-    var configDiv = document.querySelector('.config');
+    let configDiv = document.querySelector('.config');
     if (configDiv.style.display === 'none' || configDiv.style.display === '') {
       configDiv.style.display = 'block';
       if(local) $('.mouseJogador').css("display", "block");

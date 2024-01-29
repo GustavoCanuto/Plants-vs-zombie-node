@@ -5,15 +5,15 @@ let analogThreshold = 0.3; // Limiar para considerar movimento do analógico
 let analogMoveSpeed = 0.45; // Velocidade de movimento do analógico
 let analogMoveX = [];
 let analogMoveY = [];
-var mainRect = main.getBoundingClientRect();
+let mainRect = main.getBoundingClientRect();
 
 function centerAnalogico(lado) {
     mainRect = main.getBoundingClientRect();
     const chaveLado = Object.keys(celulaAtual[lado]);
     const rectCelula = celulaAtual[lado][chaveLado].getBoundingClientRect();
 
-    var centerXPercentage = ((rectCelula.left - mainRect.left + rectCelula.width / 2 - cursorTabuleiroAzul.width / 2) / mainRect.width) * 100;
-    var centerYPercentage = ((rectCelula.top - mainRect.top) / mainRect.height) * 100;
+    let centerXPercentage = ((rectCelula.left - mainRect.left + rectCelula.width / 2 - cursorTabuleiroAzul.width / 2) / mainRect.width) * 100;
+    let centerYPercentage = ((rectCelula.top - mainRect.top) / mainRect.height) * 100;
 
     analogMoveX[lado] = centerXPercentage;
     analogMoveY[lado] = centerYPercentage;
@@ -24,7 +24,7 @@ centerAnalogico(1);
 
 function updateImagePosition(gamepad, lado) {
 
-    var chaveLado = Object.keys(celulaAtual[lado]);
+    let chaveLado = Object.keys(celulaAtual[lado]);
 
     if (
         Math.abs(gamepad.axes[0]) > analogThreshold ||
@@ -43,18 +43,18 @@ function updateImagePosition(gamepad, lado) {
         socket2.emit("movimentoGamePad", lado, analogMoveX[lado], analogMoveY[lado], sala);
 
         // Converte as porcentagens para pixels
-        var rectTabuleiroID = tabuleiroID.getBoundingClientRect();
-        var rectcursorTabuleiro = cursorGamePad.getBoundingClientRect();
+        let rectTabuleiroID = tabuleiroID.getBoundingClientRect();
+        let rectcursorTabuleiro = cursorGamePad.getBoundingClientRect();
 
         // Convertendo a porcentagem para pixels
-        var limiteTabuleiroLeft = (rectTabuleiroID.width * 10) / 100;
+        let limiteTabuleiroLeft = (rectTabuleiroID.width * 10) / 100;
 
-        var rectcelulaAtual = celulaAtual[lado][chaveLado].getBoundingClientRect();
+        let rectcelulaAtual = celulaAtual[lado][chaveLado].getBoundingClientRect();
 
         // Convertendo a porcentagem para pixels
-        var limiteBottomCelula = (rectcelulaAtual.height * 30) / 100;
+        let limiteBottomCelula = (rectcelulaAtual.height * 30) / 100;
 
-        var isInsidecelulaAtual = (
+        let isInsidecelulaAtual = (
             rectcursorTabuleiro.left >= rectcelulaAtual.left &&
             rectcursorTabuleiro.right <= rectcelulaAtual.right &&
             rectcursorTabuleiro.top >= rectcelulaAtual.top &&
@@ -111,7 +111,7 @@ function jogadorGamePad(gamepad, lado) {
 handleGamepad();
 
 // calculo proxima celula
-var liberadoBaixo = [true, true], liberadoCima = [true, true], liberadoEsquerda = [true, true], liberadoDrieta = [true, true];
+let liberadoBaixo = [true, true], liberadoCima = [true, true], liberadoEsquerda = [true, true], liberadoDrieta = [true, true];
 
 function calcularProximaCelula(rectcursorTabuleiro, rectcelulaAtual, rectTabuleiroID,
     limiteTabuleiroLeft, limiteBottomCelula, lado, chaveLado) {

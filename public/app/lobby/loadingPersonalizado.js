@@ -27,7 +27,7 @@ function loadingPersonalizado(lado){
     
     setTimeout(() => {
     // Lista de URLs das imagens
-    var imageUrls = ["./assets/img/brackground/gameLobby.webp", 
+    let imageUrls = ["./assets/img/brackground/gameLobby.webp", 
     "./assets/img/infor/inforInstrucoes.webp",
     "./assets/img/infor/placaNome.webp",
     "./assets/img/conectados/plantasConectadas.webp",
@@ -39,7 +39,7 @@ function loadingPersonalizado(lado){
     // Função para pré-carregar uma imagem
     function preloadImage(url) {
         return new Promise(function (resolve, reject) {
-            var img = new Image();
+            let img = new Image();
             img.onload = function () {
                 resolve();
             };
@@ -51,7 +51,7 @@ function loadingPersonalizado(lado){
     }
 
     // Array de Promises para todas as imagens
-    var preloadPromises = imageUrls.map(function (url) {
+    let preloadPromises = imageUrls.map(function (url) {
         return preloadImage(url);
     });
 

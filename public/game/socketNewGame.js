@@ -6,15 +6,12 @@ let vitoria = false;
  
 let local = parametros.get('local');
 let cenario = parametros.get('cenario');
-
 let nome = parametros.get('nome');
 let ladoJogador = parametros.get('lado');
 let gamePadBloqueado = false;
 let tecladoBloqueado = false;
 let sala; 
 if(local == 'true') local = true;
-
-
 
 if(!local){
 
@@ -26,7 +23,6 @@ tecladoBloqueado = true;
 socket2.on('voltandoAoLobby', () => {
     window.location.href = `/`
 });
-
 
 socket2.on('usuarioDesconectador', () => {
     if(!vitoria){
@@ -44,15 +40,11 @@ socket2.on('usuarioDesconectador', () => {
        }
 });
 
-
-
 window.onload = function() {
 
     $(".carregamento").css("display", "flex"); 
     $(".contagemJogo").css("display", "none");
    
-
- 
 };
 
 }

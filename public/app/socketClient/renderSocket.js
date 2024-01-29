@@ -33,7 +33,6 @@ function renderZombie(usuario) {
 
 //retirar usuario desconectado da Lista 
 function renderusuarioDisconnect(usuario) {
-
   let liParaRemover = $("#" + usuario);
   liParaRemover.remove();
 

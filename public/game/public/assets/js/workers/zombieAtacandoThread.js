@@ -3,7 +3,7 @@ let zombieAtacando;
 self.addEventListener('message', function (e) {
 
     if (e.data.comando === 'startZombieAtacando') {
-      //  console.log("thread zombie Atacando começou")
+
 
         zombieAtacando = setInterval(() => {
 
@@ -13,7 +13,7 @@ self.addEventListener('message', function (e) {
     }
 
     if (e.data.comando === 'stopZombieAtacando') {
-      //  console.log("thread Atacando parou")
+    
         clearInterval(zombieAtacando);
     }
 });
