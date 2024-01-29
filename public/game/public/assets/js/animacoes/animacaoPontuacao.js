@@ -113,7 +113,12 @@ export function iniciarAnimacaoPontuacao(cellElement, nomeClasse, idNovoPersonag
                                     }, 600);
                                 }, 400);
 
+                                if(local){
                                 criarPontos(lado);
+                                }else if(ladoJogador==lado){
+                                criarPontos(lado);
+                                socket2.emit('atualizaPontuacao', lado, sala)
+                                }
 
                                 clearInterval(verificaConflito)
                             }, 50);
