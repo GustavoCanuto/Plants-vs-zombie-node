@@ -32,66 +32,71 @@
 }
 
 
+.cardIMG{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    z-index: 10;
+}
 
-.sunflower {
+.sunflowerIMG {
     background-image: url('../img/cards/plants/sunFlower-transformed.webp');
-
 }
 
-.peashooter {
-    background-image: url('../img/cards/plants/peashooter-transformed.webp');
+.peashooterIMG {
+    background-image: url('../img/cards/plants/peashooter-transformed.webp');  
 }
 
-.showpea {
-    background-image: url('../img/cards/plants/showPea-transformed.webp');
+.showpeaIMG {
+    background-image: url('../img/cards/plants/showPea-transformed.webp');  
 }
 
-.repeater {
+.repeaterIMG {
     background-image: url('../img/cards/plants/repeater-transformed.webp');
 }
 
-.wallnut {
+.wallnutIMG {
     background-image: url('../img/cards/plants/wallNut-transformed.webp');
 }
 
-.cherrybomb {
-    background-image: url('../img/cards/plants/cherryBomb-transformed.webp');
+.cherrybombIMG {
+    background-image: url('../img/cards/plants/cherryBomb-transformed.png');
 }
 
-.potatomine {
-    background-image: url('../img/cards/plants/potatomine-transformed.webp');
+.potatomineIMG {
+    background-image: url('../img/cards/plants/potatomine-transformed.webp');  
 }
 
 
 
-.cardtombstone {
-    background-image: url('../img/cards/zombies/tombstone-transformed.webp');
+.cardtombstoneIMG {
+    background-image: url('../img/cards/zombies/tombstone-transformed.png');
  
 }
 
-.zombie {
-    background-image: url('../img/cards/zombies/regularZombie-transformed.webp');
+.zombieIMG {
+    background-image: url('../img/cards/zombies/regularZombie-transformed.png');
 }
 
-.conehead {
-    background-image: url('../img/cards/zombies/coneheadZombie-transformed.webp');
+.coneheadIMG {
+    background-image: url('../img/cards/zombies/coneheadZombie-transformed.png');
     ;
 }
 
-.buckethead {
-    background-image: url('../img/cards/zombies/bucketheadZombie-transformed.webp');
+.bucketheadIMG {
+    background-image: url('../img/cards/zombies/bucketheadZombie-transformed.png');
 }
 
-.flagzombie {
-    background-image: url('../img/cards/zombies/flagZombie-transformed.webp');
+.flagzombieIMG {
+    background-image: url('../img/cards/zombies/flagZombie-transformed.png');
 }
 
-.football {
-    background-image: url('../img/cards/zombies/footballZombie-transformed.webp');
+.footballIMG {
+    background-image: url('../img/cards/zombies/footballZombie-transformed.png');
 }
 
-.screendoor {
-    background-image: url('../img/cards/zombies/screenDoorZombie-transformed.webp');
+.screendoorIMG {
+    background-image: url('../img/cards/zombies/screenDoorZombie-transformed.png');
 }
 
 
@@ -116,19 +121,124 @@
     height: 100%;
 }
 
+
+.tamanhoPrevia-football{
+
+    width: 130% !important;
+}
+
+.tamanhoPrevia-screendoor{
+
+    width: 115% !important;
+}
+
+.tamanhoPrevia-showpea{
+
+    width: 125% !important;
+}
+
+@keyframes increaseBrightness {
+    0% {
+        filter: brightness(1); /* Brilho inicial */
+    }
+    50% {
+        filter: brightness(2.2); /* Brilho desejado */
+    }
+    100% {
+        filter: brightness(1); /* Brilho de volta ao inicial */
+    }
+}
+
+
+.tiro {
+    position: absolute;
+    top: 28%;
+    z-index: 500;
+   
+      /* border: 1px solid red;   */
+}
+
+
+
+.tamanho-cherrybomb{
+    width: 125% !important;
+}
+
+.tamanho-conehead{
+    width: 9.5% !important;
+
+}
+
+.tamanho-football{
+    width: 14% !important;
+}
+
+.tamanho-screendoor{
+    width: 12% !important;
+
+}
+
+.tamanho-potatomine{
+    transition: all 0.15s ease; 
+}
+
+.tamanho-cardtombstone{
+    z-index: -1.5 !important;
+}
+
+
+.carrinho {
+    position: absolute;
+    background-image: url('../img/personagens/plants/LawnCleaner.png');
+    background-size: cover;
+    width: 80%;
+   height: 55%;
+
+    top: 40%;
+    left: 20%;
+    transform: translateY(-50%);
+
+    z-index: 800;
+     /* border: 1px solid rgb(25, 3, 214);  */
+
+}
+
+
+
+.target{
+    position: absolute;
+    width: 100%;
+    top: 40%;
+    right: -20% ;
+    transform: translateY(-50%);
+    z-index: -3 !important;
+    /* border: 1px solid rgb(25, 3, 214); */
+    
+}
+
 .personagem {
     position: absolute;
-    border: 1px solid;
+      /* border: 1px solid;   */
     bottom: 0;
     left: 0;
     z-index: -2;
-    height: fit-content;
     width: 20%;
-  
+    aspect-ratio: 1/1;
 }
 
 .personagem img{
+    
     width: 100%;
 } 
 
+.pontos {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translateY(-50%); 
+    z-index: 888;
+    transition: all 1.5s ease; 
+    
+   
+}
 

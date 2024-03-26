@@ -1,4 +1,4 @@
-var elementosClicaveis = [];
+let elementosClicaveis = [];
 
 function atualizarClicavel() {
     // Remove os ouvintes de evento antigos
@@ -23,7 +23,7 @@ function atualizarClicavel() {
                 //pegar posição lista     
                 let listaOrdenada = Array.from(elemento.parentNode.children).filter(e => e.tagName === "LI");
                 let indice = listaOrdenada.indexOf(elemento);
-                var numero = indice + 1;
+                let numero = indice + 1;
 
                 //pega nome do usuario
                 let partes = elemento.textContent.split('|');

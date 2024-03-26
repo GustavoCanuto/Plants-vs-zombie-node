@@ -1,12 +1,5 @@
 import { moveContent, moveCards } from '../teclado/teclado.js';
 
-
-// const tempoMinimoPressionado = 200;
-// //const tempoMinimoPressionado2 = 150;
-// var esperaButtons = true;
-// var esperaButtonsDuplo = true;
-// var timoutButton;
-
 export function botoesGamepad(buttons, lado) {
 
     if (lado == 0) jogadorPlantaComandos.atualizarComandos(buttons, lado)
@@ -87,5 +80,5 @@ class jogadorComandosGamePad {
 
 }
 
-export var jogadorPlantaComandos = new jogadorComandosGamePad();
-export var jogadorZombieComandos = new jogadorComandosGamePad();
+export let jogadorPlantaComandos = new jogadorComandosGamePad();
+export let jogadorZombieComandos = new jogadorComandosGamePad();

@@ -6,9 +6,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0">
   <title>Plantas vs Zumbis</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" type="text/css" href="./assets/reset.css" />
   <link rel="stylesheet" type="text/css" href="./assets/padrao.css" />
   <link rel="stylesheet" type="text/css" href="./assets/lobby/css/style.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 </head>
 
@@ -29,13 +33,14 @@
 
         <label for="nomeUsuario" class="label-usuario">Digite seu Nome:</label>
         <br>
-        <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Digite seu nome" class="input-usuario" maxlength="12" />
+        <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Digite seu nome" class="input-usuario"
+          maxlength="11" />
 
         <input type="submit" value='entrar' class="entrar-usuario" data-entrar />
 
-    </div>
+      </div>
 
-    
+
 
     </div>
 
@@ -48,7 +53,7 @@
         <button data-retornarInicio class="retornar-usuario posicaoX-escolherPersonagem"> X </button>
 
       </div>
-        
+
       <p class="escolha__texto"> Escolha um Lado </p>
 
       <div class="escolha__personagens">
@@ -62,84 +67,129 @@
 
     <!-- Div Usuario Conectados -->
 
-    <div  class="game-lobby-container" data-gameLobby >
+    <div class="game-lobby-container" data-gameLobby>
 
-    <div class="game-lobby" >
+      <div class="game-lobby">
 
-      <div class="informacaoParaUsuario">
+        <div class="informacaoParaUsuario">
 
-        <div class="placaNome"><p class="informacaoParaUsuario-infoUser"> Voce é: </p></div>
-       <div class="informacaoParaUsuario-info" ><p >Usuarios Conectados - Selecione um para jogar contra </p></div> 
+          <div class="placaNome">
+            <p class="informacaoParaUsuario-infoUser"> Voce é: </p>
+          </div>
+          <div class="informacaoParaUsuario-info">
+            <p>Usuarios Conectados - Selecione um para jogar contra </p>
+          </div>
 
-      </div>
+          <section class="splide" aria-label="Splide Basic HTML Example">
+            <div class="splide__track">
+              <ul class="splide__list">
+                <li class="splide__slide classic">Clássico</li>
+                <li class="splide__slide city">Cidade</li>
+              </ul>
+            </div>
+            <div class="splide__arrows">
+              <button class="splide__arrow splide__arrow--prev"></button>
+              <button class="splide__arrow splide__arrow--next"></button>
+            </div>
+          </section>
+          <script>
+            let splide = new Splide('.splide', {
+              pagination: false,
+              rewind: true,  
+            });
 
-      
-      <div class="listaUsuariosConectado">
+            splide.mount();
 
-      
-      <div class="lista plantasConectadas">
-
-        <ol class="lista-conectados plants">
-        
-        </ol>
-
-      </div>
-    
-
-      <div class="lista zombiesConectadas">
-
-        <ol class="lista-conectados zombies">
-        
-        </ol>
-
-      </div>
-
-    </div>
-
-
-      <div class="menu-botton">
-
-        <button class="sair" data-sair>sair</button>
-        
-        <div class="menssagens">
- 
-          <div id="mandadoSolitacao"></div>
-          <div id="convite" ></div>
+            splide.on('moved', function (newIndex) {
+              cenario =  newIndex;
+             
+            });
+            
+          </script>
 
         </div>
 
-      
 
-          
+        <div class="listaUsuariosConectado">
+
+
+          <div class="lista plantasConectadas">
+
+            <ol class="lista-conectados plants">
+
+            </ol>
+
+          </div>
+
+
+          <div class="lista zombiesConectadas">
+
+            <ol class="lista-conectados zombies">
+
+            </ol>
+
+          </div>
+
+        </div>
+
+
+        <div class="menu-botton">
+
+          <button class="sair" data-sair>sair</button>
+
+          <div class="menssagens">
+
+            <div id="mandadoSolitacao"></div>
+            <div id="convite"></div>
+
+          </div>
+
+
+
+
           <button class="jogar-local" data-JogarLocal>Jogar Local</button>
 
-     
+
+
+        </div>
+
+
 
       </div>
 
-      
-
     </div>
 
-  </div>
-    <!-- Div Usuarios jogando -->
-    <div class="jogando">
-      <p>Jogando</p>
-    </div>
 
 
   </main>
+
+  <div class="loading-overlay" id="loadingOverlay">
+
+    <div class="loading-screen">
+      <div class="loading-spinner"></div>
+      <div class="loading-planta"></div>
+      <div class="loading-zombie"></div>
+      <div class="loading-personalizado">
+        <div class="loading-text">Carregando</div>
+        <div class="pontinho"><span class="loading-dots"></span></div>
+      </div>
+    </div>
+
+
+  </div>
 
   <script src="./app/lobby/trocarTela.js"></script>
   <script src="./app/lobby/listaClicavel.js"></script>
   <script src="./app/lobby/convite.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 
-
-  <script type="text/javascript" src="./app/socketClient/mainSocket.js">  </script>
   <script type="text/javascript" src="./app/socketClient/renderSocket.js">  </script>
+  <script type="text/javascript" src="./app/socketClient/mainSocket.js">  </script>
   <script type="text/javascript" src="./app/socketClient/clickSocket.js">  </script>
+  <script type="text/javascript" src="./app/lobby/local.js">  </script>
+  <script type="text/javascript" src="./app/lobby/loading.js">  </script>
+  <script type="text/javascript" src="./app/lobby/loadingPersonalizado.js">  </script>
+  <script src="./app/lobby/parametros.js"></script>
 
 </body>
 

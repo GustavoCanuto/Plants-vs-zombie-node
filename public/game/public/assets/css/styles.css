@@ -1,6 +1,8 @@
 @import "./seletor.css";
 @import "./navBarCards.css";
 @import "./menu.css";
+@import "./carregamento.css";
+@import "./loading.css";
 
 .board {
     box-sizing: border-box;
@@ -9,12 +11,13 @@
     top: 17%;
     width: 59%;
     height: 77.4%;
+    /* border: 1px solid red; */
 
 }
 
 .cell {
     box-sizing: border-box;
-    /* border: 1px solid rgb(0, 68, 255); */
+     /* border: 1px solid rgb(0, 68, 255);  */
     width: 10%;
     height: 100%;
     position: relative;
@@ -27,11 +30,6 @@
     height: 20%;
     display: flex;
 
-}
-
-.telaAjax{
-    position: absolute;
-    top: 0;
 }
 
 #solPontuacao{
@@ -58,8 +56,8 @@
   }
   
   .semSaldo{
-    opacity: 0.6;
-    filter: brightness(0.8);
+   
+     filter: brightness(0.5); 
   }
   
 
@@ -74,3 +72,11 @@
 }
 
 
+#divisor{
+    position: absolute;
+    top: 16%;
+    left: 53%;
+    height: 78%;
+    width: 0.8%;
+    z-index: -666;
+}

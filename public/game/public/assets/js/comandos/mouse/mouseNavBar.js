@@ -1,18 +1,18 @@
 import { clickCelula } from './clickCelula.js';
 import * as comandosNavBar from '../comandosNavBar.js';
 
-var ladoAnterior = 1;
-var funcoesEnter = [];
+let ladoAnterior = 1;
+let funcoesEnter = [];
 
 export function navBarEnter() {
 
     // Remover os ouvintes de eventos mouseenter
-   var contador =0;
-   
+    let contador = 0;
+
     comandosNavBar.cellNavBar[ladoAnterior].forEach(function (cell) {
-        var styleResize = cell.closest('.style-resize');
+        let styleResize = cell.closest('.style-resize');
         styleResize.classList.remove('mouse-enter');
-      
+
         cell.removeEventListener('mouseenter', funcoesEnter[contador] //socket aqui tbm
         );
 
@@ -22,14 +22,14 @@ export function navBarEnter() {
     funcoesEnter = []; // Limpar o array de funções
 
     comandosNavBar.cellNavBar[LadoQueUsaMouse].forEach(function (cell) {
-        var styleResize = cell.closest('.style-resize');
+        let styleResize = cell.closest('.style-resize');
         styleResize.classList.add('mouse-enter');
 
         function handle() {
             comandosNavBar.criarPreviaPersonagem(cell.id, LadoQueUsaMouse)
-           
-           socket2.emit('navBarEnter', { cellID: cell.id, LadoQueUsaMouse: LadoQueUsaMouse, sala: sala});
-        } 
+
+            socket2.emit('navBarEnter', { cellID: cell.id, LadoQueUsaMouse: LadoQueUsaMouse, sala: sala });
+        }
         // Adicionar novo ouvinte de evento mouseenter
         funcoesEnter.push(handle);
 
@@ -46,9 +46,9 @@ navBarEnter();
 document.addEventListener('wheel', function (event) {
 
     // Verifique a direção do scroll
-    var direction = event.deltaY > 0 ? -1 : 1;
+    let direction = event.deltaY > 0 ? -1 : 1;
     comandosNavBar.moveNavBar(direction, LadoQueUsaMouse);
-    socket2.emit('wheelNavBar', { direction: direction, LadoQueUsaMouse: LadoQueUsaMouse, sala: sala});
+    socket2.emit('wheelNavBar', { direction: direction, LadoQueUsaMouse: LadoQueUsaMouse, sala: sala });
 
 
 });

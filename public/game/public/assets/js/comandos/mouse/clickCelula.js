@@ -1,17 +1,14 @@
-import {dropPersonagem} from '../comandosNavBar.js';
+import { dropPersonagem } from '../comandosNavBar.js';
 
-export function clickCelula(){
+export function clickCelula() {
 
-cells.forEach(function(cell) {
 
-    if (!cell.classList.contains('grass-cutter')) {
+    tabuleiroID.addEventListener('click', function () {
 
-    cell.addEventListener('click', function () {
-        console.log(LadoQueUsaMouse)
-        dropPersonagem(cell.id, imgPreviaPersonagem[LadoQueUsaMouse].src);
-        socket2.emit("dropPersonagem", {cellID:cell.id, imgPreviaPersonagem:imgPreviaPersonagem[LadoQueUsaMouse].src, sala: sala} );
-    }
-    );
-    }
-});
+        let chaveMouse = Object.keys(celulaAtual[LadoQueUsaMouse]);
+        let cellID = celulaAtual[LadoQueUsaMouse][chaveMouse].closest('.cell').id;
+        dropPersonagem(cellID, imgPreviaPersonagem[LadoQueUsaMouse].src);
+
+    });
+
 }

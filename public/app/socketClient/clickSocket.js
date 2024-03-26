@@ -12,9 +12,9 @@ $('[data-sair]').on("click", (event) => {
   $(".plants").removeClass("clicavel");
   $(".zombies").removeClass("clicavel");
 
-  
-  $('.menssagens').css('display','none');
-  $('.efeito').css('display','none');
+
+  $('.menssagens').css('display', 'none');
+  $('.efeito').css('display', 'none');
 
 });
 
@@ -30,6 +30,15 @@ $('[data-buttonPlanta]').on("click", (event) => {
 
   let usuario = gerarUsuario();
 
+  socket.emit('pegarPontucaoPlanta', usuario);
+
+ 
+
+});
+
+socket.on('receberPontuacaoPlanta', (numeroVitorias, usuario) => {
+
+  usuario.numeroVitorias = numeroVitorias;
   renderPlant(usuario);
 
   let numero = posicaoLista(usuario);
@@ -39,18 +48,27 @@ $('[data-buttonPlanta]').on("click", (event) => {
 
   usuario.posicao = numero;
 
-  socket.emit('plantConnected', usuario);
+  socket.emit('plantConnected', usuario, numeroVitorias);
+
+  nomeUsuario = usuario.nome;
 
   atualizarClicavel();
 
 });
 
-
 //ao clicar no botao zombie
 $('[data-buttonZombie]').on("click", (event) => {
 
   let usuario = gerarUsuario();
+  socket.emit('pegarPontucaoZombie', usuario);
 
+ 
+
+});
+
+socket.on('receberPontuacaoZombie', (numeroVitorias, usuario) => {
+
+  usuario.numeroVitorias = numeroVitorias;
   renderZombie(usuario);
 
   let numero = posicaoLista(usuario);
@@ -60,7 +78,9 @@ $('[data-buttonZombie]').on("click", (event) => {
 
   usuario.posicao = numero;
 
-  socket.emit('zombieConnected', usuario);
+  socket.emit('zombieConnected', usuario,numeroVitorias);
+
+  nomeUsuario = usuario.nome;
 
   atualizarClicavel();
 
@@ -79,12 +99,21 @@ function gerarUsuario() {
   }
 
 
-  let sessaoUsuario = "sessao" + socket.id.substr(0, 5);
+  let tokenUsuario = localStorage.getItem('tokenUsuario');
+
+  if (!tokenUsuario) {
+    // Se não existe, cria um novo token
+    tokenUsuario = "sessao" + socket.id.substr(0, 5) + Math.floor(100 + Math.random() * 900);
+
+    // Salva o novo token no localStorage
+    localStorage.setItem('tokenUsuario', tokenUsuario);
+  } 
+
   let socketIdUsuario = socket.id;
 
   let usuario = {
     nome: nomeUsuario,
-    sessao: sessaoUsuario,
+    sessao: tokenUsuario,
     socketID: socketIdUsuario
   };
 
@@ -96,11 +125,11 @@ function gerarUsuario() {
 //pega posicao na lista
 function posicaoLista(elemento) {
 
-  var li = document.getElementById(elemento.socketID);
+  let li = document.getElementById(elemento.socketID);
   let listaOrdenada = Array.from(li.parentNode.children).filter(e => e.tagName === "LI");
 
   let indice = listaOrdenada.indexOf(li);
-  var numero = indice + 1;
+  let numero = indice + 1;
 
   return numero;
 }

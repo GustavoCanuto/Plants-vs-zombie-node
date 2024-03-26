@@ -8,6 +8,8 @@ let buttonZombie = document.querySelector("[data-buttonZombie]");
 let divEscolherPersonagem = document.querySelector(".escolha");
 let divGameLobby = document.querySelector("[data-gameLobby]");
 let divNomeUsuario = document.querySelector("[data-nomeUsuario]")
+let cenario = 0;
+let ladoJogador = 0;
 
 let main = document.querySelector("main");
 const originalBackground = main.style.backgroundImage;
@@ -87,11 +89,13 @@ entrar.addEventListener("click", () => {
 
 //entrar na como planta
 buttonPlanta.addEventListener("click", () => {
+    loadingPersonalizado(0);
     entrarGameLobby()
 });
 
 //entrar na como zombie
 buttonZombie.addEventListener("click", () => {
+    loadingPersonalizado(1);
     entrarGameLobby();
 });
 
@@ -108,7 +112,7 @@ function entrarGameLobby(){
 
         setTimeout(() => {
             main.style.backgroundImage = originalBackground;
-        }, 500);
+        }, 50);
 
     }, 10);
 
